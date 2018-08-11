@@ -1,10 +1,10 @@
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
    typeof define === 'function' && define.amd ? define(['exports'], factory) :
-   (factory((global.XMM = {})));
+   (factory((global.AM = {})));
 }(this, (function (exports) { 'use strict';
 
-   const DiceValue = XMA.DiceValue;
+   const DiceValue = AA.DiceValue;
 
    const DiceUtilities = {};
 

@@ -3,8 +3,8 @@ export default
    input: 'src/main.js',
    output:
    {
-      file: '../dist/xwing-miniatures-model.js',
+      file: '../dist/star-wars-armada-model.js',
       format: 'umd',
-      name: 'XMM'
+      name: 'AM'
    }
 };

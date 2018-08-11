@@ -1,4 +1,4 @@
-const DiceValue = XMA.DiceValue;
+const DiceValue = AA.DiceValue;
 
 const DiceUtilities = {};
 

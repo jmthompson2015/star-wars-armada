@@ -3,8 +3,8 @@ export default
    input: 'src/main.js',
    output:
    {
-      file: '../dist/star-wars-armada-artifact.js',
+      file: '../dist/star-wars-armada-state.js',
       format: 'umd',
-      name: 'AA'
+      name: 'AS'
    }
 };

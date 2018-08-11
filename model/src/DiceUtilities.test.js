@@ -1,6 +1,6 @@
 import DiceUtils from "./DiceUtilities.js";
 
-const DiceValue = XMA.DiceValue;
+const DiceValue = AA.DiceValue;
 
 QUnit.module("DiceUtilities");
 

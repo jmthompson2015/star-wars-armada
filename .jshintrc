@@ -12,9 +12,9 @@
       "QUnit": false,
       "R": false,
       "require": false,
-      "XMA": false,
-      "XMM": false,
-      "XMS": false,
-      "XMV": false
+      "AA": false,
+      "AM": false,
+      "AS": false,
+      "AV": false
    }
 }
