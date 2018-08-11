@@ -11,6 +11,10 @@
       "module": false,
       "QUnit": false,
       "R": false,
-      "require": false
+      "require": false,
+      "XMA": false,
+      "XMM": false,
+      "XMS": false,
+      "XMV": false
    }
 }
