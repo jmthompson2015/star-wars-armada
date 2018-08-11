@@ -1,0 +1,25 @@
+{
+  "name": "star-wars-armada",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmthompson2015/star-wars-armada.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmthompson2015/star-wars-armada/issues"
+  },
+  "homepage": "https://github.com/jmthompson2015/star-wars-armada#readme",
+  "dependencies": {
+    "ramda": "^0.25.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
+  }
+}
