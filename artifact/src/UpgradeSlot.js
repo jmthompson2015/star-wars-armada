@@ -2,6 +2,8 @@ const UpgradeSlot = {
 
   COMMANDER: "commander",
   DEFENSIVE_RETROFIT: "defensiveRetrofit",
+  FLEET_COMMAND: "fleetCommand",
+  FLEET_SUPPORT: "fleetSupport",
   ION_CANNONS: "ionCannons",
   OFFENSIVE_RETROFIT: "offensiveRetrofit",
   OFFICER: "officer",
@@ -10,6 +12,7 @@ const UpgradeSlot = {
   TITLE: "title",
   TURBOLASERS: "turbolasers",
   WEAPONS_TEAM: "weaponsTeam",
+  WEAPONS_TEAM_OFFENSIVE_RETROFIT: "weaponsTeam_offensiveRetrofit",
 };
 
 UpgradeSlot.properties = 
@@ -23,6 +26,16 @@ UpgradeSlot.properties =
       "name": "Defensive Retrofit",
       "image": "upgrade-slot/defensive-retrofit.png",
       "key": "defensiveRetrofit"
+   },
+   "fleetCommand": {
+      "name": "Fleet Command",
+      "image": "upgrade-slot/fleet-command.png",
+      "key": "fleetCommand"
+   },
+   "fleetSupport": {
+      "name": "Fleet Support",
+      "image": "upgrade-slot/fleet-support.png",
+      "key": "fleetSupport"
    },
    "ionCannons": {
       "name": "Ion Cannons",
@@ -63,6 +76,11 @@ UpgradeSlot.properties =
       "name": "Weapons Team",
       "image": "upgrade-slot/weapons-team.png",
       "key": "weaponsTeam"
+   },
+   "weaponsTeam_offensiveRetrofit": {
+      "name": "Weapons Team_Offensive Retrofit",
+      "image": "upgrade-slot/weapons-team_offensive-retrofit.png",
+      "key": "weaponsTeam_offensiveRetrofit"
    }
 };
 

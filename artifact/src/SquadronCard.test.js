@@ -28,7 +28,7 @@ QUnit.test("keys and values", function(assert)
 
 QUnit.test("keys()", function(assert)
 {
-   EnumTest.keys(assert, SquadronCard, 4, SquadronCard.HOWLRUNNER, SquadronCard.X_WING_SQUADRON);
+   EnumTest.keys(assert, SquadronCard, 6, SquadronCard.GAR_SAXON, SquadronCard.X_WING_SQUADRON);
 });
 
 const SquadronCardTest = {};

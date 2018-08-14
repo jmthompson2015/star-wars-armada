@@ -31,7 +31,13 @@ ArmadaConverter.convert = function(inputFiles, className, options = ArmadaConver
 
       JSONFileLoader.loadFile(inputFile).then(data =>
       {
+         if (data === undefined)
+         {
+            throw "Failed to load inputFile: " + inputFile;
+         }
+
          allData = R.concat(allData, data);
+         // allData = R.concat(R.defaultTo([], allData), R.defaultTo([], data));
          count++;
 
          if (count === inputFiles.length)
@@ -80,8 +86,8 @@ ${ArmadaConverter.CLASS_NAME}.properties = `;
       const key = EnumGenerator.createEnumValue(ArmadaConverter.OPTIONS, card);
       if (enumProperties[key] !== undefined)
       {
-         console.error(`Overwriting card with key ${key} card0 = ${enumProperties[key].name} ${enumProperties[key].xws} ${enumProperties[key].faction} ${enumProperties[key].ship} ${enumProperties[key].slot}`);
-         console.error(`Overwriting card with key ${key} card  = ${card.name} ${card.xws} ${card.faction} ${card.ship} ${card.slot}`);
+         console.error(`Overwriting card with key ${key} card0 = ${enumProperties[key].name} ${enumProperties[key].xws} ${enumProperties[key].faction} ${enumProperties[key].ship} ${enumProperties[key].slots}`);
+         console.error(`Overwriting card with key ${key} card  = ${card.name} ${card.xws} ${card.faction} ${card.ship} ${card.slots}`);
       }
       enumProperties[key] = createData(card)(key);
    });

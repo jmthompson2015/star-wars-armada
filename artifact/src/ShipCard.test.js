@@ -28,7 +28,7 @@ QUnit.test("keys and values", function(assert)
 
 QUnit.test("keys()", function(assert)
 {
-   EnumTest.keys(assert, ShipCard, 6, ShipCard.CR90_CORVETTE_A, ShipCard.VICTORY_II_CLASS_STAR_DESTROYER);
+   EnumTest.keys(assert, ShipCard, 16, ShipCard.ASSAULT_FRIGATE_MARK_II_A, ShipCard.VICTORY_II_CLASS_STAR_DESTROYER);
 });
 
 const ShipCardTest = {};

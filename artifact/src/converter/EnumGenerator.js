@@ -10,11 +10,11 @@ EnumGenerator.createEnumName = function(options, card)
    if (typeof card === "object")
    {
       name = options.determineCardName(card);
-      name = (R.contains(card.xws, options.appendFaction) ? append(card.faction)(name) : name);
-      name = (R.contains(card.xws, options.appendHotr) ? appendHotr(name) : name);
-      name = (R.contains(card.xws, options.appendId) ? append(card.id)(name) : name);
-      name = (R.contains(card.xws, options.appendShip) ? append(card.ship)(name) : name);
-      name = (R.contains(card.xws, options.appendSlot) ? append(card.slot)(name) : name);
+      // name = (R.contains(card.xws, options.appendFaction) ? append(card.faction)(name) : name);
+      // name = (R.contains(card.xws, options.appendHotr) ? appendHotr(name) : name);
+      // name = (R.contains(card.xws, options.appendId) ? append(card.id)(name) : name);
+      // name = (R.contains(card.xws, options.appendShip) ? append(card.ship)(name) : name);
+      name = (R.contains(card.name, options.appendSlot) ? append(card.slots.join("_"))(name) : name);
    }
 
    const answer = R.pipe(
@@ -36,11 +36,11 @@ EnumGenerator.createEnumValue = function(options, card)
    if (typeof card === "object")
    {
       name = options.determineCardName(card);
-      name = (R.contains(card.xws, options.appendFaction) ? append(card.faction)(name) : name);
-      name = (R.contains(card.xws, options.appendHotr) ? appendHotr(name) : name);
-      name = (R.contains(card.xws, options.appendId) ? append(card.id)(name) : name);
-      name = (R.contains(card.xws, options.appendShip) ? append(card.ship)(name) : name);
-      name = (R.contains(card.xws, options.appendSlot) ? append(card.slot)(name) : name);
+      // name = (R.contains(card.xws, options.appendFaction) ? append(card.faction)(name) : name);
+      // name = (R.contains(card.xws, options.appendHotr) ? appendHotr(name) : name);
+      // name = (R.contains(card.xws, options.appendId) ? append(card.id)(name) : name);
+      // name = (R.contains(card.xws, options.appendShip) ? append(card.ship)(name) : name);
+      name = (R.contains(card.name, options.appendSlot) ? append(card.slots.join("_"))(name) : name);
    }
 
    const answer = R.pipe(
@@ -84,7 +84,7 @@ EnumGenerator.writeFile = function(outputFile, content)
 
 const append = value => name => name + "_" + value;
 
-const appendHotr = name => append("hotr")(name);
+// const appendHotr = name => append("hotr")(name);
 
 function toCamelCase(str)
 {

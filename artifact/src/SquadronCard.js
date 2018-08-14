@@ -1,13 +1,45 @@
 const SquadronCard = {
 
+  GAR_SAXON: "garSaxon",
   HOWLRUNNER: "howlrunner",
   LUKE_SKYWALKER: "lukeSkywalker",
+  MANDALORIAN_GAUNTLET_FIGHTER: "mandalorianGauntletFighter",
   TIE_FIGHTER_SQUADRON: "tieFighterSquadron",
   X_WING_SQUADRON: "xWingSquadron",
 };
 
 SquadronCard.properties = 
 {
+   "garSaxon": {
+      "name": "Gar Saxon",
+      "subname": "Mandalorian Gauntlet Fighter",
+      "unique": true,
+      "faction": "Galactic Empire",
+      "speed": 4,
+      "hull": 7,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         1,
+         2,
+         0
+      ],
+      "attack": [
+         0,
+         1,
+         1
+      ],
+      "text": "When an enemy squadron with Intel or Relay at distance 1 activates, it suffers 1 damage.",
+      "keywords": [
+         "Assault",
+         "Rogue"
+      ],
+      "defense-tokens": [
+         "Brace"
+      ],
+      "points": 23,
+      "image": "squadron-card/gar-saxon.png",
+      "key": "garSaxon"
+   },
    "howlrunner": {
       "name": "\"Howlrunner\"",
       "subname": "TIE Fighter Squadron",
@@ -68,6 +100,33 @@ SquadronCard.properties =
       "points": 20,
       "image": "squadron-card/luke-skywalker.png",
       "key": "lukeSkywalker"
+   },
+   "mandalorianGauntletFighter": {
+      "name": "Mandalorian Gauntlet Fighter",
+      "subname": "",
+      "faction": "Galactic Empire",
+      "speed": 4,
+      "hull": 7,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         1,
+         2,
+         0
+      ],
+      "attack": [
+         0,
+         2,
+         0
+      ],
+      "text": "",
+      "keywords": [
+         "Assault",
+         "Rogue"
+      ],
+      "defense-tokens": [],
+      "points": 20,
+      "image": "squadron-card/mandalorian-gauntlet-fighter.png",
+      "key": "mandalorianGauntletFighter"
    },
    "tieFighterSquadron": {
       "name": "TIE Fighter Squadron",
