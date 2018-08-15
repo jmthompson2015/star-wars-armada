@@ -3,20 +3,29 @@ import TestData from "./TestData.js";
 
 QUnit.module("GameState");
 
-const PROPS = ["isGameOver",
-   "phaseKey",
-   "round",
-   "userMessage",
+const PROPS = [
+  "activeAgentId",
+  "activeCombatId",
+  "activeShipId",
+  "activeSquadronId",
+  "isGameOver",
+  "phaseKey",
+  "round",
+  "userMessage",
 
-   "agentQuery",
-   "agentResponse",
+  "agentQuery",
+  "agentResponse",
 
-   "agentInstances",
-   "damageInstances",
-   "fleetInstances",
-   "shipInstances",
-   "squadronInstances",
-   "upgradeInstances"
+  "damageDeck",
+  "damageDiscardPile",
+
+  "agentInstances",
+  "combatInstances",
+  "damageInstances",
+  "fleetInstances",
+  "shipInstances",
+  "squadronInstances",
+  "upgradeInstances"
 ];
 
 QUnit.test("create()", function(assert)
@@ -66,6 +75,10 @@ function createTestState()
 
    return GameState.create(
    {
+      activeAgentId: i++,
+      activeCombatId: i++,
+      activeShipId: i++,
+      activeSquadronId: i++,
       isGameOver: i++,
       phaseKey: i++,
       round: i++,
@@ -74,7 +87,11 @@ function createTestState()
       agentQuery: i++,
       agentResponse: i++,
 
+      damageDeck: i++,
+      damageDiscardPile: i++,
+
       agentInstances: i++,
+      combatInstances: i++,
       damageInstances: i++,
       fleetInstances: i++,
       shipInstances: i++,

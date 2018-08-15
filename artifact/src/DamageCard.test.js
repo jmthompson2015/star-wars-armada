@@ -1,4 +1,5 @@
 import DamageCard from "./DamageCard.js";
+import EnumUtilities from "./EnumUtilities.js";
 import EnumTest from "./Enum.test.js";
 
 QUnit.module("DamageCard");
@@ -29,6 +30,24 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("keys()", function(assert)
 {
    EnumTest.keys(assert, DamageCard, 22, DamageCard.BLINDED_GUNNERS, DamageCard.THRUSTER_FISSURE);
+});
+
+QUnit.skip("print keys", function(assert)
+{
+   const values = EnumUtilities.values(DamageCard);
+   let content = "";
+
+   values.forEach(value =>
+   {
+      for (let i = 0; i < value.amount; i++)
+      {
+         content += "\"" + value.key + "\", ";
+      }
+
+      console.log(content);
+   });
+
+   assert.ok(true);
 });
 
 const DamageCardTest = {};

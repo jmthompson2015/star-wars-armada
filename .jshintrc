@@ -11,6 +11,7 @@
       "module": false,
       "QUnit": false,
       "R": false,
+      "Redux": false,
       "require": false,
       "AA": false,
       "AM": false,

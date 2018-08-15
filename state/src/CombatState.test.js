@@ -1,8 +1,10 @@
-import SquadronState from "./SquadronState.js";
+import CombatState from "./CombatState.js";
 
-QUnit.module("SquadronState");
+QUnit.module("CombatState");
 
-const PROPS = ["id", "squadronKey", "criticals", "damages", "position"];
+const PROPS = ["id", "attackerId", "defenderId", "rangeKey", "weaponKey",
+  "criticalDamage", "hitDamage", "shieldDamage",
+  "diceKeys"];
 
 QUnit.test("create()", function(assert)
 {
@@ -37,15 +39,21 @@ function createTestState()
 {
    let i = 1;
 
-   return SquadronState.create(
+   return CombatState.create(
    {
       id: i++,
-      squadronKey: i++,
-      criticals: i++,
-      damages: i++,
-      position: i++
+      attackerId: i++,
+      defenderId: i++,
+      rangeKey: i++,
+      weaponKey: i++,
+
+      criticalDamage: i++,
+      hitDamage: i++,
+      shieldDamage: i++,
+
+      diceKeys: i++
    });
 }
 
-const SquadronStateTest = {};
-export default SquadronStateTest;
+const CombatStateTest = {};
+export default CombatStateTest;

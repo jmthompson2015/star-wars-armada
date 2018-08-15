@@ -3,13 +3,21 @@ const SquadronState = {};
 SquadronState.create = function(
 {
    id,
-   squadronKey
+   squadronKey,
+
+   criticals,
+   damages,
+   position
 })
 {
    return Immutable(
    {
       id: id,
-      squadronKey: squadronKey
+      squadronKey: squadronKey,
+
+      criticals: criticals,
+      damages: damages,
+      position: position
    });
 };
 

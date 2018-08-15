@@ -3023,11 +3023,48 @@
 
   Object.freeze(UpgradeSlot);
 
+  const Selector = {};
+
+  Selector.enumKeys = enumClass => EnumUtilities.keys(enumClass);
+
+  Selector.enumValues = enumClass => EnumUtilities.values(enumClass);
+
+  Selector.factionValueByShip = shipKey => Selector.findEnumValueByName(Selector.shipCard(shipKey).faction, Faction);
+
+  Selector.findEnumValueByName = (name, enumClass) => EnumUtilities.findByName(name, enumClass);
+
+  Selector.upgradeSlotKeysByShip = shipKey => keysByName(UpgradeSlot, Selector.shipCard(shipKey).slots);
+
+  Selector.upgradeSlotKeysByUpgrade = upgradeKey => keysByName(UpgradeSlot, Selector.upgradeCard(upgradeKey).slots);
+
+  ////////////////////////////////////////////////////////////////////////////////
+  Selector.damageCard = key => valueByKey(DamageCard, key);
+
+  Selector.diceValue = key => valueByKey(DiceValue, key);
+
+  Selector.faction = key => valueByKey(Faction, key);
+
+  Selector.phase = key => valueByKey(Phase, key);
+
+  Selector.shipCard = key => valueByKey(ShipCard, key);
+
+  Selector.squadronCard = key => valueByKey(SquadronCard, key);
+
+  Selector.upgradeCard = key => valueByKey(UpgradeCard, key);
+
+  Selector.upgradeSlot = key => valueByKey(UpgradeSlot, key);
+
+  const keysByName = (enumClass, names) => R.map(name => Selector.findEnumValueByName(name, enumClass).key, names);
+  const valueByKey = (enumClass, key) => enumClass.properties[key];
+
+  Object.freeze(Selector);
+
   exports.DamageCard = DamageCard;
   exports.DiceValue = DiceValue;
   exports.EnumUtilities = EnumUtilities;
   exports.Faction = Faction;
   exports.Phase = Phase;
+  exports.Selector = Selector;
   exports.ShipCard = ShipCard;
   exports.SquadronCard = SquadronCard;
   exports.UpgradeCard = UpgradeCard;

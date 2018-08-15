@@ -2,6 +2,10 @@ const GameState = {};
 
 GameState.create = function(
 {
+   activeAgentId,
+   activeCombatId,
+   activeShipId,
+   activeSquadronId,
    isGameOver = false,
    phaseKey = "setup",
    round = 0,
@@ -10,7 +14,11 @@ GameState.create = function(
    agentQuery,
    agentResponse,
 
+   damageDeck = [],
+   damageDiscardPile = [],
+
    agentInstances = {},
+   combatInstances = {},
    damageInstances = {},
    fleetInstances = {},
    shipInstances = {},
@@ -20,6 +28,10 @@ GameState.create = function(
 {
    return Immutable(
    {
+      activeAgentId,
+      activeCombatId,
+      activeShipId,
+      activeSquadronId,
       isGameOver: isGameOver,
       phaseKey: phaseKey,
       round: round,
@@ -28,7 +40,11 @@ GameState.create = function(
       agentQuery: Immutable(agentQuery),
       agentResponse: Immutable(agentResponse),
 
+      damageDeck: Immutable(damageDeck),
+      damageDiscardPile: Immutable(damageDiscardPile),
+
       agentInstances: Immutable(agentInstances),
+      combatInstances: Immutable(combatInstances),
       damageInstances: Immutable(damageInstances),
       fleetInstances: Immutable(fleetInstances),
       shipInstances: Immutable(shipInstances),

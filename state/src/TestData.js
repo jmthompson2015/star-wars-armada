@@ -1,30 +1,33 @@
 import AgentState from "./AgentState.js";
 import DamageState from "./DamageState.js";
+import FleetState from "./FleetState.js";
 import GameState from "./GameState.js";
 import PositionState from "./PositionState.js";
+import ShipState from "./ShipState.js";
+import SquadronState from "./SquadronState.js";
 import UpgradeState from "./UpgradeState.js";
 
 const TestData = {};
 
-TestData.createAgentImperial = function(id, squadId, strategy)
+TestData.createAgentImperial = function(id, fleetId, strategy)
 {
    return AgentState.create(
    {
       id: id,
       name: "Imperial Agent",
       strategy: strategy,
-      squad: squadId
+      fleet: fleetId
    });
 };
 
-TestData.createAgentRebel = function(id, squadId, strategy)
+TestData.createAgentRebel = function(id, fleetId, strategy)
 {
    return AgentState.create(
    {
       id: id,
       name: "Rebel Agent",
       strategy: strategy,
-      squad: squadId
+      fleet: fleetId
    });
 };
 
@@ -39,22 +42,17 @@ TestData.createDamage = function(id, damageKey)
 
 TestData.createDamageDeck = function()
 {
-   // There are two of each, except seven of Direct Hit!
-   const keys = ["blindedPilot", "consoleFire", "damagedCockpit", "damagedEngine", "damagedSensorArray", "directHit", "injuredPilot", "minorExplosion", "minorHullBreach", "munitionsFailure", "structuralDamage", "stunnedPilot", "thrustControlFire", "weaponMalfunction"];
-   let count = 1;
+   const keys = ["blindedGunners", "blindedGunners", "capacitorFailure", "capacitorFailure", "commNoise", "commNoise", "compartmentFire", "compartmentFire", "coolantDischarge", "coolantDischarge", "crewPanic", "crewPanic", "damagedControls", "damagedControls", "damagedMunitions", "damagedMunitions", "depoweredArmament", "depoweredArmament", "disengagedFireControl", "disengagedFireControl", "faultyCountermeasures", "faultyCountermeasures", "injuredCrew", "injuredCrew", "injuredCrew", "injuredCrew", "lifeSupportFailure", "lifeSupportFailure", "pointDefenseFailure", "pointDefenseFailure", "powerFailure", "powerFailure", "projectorMisaligned", "projectorMisaligned", "rupturedEngine", "rupturedEngine", "shieldFailure", "shieldFailure", "structuralDamage", "structuralDamage", "structuralDamage", "structuralDamage", "structuralDamage", "structuralDamage", "structuralDamage", "structuralDamage", "targeterDisruption", "targeterDisruption", "thrustControlMalfunction", "thrustControlMalfunction", "thrusterFissure", "thrusterFissure"];
+   let count = 0;
 
-   const damageInstances = keys.reduce(function(accumulator, damageKey)
+   const damageInstances = keys.reduce((accum, damageKey) =>
    {
-      accumulator[count] = TestData.createDamage(count++, damageKey);
-      accumulator[count] = TestData.createDamage(count++, damageKey);
-      return accumulator;
+      count++;
+      const damageInstance = TestData.createDamage(count, damageKey);
+      accum[damageInstance.id] = damageInstance;
+      return accum;
    },
    {});
-
-   for (let i = 0; i < 5; i++)
-   {
-      damageInstances[count] = TestData.createDamage(count++, "directHit");
-   }
 
    const damageDeck = Object.values(damageInstances).map(damage => damage.id);
 
@@ -68,47 +66,80 @@ TestData.createDamageDeck = function()
    });
 };
 
+TestData.createFleetCoreSetImperial = function(fleetId, shipIds, squadronIds)
+{
+   return FleetState.create(
+   {
+      id: fleetId,
+      name: "Galactic Empire Core Set: 175 Points",
+      year: 2015,
+      description: "Victory II, Howlrunner, TIE Fighters x3",
+      points: 175,
+      ships: shipIds,
+      squadronIds: squadronIds
+   });
+};
+
+TestData.createFleetCoreSetRebel = function(fleetId, shipIds, squadronIds)
+{
+   return FleetState.create(
+   {
+      id: fleetId,
+      name: "Rebel Alliance Core Set: 173 Points",
+      year: 2015,
+      description: "Nebulon-B, CR90, Luke Skywalker, X-Wings x2",
+      points: 173,
+      ships: shipIds,
+      squadronIds: squadronIds
+   });
+};
+
 TestData.createGameState = function()
 {
    const damageObj = TestData.createDamageDeck();
    const damageInstances = damageObj.damageInstances;
    const damageDeck = damageObj.damageDeck;
 
-   // const position1 = TestData.createPosition(915 / 3, 20, 90);
-   // const position2 = TestData.createPosition(915 * 2 / 3, 20, 90);
-   // const position3 = TestData.createPosition(Math.round(915 / 2), 915 - 20, 270);
+   const upgradeInstances = {};
+   upgradeInstances[1] = TestData.createUpgrade(1, "grandMoffTarkin");
+   upgradeInstances[2] = TestData.createUpgrade(2, "dominator");
+   upgradeInstances[3] = TestData.createUpgrade(3, "generalDodonna");
+   upgradeInstances[4] = TestData.createUpgrade(4, "dodonnasPride");
 
-   // const statBonuses1 = StatBonusesState.create();
-   // const statBonuses2 = StatBonusesState.create();
-   // const statBonuses3 = R.assoc("hull", 1, StatBonusesState.create());
+   const squadronPosition1 = TestData.createPosition(Math.round(915 * 1 / 6), 20, 90);
+   const squadronPosition2 = TestData.createPosition(Math.round(915 * 2 / 6), 20, 90);
+   const shipPosition1 = TestData.createPosition(Math.round(915 * 3 / 6), 20, 90);
+   const squadronPosition3 = TestData.createPosition(Math.round(915 * 4 / 6), 20, 90);
+   const squadronPosition4 = TestData.createPosition(Math.round(915 * 5 / 6), 20, 90);
 
-   // const tokenCounts1 = TokenCountsState.create();
-   // const tokenCounts2 = TokenCountsState.create();
-   // const tokenCounts3 = R.assoc("shield", 2, TokenCountsState.create());
+   const squadronPosition5 = TestData.createPosition(Math.round(915 * 1 / 6), 915 - 20, 270);
+   const shipPosition2 = TestData.createPosition(Math.round(915 * 2 / 6), 915 - 20, 270);
+   const shipPosition3 = TestData.createPosition(Math.round(915 * 3 / 6), 915 - 20, 270);
+   const squadronPosition6 = TestData.createPosition(Math.round(915 * 4 / 6), 915 - 20, 270);
+   const squadronPosition7 = TestData.createPosition(Math.round(915 * 5 / 6), 915 - 20, 270);
 
-   // const upgradeInstances = {};
-   // upgradeInstances[1] = TestData.createUpgrade(1, "marksmanship", TokenCountsState.create());
-   // upgradeInstances[2] = TestData.createUpgrade(2, "protonTorpedoes", TokenCountsState.create());
-   // upgradeInstances[3] = TestData.createUpgrade(3, "r2D2_astromech", TokenCountsState.create());
+   const shipInstances = {};
+   shipInstances[1] = TestData.createShip(1, "victoryIiClassStarDestroyer", [1, 2], shipPosition1);
+   shipInstances[2] = TestData.createShip(2, "nebulonBEscortFrigate", [3], shipPosition2);
+   shipInstances[3] = TestData.createShip(3, "cr90CorvetteA", [4], shipPosition3);
 
-   // const pilotInstances = {};
-   // pilotInstances[1] = TestData.createPilot(1, "maulerMithel", [1], [3], position1, statBonuses1, tokenCounts1, [1]);
-   // pilotInstances[2] = TestData.createPilot(2, "darkCurse", [2], [4], position2, statBonuses2, tokenCounts2, []);
-   // pilotInstances[3] = TestData.createPilot(3, "lukeSkywalker", [], [], position3, statBonuses3, tokenCounts3, [2, 3]);
+   const squadronInstances = {};
+   squadronInstances[1] = TestData.createSquadron(1, "howlrunner", squadronPosition1);
+   squadronInstances[2] = TestData.createSquadron(2, "tieFighterSquadron", squadronPosition2);
+   squadronInstances[3] = TestData.createSquadron(3, "tieFighterSquadron", squadronPosition3);
+   squadronInstances[4] = TestData.createSquadron(4, "tieFighterSquadron", squadronPosition4);
+   squadronInstances[5] = TestData.createSquadron(5, "lukeSkywalker", squadronPosition5);
+   squadronInstances[6] = TestData.createSquadron(6, "xWingSquadron", squadronPosition6);
+   squadronInstances[7] = TestData.createSquadron(7, "xWingSquadron", squadronPosition7);
 
-   const squadInstances = {
-      1: TestData.createSquadCoreSetImperial(1, [1, 2]),
-      2: TestData.createSquadCoreSetRebel(2, [3])
+   const fleetInstances = {
+      1: TestData.createFleetCoreSetImperial(1, [1], [1, 2, 3, 4]),
+      2: TestData.createFleetCoreSetRebel(2, [2, 3], [5, 6, 7])
    };
 
    const agentInstances = {};
    agentInstances[1] = TestData.createAgentImperial(1, 1);
    agentInstances[2] = TestData.createAgentRebel(2, 2);
-
-   const targetLocks = [];
-   targetLocks.push(TestData.createTargetLock("A", 1, 3));
-   targetLocks.push(TestData.createTargetLock("B", 2, 3));
-   targetLocks.push(TestData.createTargetLock("C", 3, 1));
 
    return GameState.create(
    {
@@ -117,31 +148,15 @@ TestData.createGameState = function()
       userMessage: "This is some user message.",
 
       damageDeck: damageDeck,
-      targetLocks: targetLocks,
 
       agentInstances: agentInstances,
       damageInstances: damageInstances,
-      // pilotInstances: pilotInstances,
-      squadInstances: squadInstances,
-      // upgradeInstances: upgradeInstances
+      fleetInstances: fleetInstances,
+      shipInstances: shipInstances,
+      squadronInstances: squadronInstances,
+      upgradeInstances: upgradeInstances
    });
 };
-
-// TestData.createPilot = function(id, pilotKey, criticals, damages, position, statBonuses, tokenCounts, upgradeIds)
-// {
-//    return PilotState.create(
-//    {
-//       id: id,
-//       pilotKey: pilotKey,
-//
-//       criticals: criticals,
-//       damages: damages,
-//       position: position,
-//       statBonuses: statBonuses,
-//       tokenCounts: tokenCounts,
-//       upgrades: upgradeIds
-//    });
-// };
 
 TestData.createPosition = function(x, y, heading)
 {
@@ -153,41 +168,25 @@ TestData.createPosition = function(x, y, heading)
    });
 };
 
-// TestData.createSquadCoreSetImperial = function(squadId, pilotIds)
-// {
-//    return SquadState.create(
-//    {
-//       id: squadId,
-//       name: "Imperial Core Set: 36 Points",
-//       year: 2012,
-//       description: "TIE Fighters x2",
-//       points: 36,
-//       pilots: pilotIds
-//    });
-// };
+TestData.createShip = function(id, shipKey, position)
+{
+   return ShipState.create(
+   {
+      id: id,
+      shipKey: shipKey,
+      position: position
+   });
+};
 
-// TestData.createSquadCoreSetRebel = function(squadId, pilotIds)
-// {
-//    return SquadState.create(
-//    {
-//       id: squadId,
-//       name: "Rebel Core Set: 36 Points",
-//       year: 2012,
-//       description: "X-Wing",
-//       points: 36,
-//       pilots: pilotIds
-//    });
-// };
-
-// TestData.createTargetLock = function(id, attackerId, defenderId)
-// {
-//    return TargetLockState.create(
-//    {
-//       id: id,
-//       attackerId: attackerId,
-//       defenderId: defenderId
-//    });
-// };
+TestData.createSquadron = function(id, squadronKey, position)
+{
+   return SquadronState.create(
+   {
+      id: id,
+      squadronKey: squadronKey,
+      position: position
+   });
+};
 
 TestData.createUpgrade = function(id, upgradeKey, tokenCounts)
 {
