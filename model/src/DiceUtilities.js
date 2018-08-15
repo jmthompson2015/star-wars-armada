@@ -9,7 +9,6 @@ DiceUtilities.rollDice = (
    red = 0
 }) =>
 {
-   // console.log("black = " + black + " blue = " + blue + " red = " + red);
    const answer = {};
 
    answer.black = myRollDice(rollRandomBlackValue)(black);
