@@ -546,6 +546,38 @@
 
   Object.freeze(Phase);
 
+  const Range = {
+     ONE: "one",
+     TWO: "two",
+     THREE: "three"
+  };
+
+  Range.properties = {
+     "one":
+     {
+        minDistance: 0, // Minimum distance. (mm)
+        maxDistance: 116, // Maximum distance. (mm)
+        name: "1",
+        key: "one"
+     },
+     "two":
+     {
+        minDistance: 117, // Minimum distance. (mm)
+        maxDistance: 180, // Maximum distance. (mm)
+        name: "2",
+        key: "two"
+     },
+     "three":
+     {
+        minDistance: 181, // Minimum distance. (mm)
+        maxDistance: 303, // Maximum distance. (mm)
+        name: "3",
+        key: "three"
+     }
+  };
+
+  Object.freeze(Range);
+
   const ShipCard = {
 
     ASSAULT_FRIGATE_MARK_II_A: "assaultFrigateMarkIiA",
@@ -3035,9 +3067,23 @@
 
   Selector.findEnumValueByName = (name, enumClass) => EnumUtilities.findByName(name, enumClass);
 
+  Selector.heightByCard = cardKey => R.cond([
+       [R.either(cardNotNil(Selector.upgradeCard), cardNotNil(Selector.damageCard)), R.always(64)],
+       [cardNotNil(Selector.squadronCard), R.always(89)],
+       [cardNotNil(Selector.shipCard), R.always(120)],
+       [R.T, cardKey => "Unknown card type for cardKey: " + cardKey]
+     ])(cardKey);
+
   Selector.upgradeSlotKeysByShip = shipKey => keysByName(UpgradeSlot, Selector.shipCard(shipKey).slots);
 
   Selector.upgradeSlotKeysByUpgrade = upgradeKey => keysByName(UpgradeSlot, Selector.upgradeCard(upgradeKey).slots);
+
+  Selector.widthByCard = cardKey => R.cond([
+       [R.either(cardNotNil(Selector.upgradeCard), cardNotNil(Selector.damageCard)), R.always(41)],
+       [cardNotNil(Selector.squadronCard), R.always(62)],
+       [cardNotNil(Selector.shipCard), R.always(70)],
+       [R.T, cardKey => "Unknown card type for cardKey: " + cardKey]
+     ])(cardKey);
 
   ////////////////////////////////////////////////////////////////////////////////
   Selector.damageCard = key => valueByKey(DamageCard, key);
@@ -3056,17 +3102,52 @@
 
   Selector.upgradeSlot = key => valueByKey(UpgradeSlot, key);
 
+  ////////////////////////////////////////////////////////////////////////////////
+  const cardNotNil = cardSelector => R.compose(R.not, R.isNil, cardSelector);
   const keysByName = (enumClass, names) => R.map(name => Selector.findEnumValueByName(name, enumClass).key, names);
   const valueByKey = (enumClass, key) => enumClass.properties[key];
 
   Object.freeze(Selector);
+
+  const ShipBase = {
+
+    LARGE: "large",
+    MEDIUM: "medium",
+    SMALL: "small",
+  };
+
+  ShipBase.properties = 
+  {
+     "large": {
+        "name": "large",
+        "width": 79,
+        "height": 131,
+        "key": "large"
+     },
+     "medium": {
+        "name": "medium",
+        "width": 64,
+        "height": 104,
+        "key": "medium"
+     },
+     "small": {
+        "name": "small",
+        "width": 44,
+        "height": 73,
+        "key": "small"
+     }
+  };
+
+  Object.freeze(ShipBase);
 
   exports.DamageCard = DamageCard;
   exports.DiceValue = DiceValue;
   exports.EnumUtilities = EnumUtilities;
   exports.Faction = Faction;
   exports.Phase = Phase;
+  exports.Range = Range;
   exports.Selector = Selector;
+  exports.ShipBase = ShipBase;
   exports.ShipCard = ShipCard;
   exports.SquadronCard = SquadronCard;
   exports.UpgradeCard = UpgradeCard;

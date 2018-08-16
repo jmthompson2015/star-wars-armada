@@ -62,6 +62,14 @@ QUnit.test("factionValueByShip()", function(assert)
    assert.equal(result.key, Faction.GALACTIC_EMPIRE);
 });
 
+QUnit.test("heightByCard()", function(assert)
+{
+   assert.equal(Selector.heightByCard(DamageCard.BLINDED_GUNNERS), 64);
+   assert.equal(Selector.heightByCard(UpgradeCard.GRAND_MOFF_TARKIN), 64);
+   assert.equal(Selector.heightByCard(SquadronCard.X_WING_SQUADRON), 89);
+   assert.equal(Selector.heightByCard(ShipCard.VICTORY_II_CLASS_STAR_DESTROYER), 120);
+});
+
 QUnit.test("phase()", function(assert)
 {
    // Setup.
@@ -156,6 +164,14 @@ QUnit.test("upgradeSlotKeysByUpgrade()", function(assert)
    assert.ok(result);
    assert.equal(result.length, 1);
    assert.equal(result[0], UpgradeSlot.COMMANDER);
+});
+
+QUnit.test("widthByCard()", function(assert)
+{
+   assert.equal(Selector.widthByCard(DamageCard.BLINDED_GUNNERS), 41);
+   assert.equal(Selector.widthByCard(UpgradeCard.GRAND_MOFF_TARKIN), 41);
+   assert.equal(Selector.widthByCard(SquadronCard.X_WING_SQUADRON), 62);
+   assert.equal(Selector.widthByCard(ShipCard.VICTORY_II_CLASS_STAR_DESTROYER), 70);
 });
 
 const SelectorTest = {};

@@ -18,9 +18,23 @@ Selector.factionValueByShip = shipKey => Selector.findEnumValueByName(Selector.s
 
 Selector.findEnumValueByName = (name, enumClass) => EnumUtils.findByName(name, enumClass);
 
+Selector.heightByCard = cardKey => R.cond([
+     [R.either(cardNotNil(Selector.upgradeCard), cardNotNil(Selector.damageCard)), R.always(64)],
+     [cardNotNil(Selector.squadronCard), R.always(89)],
+     [cardNotNil(Selector.shipCard), R.always(120)],
+     [R.T, cardKey => "Unknown card type for cardKey: " + cardKey]
+   ])(cardKey);
+
 Selector.upgradeSlotKeysByShip = shipKey => keysByName(UpgradeSlot, Selector.shipCard(shipKey).slots);
 
 Selector.upgradeSlotKeysByUpgrade = upgradeKey => keysByName(UpgradeSlot, Selector.upgradeCard(upgradeKey).slots);
+
+Selector.widthByCard = cardKey => R.cond([
+     [R.either(cardNotNil(Selector.upgradeCard), cardNotNil(Selector.damageCard)), R.always(41)],
+     [cardNotNil(Selector.squadronCard), R.always(62)],
+     [cardNotNil(Selector.shipCard), R.always(70)],
+     [R.T, cardKey => "Unknown card type for cardKey: " + cardKey]
+   ])(cardKey);
 
 ////////////////////////////////////////////////////////////////////////////////
 Selector.damageCard = key => valueByKey(DamageCard, key);
@@ -39,6 +53,8 @@ Selector.upgradeCard = key => valueByKey(UpgradeCard, key);
 
 Selector.upgradeSlot = key => valueByKey(UpgradeSlot, key);
 
+////////////////////////////////////////////////////////////////////////////////
+const cardNotNil = cardSelector => R.compose(R.not, R.isNil, cardSelector);
 const keysByName = (enumClass, names) => R.map(name => Selector.findEnumValueByName(name, enumClass).key, names);
 const valueByKey = (enumClass, key) => enumClass.properties[key];
 

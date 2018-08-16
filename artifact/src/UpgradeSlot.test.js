@@ -19,7 +19,7 @@ QUnit.test("keys and values", function(assert)
 
 QUnit.test("keys()", function(assert)
 {
-   EnumTest.keys(assert, UpgradeSlot, 13, UpgradeSlot.COMMANDER, UpgradeSlot.WEAPONS_TEAM_OFFENSIVE_RETROFIT);
+   EnumTest.keys(assert, UpgradeSlot, 13, UpgradeSlot.COMMANDER, UpgradeSlot.WEAPONS_TEAM_AND_OFFENSIVE_RETROFIT);
 });
 
 const UpgradeTypeTest = {};
