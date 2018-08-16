@@ -6,16 +6,21 @@
    "undef": true,
    "unused": true,
    "globals": {
-      "console": false,
-      "Immutable": false,
-      "module": false,
-      "QUnit": false,
-      "R": false,
-      "Redux": false,
-      "require": false,
       "AA": false,
       "AM": false,
       "AS": false,
-      "AV": false
+      "AV": false,
+      "console": false,
+      "document": false,
+      "Immutable": false,
+      "module": false,
+      "PropTypes": false,
+      "QUnit": false,
+      "R": false,
+      "React": false,
+      "ReactDOM": false,
+      "ReactDOMFactories": false,
+      "Redux": false,
+      "require": false
    }
 }

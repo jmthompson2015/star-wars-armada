@@ -37,7 +37,7 @@ SquadronCard.properties =
          "Brace"
       ],
       "points": 23,
-      "image": "squadron-card/gar-saxon.png",
+      "image": "squadron-card/galactic-empire/gar-saxon.png",
       "key": "garSaxon"
    },
    "howlrunner": {
@@ -67,7 +67,7 @@ SquadronCard.properties =
          "Scatter"
       ],
       "points": 16,
-      "image": "squadron-card/howlrunner.png",
+      "image": "squadron-card/galactic-empire/howlrunner.png",
       "key": "howlrunner"
    },
    "lukeSkywalker": {
@@ -98,7 +98,7 @@ SquadronCard.properties =
          "Brace"
       ],
       "points": 20,
-      "image": "squadron-card/luke-skywalker.png",
+      "image": "squadron-card/rebel-alliance/luke-skywalker.png",
       "key": "lukeSkywalker"
    },
    "mandalorianGauntletFighter": {
@@ -125,11 +125,12 @@ SquadronCard.properties =
       ],
       "defense-tokens": [],
       "points": 20,
-      "image": "squadron-card/mandalorian-gauntlet-fighter.png",
+      "image": "squadron-card/galactic-empire/mandalorian-gauntlet-fighter.png",
       "key": "mandalorianGauntletFighter"
    },
    "tieFighterSquadron": {
       "name": "TIE Fighter Squadron",
+      "subname": "",
       "faction": "Galactic Empire",
       "speed": 4,
       "hull": 3,
@@ -148,11 +149,12 @@ SquadronCard.properties =
          "Swarm"
       ],
       "points": 8,
-      "image": "squadron-card/tie-fighter-squadron.png",
+      "image": "squadron-card/galactic-empire/tie-fighter-squadron.png",
       "key": "tieFighterSquadron"
    },
    "xWingSquadron": {
       "name": "X-wing Squadron",
+      "subname": "",
       "faction": "Rebel Alliance",
       "speed": 3,
       "hull": 5,
@@ -172,7 +174,7 @@ SquadronCard.properties =
          "Escort"
       ],
       "points": 13,
-      "image": "squadron-card/x-wing-squadron.png",
+      "image": "squadron-card/rebel-alliance/x-wing-squadron.png",
       "key": "xWingSquadron"
    }
 };

@@ -31,7 +31,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Crew",
       "text": "While attacking, you cannot spend [Scatter] icons.",
-      "image": "damage-card/blinded-gunners.jpg",
+      "image": "damage-card/blinded-gunners.png",
       "key": "blindedGunners"
    },
    "capacitorFailure": {
@@ -39,7 +39,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Ship",
       "text": "If a hull zone has no remaining shields, you cannot recover shields in it nor move shields to it. If that hull zone is defending, you cannot spend [Redirect] tokens.",
-      "image": "damage-card/capacitor-failure.jpg",
+      "image": "damage-card/capacitor-failure.png",
       "key": "capacitorFailure"
    },
    "commNoise": {
@@ -47,7 +47,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Crew",
       "text": "Your opponent may either reduce your speed by 1 or choose a new command on your top command dial. Then flip this card facedown.",
-      "image": "damage-card/comm-noise.jpg",
+      "image": "damage-card/comm-noise.png",
       "key": "commNoise"
    },
    "compartmentFire": {
@@ -55,7 +55,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Crew",
       "text": "You cannot ready your defense tokens.",
-      "image": "damage-card/compartment-fire.jpg",
+      "image": "damage-card/compartment-fire.png",
       "key": "compartmentFire"
    },
    "coolantDischarge": {
@@ -63,7 +63,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Ship",
       "text": "Only one attack you perform each round can target a ship.",
-      "image": "damage-card/coolant-discharge.jpg",
+      "image": "damage-card/coolant-discharge.png",
       "key": "coolantDischarge"
    },
    "crewPanic": {
@@ -71,7 +71,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Crew",
       "text": "Before you reveal a command dial, you must either suffer 1 damage or discard that dial. If you discard it, do not reveal a dial this round.",
-      "image": "damage-card/crew-panic.jpg",
+      "image": "damage-card/crew-panic.png",
       "key": "crewPanic"
    },
    "damagedControls": {
@@ -79,7 +79,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Crew",
       "text": "When you overlap a ship or obstacle, deal 1 facedown damage card to your ship (in addition to all other obstacle effects).",
-      "image": "damage-card/damaged-controls.jpg",
+      "image": "damage-card/damaged-controls.png",
       "key": "damagedControls"
    },
    "damagedMunitions": {
@@ -87,7 +87,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Ship",
       "text": "When attacking a ship, before you roll your attack pool, remove 1 die of your choice.",
-      "image": "damage-card/damaged-munitions.jpg",
+      "image": "damage-card/damaged-munitions.png",
       "key": "damagedMunitions"
    },
    "depoweredArmament": {
@@ -95,7 +95,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Ship",
       "text": "You cannot attack at long range.",
-      "image": "damage-card/depowered-armament.jpg",
+      "image": "damage-card/depowered-armament.png",
       "key": "depoweredArmament"
    },
    "disengagedFireControl": {
@@ -103,7 +103,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Ship",
       "text": "When declaring the target of an attack, you cannot choose a target against whom the attack would be obstructed.",
-      "image": "damage-card/disengaged-fire-control.jpg",
+      "image": "damage-card/disengaged-fire-control.png",
       "key": "disengagedFireControl"
    },
    "faultyCountermeasures": {
@@ -111,7 +111,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Ship",
       "text": "You cannot spend exhausted defense tokens.",
-      "image": "damage-card/faulty-countermeasures.jpg",
+      "image": "damage-card/faulty-countermeasures.png",
       "key": "faultyCountermeasures"
    },
    "injuredCrew": {
@@ -119,7 +119,7 @@ DamageCard.properties =
       "amount": 4,
       "type": "Crew",
       "text": "Choose and discard 1 of your defense tokens. Then flip this card facedown.",
-      "image": "damage-card/injured-crew.jpg",
+      "image": "damage-card/injured-crew.png",
       "key": "injuredCrew"
    },
    "lifeSupportFailure": {
@@ -127,7 +127,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Crew",
       "text": "Discard all of your command tokens.\nYou cannot have any command tokens.",
-      "image": "damage-card/life-support-failure.jpg",
+      "image": "damage-card/life-support-failure.png",
       "key": "lifeSupportFailure"
    },
    "pointDefenseFailure": {
@@ -135,7 +135,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Ship",
       "text": "When attacking a squadron, before you roll your attack pool, remove 1 die of your choice.",
-      "image": "damage-card/point-defense-failure.jpg",
+      "image": "damage-card/point-defense-failure.png",
       "key": "pointDefenseFailure"
    },
    "powerFailure": {
@@ -143,7 +143,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Ship",
       "text": "Your engineering value is reduced to half its value, rounded down.",
-      "image": "damage-card/power-failure.jpg",
+      "image": "damage-card/power-failure.png",
       "key": "powerFailure"
    },
    "projectorMisaligned": {
@@ -151,7 +151,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Ship",
       "text": "Your hull zone with the most remaining shields loses all of its shields. If multiple hull zones are tied, choose between the tied hull zones. Then flip this card face down.",
-      "image": "damage-card/projector-misaligned.jpg",
+      "image": "damage-card/projector-misaligned.png",
       "key": "projectorMisaligned"
    },
    "rupturedEngine": {
@@ -159,7 +159,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Ship",
       "text": "After you execute a maneuver, if the speed on your speed dial is greater than \"1,\" suffer 1 damage.",
-      "image": "damage-card/ruptured-engine.jpg",
+      "image": "damage-card/ruptured-engine.png",
       "key": "rupturedEngine"
    },
    "shieldFailure": {
@@ -167,7 +167,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Ship",
       "text": "Your opponent may choose up to 2 of your hull zones. Each of the chosen hull zones loses 1 shield. Then flip this card facedown.",
-      "image": "damage-card/shield-failure.jpg",
+      "image": "damage-card/shield-failure.png",
       "key": "shieldFailure"
    },
    "structuralDamage": {
@@ -175,7 +175,7 @@ DamageCard.properties =
       "amount": 8,
       "type": "Ship",
       "text": "Deal 1 facedown damage card to your ship. Then flip this card facedown.",
-      "image": "damage-card/structural-damage.jpg",
+      "image": "damage-card/structural-damage.png",
       "key": "structuralDamage"
    },
    "targeterDisruption": {
@@ -183,7 +183,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Ship",
       "text": "While attacking, you cannot resolve critical effects.",
-      "image": "damage-card/targeter-disruption.jpg",
+      "image": "damage-card/targeter-disruption.png",
       "key": "targeterDisruption"
    },
    "thrustControlMalfunction": {
@@ -191,7 +191,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Ship",
       "text": "The yaw value for the last adjustable joint at your current speed is reduced by 1.",
-      "image": "damage-card/thrust-control-malfunction.jpg",
+      "image": "damage-card/thrust-control-malfunction.png",
       "key": "thrustControlMalfunction"
    },
    "thrusterFissure": {
@@ -199,7 +199,7 @@ DamageCard.properties =
       "amount": 2,
       "type": "Ship",
       "text": "When you change your speed by 1 or more, suffer 1 damage.",
-      "image": "damage-card/thruster-fissure.jpg",
+      "image": "damage-card/thruster-fissure.png",
       "key": "thrusterFissure"
    }
 };

@@ -37,7 +37,7 @@
         "amount": 2,
         "type": "Crew",
         "text": "While attacking, you cannot spend [Scatter] icons.",
-        "image": "damage-card/blinded-gunners.jpg",
+        "image": "damage-card/blinded-gunners.png",
         "key": "blindedGunners"
      },
      "capacitorFailure": {
@@ -45,7 +45,7 @@
         "amount": 2,
         "type": "Ship",
         "text": "If a hull zone has no remaining shields, you cannot recover shields in it nor move shields to it. If that hull zone is defending, you cannot spend [Redirect] tokens.",
-        "image": "damage-card/capacitor-failure.jpg",
+        "image": "damage-card/capacitor-failure.png",
         "key": "capacitorFailure"
      },
      "commNoise": {
@@ -53,7 +53,7 @@
         "amount": 2,
         "type": "Crew",
         "text": "Your opponent may either reduce your speed by 1 or choose a new command on your top command dial. Then flip this card facedown.",
-        "image": "damage-card/comm-noise.jpg",
+        "image": "damage-card/comm-noise.png",
         "key": "commNoise"
      },
      "compartmentFire": {
@@ -61,7 +61,7 @@
         "amount": 2,
         "type": "Crew",
         "text": "You cannot ready your defense tokens.",
-        "image": "damage-card/compartment-fire.jpg",
+        "image": "damage-card/compartment-fire.png",
         "key": "compartmentFire"
      },
      "coolantDischarge": {
@@ -69,7 +69,7 @@
         "amount": 2,
         "type": "Ship",
         "text": "Only one attack you perform each round can target a ship.",
-        "image": "damage-card/coolant-discharge.jpg",
+        "image": "damage-card/coolant-discharge.png",
         "key": "coolantDischarge"
      },
      "crewPanic": {
@@ -77,7 +77,7 @@
         "amount": 2,
         "type": "Crew",
         "text": "Before you reveal a command dial, you must either suffer 1 damage or discard that dial. If you discard it, do not reveal a dial this round.",
-        "image": "damage-card/crew-panic.jpg",
+        "image": "damage-card/crew-panic.png",
         "key": "crewPanic"
      },
      "damagedControls": {
@@ -85,7 +85,7 @@
         "amount": 2,
         "type": "Crew",
         "text": "When you overlap a ship or obstacle, deal 1 facedown damage card to your ship (in addition to all other obstacle effects).",
-        "image": "damage-card/damaged-controls.jpg",
+        "image": "damage-card/damaged-controls.png",
         "key": "damagedControls"
      },
      "damagedMunitions": {
@@ -93,7 +93,7 @@
         "amount": 2,
         "type": "Ship",
         "text": "When attacking a ship, before you roll your attack pool, remove 1 die of your choice.",
-        "image": "damage-card/damaged-munitions.jpg",
+        "image": "damage-card/damaged-munitions.png",
         "key": "damagedMunitions"
      },
      "depoweredArmament": {
@@ -101,7 +101,7 @@
         "amount": 2,
         "type": "Ship",
         "text": "You cannot attack at long range.",
-        "image": "damage-card/depowered-armament.jpg",
+        "image": "damage-card/depowered-armament.png",
         "key": "depoweredArmament"
      },
      "disengagedFireControl": {
@@ -109,7 +109,7 @@
         "amount": 2,
         "type": "Ship",
         "text": "When declaring the target of an attack, you cannot choose a target against whom the attack would be obstructed.",
-        "image": "damage-card/disengaged-fire-control.jpg",
+        "image": "damage-card/disengaged-fire-control.png",
         "key": "disengagedFireControl"
      },
      "faultyCountermeasures": {
@@ -117,7 +117,7 @@
         "amount": 2,
         "type": "Ship",
         "text": "You cannot spend exhausted defense tokens.",
-        "image": "damage-card/faulty-countermeasures.jpg",
+        "image": "damage-card/faulty-countermeasures.png",
         "key": "faultyCountermeasures"
      },
      "injuredCrew": {
@@ -125,7 +125,7 @@
         "amount": 4,
         "type": "Crew",
         "text": "Choose and discard 1 of your defense tokens. Then flip this card facedown.",
-        "image": "damage-card/injured-crew.jpg",
+        "image": "damage-card/injured-crew.png",
         "key": "injuredCrew"
      },
      "lifeSupportFailure": {
@@ -133,7 +133,7 @@
         "amount": 2,
         "type": "Crew",
         "text": "Discard all of your command tokens.\nYou cannot have any command tokens.",
-        "image": "damage-card/life-support-failure.jpg",
+        "image": "damage-card/life-support-failure.png",
         "key": "lifeSupportFailure"
      },
      "pointDefenseFailure": {
@@ -141,7 +141,7 @@
         "amount": 2,
         "type": "Ship",
         "text": "When attacking a squadron, before you roll your attack pool, remove 1 die of your choice.",
-        "image": "damage-card/point-defense-failure.jpg",
+        "image": "damage-card/point-defense-failure.png",
         "key": "pointDefenseFailure"
      },
      "powerFailure": {
@@ -149,7 +149,7 @@
         "amount": 2,
         "type": "Ship",
         "text": "Your engineering value is reduced to half its value, rounded down.",
-        "image": "damage-card/power-failure.jpg",
+        "image": "damage-card/power-failure.png",
         "key": "powerFailure"
      },
      "projectorMisaligned": {
@@ -157,7 +157,7 @@
         "amount": 2,
         "type": "Ship",
         "text": "Your hull zone with the most remaining shields loses all of its shields. If multiple hull zones are tied, choose between the tied hull zones. Then flip this card face down.",
-        "image": "damage-card/projector-misaligned.jpg",
+        "image": "damage-card/projector-misaligned.png",
         "key": "projectorMisaligned"
      },
      "rupturedEngine": {
@@ -165,7 +165,7 @@
         "amount": 2,
         "type": "Ship",
         "text": "After you execute a maneuver, if the speed on your speed dial is greater than \"1,\" suffer 1 damage.",
-        "image": "damage-card/ruptured-engine.jpg",
+        "image": "damage-card/ruptured-engine.png",
         "key": "rupturedEngine"
      },
      "shieldFailure": {
@@ -173,7 +173,7 @@
         "amount": 2,
         "type": "Ship",
         "text": "Your opponent may choose up to 2 of your hull zones. Each of the chosen hull zones loses 1 shield. Then flip this card facedown.",
-        "image": "damage-card/shield-failure.jpg",
+        "image": "damage-card/shield-failure.png",
         "key": "shieldFailure"
      },
      "structuralDamage": {
@@ -181,7 +181,7 @@
         "amount": 8,
         "type": "Ship",
         "text": "Deal 1 facedown damage card to your ship. Then flip this card facedown.",
-        "image": "damage-card/structural-damage.jpg",
+        "image": "damage-card/structural-damage.png",
         "key": "structuralDamage"
      },
      "targeterDisruption": {
@@ -189,7 +189,7 @@
         "amount": 2,
         "type": "Ship",
         "text": "While attacking, you cannot resolve critical effects.",
-        "image": "damage-card/targeter-disruption.jpg",
+        "image": "damage-card/targeter-disruption.png",
         "key": "targeterDisruption"
      },
      "thrustControlMalfunction": {
@@ -197,7 +197,7 @@
         "amount": 2,
         "type": "Ship",
         "text": "The yaw value for the last adjustable joint at your current speed is reduced by 1.",
-        "image": "damage-card/thrust-control-malfunction.jpg",
+        "image": "damage-card/thrust-control-malfunction.png",
         "key": "thrustControlMalfunction"
      },
      "thrusterFissure": {
@@ -205,7 +205,7 @@
         "amount": 2,
         "type": "Ship",
         "text": "When you change your speed by 1 or more, suffer 1 damage.",
-        "image": "damage-card/thruster-fissure.jpg",
+        "image": "damage-card/thruster-fissure.png",
         "key": "thrusterFissure"
      }
   };
@@ -570,7 +570,7 @@
   {
      "assaultFrigateMarkIiA": {
         "name": "Assault Frigate Mark II A",
-        "ship": "Assault Frigate Mark II",
+        "size": "medium",
         "faction": "Rebel Alliance",
         "hull": 6,
         "__comment": "dice array is [red, blue, black] counts",
@@ -637,12 +637,12 @@
            "Turbolasers"
         ],
         "points": 81,
-        "image": "ship-card/assault-frigate-mark-ii-a.png",
+        "image": "ship-card/rebel-alliance/assault-frigate-mark-ii-a.png",
         "key": "assaultFrigateMarkIiA"
      },
      "assaultFrigateMarkIiB": {
         "name": "Assault Frigate Mark II B",
-        "ship": "Assault Frigate Mark II",
+        "size": "medium",
         "faction": "Rebel Alliance",
         "hull": 6,
         "__comment": "dice array is [red, blue, black] counts",
@@ -709,12 +709,12 @@
            "Turbolasers"
         ],
         "points": 72,
-        "image": "ship-card/assault-frigate-mark-ii-b.png",
+        "image": "ship-card/rebel-alliance/assault-frigate-mark-ii-b.png",
         "key": "assaultFrigateMarkIiB"
      },
      "cr90CorvetteA": {
         "name": "CR90 Corvette A",
-        "ship": "CR90 Corvette",
+        "size": "small",
         "faction": "Rebel Alliance",
         "hull": 4,
         "__comment": "dice array is [red, blue, black] counts",
@@ -786,12 +786,12 @@
            "Ion Cannons"
         ],
         "points": 44,
-        "image": "ship-card/cr90-corvette-a.png",
+        "image": "ship-card/rebel-alliance/cr90-corvette-a.png",
         "key": "cr90CorvetteA"
      },
      "cr90CorvetteB": {
         "name": "CR90 Corvette B",
-        "ship": "CR90 Corvette",
+        "size": "small",
         "faction": "Rebel Alliance",
         "hull": 4,
         "__comment": "dice array is [red, blue, black] counts",
@@ -863,12 +863,12 @@
            "Ion Cannons"
         ],
         "points": 39,
-        "image": "ship-card/cr90-corvette-b.png",
+        "image": "ship-card/rebel-alliance/cr90-corvette-b.png",
         "key": "cr90CorvetteB"
      },
      "gozantiClassAssaultCarriers": {
         "name": "Gozanti-class Assault Carriers",
-        "ship": "Gozanti-class Carriers",
+        "size": "small",
         "faction": "Galactic Empire",
         "hull": 3,
         "__comment": "dice array is [red, blue, black] counts",
@@ -932,12 +932,12 @@
            "Offensive Retrofit"
         ],
         "points": 28,
-        "image": "ship-card/gozanti-class-assault-carriers.png",
+        "image": "ship-card/galactic-empire/gozanti-class-assault-carriers.png",
         "key": "gozantiClassAssaultCarriers"
      },
      "gozantiClassCruisers": {
         "name": "Gozanti-class Cruisers",
-        "ship": "Gozanti-class Carriers",
+        "size": "small",
         "faction": "Galactic Empire",
         "hull": 3,
         "__comment": "dice array is [red, blue, black] counts",
@@ -1001,12 +1001,12 @@
            "Offensive Retrofit"
         ],
         "points": 23,
-        "image": "ship-card/gozanti-class-cruisers.png",
+        "image": "ship-card/galactic-empire/gozanti-class-cruisers.png",
         "key": "gozantiClassCruisers"
      },
      "imperialIClassStarDestroyer": {
         "name": "Imperial I-class Star Destroyer",
-        "ship": "Imperial-class Star Destroyer",
+        "size": "large",
         "faction": "Galactic Empire",
         "hull": 11,
         "__comment": "dice array is [red, blue, black] counts",
@@ -1075,12 +1075,12 @@
            "Turbolasers"
         ],
         "points": 112,
-        "image": "ship-card/imperial-i-class-star-destroyer.png",
+        "image": "ship-card/galactic-empire/imperial-i-class-star-destroyer.png",
         "key": "imperialIClassStarDestroyer"
      },
      "imperialIiClassStarDestroyer": {
         "name": "Imperial II-class Star Destroyer",
-        "ship": "Imperial-class Star Destroyer",
+        "size": "large",
         "faction": "Galactic Empire",
         "hull": 11,
         "__comment": "dice array is [red, blue, black] counts",
@@ -1149,12 +1149,12 @@
            "Turbolasers"
         ],
         "points": 120,
-        "image": "ship-card/imperial-ii-class-star-destroyer.png",
+        "image": "ship-card/galactic-empire/imperial-ii-class-star-destroyer.png",
         "key": "imperialIiClassStarDestroyer"
      },
      "imperialStarDestroyerCymoon1Refit": {
         "name": "Imperial Star Destroyer Cymoon 1 Refit",
-        "ship": "Imperial-class Star Destroyer",
+        "size": "large",
         "faction": "Galactic Empire",
         "hull": 11,
         "__comment": "dice array is [red, blue, black] counts",
@@ -1223,12 +1223,12 @@
            "Turbolasers"
         ],
         "points": 112,
-        "image": "ship-card/imperial-star-destroyer-cymoon-1-refit.png",
+        "image": "ship-card/galactic-empire/imperial-star-destroyer-cymoon-1-refit.png",
         "key": "imperialStarDestroyerCymoon1Refit"
      },
      "imperialStarDestroyerKuatRefit": {
         "name": "Imperial Star Destroyer Kuat Refit",
-        "ship": "Imperial-class Star Destroyer",
+        "size": "large",
         "faction": "Galactic Empire",
         "hull": 11,
         "__comment": "dice array is [red, blue, black] counts",
@@ -1297,12 +1297,12 @@
            "Turbolasers"
         ],
         "points": 112,
-        "image": "ship-card/imperial-star-destroyer-kuat-refit.png",
+        "image": "ship-card/galactic-empire/imperial-star-destroyer-kuat-refit.png",
         "key": "imperialStarDestroyerKuatRefit"
      },
      "mc80BattleCruiser": {
         "name": "MC80 Battle Cruiser",
-        "ship": "MC80 Cruiser",
+        "size": "large",
         "faction": "Rebel Alliance",
         "hull": 8,
         "__comment": "dice array is [red, blue, black] counts",
@@ -1370,12 +1370,12 @@
            "Turbolasers"
         ],
         "points": 103,
-        "image": "ship-card/mc80-battle-cruiser.png",
+        "image": "ship-card/rebel-alliance/mc80-battle-cruiser.png",
         "key": "mc80BattleCruiser"
      },
      "mc80StarCruiser": {
         "name": "MC80 Star Cruiser",
-        "ship": "MC80 Cruiser",
+        "size": "large",
         "faction": "Rebel Alliance",
         "hull": 8,
         "__comment": "dice array is [red, blue, black] counts",
@@ -1443,12 +1443,12 @@
            "Turbolasers"
         ],
         "points": 96,
-        "image": "ship-card/mc80-star-cruiser.png",
+        "image": "ship-card/rebel-alliance/mc80-star-cruiser.png",
         "key": "mc80StarCruiser"
      },
      "nebulonBEscortFrigate": {
         "name": "Nebulon-B Escort Frigate",
-        "ship": "Nebulon-B Frigate",
+        "size": "small",
         "faction": "Rebel Alliance",
         "hull": 5,
         "__comment": "dice array is [red, blue, black] counts",
@@ -1513,12 +1513,12 @@
            "Turbolasers"
         ],
         "points": 57,
-        "image": "ship-card/nebulon-b-escort-frigate.png",
+        "image": "ship-card/rebel-alliance/nebulon-b-escort-frigate.png",
         "key": "nebulonBEscortFrigate"
      },
      "nebulonBSupportRefit": {
         "name": "Nebulon-B Support Refit",
-        "ship": "Nebulon-B Frigate",
+        "size": "small",
         "faction": "Rebel Alliance",
         "hull": 5,
         "__comment": "dice array is [red, blue, black] counts",
@@ -1583,12 +1583,12 @@
            "Turbolasers"
         ],
         "points": 51,
-        "image": "ship-card/nebulon-b-support-refit.png",
+        "image": "ship-card/rebel-alliance/nebulon-b-support-refit.png",
         "key": "nebulonBSupportRefit"
      },
      "victoryIClassStarDestroyer": {
         "name": "Victory I-class Star Destroyer",
-        "ship": "Victory-class Star Destroyer",
+        "size": "medium",
         "faction": "Galactic Empire",
         "hull": 8,
         "__comment": "dice array is [red, blue, black] counts",
@@ -1650,12 +1650,12 @@
            "Turbolasers"
         ],
         "points": 73,
-        "image": "ship-card/victory-i-class-star-destroyer.png",
+        "image": "ship-card/galactic-empire/victory-i-class-star-destroyer.png",
         "key": "victoryIClassStarDestroyer"
      },
      "victoryIiClassStarDestroyer": {
         "name": "Victory II-class Star Destroyer",
-        "ship": "Victory-class Star Destroyer",
+        "size": "medium",
         "faction": "Galactic Empire",
         "hull": 8,
         "__comment": "dice array is [red, blue, black] counts",
@@ -1717,7 +1717,7 @@
            "Turbolasers"
         ],
         "points": 85,
-        "image": "ship-card/victory-ii-class-star-destroyer.png",
+        "image": "ship-card/galactic-empire/victory-ii-class-star-destroyer.png",
         "key": "victoryIiClassStarDestroyer"
      }
   };
@@ -1763,7 +1763,7 @@
            "Brace"
         ],
         "points": 23,
-        "image": "squadron-card/gar-saxon.png",
+        "image": "squadron-card/galactic-empire/gar-saxon.png",
         "key": "garSaxon"
      },
      "howlrunner": {
@@ -1793,7 +1793,7 @@
            "Scatter"
         ],
         "points": 16,
-        "image": "squadron-card/howlrunner.png",
+        "image": "squadron-card/galactic-empire/howlrunner.png",
         "key": "howlrunner"
      },
      "lukeSkywalker": {
@@ -1824,7 +1824,7 @@
            "Brace"
         ],
         "points": 20,
-        "image": "squadron-card/luke-skywalker.png",
+        "image": "squadron-card/rebel-alliance/luke-skywalker.png",
         "key": "lukeSkywalker"
      },
      "mandalorianGauntletFighter": {
@@ -1851,11 +1851,12 @@
         ],
         "defense-tokens": [],
         "points": 20,
-        "image": "squadron-card/mandalorian-gauntlet-fighter.png",
+        "image": "squadron-card/galactic-empire/mandalorian-gauntlet-fighter.png",
         "key": "mandalorianGauntletFighter"
      },
      "tieFighterSquadron": {
         "name": "TIE Fighter Squadron",
+        "subname": "",
         "faction": "Galactic Empire",
         "speed": 4,
         "hull": 3,
@@ -1874,11 +1875,12 @@
            "Swarm"
         ],
         "points": 8,
-        "image": "squadron-card/tie-fighter-squadron.png",
+        "image": "squadron-card/galactic-empire/tie-fighter-squadron.png",
         "key": "tieFighterSquadron"
      },
      "xWingSquadron": {
         "name": "X-wing Squadron",
+        "subname": "",
         "faction": "Rebel Alliance",
         "speed": 3,
         "hull": 5,
@@ -1898,7 +1900,7 @@
            "Escort"
         ],
         "points": 13,
-        "image": "squadron-card/x-wing-squadron.png",
+        "image": "squadron-card/rebel-alliance/x-wing-squadron.png",
         "key": "xWingSquadron"
      }
   };
@@ -2949,7 +2951,7 @@
     TITLE: "title",
     TURBOLASERS: "turbolasers",
     WEAPONS_TEAM: "weaponsTeam",
-    WEAPONS_TEAM_OFFENSIVE_RETROFIT: "weaponsTeam_offensiveRetrofit",
+    WEAPONS_TEAM_AND_OFFENSIVE_RETROFIT: "weaponsTeamAndOffensiveRetrofit",
   };
 
   UpgradeSlot.properties = 
@@ -3014,10 +3016,10 @@
         "image": "upgrade-slot/weapons-team.png",
         "key": "weaponsTeam"
      },
-     "weaponsTeam_offensiveRetrofit": {
-        "name": "Weapons Team_Offensive Retrofit",
-        "image": "upgrade-slot/weapons-team_offensive-retrofit.png",
-        "key": "weaponsTeam_offensiveRetrofit"
+     "weaponsTeamAndOffensiveRetrofit": {
+        "name": "Weapons Team and Offensive Retrofit",
+        "image": "upgrade-slot/weapons-team-and-offensive-retrofit.png",
+        "key": "weaponsTeamAndOffensiveRetrofit"
      }
   };
 

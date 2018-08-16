@@ -2,25 +2,11 @@ const R = require("ramda");
 
 const ArmadaConverter = require("./ArmadaConverter.js");
 const EnumGenerator = require("./EnumGenerator.js");
+const FileList = require("./FileList.js");
 
-// const INPUT_FILE = "https://cdn.jsdelivr.net/npm/xwing-data@1.0.1/data/upgrades.js";
 // const BASE = "https://cdn.jsdelivr.net/gh/jmthompson2015/star-wars-armada-data@0.0.6/data/upgrade-card/";
 const BASE = "https://raw.githubusercontent.com/jmthompson2015/star-wars-armada-data/master/data/upgrade-card/";
-const INPUT_FILES = R.map(file => BASE + file + ".js", [
-  "commander",
-  "defensive-retrofit",
-  "fleet-command",
-  "fleet-support",
-  "ion-cannons",
-  "offensive-retrofit",
-  "officer",
-  "ordnance",
-  "support-team",
-  "title",
-  "turbolasers",
-  "weapons-team-and-offensive-retrofit",
-  "weapons-team"
-]);
+const INPUT_FILES = R.map(file => BASE + file, FileList.UPGRADE_FILES);
 const CLASS_NAME = "UpgradeSlot";
 
 const createData = card => key =>
@@ -38,7 +24,7 @@ const createData = card => key =>
 
 function determineData(data)
 {
-   const answer = data.reduce((accumulator, card) => EnumGenerator.pushUnique(accumulator, card.slots.join("_")), []);
+   const answer = data.reduce((accumulator, card) => EnumGenerator.pushUnique(accumulator, card.slots.join(" and ")), []);
    answer.sort();
 
    return answer;

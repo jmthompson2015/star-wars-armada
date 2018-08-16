@@ -22,7 +22,7 @@ ShipCard.properties =
 {
    "assaultFrigateMarkIiA": {
       "name": "Assault Frigate Mark II A",
-      "ship": "Assault Frigate Mark II",
+      "size": "medium",
       "faction": "Rebel Alliance",
       "hull": 6,
       "__comment": "dice array is [red, blue, black] counts",
@@ -89,12 +89,12 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 81,
-      "image": "ship-card/assault-frigate-mark-ii-a.png",
+      "image": "ship-card/rebel-alliance/assault-frigate-mark-ii-a.png",
       "key": "assaultFrigateMarkIiA"
    },
    "assaultFrigateMarkIiB": {
       "name": "Assault Frigate Mark II B",
-      "ship": "Assault Frigate Mark II",
+      "size": "medium",
       "faction": "Rebel Alliance",
       "hull": 6,
       "__comment": "dice array is [red, blue, black] counts",
@@ -161,12 +161,12 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 72,
-      "image": "ship-card/assault-frigate-mark-ii-b.png",
+      "image": "ship-card/rebel-alliance/assault-frigate-mark-ii-b.png",
       "key": "assaultFrigateMarkIiB"
    },
    "cr90CorvetteA": {
       "name": "CR90 Corvette A",
-      "ship": "CR90 Corvette",
+      "size": "small",
       "faction": "Rebel Alliance",
       "hull": 4,
       "__comment": "dice array is [red, blue, black] counts",
@@ -238,12 +238,12 @@ ShipCard.properties =
          "Ion Cannons"
       ],
       "points": 44,
-      "image": "ship-card/cr90-corvette-a.png",
+      "image": "ship-card/rebel-alliance/cr90-corvette-a.png",
       "key": "cr90CorvetteA"
    },
    "cr90CorvetteB": {
       "name": "CR90 Corvette B",
-      "ship": "CR90 Corvette",
+      "size": "small",
       "faction": "Rebel Alliance",
       "hull": 4,
       "__comment": "dice array is [red, blue, black] counts",
@@ -315,12 +315,12 @@ ShipCard.properties =
          "Ion Cannons"
       ],
       "points": 39,
-      "image": "ship-card/cr90-corvette-b.png",
+      "image": "ship-card/rebel-alliance/cr90-corvette-b.png",
       "key": "cr90CorvetteB"
    },
    "gozantiClassAssaultCarriers": {
       "name": "Gozanti-class Assault Carriers",
-      "ship": "Gozanti-class Carriers",
+      "size": "small",
       "faction": "Galactic Empire",
       "hull": 3,
       "__comment": "dice array is [red, blue, black] counts",
@@ -384,12 +384,12 @@ ShipCard.properties =
          "Offensive Retrofit"
       ],
       "points": 28,
-      "image": "ship-card/gozanti-class-assault-carriers.png",
+      "image": "ship-card/galactic-empire/gozanti-class-assault-carriers.png",
       "key": "gozantiClassAssaultCarriers"
    },
    "gozantiClassCruisers": {
       "name": "Gozanti-class Cruisers",
-      "ship": "Gozanti-class Carriers",
+      "size": "small",
       "faction": "Galactic Empire",
       "hull": 3,
       "__comment": "dice array is [red, blue, black] counts",
@@ -453,12 +453,12 @@ ShipCard.properties =
          "Offensive Retrofit"
       ],
       "points": 23,
-      "image": "ship-card/gozanti-class-cruisers.png",
+      "image": "ship-card/galactic-empire/gozanti-class-cruisers.png",
       "key": "gozantiClassCruisers"
    },
    "imperialIClassStarDestroyer": {
       "name": "Imperial I-class Star Destroyer",
-      "ship": "Imperial-class Star Destroyer",
+      "size": "large",
       "faction": "Galactic Empire",
       "hull": 11,
       "__comment": "dice array is [red, blue, black] counts",
@@ -527,12 +527,12 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 112,
-      "image": "ship-card/imperial-i-class-star-destroyer.png",
+      "image": "ship-card/galactic-empire/imperial-i-class-star-destroyer.png",
       "key": "imperialIClassStarDestroyer"
    },
    "imperialIiClassStarDestroyer": {
       "name": "Imperial II-class Star Destroyer",
-      "ship": "Imperial-class Star Destroyer",
+      "size": "large",
       "faction": "Galactic Empire",
       "hull": 11,
       "__comment": "dice array is [red, blue, black] counts",
@@ -601,12 +601,12 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 120,
-      "image": "ship-card/imperial-ii-class-star-destroyer.png",
+      "image": "ship-card/galactic-empire/imperial-ii-class-star-destroyer.png",
       "key": "imperialIiClassStarDestroyer"
    },
    "imperialStarDestroyerCymoon1Refit": {
       "name": "Imperial Star Destroyer Cymoon 1 Refit",
-      "ship": "Imperial-class Star Destroyer",
+      "size": "large",
       "faction": "Galactic Empire",
       "hull": 11,
       "__comment": "dice array is [red, blue, black] counts",
@@ -675,12 +675,12 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 112,
-      "image": "ship-card/imperial-star-destroyer-cymoon-1-refit.png",
+      "image": "ship-card/galactic-empire/imperial-star-destroyer-cymoon-1-refit.png",
       "key": "imperialStarDestroyerCymoon1Refit"
    },
    "imperialStarDestroyerKuatRefit": {
       "name": "Imperial Star Destroyer Kuat Refit",
-      "ship": "Imperial-class Star Destroyer",
+      "size": "large",
       "faction": "Galactic Empire",
       "hull": 11,
       "__comment": "dice array is [red, blue, black] counts",
@@ -749,12 +749,12 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 112,
-      "image": "ship-card/imperial-star-destroyer-kuat-refit.png",
+      "image": "ship-card/galactic-empire/imperial-star-destroyer-kuat-refit.png",
       "key": "imperialStarDestroyerKuatRefit"
    },
    "mc80BattleCruiser": {
       "name": "MC80 Battle Cruiser",
-      "ship": "MC80 Cruiser",
+      "size": "large",
       "faction": "Rebel Alliance",
       "hull": 8,
       "__comment": "dice array is [red, blue, black] counts",
@@ -822,12 +822,12 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 103,
-      "image": "ship-card/mc80-battle-cruiser.png",
+      "image": "ship-card/rebel-alliance/mc80-battle-cruiser.png",
       "key": "mc80BattleCruiser"
    },
    "mc80StarCruiser": {
       "name": "MC80 Star Cruiser",
-      "ship": "MC80 Cruiser",
+      "size": "large",
       "faction": "Rebel Alliance",
       "hull": 8,
       "__comment": "dice array is [red, blue, black] counts",
@@ -895,12 +895,12 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 96,
-      "image": "ship-card/mc80-star-cruiser.png",
+      "image": "ship-card/rebel-alliance/mc80-star-cruiser.png",
       "key": "mc80StarCruiser"
    },
    "nebulonBEscortFrigate": {
       "name": "Nebulon-B Escort Frigate",
-      "ship": "Nebulon-B Frigate",
+      "size": "small",
       "faction": "Rebel Alliance",
       "hull": 5,
       "__comment": "dice array is [red, blue, black] counts",
@@ -965,12 +965,12 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 57,
-      "image": "ship-card/nebulon-b-escort-frigate.png",
+      "image": "ship-card/rebel-alliance/nebulon-b-escort-frigate.png",
       "key": "nebulonBEscortFrigate"
    },
    "nebulonBSupportRefit": {
       "name": "Nebulon-B Support Refit",
-      "ship": "Nebulon-B Frigate",
+      "size": "small",
       "faction": "Rebel Alliance",
       "hull": 5,
       "__comment": "dice array is [red, blue, black] counts",
@@ -1035,12 +1035,12 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 51,
-      "image": "ship-card/nebulon-b-support-refit.png",
+      "image": "ship-card/rebel-alliance/nebulon-b-support-refit.png",
       "key": "nebulonBSupportRefit"
    },
    "victoryIClassStarDestroyer": {
       "name": "Victory I-class Star Destroyer",
-      "ship": "Victory-class Star Destroyer",
+      "size": "medium",
       "faction": "Galactic Empire",
       "hull": 8,
       "__comment": "dice array is [red, blue, black] counts",
@@ -1102,12 +1102,12 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 73,
-      "image": "ship-card/victory-i-class-star-destroyer.png",
+      "image": "ship-card/galactic-empire/victory-i-class-star-destroyer.png",
       "key": "victoryIClassStarDestroyer"
    },
    "victoryIiClassStarDestroyer": {
       "name": "Victory II-class Star Destroyer",
-      "ship": "Victory-class Star Destroyer",
+      "size": "medium",
       "faction": "Galactic Empire",
       "hull": 8,
       "__comment": "dice array is [red, blue, black] counts",
@@ -1169,7 +1169,7 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 85,
-      "image": "ship-card/victory-ii-class-star-destroyer.png",
+      "image": "ship-card/galactic-empire/victory-ii-class-star-destroyer.png",
       "key": "victoryIiClassStarDestroyer"
    }
 };

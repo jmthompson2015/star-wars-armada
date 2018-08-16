@@ -12,7 +12,7 @@ const UpgradeSlot = {
   TITLE: "title",
   TURBOLASERS: "turbolasers",
   WEAPONS_TEAM: "weaponsTeam",
-  WEAPONS_TEAM_OFFENSIVE_RETROFIT: "weaponsTeam_offensiveRetrofit",
+  WEAPONS_TEAM_AND_OFFENSIVE_RETROFIT: "weaponsTeamAndOffensiveRetrofit",
 };
 
 UpgradeSlot.properties = 
@@ -77,10 +77,10 @@ UpgradeSlot.properties =
       "image": "upgrade-slot/weapons-team.png",
       "key": "weaponsTeam"
    },
-   "weaponsTeam_offensiveRetrofit": {
-      "name": "Weapons Team_Offensive Retrofit",
-      "image": "upgrade-slot/weapons-team_offensive-retrofit.png",
-      "key": "weaponsTeam_offensiveRetrofit"
+   "weaponsTeamAndOffensiveRetrofit": {
+      "name": "Weapons Team and Offensive Retrofit",
+      "image": "upgrade-slot/weapons-team-and-offensive-retrofit.png",
+      "key": "weaponsTeamAndOffensiveRetrofit"
    }
 };
 
