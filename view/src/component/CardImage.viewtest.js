@@ -15,13 +15,12 @@ ReactDOM.render(ReactDOMFactories.div(
 
 function addCardImage(cells, card)
 {
-   const isShip = (AA.Selector.shipCard(card.key) !== undefined);
-   const isSquadron = (AA.Selector.squadronCard(card.key) !== undefined);
+   const width = 3.2 * AA.Selector.widthByCard(card.key);
 
    const element = React.createElement(CardImage,
    {
       card: card,
-      width: (isShip ? 200 : (isSquadron ? 150 : 200 / 1.4))
+      width: width,
    });
 
    cells.push(ReactDOMFactories.div(
