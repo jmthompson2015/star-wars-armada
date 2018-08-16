@@ -8,3 +8,5 @@ rollup -c
 cd ../model
 rollup -c
 
+cd ../view
+rollup -c
