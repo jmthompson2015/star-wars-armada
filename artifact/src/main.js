@@ -1,4 +1,6 @@
+import Command from "./Command.js";
 import DamageCard from "./DamageCard.js";
+import DefenseToken from "./DefenseToken.js";
 import DiceValue from "./DiceValue.js";
 import EnumUtilities from "./EnumUtilities.js";
 import Faction from "./Faction.js";
@@ -13,7 +15,9 @@ import UpgradeSlot from "./UpgradeSlot.js";
 
 export
 {
+   Command,
    DamageCard,
+   DefenseToken,
    DiceValue,
    EnumUtilities,
    Faction,

@@ -1,4 +1,6 @@
+import CommandTest from "./Command.test.js";
 import DamageCardTest from "./DamageCard.test.js";
+import DefenseToken from "./DefenseToken.js";
 import DiceValueTest from "./DiceValue.test.js";
 import EnumUtilitiesTest from "./EnumUtilities.test.js";
 import FactionTest from "./Faction.test.js";
