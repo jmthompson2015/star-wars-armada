@@ -12,6 +12,7 @@
       "AV": false,
       "console": false,
       "document": false,
+      "Image": false,
       "Immutable": false,
       "module": false,
       "PropTypes": false,

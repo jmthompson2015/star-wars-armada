@@ -3065,6 +3065,8 @@
 
   Selector.factionValueByShip = shipKey => Selector.findEnumValueByName(Selector.shipCard(shipKey).faction, Faction);
 
+  Selector.factionValueBySquadron = squadronKey => Selector.findEnumValueByName(Selector.squadronCard(squadronKey).faction, Faction);
+
   Selector.findEnumValueByName = (name, enumClass) => EnumUtilities.findByName(name, enumClass);
 
   Selector.heightByCard = cardKey => R.cond([
@@ -3073,6 +3075,14 @@
        [cardNotNil(Selector.shipCard), R.always(120)],
        [R.T, cardKey => "Unknown card type for cardKey: " + cardKey]
      ])(cardKey);
+
+  Selector.isDamageCard = cardValue => cardValue.image.startsWith("damage-card");
+
+  Selector.isShipCard = cardValue => cardValue.image.startsWith("ship-card");
+
+  Selector.isSquadronCard = cardValue => cardValue.image.startsWith("squadron-card");
+
+  Selector.isUpgradeCard = cardValue => cardValue.image.startsWith("upgrade-card");
 
   Selector.upgradeSlotKeysByShip = shipKey => keysByName(UpgradeSlot, Selector.shipCard(shipKey).slots);
 
