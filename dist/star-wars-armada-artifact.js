@@ -359,6 +359,54 @@
 
    Object.freeze(DiceValue);
 
+   const Distance = {
+      ONE: "one",
+      TWO: "two",
+      THREE: "three",
+      FOUR: "four",
+      FIVE: "five"
+   };
+
+   Distance.properties = {
+      "one":
+      {
+         minDistance: 0, // Minimum distance. (mm)
+         maxDistance: 76, // Maximum distance. (mm)
+         name: "1",
+         key: "one"
+      },
+      "two":
+      {
+         minDistance: 77, // Minimum distance. (mm)
+         maxDistance: 125, // Maximum distance. (mm)
+         name: "2",
+         key: "two"
+      },
+      "three":
+      {
+         minDistance: 126, // Minimum distance. (mm)
+         maxDistance: 185, // Maximum distance. (mm)
+         name: "3",
+         key: "three"
+      },
+      "four":
+      {
+         minDistance: 186, // Minimum distance. (mm)
+         maxDistance: 245, // Maximum distance. (mm)
+         name: "4",
+         key: "four"
+      },
+      "five":
+      {
+         minDistance: 246, // Minimum distance. (mm)
+         maxDistance: 305, // Maximum distance. (mm)
+         name: "5",
+         key: "five"
+      }
+   };
+
+   Object.freeze(Distance);
+
    const EnumUtilities = {};
 
    EnumUtilities.findByName = (name, enumClass) => EnumUtilities.findByProp("name", name, enumClass);
@@ -631,37 +679,96 @@
 
    Object.freeze(Phase);
 
+   const PlayFormat = {
+      SMALL: "small",
+      STANDARD: "standard"
+   };
+
+   PlayFormat.properties = {
+      "small":
+      {
+         name: "Small",
+         minPoints: 0,
+         maxPoints: 299,
+         width: 915, // mm
+         height: 915, // mm
+         key: "small",
+      },
+      "standard":
+      {
+         name: "Standard",
+         minPoints: 300,
+         width: 1830, // mm
+         height: 915, // mm
+         key: "standard"
+      }
+   };
+
+   Object.freeze(PlayFormat);
+
    const Range = {
-      ONE: "one",
-      TWO: "two",
-      THREE: "three"
+      CLOSE: "close",
+      MEDIUM: "medium",
+      LONG: "long"
    };
 
    Range.properties = {
-      "one":
+      "close":
       {
          minDistance: 0, // Minimum distance. (mm)
-         maxDistance: 116, // Maximum distance. (mm)
-         name: "1",
-         key: "one"
+         maxDistance: 123, // Maximum distance. (mm)
+         name: "Close",
+         key: "close"
       },
-      "two":
+      "medium":
       {
-         minDistance: 117, // Minimum distance. (mm)
-         maxDistance: 180, // Maximum distance. (mm)
-         name: "2",
-         key: "two"
+         // 2.5" = 63.5 mm
+         minDistance: 124, // Minimum distance. (mm)
+         maxDistance: 187, // Maximum distance. (mm)
+         name: "Medium",
+         key: "medium"
       },
-      "three":
+      "long":
       {
-         minDistance: 181, // Minimum distance. (mm)
-         maxDistance: 303, // Maximum distance. (mm)
-         name: "3",
-         key: "three"
+         minDistance: 188, // Minimum distance. (mm)
+         maxDistance: 305, // Maximum distance. (mm)
+         name: "Long",
+         key: "long"
       }
    };
 
    Object.freeze(Range);
+
+   const ShipBase = {
+
+     LARGE: "large",
+     MEDIUM: "medium",
+     SMALL: "small",
+   };
+
+   ShipBase.properties = 
+   {
+      "large": {
+         "name": "large",
+         "width": 79,
+         "height": 131,
+         "key": "large"
+      },
+      "medium": {
+         "name": "medium",
+         "width": 64,
+         "height": 104,
+         "key": "medium"
+      },
+      "small": {
+         "name": "small",
+         "width": 44,
+         "height": 73,
+         "key": "small"
+      }
+   };
+
+   Object.freeze(ShipBase);
 
    const ShipCard = {
 
@@ -3144,6 +3251,14 @@
 
    const Selector = {};
 
+   Selector.distanceKeyByLength = length =>
+   {
+      const distances = EnumUtilities.values(Distance);
+      const reduceFunction = (accum, distance) => (isInRange(distance)(length) ? distance.key : accum);
+
+      return R.reduce(reduceFunction, undefined)(distances);
+   };
+
    Selector.enumKeys = enumClass => EnumUtilities.keys(enumClass);
 
    Selector.enumValues = enumClass => EnumUtilities.values(enumClass);
@@ -3169,6 +3284,22 @@
 
    Selector.isUpgradeCard = cardValue => cardValue.image.startsWith("upgrade-card");
 
+   Selector.playFormatKeyByPoints = (points1, points2) =>
+   {
+      const standard = Selector.playFormat(PlayFormat.STANDARD);
+      const isPointInStandard = points => (standard.minPoints <= points);
+
+      return (isPointInStandard(points1) || isPointInStandard(points2) ? PlayFormat.STANDARD : PlayFormat.SMALL);
+   };
+
+   Selector.rangeKeyByLength = length =>
+   {
+      const ranges = EnumUtilities.values(Range);
+      const reduceFunction = (accum, range) => (isInRange(range)(length) ? range.key : accum);
+
+      return R.reduce(reduceFunction, undefined)(ranges);
+   };
+
    Selector.upgradeSlotKeysByShip = shipKey => keysByName(UpgradeSlot, Selector.shipCard(shipKey).slots);
 
    Selector.upgradeSlotKeysByUpgrade = upgradeKey => keysByName(UpgradeSlot, Selector.upgradeCard(upgradeKey).slots);
@@ -3181,13 +3312,25 @@
       ])(cardKey);
 
    ////////////////////////////////////////////////////////////////////////////////
+   Selector.command = key => valueByKey(Command, key);
+
    Selector.damageCard = key => valueByKey(DamageCard, key);
 
+   Selector.defenseToken = key => valueByKey(DefenseToken, key);
+
    Selector.diceValue = key => valueByKey(DiceValue, key);
+
+   Selector.distance = key => valueByKey(Distance, key);
 
    Selector.faction = key => valueByKey(Faction, key);
 
    Selector.phase = key => valueByKey(Phase, key);
+
+   Selector.playFormat = key => valueByKey(PlayFormat, key);
+
+   Selector.range = key => valueByKey(Range, key);
+
+   Selector.shipBase = key => valueByKey(ShipBase, key);
 
    Selector.shipCard = key => valueByKey(ShipCard, key);
 
@@ -3200,48 +3343,20 @@
    ////////////////////////////////////////////////////////////////////////////////
    const cardNotNil = cardSelector => R.compose(R.not, R.isNil, cardSelector);
    const keysByName = (enumClass, names) => R.map(name => Selector.findEnumValueByName(name, enumClass).key, names);
+   const isInRange = range => R.both(R.lte(range.minDistance), R.gte(range.maxDistance));
    const valueByKey = (enumClass, key) => enumClass.properties[key];
 
    Object.freeze(Selector);
-
-   const ShipBase = {
-
-     LARGE: "large",
-     MEDIUM: "medium",
-     SMALL: "small",
-   };
-
-   ShipBase.properties = 
-   {
-      "large": {
-         "name": "large",
-         "width": 79,
-         "height": 131,
-         "key": "large"
-      },
-      "medium": {
-         "name": "medium",
-         "width": 64,
-         "height": 104,
-         "key": "medium"
-      },
-      "small": {
-         "name": "small",
-         "width": 44,
-         "height": 73,
-         "key": "small"
-      }
-   };
-
-   Object.freeze(ShipBase);
 
    exports.Command = Command;
    exports.DamageCard = DamageCard;
    exports.DefenseToken = DefenseToken;
    exports.DiceValue = DiceValue;
+   exports.Distance = Distance;
    exports.EnumUtilities = EnumUtilities;
    exports.Faction = Faction;
    exports.Phase = Phase;
+   exports.PlayFormat = PlayFormat;
    exports.Range = Range;
    exports.Selector = Selector;
    exports.ShipBase = ShipBase;

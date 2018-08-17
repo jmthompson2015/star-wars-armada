@@ -3,33 +3,33 @@ import Range from "./Range.js";
 
 QUnit.module("Range");
 
-QUnit.test("Range properties 1", function(assert)
+QUnit.test("Range properties Close", function(assert)
 {
-   const rangeKey = Range.ONE;
+   const rangeKey = Range.CLOSE;
    const properties = Range.properties[rangeKey];
-   assert.equal(properties.name, "1");
+   assert.equal(properties.name, "Close");
    assert.equal(properties.minDistance, 0);
-   assert.equal(properties.maxDistance, 116);
+   assert.equal(properties.maxDistance, 123);
    assert.equal(properties.key, rangeKey);
 });
 
-QUnit.test("Range properties 2", function(assert)
+QUnit.test("Range properties Medium", function(assert)
 {
-   const rangeKey = Range.TWO;
+   const rangeKey = Range.MEDIUM;
    const properties = Range.properties[rangeKey];
-   assert.equal(properties.name, "2");
-   assert.equal(properties.minDistance, 117);
-   assert.equal(properties.maxDistance, 180);
+   assert.equal(properties.name, "Medium");
+   assert.equal(properties.minDistance, 124);
+   assert.equal(properties.maxDistance, 187);
    assert.equal(properties.key, rangeKey);
 });
 
-QUnit.test("Range properties 3", function(assert)
+QUnit.test("Range properties Long", function(assert)
 {
-   const rangeKey = Range.THREE;
+   const rangeKey = Range.LONG;
    const properties = Range.properties[rangeKey];
-   assert.equal(properties.name, "3");
-   assert.equal(properties.minDistance, 181);
-   assert.equal(properties.maxDistance, 303);
+   assert.equal(properties.name, "Long");
+   assert.equal(properties.minDistance, 188);
+   assert.equal(properties.maxDistance, 305);
    assert.equal(properties.key, rangeKey);
 });
 
@@ -40,7 +40,7 @@ QUnit.test("keys and values", function(assert)
 
 QUnit.test("keys()", function(assert)
 {
-   EnumTest.keys(assert, Range, 3, Range.ONE, Range.THREE);
+   EnumTest.keys(assert, Range, 3, Range.CLOSE, Range.LONG);
 });
 
 const RangeTest = {};

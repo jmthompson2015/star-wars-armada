@@ -1,30 +1,31 @@
 const Range = {
-   ONE: "one",
-   TWO: "two",
-   THREE: "three"
+   CLOSE: "close",
+   MEDIUM: "medium",
+   LONG: "long"
 };
 
 Range.properties = {
-   "one":
+   "close":
    {
       minDistance: 0, // Minimum distance. (mm)
-      maxDistance: 116, // Maximum distance. (mm)
-      name: "1",
-      key: "one"
+      maxDistance: 123, // Maximum distance. (mm)
+      name: "Close",
+      key: "close"
    },
-   "two":
+   "medium":
    {
-      minDistance: 117, // Minimum distance. (mm)
-      maxDistance: 180, // Maximum distance. (mm)
-      name: "2",
-      key: "two"
+      // 2.5" = 63.5 mm
+      minDistance: 124, // Minimum distance. (mm)
+      maxDistance: 187, // Maximum distance. (mm)
+      name: "Medium",
+      key: "medium"
    },
-   "three":
+   "long":
    {
-      minDistance: 181, // Minimum distance. (mm)
-      maxDistance: 303, // Maximum distance. (mm)
-      name: "3",
-      key: "three"
+      minDistance: 188, // Minimum distance. (mm)
+      maxDistance: 305, // Maximum distance. (mm)
+      name: "Long",
+      key: "long"
    }
 };
 

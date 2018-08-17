@@ -2,9 +2,11 @@ import Command from "./Command.js";
 import DamageCard from "./DamageCard.js";
 import DefenseToken from "./DefenseToken.js";
 import DiceValue from "./DiceValue.js";
+import Distance from "./Distance.js";
 import EnumUtilities from "./EnumUtilities.js";
 import Faction from "./Faction.js";
 import Phase from "./Phase.js";
+import PlayFormat from "./PlayFormat.js";
 import Range from "./Range.js";
 import Selector from "./Selector.js";
 import ShipBase from "./ShipBase.js";
@@ -19,9 +21,11 @@ export
    DamageCard,
    DefenseToken,
    DiceValue,
+   Distance,
    EnumUtilities,
    Faction,
    Phase,
+   PlayFormat,
    Range,
    Selector,
    ShipBase,
