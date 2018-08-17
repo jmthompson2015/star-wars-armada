@@ -183,6 +183,161 @@
       width: 200,
    };
 
+   const ReactUtilities = {};
+
+   ReactUtilities.createButton = function(element, key, className, props = {})
+   {
+      const newProps = R.merge(props,
+      {
+         key: key,
+         className: className
+      });
+
+      return ReactDOMFactories.button(newProps, element);
+   };
+
+   ReactUtilities.createCell = function(element, key, className, props = {})
+   {
+      const newProps = R.merge(props,
+      {
+         key: key,
+         className: "dtc" + (className ? " " + className : "")
+      });
+
+      return ReactDOMFactories.div(newProps, element);
+   };
+
+   ReactUtilities.createFlexbox = function(cells, key, className, props = {})
+   {
+      const newProps = R.merge(props,
+      {
+         key: key,
+         className: "flex" + (className ? " " + className : "")
+      });
+
+      return ReactDOMFactories.div(newProps, cells);
+   };
+
+   ReactUtilities.createFlexboxWrap = function(cells, key, className, props = {})
+   {
+      const newProps = R.merge(props,
+      {
+         key: key,
+         className: "flex flex-wrap" + (className ? " " + className : "")
+      });
+
+      return ReactDOMFactories.div(newProps, cells);
+   };
+
+   ReactUtilities.createImg = function(src, key, className, props = {})
+   {
+      const newProps = R.merge(props,
+      {
+         src: src,
+         key: key,
+         className: className
+      });
+
+      return ReactDOMFactories.img(newProps);
+   };
+
+   ReactUtilities.createRow = function(cells, key, className, props = {})
+   {
+      const newProps = R.merge(props,
+      {
+         key: key,
+         className: "dt-row" + (className ? " " + className : "")
+      });
+
+      return ReactDOMFactories.div(newProps, cells);
+   };
+
+   ReactUtilities.createSpan = function(element, key, className, props = {})
+   {
+      const newProps = R.merge(props,
+      {
+         key: key,
+         className: className
+      });
+
+      return ReactDOMFactories.span(newProps, element);
+   };
+
+   ReactUtilities.createTable = function(rows, key, className, props = {})
+   {
+      const newProps = R.merge(props,
+      {
+         key: key,
+         className: "dt" + (className ? " " + className : "")
+      });
+
+      return ReactDOMFactories.div(newProps, rows);
+   };
+
+   class DicePanel extends React.Component
+   {
+      render()
+      {
+         const dice = this.props.dice;
+         const sortedDice = R.sort(comparator, dice);
+         let count = 0;
+         const mapFunction = diceKey => ReactUtilities.createCell(createImage(diceKey), count++);
+         const cells = R.map(mapFunction, sortedDice);
+         const row = ReactUtilities.createRow(cells);
+
+         return ReactUtilities.createTable(row, undefined, "bg-white center");
+      }
+   }
+
+   const createImage = function(die)
+   {
+      const dieName = R.cond([
+        [R.equals("hitHit"), R.always("hit-hit")], // hit + hit
+        [R.equals("hitCriticalHit"), R.always("hit-critical-hit")], // hit + critical hit
+        [R.equals("criticalHit"), R.always("critical-hit")], // critical hit
+        [R.T, R.identity]
+      ])(die.dieKey);
+      const source = Endpoint.ARMADA_IMAGES + `dice/${die.color}-${dieName}.png`;
+
+      return ReactUtilities.createImg(source, undefined, undefined,
+      {
+         width: 48
+      });
+   };
+
+   const comparator = (a, b) =>
+   {
+      const dieValueA = AA.Selector.diceValue(a.dieKey);
+      const dieValueB = AA.Selector.diceValue(b.dieKey);
+
+      let answer = dieValueA.sortOrder - dieValueB.sortOrder;
+
+      if (answer === 0)
+      {
+         const colorA = a.color;
+         const colorB = b.color;
+
+         if (colorA > colorB)
+         {
+            answer = 1;
+         }
+         else if (colorA < colorB)
+         {
+            answer = -1;
+         }
+      }
+
+      return answer;
+   };
+
+   DicePanel.propTypes = {
+      dice: PropTypes.object
+   };
+
+   DicePanel.defaultProps = {
+      dice: []
+   };
+
    const ImageWithLabelUI = props =>
    {
       const image = ReactDOMFactories.img(
@@ -276,98 +431,8 @@
       showLabel: false
    };
 
-   const ReactUtilities = {};
-
-   ReactUtilities.createButton = function(element, key, className, props = {})
-   {
-      const newProps = R.merge(props,
-      {
-         key: key,
-         className: className
-      });
-
-      return ReactDOMFactories.button(newProps, element);
-   };
-
-   ReactUtilities.createCell = function(element, key, className, props = {})
-   {
-      const newProps = R.merge(props,
-      {
-         key: key,
-         className: "dtc" + (className ? " " + className : "")
-      });
-
-      return ReactDOMFactories.div(newProps, element);
-   };
-
-   ReactUtilities.createFlexbox = function(cells, key, className, props = {})
-   {
-      const newProps = R.merge(props,
-      {
-         key: key,
-         className: "flex" + (className ? " " + className : "")
-      });
-
-      return ReactDOMFactories.div(newProps, cells);
-   };
-
-   ReactUtilities.createFlexboxWrap = function(cells, key, className, props = {})
-   {
-      const newProps = R.merge(props,
-      {
-         key: key,
-         className: "flex flex-wrap" + (className ? " " + className : "")
-      });
-
-      return ReactDOMFactories.div(newProps, cells);
-   };
-
-   ReactUtilities.createImg = function(src, key, className, props = {})
-   {
-      const newProps = R.merge(props,
-      {
-         src: src,
-         key: key,
-         className: className
-      });
-
-      return ReactDOMFactories.img(newProps);
-   };
-
-   ReactUtilities.createRow = function(cells, key, className, props = {})
-   {
-      const newProps = R.merge(props,
-      {
-         key: key,
-         className: "dt-row" + (className ? " " + className : "")
-      });
-
-      return ReactDOMFactories.div(newProps, cells);
-   };
-
-   ReactUtilities.createSpan = function(element, key, className, props = {})
-   {
-      const newProps = R.merge(props,
-      {
-         key: key,
-         className: className
-      });
-
-      return ReactDOMFactories.span(newProps, element);
-   };
-
-   ReactUtilities.createTable = function(rows, key, className, props = {})
-   {
-      const newProps = R.merge(props,
-      {
-         key: key,
-         className: "dt" + (className ? " " + className : "")
-      });
-
-      return ReactDOMFactories.div(newProps, rows);
-   };
-
    exports.CardImage = CardImage;
+   exports.DicePanel = DicePanel;
    exports.FactionUI = FactionUI;
    exports.ImageWithLabelUI = ImageWithLabelUI;
    exports.UpgradeSlotUI = UpgradeSlotUI;

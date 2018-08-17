@@ -15,11 +15,16 @@
       red = 0
    }) =>
    {
-      const answer = {};
+      // const answer = {};
+      //
+      // answer.black = myRollDice(rollRandomBlackValue)(black);
+      // answer.blue = myRollDice(rollRandomBlueValue)(blue);
+      // answer.red = myRollDice(rollRandomRedValue)(red);
+      let answer = [];
 
-      answer.black = myRollDice(rollRandomBlackValue)(black);
-      answer.blue = myRollDice(rollRandomBlueValue)(blue);
-      answer.red = myRollDice(rollRandomRedValue)(red);
+      answer = R.concat(answer, myRollDice(rollRandomBlackValue)(black));
+      answer = R.concat(answer, myRollDice(rollRandomBlueValue)(blue));
+      answer = R.concat(answer, myRollDice(rollRandomRedValue)(red));
 
       return answer;
    };
@@ -65,7 +70,10 @@
             throw "Unsupported roll: " + roll;
       }
 
-      return value;
+      return {
+         color: "black",
+         dieKey: value
+      };
    };
 
    const rollRandomBlueValue = () =>
@@ -96,7 +104,10 @@
             throw "Unsupported roll: " + roll;
       }
 
-      return value;
+      return {
+         color: "blue",
+         dieKey: value
+      };
    };
 
    const rollRandomRedValue = () =>
@@ -131,7 +142,10 @@
             throw "Unsupported roll: " + roll;
       }
 
-      return value;
+      return {
+         color: "red",
+         dieKey: value
+      };
    };
 
    Object.freeze(DiceUtilities);

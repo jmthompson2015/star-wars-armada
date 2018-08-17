@@ -6,8 +6,6 @@ QUnit.module("DiceUtilities");
 
 QUnit.test("rollDice()", function(assert)
 {
-   // Setup.
-
    // Run.
    const result = DiceUtils.rollDice(
    {
@@ -18,77 +16,67 @@ QUnit.test("rollDice()", function(assert)
 
    // Verify.
    assert.ok(result);
-   assert.equal(Object.keys(result).length, 3);
-   const count = R.reduce((accum, value) => accum += value.length, 0, Object.values(result));
-   assert.equal(count, 1 + 2 + 3);
-   verifyBlackDice(assert, 1, result.black);
-   verifyBlueDice(assert, 2, result.blue);
-   verifyRedDice(assert, 3, result.red);
+   assert.equal(result.length, 1 + 2 + 3);
+   verifyBlackDice(assert, 1, result.filter(die => die.color === "black"));
+   verifyBlueDice(assert, 2, result.filter(die => die.color === "blue"));
+   verifyRedDice(assert, 3, result.filter(die => die.color === "red"));
 });
 
 QUnit.test("rollDice() black", function(assert)
 {
-   // Setup.
-   const count = 3;
-
    // Run.
    const result = DiceUtils.rollDice(
    {
-      black: count
+      black: 3
    });
 
    // Verify.
    assert.ok(result);
-   assert.equal(Object.keys(result).length, 3);
-   verifyBlackDice(assert, 3, result.black);
-   verifyBlueDice(assert, 0, result.blue);
-   verifyRedDice(assert, 0, result.red);
+   assert.equal(result.length, 3);
+   verifyBlackDice(assert, 3, result.filter(die => die.color === "black"));
+   verifyBlueDice(assert, 0, result.filter(die => die.color === "blue"));
+   verifyRedDice(assert, 0, result.filter(die => die.color === "red"));
 });
 
 QUnit.test("rollDice() blue", function(assert)
 {
-   // Setup.
-   const count = 3;
-
    // Run.
    const result = DiceUtils.rollDice(
    {
-      blue: count
+      blue: 3
    });
 
    // Verify.
    assert.ok(result);
-   assert.equal(Object.keys(result).length, 3);
-   verifyBlackDice(assert, 0, result.black);
-   verifyBlueDice(assert, 3, result.blue);
-   verifyRedDice(assert, 0, result.red);
+   assert.equal(result.length, 3);
+   verifyBlackDice(assert, 0, result.filter(die => die.color === "black"));
+   verifyBlueDice(assert, 3, result.filter(die => die.color === "blue"));
+   verifyRedDice(assert, 0, result.filter(die => die.color === "red"));
 });
 
 QUnit.test("rollDice() red", function(assert)
 {
-   // Setup.
-   const count = 3;
-
    // Run.
    const result = DiceUtils.rollDice(
    {
-      red: count
+      red: 3
    });
 
    // Verify.
    assert.ok(result);
-   assert.equal(Object.keys(result).length, 3);
-   verifyBlackDice(assert, 0, result.black);
-   verifyBlueDice(assert, 0, result.blue);
-   verifyRedDice(assert, 3, result.red);
+   assert.equal(result.length, 3);
+   verifyBlackDice(assert, 0, result.filter(die => die.color === "black"));
+   verifyBlueDice(assert, 0, result.filter(die => die.color === "blue"));
+   verifyRedDice(assert, 3, result.filter(die => die.color === "red"));
 });
 
 ////////////////////////////////////////////////////////////////////////////////
-const verifyBlackDice = (assert, count, diceKeys) =>
+const verifyBlackDice = (assert, count, dice) =>
 {
-   assert.equal(diceKeys.length, count);
+   assert.equal(dice.length, count);
 
    const blackDiceKeys = [DiceValue.HIT, DiceValue.HIT_CRITICAL_HIT, DiceValue.BLANK];
+   const diceKeys = dice.map(die => die.dieKey);
 
    for (let i = 0; i < count; i++)
    {
@@ -96,11 +84,12 @@ const verifyBlackDice = (assert, count, diceKeys) =>
    }
 };
 
-const verifyBlueDice = (assert, count, diceKeys) =>
+const verifyBlueDice = (assert, count, dice) =>
 {
-   assert.equal(diceKeys.length, count);
+   assert.equal(dice.length, count);
 
    const blueDiceKeys = [DiceValue.HIT, DiceValue.CRITICAL_HIT, DiceValue.ACCURACY];
+   const diceKeys = dice.map(die => die.dieKey);
 
    for (let i = 0; i < count; i++)
    {
@@ -108,11 +97,12 @@ const verifyBlueDice = (assert, count, diceKeys) =>
    }
 };
 
-const verifyRedDice = (assert, count, diceKeys) =>
+const verifyRedDice = (assert, count, dice) =>
 {
-   assert.equal(diceKeys.length, count);
+   assert.equal(dice.length, count);
 
    const redDiceKeys = [DiceValue.HIT, DiceValue.HIT_HIT, DiceValue.CRITICAL_HIT, DiceValue.ACCURACY, DiceValue.BLANK];
+   const diceKeys = dice.map(die => die.dieKey);
 
    for (let i = 0; i < count; i++)
    {

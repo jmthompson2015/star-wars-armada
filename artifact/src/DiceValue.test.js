@@ -8,7 +8,7 @@ QUnit.test("DiceValue properties Hit", function(assert)
    const dieKey = DiceValue.HIT;
    const properties = DiceValue.properties[dieKey];
    assert.equal(properties.name, "Hit");
-   assert.equal(properties.sortOrder, 0);
+   assert.equal(properties.sortOrder, 1);
    assert.equal(properties.key, dieKey);
 });
 
@@ -17,7 +17,7 @@ QUnit.test("DiceValue properties Hit + Critical Hit", function(assert)
    const dieKey = DiceValue.HIT_CRITICAL_HIT;
    const properties = DiceValue.properties[dieKey];
    assert.equal(properties.name, "Hit + Critical Hit");
-   assert.equal(properties.sortOrder, 3);
+   assert.equal(properties.sortOrder, 2);
    assert.equal(properties.key, dieKey);
 });
 
@@ -28,7 +28,7 @@ QUnit.test("keys and values", function(assert)
 
 QUnit.test("keys()", function(assert)
 {
-   EnumTest.keys(assert, DiceValue, 6, DiceValue.HIT, DiceValue.BLANK);
+   EnumTest.keys(assert, DiceValue, 6, DiceValue.ACCURACY, DiceValue.HIT_HIT);
 });
 
 const DiceValueTest = {};
