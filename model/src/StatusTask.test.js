@@ -17,6 +17,82 @@ QUnit.test("doIt() Start", function(assert)
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
+      verifyPhaseKey(assert, store, Phase.STATUS_READY_DEFENSE_TOKENS);
+      done();
+   };
+
+   // Run.
+   const done = assert.async();
+   StatusTask.doIt(store).then(callback);
+});
+
+QUnit.test("doIt() Ready Defense Tokens", function(assert)
+{
+   // Setup.
+   const store = TestData.createStore();
+   setPhase(store, Phase.STATUS_READY_DEFENSE_TOKENS);
+
+   const callback = store =>
+   {
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
+      verifyPhaseKey(assert, store, Phase.STATUS_READY_UPGRADE_CARDS);
+      done();
+   };
+
+   // Run.
+   const done = assert.async();
+   StatusTask.doIt(store).then(callback);
+});
+
+QUnit.test("doIt() Ready Upgrade Cards", function(assert)
+{
+   // Setup.
+   const store = TestData.createStore();
+   setPhase(store, Phase.STATUS_READY_UPGRADE_CARDS);
+
+   const callback = store =>
+   {
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
+      verifyPhaseKey(assert, store, Phase.STATUS_FLIP_INITIATIVE_TOKEN);
+      done();
+   };
+
+   // Run.
+   const done = assert.async();
+   StatusTask.doIt(store).then(callback);
+});
+
+QUnit.test("doIt() Flip Initiative Token", function(assert)
+{
+   // Setup.
+   const store = TestData.createStore();
+   setPhase(store, Phase.STATUS_FLIP_INITIATIVE_TOKEN);
+
+   const callback = store =>
+   {
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
+      verifyPhaseKey(assert, store, Phase.STATUS_PLACE_ROUND_TOKEN);
+      done();
+   };
+
+   // Run.
+   const done = assert.async();
+   StatusTask.doIt(store).then(callback);
+});
+
+QUnit.test("doIt() Place Round Token", function(assert)
+{
+   // Setup.
+   const store = TestData.createStore();
+   setPhase(store, Phase.STATUS_PLACE_ROUND_TOKEN);
+
+   const callback = store =>
+   {
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
       verifyPhaseKey(assert, store, Phase.STATUS_END);
       done();
    };

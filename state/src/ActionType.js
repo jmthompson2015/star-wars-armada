@@ -16,12 +16,17 @@ ActionType.DEAL_DAMAGE = "dealDamage";
 ActionType.DEQUEUE_COMMAND = "dequeueCommand";
 ActionType.DEQUEUE_SHIP = "dequeueShip";
 ActionType.DEQUEUE_SQUADRON = "dequeueSquadron";
-ActionType.DEQUEUE_STATUS = "dequeueStatus";
+// ActionType.DEQUEUE_STATUS_SHIP = "dequeueStatusShip";
+// ActionType.DEQUEUE_STATUS_SQUADRON = "dequeueStatusSquadron";
 
 ActionType.INCREMENT_ROUND = "incrementRound";
 
 ActionType.MOVE_SHIP = "moveShip";
 ActionType.MOVE_SQUADRON = "moveSquadron";
+
+ActionType.READY_SHIP_DEFENSE_TOKENS = "readyShipDefenseTokens";
+ActionType.READY_SQUADRON_DEFENSE_TOKENS = "readySquadronDefenseTokens";
+ActionType.READY_UPGRADE_CARDS = "readyUpgradeCards";
 
 ActionType.RESET_ACTIVE_QUEUE = "resetActiveQueue";
 

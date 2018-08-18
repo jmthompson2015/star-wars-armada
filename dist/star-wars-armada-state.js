@@ -22,12 +22,17 @@
    ActionType.DEQUEUE_COMMAND = "dequeueCommand";
    ActionType.DEQUEUE_SHIP = "dequeueShip";
    ActionType.DEQUEUE_SQUADRON = "dequeueSquadron";
-   ActionType.DEQUEUE_STATUS = "dequeueStatus";
+   // ActionType.DEQUEUE_STATUS_SHIP = "dequeueStatusShip";
+   // ActionType.DEQUEUE_STATUS_SQUADRON = "dequeueStatusSquadron";
 
    ActionType.INCREMENT_ROUND = "incrementRound";
 
    ActionType.MOVE_SHIP = "moveShip";
    ActionType.MOVE_SQUADRON = "moveSquadron";
+
+   ActionType.READY_SHIP_DEFENSE_TOKENS = "readyShipDefenseTokens";
+   ActionType.READY_SQUADRON_DEFENSE_TOKENS = "readySquadronDefenseTokens";
+   ActionType.READY_UPGRADE_CARDS = "readyUpgradeCards";
 
    ActionType.RESET_ACTIVE_QUEUE = "resetActiveQueue";
 
@@ -90,13 +95,17 @@
 
    ActionCreator.dequeueSquadron = makeActionCreator(ActionType.DEQUEUE_SQUADRON);
 
-   ActionCreator.dequeueStatus = makeActionCreator(ActionType.DEQUEUE_STATUS);
-
    ActionCreator.incrementRound = makeActionCreator(ActionType.INCREMENT_ROUND);
 
    ActionCreator.moveShip = makeActionCreator(ActionType.MOVE_SHIP, "shipId", "toPosition");
 
    ActionCreator.moveSquadron = makeActionCreator(ActionType.MOVE_SQUADRON, "squadronId", "toPosition");
+
+   ActionCreator.readyShipDefenseTokens = makeActionCreator(ActionType.READY_SHIP_DEFENSE_TOKENS, "shipId");
+
+   ActionCreator.readySquadronDefenseTokens = makeActionCreator(ActionType.READY_SQUADRON_DEFENSE_TOKENS, "squadronId");
+
+   ActionCreator.readyUpgradeCards = makeActionCreator(ActionType.READY_UPGRADE_CARDS, "shipId");
 
    ActionCreator.resetActiveQueue = makeActionCreator(ActionType.RESET_ACTIVE_QUEUE);
 
@@ -405,7 +414,7 @@
          return GameState.create();
       }
 
-      let newActiveAgentId;
+      let newActiveShipId, newActiveSquadronId;
 
       switch (action.type)
       {
@@ -439,21 +448,17 @@
             return assoc("shipInstances", newShipInstances2, assoc("damageDeck", state.damageDeck.slice(1), state));
 
          case ActionType.DEQUEUE_COMMAND:
-            newActiveAgentId = state.activeQueue[0];
+            const newActiveAgentId = state.activeQueue[0];
             console.log("Active Agent ID: " + newActiveAgentId + " Agent: " + (newActiveAgentId !== undefined ? state.agentInstances[newActiveAgentId].name : undefined));
             return assoc("activeAgentId", newActiveAgentId, assoc("activeQueue", state.activeQueue.slice(1), state));
          case ActionType.DEQUEUE_SHIP:
-            const newActiveShipId = state.activeQueue[0];
+            newActiveShipId = state.activeQueue[0];
             console.log("Active Ship ID: " + newActiveShipId + " Ship: " + (newActiveShipId !== undefined ? state.shipInstances[newActiveShipId].shipKey : undefined));
             return assoc("activeShipId", newActiveShipId, assoc("activeQueue", state.activeQueue.slice(1), state));
          case ActionType.DEQUEUE_SQUADRON:
-            const newActiveSquadronId = state.activeQueue[0];
+            newActiveSquadronId = state.activeQueue[0];
             console.log("Active Squadron ID: " + newActiveSquadronId + " Squadron: " + (newActiveSquadronId !== undefined ? state.squadronInstances[newActiveSquadronId].squadronKey : undefined));
             return assoc("activeSquadronId", newActiveSquadronId, assoc("activeQueue", state.activeQueue.slice(1), state));
-         case ActionType.DEQUEUE_STATUS:
-            newActiveAgentId = state.activeQueue[0];
-            console.log("Active Agent ID: " + newActiveAgentId + " Agent: " + (newActiveAgentId !== undefined ? state.agentInstances[newActiveAgentId].name : undefined));
-            return assoc("activeAgentId", newActiveAgentId, assoc("activeQueue", state.activeQueue.slice(1), state));
 
          case ActionType.INCREMENT_ROUND:
             console.log("Round: " + (state.round + 1));
@@ -463,6 +468,16 @@
             return assocPath(["shipInstances", action.shipId, "position"], action.toPosition, state);
          case ActionType.MOVE_SQUADRON:
             return assocPath(["squadronInstances", action.squadronId, "position"], action.toPosition, state);
+
+         case ActionType.READY_SHIP_DEFENSE_TOKENS:
+            // FIXME
+            return state;
+         case ActionType.READY_SQUADRON_DEFENSE_TOKENS:
+            // FIXME
+            return state;
+         case ActionType.READY_UPGRADE_CARDS:
+            // FIXME
+            return state;
 
          case ActionType.RESET_ACTIVE_QUEUE:
             return assoc("activeQueue", Immutable([]), state);

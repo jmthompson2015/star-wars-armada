@@ -28,13 +28,17 @@ ActionCreator.dequeueShip = makeActionCreator(ActionType.DEQUEUE_SHIP);
 
 ActionCreator.dequeueSquadron = makeActionCreator(ActionType.DEQUEUE_SQUADRON);
 
-ActionCreator.dequeueStatus = makeActionCreator(ActionType.DEQUEUE_STATUS);
-
 ActionCreator.incrementRound = makeActionCreator(ActionType.INCREMENT_ROUND);
 
 ActionCreator.moveShip = makeActionCreator(ActionType.MOVE_SHIP, "shipId", "toPosition");
 
 ActionCreator.moveSquadron = makeActionCreator(ActionType.MOVE_SQUADRON, "squadronId", "toPosition");
+
+ActionCreator.readyShipDefenseTokens = makeActionCreator(ActionType.READY_SHIP_DEFENSE_TOKENS, "shipId");
+
+ActionCreator.readySquadronDefenseTokens = makeActionCreator(ActionType.READY_SQUADRON_DEFENSE_TOKENS, "squadronId");
+
+ActionCreator.readyUpgradeCards = makeActionCreator(ActionType.READY_UPGRADE_CARDS, "shipId");
 
 ActionCreator.resetActiveQueue = makeActionCreator(ActionType.RESET_ACTIVE_QUEUE);
 

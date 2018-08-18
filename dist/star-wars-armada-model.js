@@ -320,9 +320,71 @@
    ////////////////////////////////////////////////////////////////////////////////
    const start$3 = store => new Promise((resolve) =>
    {
-      setPhase$3(store, Phase$3.STATUS_END);
+      setPhase$3(store, Phase$3.STATUS_READY_DEFENSE_TOKENS);
       resolve(store);
    });
+
+   PHASE_TO_CONFIG$3[Phase$3.STATUS_READY_DEFENSE_TOKENS] = {
+      processFunction: store =>
+      {
+         // Ships.
+         const shipIds = Object.keys(store.getState().shipInstances).sort();
+         store.dispatch(ActionCreator$5.setActiveQueue(shipIds));
+
+         while (AS.Selector.activeQueue(store.getState()).length > 0)
+         {
+            store.dispatch(ActionCreator$5.dequeueShip());
+            const shipId = AS.Selector.activeShipId(store.getState());
+            store.dispatch(ActionCreator$5.readyShipDefenseTokens(shipId, store.getState()));
+         }
+
+         // Squadrons.
+         const squadronIds = Object.keys(store.getState().squadronInstances).sort();
+         store.dispatch(ActionCreator$5.setActiveQueue(squadronIds));
+
+         while (AS.Selector.activeQueue(store.getState()).length > 0)
+         {
+            store.dispatch(ActionCreator$5.dequeueSquadron());
+            const squadronId = AS.Selector.activeSquadronId(store.getState());
+            store.dispatch(ActionCreator$5.readySquadronDefenseTokens(squadronId, store.getState()));
+         }
+
+         setPhase$3(store, Phase$3.STATUS_READY_UPGRADE_CARDS);
+      }
+   };
+
+   PHASE_TO_CONFIG$3[Phase$3.STATUS_READY_UPGRADE_CARDS] = {
+      processFunction: store =>
+      {
+         const shipIds = Object.keys(store.getState().shipInstances).sort();
+         store.dispatch(ActionCreator$5.setActiveQueue(shipIds));
+
+         while (AS.Selector.activeQueue(store.getState()).length > 0)
+         {
+            store.dispatch(ActionCreator$5.dequeueShip());
+            const shipId = AS.Selector.activeShipId(store.getState());
+            store.dispatch(ActionCreator$5.readyUpgradeCards(shipId, store.getState()));
+         }
+
+         setPhase$3(store, Phase$3.STATUS_FLIP_INITIATIVE_TOKEN);
+      }
+   };
+
+   PHASE_TO_CONFIG$3[Phase$3.STATUS_FLIP_INITIATIVE_TOKEN] = {
+      processFunction: store =>
+      {
+         // TODO: flip initiative token.
+         setPhase$3(store, Phase$3.STATUS_PLACE_ROUND_TOKEN);
+      }
+   };
+
+   PHASE_TO_CONFIG$3[Phase$3.STATUS_PLACE_ROUND_TOKEN] = {
+      processFunction: store =>
+      {
+         store.dispatch(ActionCreator$5.incrementRound(store.getState()));
+         setPhase$3(store, Phase$3.STATUS_END);
+      }
+   };
 
    const end$3 = store => new Promise((resolve) =>
    {
