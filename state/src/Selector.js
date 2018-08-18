@@ -20,6 +20,8 @@ Selector.activeAgentId = state => R.prop("activeAgentId", state);
 
 Selector.activeCombatId = state => R.prop("activeCombatId", state);
 
+Selector.activeQueue = state => R.prop("activeQueue", state);
+
 Selector.activeShipId = state => R.prop("activeShipId", state);
 
 Selector.activeSquadronId = state => R.prop("activeSquadronId", state);

@@ -1,5 +1,3 @@
-import Selector from "./Selector.js";
-
 const ActionCreator = AS.ActionCreator;
 
 const TaskUtilities = {};
@@ -12,8 +10,8 @@ TaskUtilities.processPhase = (
    responseFunction
 }) => store => new Promise((resolve, reject) =>
 {
-   const agentQuery = Selector.agentQuery(store.getState());
-   const agentResponse = Selector.agentResponse(store.getState());
+   const agentQuery = AS.Selector.agentQuery(store.getState());
+   const agentResponse = AS.Selector.agentResponse(store.getState());
 
    if (agentQuery !== undefined)
    {

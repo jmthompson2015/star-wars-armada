@@ -1,3 +1,4 @@
+import AgentQueryTypeTest from "./AgentQueryType.test.js";
 import ArmadaModelTest from "./ArmadaModel.test.js";
 import CommandTaskTest from "./CommandTask.test.js";
 import DamageDeckTest from "./DamageDeck.test.js";

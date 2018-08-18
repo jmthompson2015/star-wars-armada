@@ -22,15 +22,27 @@ ActionCreator.dealCritical = makeActionCreator(ActionType.DEAL_CRITICAL, "shipId
 
 ActionCreator.dealDamage = makeActionCreator(ActionType.DEAL_DAMAGE, "shipId");
 
+ActionCreator.dequeueCommand = makeActionCreator(ActionType.DEQUEUE_COMMAND);
+
+ActionCreator.dequeueShip = makeActionCreator(ActionType.DEQUEUE_SHIP);
+
+ActionCreator.dequeueSquadron = makeActionCreator(ActionType.DEQUEUE_SQUADRON);
+
+ActionCreator.dequeueStatus = makeActionCreator(ActionType.DEQUEUE_STATUS);
+
 ActionCreator.incrementRound = makeActionCreator(ActionType.INCREMENT_ROUND);
 
 ActionCreator.moveShip = makeActionCreator(ActionType.MOVE_SHIP, "shipId", "toPosition");
 
 ActionCreator.moveSquadron = makeActionCreator(ActionType.MOVE_SQUADRON, "squadronId", "toPosition");
 
+ActionCreator.resetActiveQueue = makeActionCreator(ActionType.RESET_ACTIVE_QUEUE);
+
 ActionCreator.setActiveAgentId = makeActionCreator(ActionType.SET_ACTIVE_AGENT_ID, "activeAgentId");
 
 ActionCreator.setActiveCombatId = makeActionCreator(ActionType.SET_ACTIVE_COMBAT_ID, "activeCombatId");
+
+ActionCreator.setActiveQueue = makeActionCreator(ActionType.SET_ACTIVE_QUEUE, "activeQueue");
 
 ActionCreator.setActiveShipId = makeActionCreator(ActionType.SET_ACTIVE_SHIP_ID, "activeShipId");
 

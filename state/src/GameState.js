@@ -14,6 +14,7 @@ GameState.create = function(
    agentQuery,
    agentResponse,
 
+   activeQueue = [],
    damageDeck = [],
    damageDiscardPile = [],
 
@@ -40,6 +41,7 @@ GameState.create = function(
       agentQuery: Immutable(agentQuery),
       agentResponse: Immutable(agentResponse),
 
+      activeQueue: Immutable(activeQueue),
       damageDeck: Immutable(damageDeck),
       damageDiscardPile: Immutable(damageDiscardPile),
 

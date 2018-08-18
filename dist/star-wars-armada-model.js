@@ -4,11 +4,20 @@
    (factory((global.AM = {})));
 }(this, (function (exports) { 'use strict';
 
-   const Selector = {};
+   const AgentQueryType = {
 
-   Selector.shipCountByAgent = (agentId, state) => AS.Selector.shipIdsByAgent(agentId, state).length;
+      CHOOSE_COMMANDS: "chooseCommands",
+   };
 
-   Object.freeze(Selector);
+   AgentQueryType.properties = {
+      "chooseCommands":
+      {
+         "name": "Choose Commands",
+         "key": "chooseCommands"
+      }
+   };
+
+   Object.freeze(AgentQueryType);
 
    const ActionCreator = AS.ActionCreator;
 
@@ -22,8 +31,8 @@
       responseFunction
    }) => store => new Promise((resolve, reject) =>
    {
-      const agentQuery = Selector.agentQuery(store.getState());
-      const agentResponse = Selector.agentResponse(store.getState());
+      const agentQuery = AS.Selector.agentQuery(store.getState());
+      const agentResponse = AS.Selector.agentResponse(store.getState());
 
       if (agentQuery !== undefined)
       {
@@ -95,9 +104,43 @@
    ////////////////////////////////////////////////////////////////////////////////
    const start = store => new Promise((resolve) =>
    {
-      setPhase(store, Phase.COMMAND_END);
+      setCommandQueue(store);
+      setPhase(store, Phase.COMMAND_COMMANDING);
       resolve(store);
    });
+
+   PHASE_TO_CONFIG[Phase.COMMAND_COMMANDING] = {
+      processFunction: store =>
+      {
+         const commandQueue = AS.Selector.activeQueue(store.getState());
+
+         if (commandQueue.length > 0)
+         {
+            store.dispatch(ActionCreator$1.dequeueCommand());
+            const activeAgentId = AS.Selector.activeAgentId(store.getState());
+            const newAgentQuery = AS.AgentQueryState.create(
+            {
+               agentId: activeAgentId,
+               queryKey: AgentQueryType.CHOOSE_COMMANDS,
+               payload:
+               {}
+            });
+            store.dispatch(ActionCreator$1.setAgentQuery(newAgentQuery));
+         }
+         else
+         {
+            store.dispatch(ActionCreator$1.clearActiveAgentId());
+            store.dispatch(ActionCreator$1.setPhase(Phase.COMMAND_END));
+         }
+      },
+      responseKey: AgentQueryType.CHOOSE_COMMANDS,
+      responseFunction: store =>
+      {
+         const agentResponse = AS.Selector.agentResponse(store.getState());
+         console.log("COMMANDING responseFunction() agentResponse = " + JSON.stringify(agentResponse, null, "   "));
+         store.dispatch(ActionCreator$1.clearAgentResponse());
+      }
+   };
 
    const end = store => new Promise((resolve) =>
    {
@@ -106,9 +149,22 @@
    });
 
    ////////////////////////////////////////////////////////////////////////////////
+   const setCommandQueue = store =>
+   {
+      const agents = store.getState().agentInstances;
+      const queue = R.map(agent => agent.id, agents);
+      store.dispatch(ActionCreator$1.setActiveQueue(queue));
+   };
+
    const setPhase = (store, phaseKey) => store.dispatch(ActionCreator$1.setPhase(phaseKey));
 
    Object.freeze(CommandTask);
+
+   const Selector = {};
+
+   Selector.shipCountByAgent = (agentId, state) => AS.Selector.shipIdsByAgent(agentId, state).length;
+
+   Object.freeze(Selector);
 
    const ActionCreator$2 = AS.ActionCreator;
 
@@ -722,6 +778,7 @@
 
    Object.freeze(FleetBuilder);
 
+   exports.AgentQueryType = AgentQueryType;
    exports.ArmadaModel = ArmadaModel;
    exports.CommandTask = CommandTask;
    exports.DamageDeck = DamageDeck;

@@ -13,13 +13,21 @@ ActionType.CLEAR_SHIP_TOKEN_COUNT = "clearShipTokenCount";
 ActionType.DEAL_CRITICAL = "dealCritical";
 ActionType.DEAL_DAMAGE = "dealDamage";
 
+ActionType.DEQUEUE_COMMAND = "dequeueCommand";
+ActionType.DEQUEUE_SHIP = "dequeueShip";
+ActionType.DEQUEUE_SQUADRON = "dequeueSquadron";
+ActionType.DEQUEUE_STATUS = "dequeueStatus";
+
 ActionType.INCREMENT_ROUND = "incrementRound";
 
 ActionType.MOVE_SHIP = "moveShip";
 ActionType.MOVE_SQUADRON = "moveSquadron";
 
+ActionType.RESET_ACTIVE_QUEUE = "resetActiveQueue";
+
 ActionType.SET_ACTIVE_AGENT_ID = "setActiveAgentId";
 ActionType.SET_ACTIVE_COMBAT_ID = "setActiveCombatId";
+ActionType.SET_ACTIVE_QUEUE = "setActiveQueue";
 ActionType.SET_ACTIVE_SHIP_ID = "setActiveShipId";
 ActionType.SET_ACTIVE_SQUADRON_ID = "setActiveSquadronId";
 ActionType.SET_AGENT_FLEET = "setAgentFleet";

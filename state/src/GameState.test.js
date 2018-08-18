@@ -16,6 +16,7 @@ const PROPS = [
   "agentQuery",
   "agentResponse",
 
+  "activeQueue",
   "damageDeck",
   "damageDiscardPile",
 
@@ -87,6 +88,7 @@ function createTestState()
       agentQuery: i++,
       agentResponse: i++,
 
+      activeQueue: i++,
       damageDeck: i++,
       damageDiscardPile: i++,
 

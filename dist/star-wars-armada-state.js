@@ -19,13 +19,21 @@
    ActionType.DEAL_CRITICAL = "dealCritical";
    ActionType.DEAL_DAMAGE = "dealDamage";
 
+   ActionType.DEQUEUE_COMMAND = "dequeueCommand";
+   ActionType.DEQUEUE_SHIP = "dequeueShip";
+   ActionType.DEQUEUE_SQUADRON = "dequeueSquadron";
+   ActionType.DEQUEUE_STATUS = "dequeueStatus";
+
    ActionType.INCREMENT_ROUND = "incrementRound";
 
    ActionType.MOVE_SHIP = "moveShip";
    ActionType.MOVE_SQUADRON = "moveSquadron";
 
+   ActionType.RESET_ACTIVE_QUEUE = "resetActiveQueue";
+
    ActionType.SET_ACTIVE_AGENT_ID = "setActiveAgentId";
    ActionType.SET_ACTIVE_COMBAT_ID = "setActiveCombatId";
+   ActionType.SET_ACTIVE_QUEUE = "setActiveQueue";
    ActionType.SET_ACTIVE_SHIP_ID = "setActiveShipId";
    ActionType.SET_ACTIVE_SQUADRON_ID = "setActiveSquadronId";
    ActionType.SET_AGENT_FLEET = "setAgentFleet";
@@ -76,15 +84,27 @@
 
    ActionCreator.dealDamage = makeActionCreator(ActionType.DEAL_DAMAGE, "shipId");
 
+   ActionCreator.dequeueCommand = makeActionCreator(ActionType.DEQUEUE_COMMAND);
+
+   ActionCreator.dequeueShip = makeActionCreator(ActionType.DEQUEUE_SHIP);
+
+   ActionCreator.dequeueSquadron = makeActionCreator(ActionType.DEQUEUE_SQUADRON);
+
+   ActionCreator.dequeueStatus = makeActionCreator(ActionType.DEQUEUE_STATUS);
+
    ActionCreator.incrementRound = makeActionCreator(ActionType.INCREMENT_ROUND);
 
    ActionCreator.moveShip = makeActionCreator(ActionType.MOVE_SHIP, "shipId", "toPosition");
 
    ActionCreator.moveSquadron = makeActionCreator(ActionType.MOVE_SQUADRON, "squadronId", "toPosition");
 
+   ActionCreator.resetActiveQueue = makeActionCreator(ActionType.RESET_ACTIVE_QUEUE);
+
    ActionCreator.setActiveAgentId = makeActionCreator(ActionType.SET_ACTIVE_AGENT_ID, "activeAgentId");
 
    ActionCreator.setActiveCombatId = makeActionCreator(ActionType.SET_ACTIVE_COMBAT_ID, "activeCombatId");
+
+   ActionCreator.setActiveQueue = makeActionCreator(ActionType.SET_ACTIVE_QUEUE, "activeQueue");
 
    ActionCreator.setActiveShipId = makeActionCreator(ActionType.SET_ACTIVE_SHIP_ID, "activeShipId");
 
@@ -314,6 +334,7 @@
       agentQuery,
       agentResponse,
 
+      activeQueue = [],
       damageDeck = [],
       damageDiscardPile = [],
 
@@ -340,6 +361,7 @@
          agentQuery: Immutable(agentQuery),
          agentResponse: Immutable(agentResponse),
 
+         activeQueue: Immutable(activeQueue),
          damageDeck: Immutable(damageDeck),
          damageDiscardPile: Immutable(damageDiscardPile),
 
@@ -383,6 +405,8 @@
          return GameState.create();
       }
 
+      let newActiveAgentId;
+
       switch (action.type)
       {
          case ActionType.ADD_PILOT_TOKEN_COUNT:
@@ -414,6 +438,23 @@
             const newShipInstances2 = assocPath([action.shipId, "damages"], newDamages2, state.shipInstances);
             return assoc("shipInstances", newShipInstances2, assoc("damageDeck", state.damageDeck.slice(1), state));
 
+         case ActionType.DEQUEUE_COMMAND:
+            newActiveAgentId = state.activeQueue[0];
+            console.log("Active Agent ID: " + newActiveAgentId + " Agent: " + (newActiveAgentId !== undefined ? state.agentInstances[newActiveAgentId].name : undefined));
+            return assoc("activeAgentId", newActiveAgentId, assoc("activeQueue", state.activeQueue.slice(1), state));
+         case ActionType.DEQUEUE_SHIP:
+            const newActiveShipId = state.activeQueue[0];
+            console.log("Active Ship ID: " + newActiveShipId + " Ship: " + (newActiveShipId !== undefined ? state.shipInstances[newActiveShipId].shipKey : undefined));
+            return assoc("activeShipId", newActiveShipId, assoc("activeQueue", state.activeQueue.slice(1), state));
+         case ActionType.DEQUEUE_SQUADRON:
+            const newActiveSquadronId = state.activeQueue[0];
+            console.log("Active Squadron ID: " + newActiveSquadronId + " Squadron: " + (newActiveSquadronId !== undefined ? state.squadronInstances[newActiveSquadronId].squadronKey : undefined));
+            return assoc("activeSquadronId", newActiveSquadronId, assoc("activeQueue", state.activeQueue.slice(1), state));
+         case ActionType.DEQUEUE_STATUS:
+            newActiveAgentId = state.activeQueue[0];
+            console.log("Active Agent ID: " + newActiveAgentId + " Agent: " + (newActiveAgentId !== undefined ? state.agentInstances[newActiveAgentId].name : undefined));
+            return assoc("activeAgentId", newActiveAgentId, assoc("activeQueue", state.activeQueue.slice(1), state));
+
          case ActionType.INCREMENT_ROUND:
             console.log("Round: " + (state.round + 1));
             return assoc("round", state.round + 1, state);
@@ -423,10 +464,15 @@
          case ActionType.MOVE_SQUADRON:
             return assocPath(["squadronInstances", action.squadronId, "position"], action.toPosition, state);
 
+         case ActionType.RESET_ACTIVE_QUEUE:
+            return assoc("activeQueue", Immutable([]), state);
+
          case ActionType.SET_ACTIVE_AGENT_ID:
             return assoc("activeAgentId", action.activeAgentId, state);
          case ActionType.SET_ACTIVE_COMBAT_ID:
             return assoc("activeCombatId", action.activeCombatId, state);
+         case ActionType.SET_ACTIVE_QUEUE:
+            return assoc("activeQueue", action.activeQueue, state);
          case ActionType.SET_ACTIVE_SHIP_ID:
             return assoc("activeShipId", action.activeShipId, state);
          case ActionType.SET_ACTIVE_SQUADRON_ID:
@@ -518,6 +564,8 @@
    Selector.activeAgentId = state => R.prop("activeAgentId", state);
 
    Selector.activeCombatId = state => R.prop("activeCombatId", state);
+
+   Selector.activeQueue = state => R.prop("activeQueue", state);
 
    Selector.activeShipId = state => R.prop("activeShipId", state);
 

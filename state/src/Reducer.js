@@ -10,6 +10,8 @@ Reducer.root = function(state, action)
       return GameState.create();
    }
 
+   let newActiveAgentId;
+
    switch (action.type)
    {
       case ActionType.ADD_PILOT_TOKEN_COUNT:
@@ -41,6 +43,23 @@ Reducer.root = function(state, action)
          const newShipInstances2 = assocPath([action.shipId, "damages"], newDamages2, state.shipInstances);
          return assoc("shipInstances", newShipInstances2, assoc("damageDeck", state.damageDeck.slice(1), state));
 
+      case ActionType.DEQUEUE_COMMAND:
+         newActiveAgentId = state.activeQueue[0];
+         console.log("Active Agent ID: " + newActiveAgentId + " Agent: " + (newActiveAgentId !== undefined ? state.agentInstances[newActiveAgentId].name : undefined));
+         return assoc("activeAgentId", newActiveAgentId, assoc("activeQueue", state.activeQueue.slice(1), state));
+      case ActionType.DEQUEUE_SHIP:
+         const newActiveShipId = state.activeQueue[0];
+         console.log("Active Ship ID: " + newActiveShipId + " Ship: " + (newActiveShipId !== undefined ? state.shipInstances[newActiveShipId].shipKey : undefined));
+         return assoc("activeShipId", newActiveShipId, assoc("activeQueue", state.activeQueue.slice(1), state));
+      case ActionType.DEQUEUE_SQUADRON:
+         const newActiveSquadronId = state.activeQueue[0];
+         console.log("Active Squadron ID: " + newActiveSquadronId + " Squadron: " + (newActiveSquadronId !== undefined ? state.squadronInstances[newActiveSquadronId].squadronKey : undefined));
+         return assoc("activeSquadronId", newActiveSquadronId, assoc("activeQueue", state.activeQueue.slice(1), state));
+      case ActionType.DEQUEUE_STATUS:
+         newActiveAgentId = state.activeQueue[0];
+         console.log("Active Agent ID: " + newActiveAgentId + " Agent: " + (newActiveAgentId !== undefined ? state.agentInstances[newActiveAgentId].name : undefined));
+         return assoc("activeAgentId", newActiveAgentId, assoc("activeQueue", state.activeQueue.slice(1), state));
+
       case ActionType.INCREMENT_ROUND:
          console.log("Round: " + (state.round + 1));
          return assoc("round", state.round + 1, state);
@@ -50,10 +69,15 @@ Reducer.root = function(state, action)
       case ActionType.MOVE_SQUADRON:
          return assocPath(["squadronInstances", action.squadronId, "position"], action.toPosition, state);
 
+      case ActionType.RESET_ACTIVE_QUEUE:
+         return assoc("activeQueue", Immutable([]), state);
+
       case ActionType.SET_ACTIVE_AGENT_ID:
          return assoc("activeAgentId", action.activeAgentId, state);
       case ActionType.SET_ACTIVE_COMBAT_ID:
          return assoc("activeCombatId", action.activeCombatId, state);
+      case ActionType.SET_ACTIVE_QUEUE:
+         return assoc("activeQueue", action.activeQueue, state);
       case ActionType.SET_ACTIVE_SHIP_ID:
          return assoc("activeShipId", action.activeShipId, state);
       case ActionType.SET_ACTIVE_SQUADRON_ID:

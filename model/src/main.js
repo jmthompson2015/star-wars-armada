@@ -1,3 +1,4 @@
+import AgentQueryType from "./AgentQueryType.js";
 import ArmadaModel from "./ArmadaModel.js";
 import CommandTask from "./CommandTask.js";
 import DamageDeck from "./DamageDeck.js";
@@ -11,6 +12,7 @@ import StatusTask from "./StatusTask.js";
 
 export
 {
+   AgentQueryType,
    ArmadaModel,
    CommandTask,
    DamageDeck,

@@ -18,7 +18,7 @@ QUnit.test("keys and values", function(assert)
 
 QUnit.test("keys()", function(assert)
 {
-   EnumTest.keys(assert, Phase, 37, Phase.SETUP, Phase.STATUS_END);
+   EnumTest.keys(assert, Phase, 38, Phase.SETUP, Phase.STATUS_END);
 });
 
 const PhaseTest = {};

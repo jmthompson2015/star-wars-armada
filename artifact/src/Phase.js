@@ -2,6 +2,7 @@ const Phase = {
    SETUP: "setup",
 
    COMMAND_START: "commandStart",
+   COMMAND_COMMANDING: "commandCommanding",
    COMMAND_END: "commandEnd",
 
    SHIP_START: "shipStart",
@@ -52,6 +53,11 @@ Phase.properties = {
    {
       name: "Command (start)",
       key: "commandStart"
+   },
+   "commandCommanding":
+   {
+      name: "Command (commanding)",
+      key: "commandCommanding"
    },
    "commandEnd":
    {
