@@ -507,6 +507,12 @@
 
    Selector.diceKeysByCombat = (combatId, state) => R.prop("diceKeys", Selector.combatInstance(combatId, state));
 
+   Selector.fleetIdByAgent = (agentId, state) => Selector.agentInstance(agentId, state).fleet;
+
+   Selector.shipIdsByAgent = (agentId, state) => Selector.fleetInstance(Selector.fleetIdByAgent(agentId, state), state).ships;
+
+   Selector.shipIdsByFleet = (fleetId, state) => Selector.fleetInstance(fleetId, state).ships;
+
    ////////////////////////////////////////////////////////////////////////////////
 
    Selector.activeAgentId = state => R.prop("activeAgentId", state);

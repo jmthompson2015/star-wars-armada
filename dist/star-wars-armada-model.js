@@ -4,6 +4,407 @@
    (factory((global.AM = {})));
 }(this, (function (exports) { 'use strict';
 
+   const Selector = {};
+
+   Selector.shipCountByAgent = (agentId, state) => AS.Selector.shipIdsByAgent(agentId, state).length;
+
+   Object.freeze(Selector);
+
+   const ActionCreator = AS.ActionCreator;
+
+   const TaskUtilities = {};
+
+   TaskUtilities.processPhase = (
+   {
+      phaseKey,
+      processFunction,
+      responseKey,
+      responseFunction
+   }) => store => new Promise((resolve, reject) =>
+   {
+      const agentQuery = Selector.agentQuery(store.getState());
+      const agentResponse = Selector.agentResponse(store.getState());
+
+      if (agentQuery !== undefined)
+      {
+         reject(new Error("Received agentQuery for phaseKey: " + phaseKey + "\nagentQuery = " + JSON.stringify(agentQuery, null, "   ")));
+      }
+      else if (agentResponse !== undefined && agentResponse.responseKey === responseKey)
+      {
+         if (responseFunction !== undefined)
+         {
+            responseFunction(store);
+            store.dispatch(ActionCreator.clearAgentResponse());
+            resolve(store);
+         }
+         else
+         {
+            reject(new Error("Missing responseFunction for phaseKey: " + phaseKey));
+         }
+      }
+      else
+      {
+         if (processFunction !== undefined)
+         {
+            processFunction(store);
+            resolve(store);
+         }
+         else
+         {
+            reject(new Error("Missing processFunction for phaseKey: " + phaseKey));
+         }
+      }
+   });
+
+   Object.freeze(TaskUtilities);
+
+   const Phase = AA.Phase;
+
+   const ActionCreator$1 = AS.ActionCreator;
+
+   const CommandTask = {};
+   const PHASE_TO_CONFIG = {};
+
+   CommandTask.doIt = store =>
+   {
+      let answer;
+      const phaseKey = AS.Selector.phaseKey(store.getState());
+
+      switch (phaseKey)
+      {
+         case Phase.COMMAND_START:
+            answer = start(store);
+            break;
+         case Phase.COMMAND_END:
+            answer = end(store);
+            break;
+         default:
+            const config = PHASE_TO_CONFIG[phaseKey];
+            answer = TaskUtilities.processPhase(
+            {
+               phaseKey: phaseKey,
+               responseKey: config.responseKey,
+               responseFunction: config.responseFunction,
+               processFunction: config.processFunction
+            })(store);
+      }
+
+      return answer;
+   };
+
+   ////////////////////////////////////////////////////////////////////////////////
+   const start = store => new Promise((resolve) =>
+   {
+      setPhase(store, Phase.COMMAND_END);
+      resolve(store);
+   });
+
+   const end = store => new Promise((resolve) =>
+   {
+      setPhase(store, Phase.SHIP_START);
+      resolve(store);
+   });
+
+   ////////////////////////////////////////////////////////////////////////////////
+   const setPhase = (store, phaseKey) => store.dispatch(ActionCreator$1.setPhase(phaseKey));
+
+   Object.freeze(CommandTask);
+
+   const ActionCreator$2 = AS.ActionCreator;
+
+   const SetupTask = {};
+
+   SetupTask.doIt = store => new Promise((resolve) =>
+   {
+      store.dispatch(ActionCreator$2.setPhase(AA.Phase.COMMAND_START));
+
+      resolve(store);
+   });
+
+   Object.freeze(SetupTask);
+
+   const Phase$1 = AA.Phase;
+
+   const ActionCreator$3 = AS.ActionCreator;
+
+   const ShipTask = {};
+   const PHASE_TO_CONFIG$1 = {};
+
+   ShipTask.doIt = store =>
+   {
+      let answer;
+      const phaseKey = AS.Selector.phaseKey(store.getState());
+
+      switch (phaseKey)
+      {
+         case Phase$1.SHIP_START:
+            answer = start$1(store);
+            break;
+         case Phase$1.SHIP_END:
+            answer = end$1(store);
+            break;
+         default:
+            const config = PHASE_TO_CONFIG$1[phaseKey];
+            answer = TaskUtilities.processPhase(
+            {
+               phaseKey: phaseKey,
+               responseKey: config.responseKey,
+               responseFunction: config.responseFunction,
+               processFunction: config.processFunction
+            })(store);
+      }
+
+      return answer;
+   };
+
+   ////////////////////////////////////////////////////////////////////////////////
+   const start$1 = store => new Promise((resolve) =>
+   {
+      setPhase$1(store, Phase$1.SHIP_END);
+      resolve(store);
+   });
+
+   const end$1 = store => new Promise((resolve) =>
+   {
+      setPhase$1(store, Phase$1.SQUADRON_START);
+      resolve(store);
+   });
+
+   ////////////////////////////////////////////////////////////////////////////////
+   const setPhase$1 = (store, phaseKey) => store.dispatch(ActionCreator$3.setPhase(phaseKey));
+
+   Object.freeze(ShipTask);
+
+   const Phase$2 = AA.Phase;
+
+   const ActionCreator$4 = AS.ActionCreator;
+
+   const SquadronTask = {};
+   const PHASE_TO_CONFIG$2 = {};
+
+   SquadronTask.doIt = store =>
+   {
+      let answer;
+      const phaseKey = AS.Selector.phaseKey(store.getState());
+
+      switch (phaseKey)
+      {
+         case Phase$2.SQUADRON_START:
+            answer = start$2(store);
+            break;
+         case Phase$2.SQUADRON_END:
+            answer = end$2(store);
+            break;
+         default:
+            const config = PHASE_TO_CONFIG$2[phaseKey];
+            answer = TaskUtilities.processPhase(
+            {
+               phaseKey: phaseKey,
+               responseKey: config.responseKey,
+               responseFunction: config.responseFunction,
+               processFunction: config.processFunction
+            })(store);
+      }
+
+      return answer;
+   };
+
+   ////////////////////////////////////////////////////////////////////////////////
+   const start$2 = store => new Promise((resolve) =>
+   {
+      setPhase$2(store, Phase$2.SQUADRON_END);
+      resolve(store);
+   });
+
+   const end$2 = store => new Promise((resolve) =>
+   {
+      setPhase$2(store, Phase$2.STATUS_START);
+      resolve(store);
+   });
+
+   ////////////////////////////////////////////////////////////////////////////////
+   const setPhase$2 = (store, phaseKey) => store.dispatch(ActionCreator$4.setPhase(phaseKey));
+
+   Object.freeze(SquadronTask);
+
+   const Phase$3 = AA.Phase;
+
+   const ActionCreator$5 = AS.ActionCreator;
+
+   const StatusTask = {};
+   const PHASE_TO_CONFIG$3 = {};
+
+   StatusTask.doIt = store =>
+   {
+      let answer;
+      const phaseKey = AS.Selector.phaseKey(store.getState());
+
+      switch (phaseKey)
+      {
+         case Phase$3.STATUS_START:
+            answer = start$3(store);
+            break;
+         case Phase$3.STATUS_END:
+            answer = end$3(store);
+            break;
+         default:
+            const config = PHASE_TO_CONFIG$3[phaseKey];
+            answer = TaskUtilities.processPhase(
+            {
+               phaseKey: phaseKey,
+               responseKey: config.responseKey,
+               responseFunction: config.responseFunction,
+               processFunction: config.processFunction
+            })(store);
+      }
+
+      return answer;
+   };
+
+   ////////////////////////////////////////////////////////////////////////////////
+   const start$3 = store => new Promise((resolve) =>
+   {
+      setPhase$3(store, Phase$3.STATUS_END);
+      resolve(store);
+   });
+
+   const end$3 = store => new Promise((resolve) =>
+   {
+      setPhase$3(store, Phase$3.COMMAND_START);
+      resolve(store);
+   });
+
+   ////////////////////////////////////////////////////////////////////////////////
+   const setPhase$3 = (store, phaseKey) => store.dispatch(ActionCreator$5.setPhase(phaseKey));
+
+   Object.freeze(StatusTask);
+
+   const ActionCreator$6 = AS.ActionCreator;
+   const Reducer = AS.Reducer;
+
+   const ArmadaModel = {};
+
+   ArmadaModel.nextGameState = (
+   {
+      gameState
+   }) =>
+   {
+      // Initialize.
+      const store = Redux.createStore(Reducer.root, gameState);
+      let answer;
+
+      if (isGameOver(store.getState()))
+      {
+         answer = new Promise((resolve) =>
+         {
+            processGameOver(store);
+            resolve(store);
+         });
+      }
+      else
+      {
+         const phaseKey = gameState.phaseKey;
+         let taskClass;
+
+         if (phaseKey === "setup")
+         {
+            taskClass = SetupTask;
+         }
+         else if (phaseKey.startsWith("command"))
+         {
+            taskClass = CommandTask;
+         }
+         else if (phaseKey.startsWith("ship"))
+         {
+            taskClass = ShipTask;
+         }
+         else if (phaseKey.startsWith("squadron"))
+         {
+            taskClass = SquadronTask;
+         }
+         else if (phaseKey.startsWith("status"))
+         {
+            taskClass = StatusTask;
+         }
+
+         answer = taskClass.doIt(store);
+      }
+
+      return answer;
+   };
+
+   const determineWinner = state =>
+   {
+      const shipCount1 = Selector.shipCountByAgent(1, state);
+      const shipCount2 = Selector.shipCountByAgent(2, state);
+
+      return ((shipCount1 > 0 && shipCount2 === 0) ? 1 : ((shipCount1 === 0 && shipCount2 > 0) ? 2 : undefined));
+   };
+
+   const isGameOver = state =>
+   {
+      const round = AS.Selector.round(state);
+      const shipCount1 = Selector.shipCountByAgent(1, state);
+      const shipCount2 = Selector.shipCountByAgent(2, state);
+
+      return (round > 6 || shipCount1 === 0 || shipCount2 === 0);
+   };
+
+   const processGameOver = store =>
+   {
+      const winner = determineWinner(store.getState());
+      store.dispatch(ActionCreator$6.setGameOver(winner));
+
+      const message = (winner === undefined ? "Game is a draw." : winner.name() + " won! ");
+      store.dispatch(ActionCreator$6.setUserMessage(message));
+   };
+
+   Object.freeze(ArmadaModel);
+
+   const DamageDeck = {};
+
+   DamageDeck.create = function()
+   {
+      const keys = AA.EnumUtilities.keys(AA.DamageCard);
+      let count = 0;
+
+      const damageInstances = keys.reduce((accum, damageKey) =>
+      {
+         const damageCard = AA.Selector.damageCard(damageKey);
+
+         for (let i = 0; i < damageCard.amount; i++)
+         {
+            count++;
+            const damageInstance = createDamage(count, damageKey);
+            accum[damageInstance.id] = damageInstance;
+         }
+         return accum;
+      },
+      {});
+
+      const damageDeck = Object.values(damageInstances).map(damage => damage.id);
+
+      // Shuffle.
+      damageDeck.sort(() => Math.random() - 0.5);
+
+      return (
+      {
+         damageInstances: damageInstances,
+         damageDeck: damageDeck
+      });
+   };
+
+   function createDamage(id, damageKey)
+   {
+      return AS.DamageState.create(
+      {
+         id: id,
+         damageKey: damageKey
+      });
+   }
+
+   Object.freeze(DamageDeck);
+
    const DiceValue = AA.DiceValue;
 
    const DiceUtilities = {};
@@ -152,7 +553,7 @@
 
    // import ShipUtils from "./ShipUtilities.js";
 
-   const ActionCreator = AS.ActionCreator;
+   const ActionCreator$7 = AS.ActionCreator;
 
    const SC = AA.ShipCard;
    const SQC = AA.SquadronCard;
@@ -179,9 +580,9 @@
          squadrons: squadronIds
       });
 
-      store.dispatch(ActionCreator.setFleetInstance(answer));
-      store.dispatch(ActionCreator.setFleetShips(fleetId, shipIds));
-      store.dispatch(ActionCreator.setFleetSquadrons(fleetId, squadronIds));
+      store.dispatch(ActionCreator$7.setFleetInstance(answer));
+      store.dispatch(ActionCreator$7.setFleetShips(fleetId, shipIds));
+      store.dispatch(ActionCreator$7.setFleetSquadrons(fleetId, squadronIds));
 
       return answer;
    };
@@ -288,9 +689,9 @@
 
       // Side effects.
       const ship = createShip(store, shipKey);
-      store.dispatch(ActionCreator.setShipInstance(ship));
+      store.dispatch(ActionCreator$7.setShipInstance(ship));
       // store.dispatch(ActionCreator.setShipTokenCounts(ship.id, tokenCounts));
-      store.dispatch(ActionCreator.setShipUpgrades(ship.id, upgradeIds));
+      store.dispatch(ActionCreator$7.setShipUpgrades(ship.id, upgradeIds));
 
       return R.append(ship.id, accumulator);
    };
@@ -301,7 +702,7 @@
 
       // Side effects.
       const squadron = createSquadron(store, squadronKey);
-      store.dispatch(ActionCreator.setSquadronInstance(squadron));
+      store.dispatch(ActionCreator$7.setSquadronInstance(squadron));
       // store.dispatch(ActionCreator.setSquadronTokenCounts(squadron.id, tokenCounts));
 
       return R.append(squadron.id, accumulator);
@@ -313,16 +714,24 @@
 
       // Side effects.
       const upgrade = createUpgrade(store, upgradeKey);
-      store.dispatch(ActionCreator.setUpgradeInstance(upgrade));
-      store.dispatch(ActionCreator.setUpgradeTokenCounts(upgrade.id, tokenCounts));
+      store.dispatch(ActionCreator$7.setUpgradeInstance(upgrade));
+      store.dispatch(ActionCreator$7.setUpgradeTokenCounts(upgrade.id, tokenCounts));
 
       return R.append(upgrade.id, accumulator);
    };
 
    Object.freeze(FleetBuilder);
 
+   exports.ArmadaModel = ArmadaModel;
+   exports.CommandTask = CommandTask;
+   exports.DamageDeck = DamageDeck;
    exports.DiceUtilities = DiceUtilities;
    exports.FleetBuilder = FleetBuilder;
+   exports.Selector = Selector;
+   exports.SetupTask = SetupTask;
+   exports.ShipTask = ShipTask;
+   exports.SquadronTask = SquadronTask;
+   exports.StatusTask = StatusTask;
 
    Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -262,6 +262,34 @@ QUnit.test("diceKeysByCombat() 3", function(assert)
    assert.equal(result[i], diceKeys[i++]);
 });
 
+QUnit.test("fleetIdByAgent() 1", function(assert)
+{
+   // Setup.
+   const gameState = TestData.createGameState();
+   const agentId = 1;
+
+   // Run.
+   const result = Selector.fleetIdByAgent(agentId, gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result, 1);
+});
+
+QUnit.test("fleetInstance() 1", function(assert)
+{
+   // Setup.
+   const gameState = TestData.createGameState();
+   const fleetId = 1;
+
+   // Run.
+   const result = Selector.fleetInstance(fleetId, gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.id, fleetId);
+});
+
 QUnit.test("nextAgentId()", function(assert)
 {
    // Setup.
@@ -338,6 +366,52 @@ QUnit.test("round()", function(assert)
    // Verify.
    assert.ok(result);
    assert.equal(result, 1);
+});
+
+QUnit.test("shipIdsByAgent() 1", function(assert)
+{
+   // Setup.
+   const gameState = TestData.createGameState();
+   const agentId = 1;
+
+   // Run.
+   const result = Selector.shipIdsByAgent(agentId, gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 1);
+   assert.equal(result[0], 1);
+});
+
+QUnit.test("shipIdsByFleet() 1", function(assert)
+{
+   // Setup.
+   const gameState = TestData.createGameState();
+   const fleetId = 1;
+
+   // Run.
+   const result = Selector.shipIdsByFleet(fleetId, gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 1);
+   assert.equal(result[0], 1);
+});
+
+QUnit.test("shipIdsByFleet() 2", function(assert)
+{
+   // Setup.
+   const gameState = TestData.createGameState();
+   const fleetId = 2;
+
+   // Run.
+   const result = Selector.shipIdsByFleet(fleetId, gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 2);
+   assert.equal(result[0], 2);
+   assert.equal(result[1], 3);
 });
 
 QUnit.test("upgradeInstance() 1", function(assert)

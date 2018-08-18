@@ -132,10 +132,9 @@ TestData.createGameState = function()
    squadronInstances[6] = TestData.createSquadron(6, "xWingSquadron", squadronPosition6);
    squadronInstances[7] = TestData.createSquadron(7, "xWingSquadron", squadronPosition7);
 
-   const fleetInstances = {
-      1: TestData.createFleetCoreSetImperial(1, [1], [1, 2, 3, 4]),
-      2: TestData.createFleetCoreSetRebel(2, [2, 3], [5, 6, 7])
-   };
+   const fleetInstances = {};
+   fleetInstances[1] = TestData.createFleetCoreSetImperial(1, [1], [1, 2, 3, 4]);
+   fleetInstances[2] = TestData.createFleetCoreSetRebel(2, [2, 3], [5, 6, 7]);
 
    const agentInstances = {};
    agentInstances[1] = TestData.createAgentImperial(1, 1);
