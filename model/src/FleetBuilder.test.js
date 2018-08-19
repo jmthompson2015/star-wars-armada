@@ -28,7 +28,7 @@ QUnit.test("build() Core Set Imperial", function(assert)
    FleetBuilder.build(store, name, year, description, fleetId, shipAndUpgradeKeys, squadronKeys);
 
    // Verify.
-   verifyCoreSetImperial(assert, store, fleetId);
+   verifyCoreSetImperial(assert, store.getState(), fleetId);
 });
 
 QUnit.test("build() Core Set Rebel", function(assert)
@@ -54,7 +54,7 @@ QUnit.test("build() Core Set Rebel", function(assert)
    FleetBuilder.build(store, name, year, description, fleetId, shipAndUpgradeKeys, squadronKeys);
 
    // Verify.
-   verifyCoreSetRebel(assert, store, fleetId);
+   verifyCoreSetRebel(assert, store.getState(), fleetId);
 });
 
 QUnit.test("buildCoreSetImperial()", function(assert)
@@ -67,7 +67,7 @@ QUnit.test("buildCoreSetImperial()", function(assert)
    FleetBuilder.buildCoreSetImperial(store, fleetId);
 
    // Verify.
-   verifyCoreSetImperial(assert, store, fleetId);
+   verifyCoreSetImperial(assert, store.getState(), fleetId);
 });
 
 QUnit.test("buildCoreSetRebel()", function(assert)
@@ -80,12 +80,13 @@ QUnit.test("buildCoreSetRebel()", function(assert)
    FleetBuilder.buildCoreSetRebel(store, fleetId);
 
    // Verify.
-   verifyCoreSetRebel(assert, store, fleetId);
+   verifyCoreSetRebel(assert, store.getState(), fleetId);
 });
 
-const verifyCoreSetImperial = (assert, store, fleetId) =>
+////////////////////////////////////////////////////////////////////////////////
+const verifyCoreSetImperial = (assert, state, fleetId) =>
 {
-   const fleetInstance = store.getState().fleetInstances[fleetId];
+   const fleetInstance = AS.Selector.fleetInstance(fleetId, state);
 
    assert.ok(fleetInstance);
    assert.equal(fleetInstance.id, fleetId, "fleet.id");
@@ -98,12 +99,12 @@ const verifyCoreSetImperial = (assert, store, fleetId) =>
    assert.equal(shipIds.length, 1, "fleet.shipIds.length");
    assert.equal(shipIds[0], 1, "fleet.shipIds[0]");
 
-   const shipInstances = store.getState().shipInstances;
+   const shipInstances = state.shipInstances;
    assert.ok(shipInstances);
    assert.equal(Object.keys(shipInstances).length, 1, "pilotInstances.length === 1");
    assert.equal(shipInstances[1].shipKey, ShipCard.VICTORY_II_CLASS_STAR_DESTROYER);
 
-   const upgradeInstances = store.getState().upgradeInstances;
+   const upgradeInstances = state.upgradeInstances;
    assert.ok(upgradeInstances);
    assert.equal(Object.keys(upgradeInstances).length, 2, "upgradeInstances.length === 2");
    assert.equal(upgradeInstances[1].upgradeKey, UpgradeCard.GRAND_MOFF_TARKIN);
@@ -116,7 +117,7 @@ const verifyCoreSetImperial = (assert, store, fleetId) =>
    assert.equal(squadronIds[2], 3, "fleet.shipIds[0]");
    assert.equal(squadronIds[3], 4, "fleet.shipIds[0]");
 
-   const squadronInstances = store.getState().squadronInstances;
+   const squadronInstances = state.squadronInstances;
    assert.ok(squadronInstances);
    assert.equal(Object.keys(squadronInstances).length, 4, "squadronInstances.length === 4");
    assert.equal(squadronInstances[1].squadronKey, SquadronCard.HOWLRUNNER);
@@ -125,9 +126,9 @@ const verifyCoreSetImperial = (assert, store, fleetId) =>
    assert.equal(squadronInstances[4].squadronKey, SquadronCard.TIE_FIGHTER_SQUADRON);
 };
 
-const verifyCoreSetRebel = (assert, store, fleetId) =>
+const verifyCoreSetRebel = (assert, state, fleetId) =>
 {
-   const fleetInstance = store.getState().fleetInstances[fleetId];
+   const fleetInstance = AS.Selector.fleetInstance(fleetId, state);
 
    assert.ok(fleetInstance);
    assert.equal(fleetInstance.id, fleetId, "fleet.id");
@@ -141,13 +142,13 @@ const verifyCoreSetRebel = (assert, store, fleetId) =>
    assert.equal(shipIds[0], 1, "fleet.shipIds[0]");
    assert.equal(shipIds[1], 2, "fleet.shipIds[1]");
 
-   const shipInstances = store.getState().shipInstances;
+   const shipInstances = state.shipInstances;
    assert.ok(shipInstances);
    assert.equal(Object.keys(shipInstances).length, 2, "pilotInstances.length === 2");
    assert.equal(shipInstances[1].shipKey, ShipCard.NEBULON_B_ESCORT_FRIGATE);
    assert.equal(shipInstances[2].shipKey, ShipCard.CR90_CORVETTE_A);
 
-   const upgradeInstances = store.getState().upgradeInstances;
+   const upgradeInstances = state.upgradeInstances;
    assert.ok(upgradeInstances);
    assert.equal(Object.keys(upgradeInstances).length, 2, "upgradeInstances.length === 2");
    assert.equal(upgradeInstances[1].upgradeKey, UpgradeCard.GENERAL_DODONNA);
@@ -159,7 +160,7 @@ const verifyCoreSetRebel = (assert, store, fleetId) =>
    assert.equal(squadronIds[1], 2, "fleet.squadronIds[1]");
    assert.equal(squadronIds[2], 3, "fleet.squadronIds[2]");
 
-   const squadronInstances = store.getState().squadronInstances;
+   const squadronInstances = state.squadronInstances;
    assert.ok(squadronInstances);
    assert.equal(Object.keys(squadronInstances).length, 3, "squadronInstances.length === 3");
    assert.equal(squadronInstances[1].squadronKey, SquadronCard.LUKE_SKYWALKER);

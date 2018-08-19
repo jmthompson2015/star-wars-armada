@@ -17,6 +17,21 @@ QUnit.test("activeShipId()", function(assert)
    assert.equal(result, 1);
 });
 
+QUnit.test("agentIds()", function(assert)
+{
+   // Setup.
+   const gameState = TestData.createGameState();
+
+   // Run.
+   const result = Selector.agentIds(gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 2);
+   assert.equal(result[0], 1);
+   assert.equal(result[1], 2);
+});
+
 QUnit.test("agentInstance() 1", function(assert)
 {
    // Setup.
@@ -109,46 +124,6 @@ QUnit.test("agentResponse()", function(assert)
    assert.equal(result.payload, payload);
 });
 
-QUnit.test("combatCriticalDamage()", function(assert)
-{
-   // Setup.
-   const combatId = 4;
-   const combatInstance = CombatState.create(
-   {
-      id: combatId,
-      attackerId: 3,
-      defenderId: 2,
-      criticalDamage: 12
-   });
-   const gameState = R.assocPath(["combatInstances", combatId], combatInstance, TestData.createGameState());
-
-   // Run.
-   const result = Selector.combatCriticalDamage(combatId, gameState);
-
-   // Verify.
-   assert.equal(result, 12);
-});
-
-QUnit.test("combatHitDamage()", function(assert)
-{
-   // Setup.
-   const combatId = 4;
-   const combatInstance = CombatState.create(
-   {
-      id: combatId,
-      attackerId: 3,
-      defenderId: 2,
-      hitDamage: 6
-   });
-   const gameState = R.assocPath(["combatInstances", combatId], combatInstance, TestData.createGameState());
-
-   // Run.
-   const result = Selector.combatHitDamage(combatId, gameState);
-
-   // Verify.
-   assert.equal(result, 6);
-});
-
 QUnit.test("combatInstance() 3", function(assert)
 {
    // Setup.
@@ -171,26 +146,6 @@ QUnit.test("combatInstance() 3", function(assert)
    assert.equal(result.id, combatId);
    assert.equal(result.attackerId, attackerId);
    assert.equal(result.defenderId, defenderId);
-});
-
-QUnit.test("combatShieldDamage()", function(assert)
-{
-   // Setup.
-   const combatId = 4;
-   const combatInstance = CombatState.create(
-   {
-      id: combatId,
-      attackerId: 3,
-      defenderId: 2,
-      shieldDamage: 3
-   });
-   const gameState = R.assocPath(["combatInstances", combatId], combatInstance, TestData.createGameState());
-
-   // Run.
-   const result = Selector.combatShieldDamage(combatId, gameState);
-
-   // Verify.
-   assert.equal(result, 3);
 });
 
 QUnit.test("damageDeck()", function(assert)
@@ -232,48 +187,6 @@ QUnit.test("damageInstance() 1", function(assert)
    assert.ok(result);
    assert.equal(result.id, damageId);
    assert.equal(result.damageKey, "blindedGunners");
-});
-
-QUnit.test("diceKeysByCombat() 3", function(assert)
-{
-   // Setup.
-   const combatId = 3;
-   const attackerId = 3;
-   const defenderId = 2;
-   const diceKeys = [1, 2, 3];
-   const combatInstance = CombatState.create(
-   {
-      id: combatId,
-      attackerId: attackerId,
-      defenderId: defenderId,
-      diceKeys: diceKeys
-   });
-   const gameState = R.assocPath(["combatInstances", combatId], combatInstance, TestData.createGameState());
-
-   // Run.
-   const result = Selector.diceKeysByCombat(combatId, gameState);
-
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.length, diceKeys.length);
-   let i = 0;
-   assert.equal(result[i], diceKeys[i++]);
-   assert.equal(result[i], diceKeys[i++]);
-   assert.equal(result[i], diceKeys[i++]);
-});
-
-QUnit.test("fleetIdByAgent() 1", function(assert)
-{
-   // Setup.
-   const gameState = TestData.createGameState();
-   const agentId = 1;
-
-   // Run.
-   const result = Selector.fleetIdByAgent(agentId, gameState);
-
-   // Verify.
-   assert.ok(result);
-   assert.equal(result, 1);
 });
 
 QUnit.test("fleetInstance() 1", function(assert)
@@ -368,50 +281,40 @@ QUnit.test("round()", function(assert)
    assert.equal(result, 1);
 });
 
-QUnit.test("shipIdsByAgent() 1", function(assert)
+QUnit.test("shipIds()", function(assert)
 {
    // Setup.
    const gameState = TestData.createGameState();
-   const agentId = 1;
 
    // Run.
-   const result = Selector.shipIdsByAgent(agentId, gameState);
+   const result = Selector.shipIds(gameState);
 
    // Verify.
    assert.ok(result);
-   assert.equal(result.length, 1);
+   assert.equal(result.length, 3);
    assert.equal(result[0], 1);
+   assert.equal(result[1], 2);
+   assert.equal(result[2], 3);
 });
 
-QUnit.test("shipIdsByFleet() 1", function(assert)
+QUnit.test("squadronIds()", function(assert)
 {
    // Setup.
    const gameState = TestData.createGameState();
-   const fleetId = 1;
 
    // Run.
-   const result = Selector.shipIdsByFleet(fleetId, gameState);
+   const result = Selector.squadronIds(gameState);
 
    // Verify.
    assert.ok(result);
-   assert.equal(result.length, 1);
+   assert.equal(result.length, 7);
    assert.equal(result[0], 1);
-});
-
-QUnit.test("shipIdsByFleet() 2", function(assert)
-{
-   // Setup.
-   const gameState = TestData.createGameState();
-   const fleetId = 2;
-
-   // Run.
-   const result = Selector.shipIdsByFleet(fleetId, gameState);
-
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.length, 2);
-   assert.equal(result[0], 2);
-   assert.equal(result[1], 3);
+   assert.equal(result[1], 2);
+   assert.equal(result[2], 3);
+   assert.equal(result[3], 4);
+   assert.equal(result[4], 5);
+   assert.equal(result[5], 6);
+   assert.equal(result[6], 7);
 });
 
 QUnit.test("upgradeInstance() 1", function(assert)

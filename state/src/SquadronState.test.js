@@ -2,7 +2,13 @@ import SquadronState from "./SquadronState.js";
 
 QUnit.module("SquadronState");
 
-const PROPS = ["id", "squadronKey", "criticals", "damages", "position"];
+const PROPS = [
+  "id",
+  "squadronKey",
+  "position",
+  "damages",
+  "defenseTokens"
+];
 
 QUnit.test("create()", function(assert)
 {
@@ -41,9 +47,9 @@ function createTestState()
    {
       id: i++,
       squadronKey: i++,
-      criticals: i++,
+      position: i++,
       damages: i++,
-      position: i++
+      defenseTokens: i++
    });
 }
 

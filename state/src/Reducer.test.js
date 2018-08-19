@@ -13,27 +13,6 @@ import UpgradeState from "./UpgradeState.js";
 
 QUnit.module("Reducer");
 
-QUnit.skip("addShipTokenCount()", function(assert)
-{
-   // Setup.
-   const store = Redux.createStore(Reducer.root, TestData.createGameState());
-   const pilotId = 2;
-   const tokenKey = "evade";
-   assert.equal(store.getState().shipInstances[pilotId].tokenCounts[tokenKey], undefined);
-
-   // Run.
-   store.dispatch(ActionCreator.addShipTokenCount(pilotId, tokenKey));
-
-   // Verify.
-   assert.equal(store.getState().shipInstances[pilotId].tokenCounts[tokenKey], 1);
-
-   // Run.
-   store.dispatch(ActionCreator.addShipTokenCount(pilotId, tokenKey));
-
-   // Verify.
-   assert.equal(store.getState().shipInstances[pilotId].tokenCounts[tokenKey], 2);
-});
-
 QUnit.test("clearAgentQuery()", function(assert)
 {
    // Setup.
@@ -86,7 +65,7 @@ QUnit.test("dealCritical()", function(assert)
    const store = Redux.createStore(Reducer.root, TestData.createGameState());
    const shipId = 1;
    assert.equal(store.getState().damageDeck.length, 52);
-   assert.equal(store.getState().shipInstances[shipId].criticals, undefined);
+   assert.equal(store.getState().shipInstances[shipId].criticals.join(), [].join());
 
    // Run.
    store.dispatch(ActionCreator.dealCritical(shipId));
@@ -104,7 +83,7 @@ QUnit.test("dealDamage()", function(assert)
    const store = Redux.createStore(Reducer.root, TestData.createGameState());
    const shipId = 1;
    assert.equal(store.getState().damageDeck.length, 52);
-   assert.equal(store.getState().shipInstances[shipId].damages, undefined);
+   assert.equal(store.getState().shipInstances[shipId].damages.join(), [].join());
 
    // Run.
    store.dispatch(ActionCreator.dealDamage(shipId));
@@ -166,40 +145,6 @@ QUnit.test("dequeueSquadron()", function(assert)
    assert.equal(store.getState().activeSquadronId, 1);
    assert.equal(store.getState().activeQueue.length, 2);
 });
-
-// QUnit.test("dequeueStatusShip()", function(assert)
-// {
-//    // Setup.
-//    const store = Redux.createStore(Reducer.root, TestData.createGameState());
-//    const queue = [1, 2, 3];
-//    store.dispatch(ActionCreator.setActiveQueue(queue));
-//    assert.equal(store.getState().activeAgentId, undefined);
-//    assert.equal(store.getState().activeQueue.length, 3);
-//
-//    // Run.
-//    store.dispatch(ActionCreator.dequeueStatusShip());
-//
-//    // Verify.
-//    assert.equal(store.getState().activeShipId, 1);
-//    assert.equal(store.getState().activeQueue.length, 2);
-// });
-//
-// QUnit.test("dequeueStatusSquadron()", function(assert)
-// {
-//    // Setup.
-//    const store = Redux.createStore(Reducer.root, TestData.createGameState());
-//    const queue = [1, 2, 3];
-//    store.dispatch(ActionCreator.setActiveQueue(queue));
-//    assert.equal(store.getState().activeAgentId, undefined);
-//    assert.equal(store.getState().activeQueue.length, 3);
-//
-//    // Run.
-//    store.dispatch(ActionCreator.dequeueStatusSquadron());
-//
-//    // Verify.
-//    assert.equal(store.getState().activeSquadronId, 1);
-//    assert.equal(store.getState().activeQueue.length, 2);
-// });
 
 QUnit.test("incrementRound()", function(assert)
 {

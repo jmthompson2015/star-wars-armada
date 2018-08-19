@@ -8,8 +8,8 @@ FleetState.create = function(
    description,
    points,
 
-   ships,
-   squadrons
+   ships = [],
+   squadrons = []
 })
 {
    return Immutable(

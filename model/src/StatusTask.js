@@ -45,25 +45,23 @@ PHASE_TO_CONFIG[Phase.STATUS_READY_DEFENSE_TOKENS] = {
    processFunction: store =>
    {
       // Ships.
-      const shipIds = Object.keys(store.getState().shipInstances).sort();
-      store.dispatch(ActionCreator.setActiveQueue(shipIds));
+      setStatusQueueShip(store);
 
       while (AS.Selector.activeQueue(store.getState()).length > 0)
       {
          store.dispatch(ActionCreator.dequeueShip());
          const shipId = AS.Selector.activeShipId(store.getState());
-         store.dispatch(ActionCreator.readyShipDefenseTokens(shipId, store.getState()));
+         store.dispatch(ActionCreator.readyShipDefenseTokens(shipId));
       }
 
       // Squadrons.
-      const squadronIds = Object.keys(store.getState().squadronInstances).sort();
-      store.dispatch(ActionCreator.setActiveQueue(squadronIds));
+      setStatusQueueSquadron(store);
 
       while (AS.Selector.activeQueue(store.getState()).length > 0)
       {
          store.dispatch(ActionCreator.dequeueSquadron());
          const squadronId = AS.Selector.activeSquadronId(store.getState());
-         store.dispatch(ActionCreator.readySquadronDefenseTokens(squadronId, store.getState()));
+         store.dispatch(ActionCreator.readySquadronDefenseTokens(squadronId));
       }
 
       setPhase(store, Phase.STATUS_READY_UPGRADE_CARDS);
@@ -73,14 +71,13 @@ PHASE_TO_CONFIG[Phase.STATUS_READY_DEFENSE_TOKENS] = {
 PHASE_TO_CONFIG[Phase.STATUS_READY_UPGRADE_CARDS] = {
    processFunction: store =>
    {
-      const shipIds = Object.keys(store.getState().shipInstances).sort();
-      store.dispatch(ActionCreator.setActiveQueue(shipIds));
+      setStatusQueueShip(store);
 
       while (AS.Selector.activeQueue(store.getState()).length > 0)
       {
          store.dispatch(ActionCreator.dequeueShip());
          const shipId = AS.Selector.activeShipId(store.getState());
-         store.dispatch(ActionCreator.readyUpgradeCards(shipId, store.getState()));
+         store.dispatch(ActionCreator.readyUpgradeCards(shipId));
       }
 
       setPhase(store, Phase.STATUS_FLIP_INITIATIVE_TOKEN);
@@ -98,7 +95,7 @@ PHASE_TO_CONFIG[Phase.STATUS_FLIP_INITIATIVE_TOKEN] = {
 PHASE_TO_CONFIG[Phase.STATUS_PLACE_ROUND_TOKEN] = {
    processFunction: store =>
    {
-      store.dispatch(ActionCreator.incrementRound(store.getState()));
+      store.dispatch(ActionCreator.incrementRound());
       setPhase(store, Phase.STATUS_END);
    }
 };
@@ -110,6 +107,18 @@ const end = store => new Promise((resolve) =>
 });
 
 ////////////////////////////////////////////////////////////////////////////////
+const setStatusQueueShip = store =>
+{
+   const shipIds = AS.Selector.shipIds(store.getState());
+   store.dispatch(ActionCreator.setActiveQueue(shipIds));
+};
+
+const setStatusQueueSquadron = store =>
+{
+   const squadronIds = AS.Selector.squadronIds(store.getState());
+   store.dispatch(ActionCreator.setActiveQueue(squadronIds));
+};
+
 const setPhase = (store, phaseKey) => store.dispatch(ActionCreator.setPhase(phaseKey));
 
 Object.freeze(StatusTask);

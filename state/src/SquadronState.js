@@ -5,9 +5,10 @@ SquadronState.create = function(
    id,
    squadronKey,
 
-   criticals,
-   damages,
-   position
+   position,
+
+   damages = [],
+   defenseTokens = [],
 })
 {
    return Immutable(
@@ -15,9 +16,10 @@ SquadronState.create = function(
       id: id,
       squadronKey: squadronKey,
 
-      criticals: criticals,
-      damages: damages,
-      position: position
+      position: Immutable(position),
+
+      damages: Immutable(damages),
+      defenseTokens: Immutable(defenseTokens),
    });
 };
 

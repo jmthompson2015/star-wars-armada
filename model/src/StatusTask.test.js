@@ -17,7 +17,7 @@ QUnit.test("doIt() Start", function(assert)
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
-      verifyPhaseKey(assert, store, Phase.STATUS_READY_DEFENSE_TOKENS);
+      verifyPhaseKey(assert, store.getState(), Phase.STATUS_READY_DEFENSE_TOKENS);
       done();
    };
 
@@ -36,7 +36,7 @@ QUnit.test("doIt() Ready Defense Tokens", function(assert)
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
-      verifyPhaseKey(assert, store, Phase.STATUS_READY_UPGRADE_CARDS);
+      verifyPhaseKey(assert, store.getState(), Phase.STATUS_READY_UPGRADE_CARDS);
       done();
    };
 
@@ -55,7 +55,7 @@ QUnit.test("doIt() Ready Upgrade Cards", function(assert)
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
-      verifyPhaseKey(assert, store, Phase.STATUS_FLIP_INITIATIVE_TOKEN);
+      verifyPhaseKey(assert, store.getState(), Phase.STATUS_FLIP_INITIATIVE_TOKEN);
       done();
    };
 
@@ -74,7 +74,7 @@ QUnit.test("doIt() Flip Initiative Token", function(assert)
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
-      verifyPhaseKey(assert, store, Phase.STATUS_PLACE_ROUND_TOKEN);
+      verifyPhaseKey(assert, store.getState(), Phase.STATUS_PLACE_ROUND_TOKEN);
       done();
    };
 
@@ -93,7 +93,7 @@ QUnit.test("doIt() Place Round Token", function(assert)
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
-      verifyPhaseKey(assert, store, Phase.STATUS_END);
+      verifyPhaseKey(assert, store.getState(), Phase.STATUS_END);
       done();
    };
 
@@ -112,7 +112,7 @@ QUnit.test("doIt() End", function(assert)
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
-      verifyPhaseKey(assert, store, Phase.COMMAND_START);
+      verifyPhaseKey(assert, store.getState(), Phase.COMMAND_START);
       done();
    };
 
@@ -124,7 +124,7 @@ QUnit.test("doIt() End", function(assert)
 ////////////////////////////////////////////////////////////////////////////////
 const setPhase = (store, phaseKey) => store.dispatch(ActionCreator.setPhase(phaseKey));
 
-const verifyPhaseKey = (assert, store, expected, messagePrefix = "callback ") => assert.equal(store.getState().phaseKey, expected, messagePrefix + "phaseKey");
+const verifyPhaseKey = (assert, state, expected, messagePrefix = "callback ") => assert.equal(AS.Selector.phaseKey(state), expected, messagePrefix + "phaseKey");
 
 const StatusTaskTest = {};
 export default StatusTaskTest;

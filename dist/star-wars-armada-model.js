@@ -151,9 +151,8 @@
    ////////////////////////////////////////////////////////////////////////////////
    const setCommandQueue = store =>
    {
-      const agents = store.getState().agentInstances;
-      const queue = R.map(agent => agent.id, agents);
-      store.dispatch(ActionCreator$1.setActiveQueue(queue));
+      const agentIds = AS.Selector.agentIds(store.getState());
+      store.dispatch(ActionCreator$1.setActiveQueue(agentIds));
    };
 
    const setPhase = (store, phaseKey) => store.dispatch(ActionCreator$1.setPhase(phaseKey));
@@ -162,7 +161,14 @@
 
    const Selector = {};
 
-   Selector.shipCountByAgent = (agentId, state) => AS.Selector.shipIdsByAgent(agentId, state).length;
+   Selector.shipCountByAgent = (agentId, state) =>
+   {
+      const agent = AS.Selector.agentInstance(agentId, state);
+
+      return Selector.shipCountByFleet(agent.fleet, state);
+   };
+
+   Selector.shipCountByFleet = (fleetId, state) => AS.Selector.fleetInstance(fleetId, state).ships.length;
 
    Object.freeze(Selector);
 
@@ -328,25 +334,23 @@
       processFunction: store =>
       {
          // Ships.
-         const shipIds = Object.keys(store.getState().shipInstances).sort();
-         store.dispatch(ActionCreator$5.setActiveQueue(shipIds));
+         setStatusQueueShip(store);
 
          while (AS.Selector.activeQueue(store.getState()).length > 0)
          {
             store.dispatch(ActionCreator$5.dequeueShip());
             const shipId = AS.Selector.activeShipId(store.getState());
-            store.dispatch(ActionCreator$5.readyShipDefenseTokens(shipId, store.getState()));
+            store.dispatch(ActionCreator$5.readyShipDefenseTokens(shipId));
          }
 
          // Squadrons.
-         const squadronIds = Object.keys(store.getState().squadronInstances).sort();
-         store.dispatch(ActionCreator$5.setActiveQueue(squadronIds));
+         setStatusQueueSquadron(store);
 
          while (AS.Selector.activeQueue(store.getState()).length > 0)
          {
             store.dispatch(ActionCreator$5.dequeueSquadron());
             const squadronId = AS.Selector.activeSquadronId(store.getState());
-            store.dispatch(ActionCreator$5.readySquadronDefenseTokens(squadronId, store.getState()));
+            store.dispatch(ActionCreator$5.readySquadronDefenseTokens(squadronId));
          }
 
          setPhase$3(store, Phase$3.STATUS_READY_UPGRADE_CARDS);
@@ -356,14 +360,13 @@
    PHASE_TO_CONFIG$3[Phase$3.STATUS_READY_UPGRADE_CARDS] = {
       processFunction: store =>
       {
-         const shipIds = Object.keys(store.getState().shipInstances).sort();
-         store.dispatch(ActionCreator$5.setActiveQueue(shipIds));
+         setStatusQueueShip(store);
 
          while (AS.Selector.activeQueue(store.getState()).length > 0)
          {
             store.dispatch(ActionCreator$5.dequeueShip());
             const shipId = AS.Selector.activeShipId(store.getState());
-            store.dispatch(ActionCreator$5.readyUpgradeCards(shipId, store.getState()));
+            store.dispatch(ActionCreator$5.readyUpgradeCards(shipId));
          }
 
          setPhase$3(store, Phase$3.STATUS_FLIP_INITIATIVE_TOKEN);
@@ -381,7 +384,7 @@
    PHASE_TO_CONFIG$3[Phase$3.STATUS_PLACE_ROUND_TOKEN] = {
       processFunction: store =>
       {
-         store.dispatch(ActionCreator$5.incrementRound(store.getState()));
+         store.dispatch(ActionCreator$5.incrementRound());
          setPhase$3(store, Phase$3.STATUS_END);
       }
    };
@@ -393,6 +396,18 @@
    });
 
    ////////////////////////////////////////////////////////////////////////////////
+   const setStatusQueueShip = store =>
+   {
+      const shipIds = AS.Selector.shipIds(store.getState());
+      store.dispatch(ActionCreator$5.setActiveQueue(shipIds));
+   };
+
+   const setStatusQueueSquadron = store =>
+   {
+      const squadronIds = AS.Selector.squadronIds(store.getState());
+      store.dispatch(ActionCreator$5.setActiveQueue(squadronIds));
+   };
+
    const setPhase$3 = (store, phaseKey) => store.dispatch(ActionCreator$5.setPhase(phaseKey));
 
    Object.freeze(StatusTask);

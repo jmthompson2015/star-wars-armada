@@ -85,9 +85,8 @@ const end = store => new Promise((resolve) =>
 ////////////////////////////////////////////////////////////////////////////////
 const setCommandQueue = store =>
 {
-   const agents = store.getState().agentInstances;
-   const queue = R.map(agent => agent.id, agents);
-   store.dispatch(ActionCreator.setActiveQueue(queue));
+   const agentIds = AS.Selector.agentIds(store.getState());
+   store.dispatch(ActionCreator.setActiveQueue(agentIds));
 };
 
 const setPhase = (store, phaseKey) => store.dispatch(ActionCreator.setPhase(phaseKey));

@@ -5,6 +5,7 @@ import AgentResponseStateTest from "./AgentResponseState.test.js";
 import AgentStateTest from "./AgentState.test.js";
 import CombatStateTest from "./CombatState.test.js";
 import DamageStateTest from "./DamageState.test.js";
+import DefenseTokenStateTest from "./DefenseTokenState.test.js";
 import FleetStateTest from "./FleetState.test.js";
 import GameStateTest from "./GameState.test.js";
 import PositionStateTest from "./PositionState.test.js";

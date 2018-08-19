@@ -2,7 +2,19 @@ import ShipState from "./ShipState.js";
 
 QUnit.module("ShipState");
 
-const PROPS = ["id", "shipKey", "criticals", "damages", "position", "upgrades"];
+const PROPS = [
+  "id",
+  "shipKey",
+  "speed",
+
+  "position",
+
+  "commands",
+  "criticals",
+  "damages",
+  "defenseTokens",
+  "upgrades"
+];
 
 QUnit.test("create()", function(assert)
 {
@@ -41,9 +53,14 @@ function createTestState()
    {
       id: i++,
       shipKey: i++,
+      speed: i++,
+
+      position: i++,
+
+      commands: i++,
       criticals: i++,
       damages: i++,
-      position: i++,
+      defenseTokens: i++,
       upgrades: i++
    });
 }

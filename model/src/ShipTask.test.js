@@ -1,5 +1,4 @@
 import ShipTask from "./ShipTask.js";
-import Selector from "./Selector.js";
 import TestData from "./TestData.js";
 
 const Phase = AA.Phase;
@@ -18,7 +17,7 @@ QUnit.test("doIt() Start", function(assert)
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
-      verifyPhaseKey(assert, store, Phase.SHIP_END);
+      verifyPhaseKey(assert, store.getState(), Phase.SHIP_END);
       done();
    };
 
@@ -37,7 +36,7 @@ QUnit.test("doIt() End", function(assert)
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
-      verifyPhaseKey(assert, store, Phase.SQUADRON_START);
+      verifyPhaseKey(assert, store.getState(), Phase.SQUADRON_START);
       done();
    };
 
@@ -49,7 +48,7 @@ QUnit.test("doIt() End", function(assert)
 ////////////////////////////////////////////////////////////////////////////////
 const setPhase = (store, phaseKey) => store.dispatch(ActionCreator.setPhase(phaseKey));
 
-const verifyPhaseKey = (assert, store, expected, messagePrefix = "callback ") => assert.equal(store.getState().phaseKey, expected, messagePrefix + "phaseKey");
+const verifyPhaseKey = (assert, state, expected, messagePrefix = "callback ") => assert.equal(AS.Selector.phaseKey(state), expected, messagePrefix + "phaseKey");
 
 const ShipTaskTest = {};
 export default ShipTaskTest;

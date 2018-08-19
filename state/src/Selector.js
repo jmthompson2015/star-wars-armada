@@ -1,21 +1,12 @@
 const Selector = {};
 
-Selector.combatCriticalDamage = (combatId, state) => R.prop("criticalDamage", Selector.combatInstance(combatId, state));
+Selector.agentIds = state => Object.keys(state.agentInstances).sort();
 
-Selector.combatHitDamage = (combatId, state) => R.prop("hitDamage", Selector.combatInstance(combatId, state));
+Selector.shipIds = state => Object.keys(state.shipInstances).sort();
 
-Selector.combatShieldDamage = (combatId, state) => R.prop("shieldDamage", Selector.combatInstance(combatId, state));
-
-Selector.diceKeysByCombat = (combatId, state) => R.prop("diceKeys", Selector.combatInstance(combatId, state));
-
-Selector.fleetIdByAgent = (agentId, state) => Selector.agentInstance(agentId, state).fleet;
-
-Selector.shipIdsByAgent = (agentId, state) => Selector.fleetInstance(Selector.fleetIdByAgent(agentId, state), state).ships;
-
-Selector.shipIdsByFleet = (fleetId, state) => Selector.fleetInstance(fleetId, state).ships;
+Selector.squadronIds = state => Object.keys(state.squadronInstances).sort();
 
 ////////////////////////////////////////////////////////////////////////////////
-
 Selector.activeAgentId = state => R.prop("activeAgentId", state);
 
 Selector.activeCombatId = state => R.prop("activeCombatId", state);
@@ -34,6 +25,13 @@ Selector.damageDeck = state => R.prop("damageDeck", state);
 
 Selector.damageDiscardPile = state => R.prop("damageDiscardPile", state);
 
+Selector.phaseKey = state => R.prop("phaseKey", state);
+
+Selector.round = state => R.prop("round", state);
+
+Selector.userMessage = state => R.prop("userMessage", state);
+
+////////////////////////////////////////////////////////////////////////////////
 Selector.nextAgentId = state => nextId(state.agentInstances);
 
 Selector.nextCombatId = state => nextId(state.combatInstances);
@@ -49,15 +47,6 @@ Selector.nextSquadronId = state => nextId(state.squadronInstances);
 Selector.nextUpgradeId = state => nextId(state.upgradeInstances);
 
 ////////////////////////////////////////////////////////////////////////////////
-
-Selector.phaseKey = state => R.prop("phaseKey", state);
-
-Selector.round = state => R.prop("round", state);
-
-Selector.userMessage = state => R.prop("userMessage", state);
-
-////////////////////////////////////////////////////////////////////////////////
-
 Selector.agentInstance = (agentId, state) => R.path(["agentInstances", agentId], state);
 
 Selector.combatInstance = (combatId, state) => R.path(["combatInstances", combatId], state);
@@ -73,7 +62,6 @@ Selector.squadronInstance = (squadronId, state) => R.path(["squadronInstances", 
 Selector.upgradeInstance = (upgradeId, state) => R.path(["upgradeInstances", upgradeId], state);
 
 ////////////////////////////////////////////////////////////////////////////////
-
 const nextId = instanceMap =>
 {
    const reduceFunction = (accum, key) => Math.max(accum, key);

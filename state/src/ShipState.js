@@ -4,21 +4,29 @@ ShipState.create = function(
 {
    id,
    shipKey,
+   speed,
 
-   criticals,
-   damages,
    position,
-   upgrades
+
+   commands = [],
+   criticals = [],
+   damages = [],
+   defenseTokens = [],
+   upgrades = []
 })
 {
    return Immutable(
    {
       id: id,
       shipKey: shipKey,
+      speed: speed,
 
+      position: Immutable(position),
+
+      commands: Immutable(commands),
       criticals: Immutable(criticals),
       damages: Immutable(damages),
-      position: Immutable(position),
+      defenseTokens: Immutable(defenseTokens),
       upgrades: Immutable(upgrades)
    });
 };
