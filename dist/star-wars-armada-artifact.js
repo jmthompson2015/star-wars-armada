@@ -298,50 +298,123 @@
    Object.freeze(DefenseToken);
 
    const DiceValue = {
-      ACCURACY: "accuracy",
-      BLANK: "blank",
-      CRITICAL_HIT: "criticalHit",
-      HIT: "hit",
-      HIT_CRITICAL_HIT: "hitCriticalHit",
-      HIT_HIT: "hitHit"
+
+      BLACK_BLANK: "blackBlank",
+      BLACK_HIT: "blackHit",
+      BLACK_HIT_CRITICAL: "blackHitCritical",
+
+      BLUE_ACCURACY: "blueAccuracy",
+      BLUE_CRITICAL: "blueCritical",
+      BLUE_HIT: "blueHit",
+
+      RED_ACCURACY: "redAccuracy",
+      RED_BLANK: "redBlank",
+      RED_CRITICAL: "redCritical",
+      RED_HIT: "redHit",
+      RED_HIT_HIT: "redHitHit",
    };
 
    DiceValue.properties = {
-      "accuracy":
+      "blackBlank":
       {
-         name: "Accuracy",
-         sortOrder: 4,
-         key: "accuracy"
+         name: "Black Blank",
+         color: "black",
+         value: "blank",
+         sortOrder: 10,
+         image: "dice/black-blank.png",
+         key: "blackBlank"
       },
-      "blank":
+      "blackHit":
       {
-         name: "Blank",
-         sortOrder: 5,
-         key: "blank"
-      },
-      "criticalHit":
-      {
-         name: "Critical Hit",
-         sortOrder: 3,
-         key: "criticalHit"
-      },
-      "hit":
-      {
-         name: "Hit",
-         sortOrder: 1,
-         key: "hit"
-      },
-      "hitCriticalHit":
-      {
-         name: "Hit + Critical Hit",
+         name: "Black Hit",
+         color: "black",
+         value: "hit",
          sortOrder: 2,
-         key: "hitCriticalHit"
+         image: "dice/black-hit.png",
+         key: "blackHit"
       },
-      "hitHit":
+      "blackHitCritical":
       {
-         name: "Hit + Hit",
-         sortOrder: 0,
-         key: "hitHit"
+         name: "Black Hit + Critical",
+         color: "black",
+         value: "hitCritical",
+         sortOrder: 5,
+         image: "dice/black-hit-critical-hit.png",
+         key: "blackHitCritical"
+      },
+
+      "blueAccuracy":
+      {
+         name: "Blue Accuracy",
+         color: "blue",
+         value: "accuracy",
+         sortOrder: 8,
+         image: "dice/blue-accuracy.png",
+         key: "blueAccuracy"
+      },
+      "blueCritical":
+      {
+         name: "Blue Critical",
+         color: "blue",
+         value: "critical",
+         sortOrder: 6,
+         image: "dice/blue-critical-hit.png",
+         key: "blueCritical"
+      },
+      "blueHit":
+      {
+         name: "Blue Hit",
+         color: "blue",
+         value: "hit",
+         sortOrder: 3,
+         image: "dice/blue-hit.png",
+         key: "blueHit"
+      },
+
+      "redAccuracy":
+      {
+         name: "Red Accuracy",
+         color: "red",
+         value: "accuracy",
+         sortOrder: 9,
+         image: "dice/red-accuracy.png",
+         key: "redAccuracy"
+      },
+      "redBlank":
+      {
+         name: "Red Blank",
+         color: "red",
+         value: "blank",
+         sortOrder: 11,
+         image: "dice/red-blank.png",
+         key: "redBlank"
+      },
+      "redCritical":
+      {
+         name: "Red Critical",
+         color: "red",
+         value: "critical",
+         sortOrder: 7,
+         image: "dice/red-critical-hit.png",
+         key: "redCritical"
+      },
+      "redHit":
+      {
+         name: "Red Hit",
+         color: "red",
+         value: "hit",
+         sortOrder: 4,
+         image: "dice/red-hit.png",
+         key: "redHit"
+      },
+      "redHitHit":
+      {
+         name: "Red Hit + Hit",
+         color: "red",
+         value: "hitHit",
+         sortOrder: 1,
+         image: "dice/red-hit-hit.png",
+         key: "redHitHit"
       }
    };
 

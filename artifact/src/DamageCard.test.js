@@ -32,23 +32,23 @@ QUnit.test("keys()", function(assert)
    EnumTest.keys(assert, DamageCard, 22, DamageCard.BLINDED_GUNNERS, DamageCard.THRUSTER_FISSURE);
 });
 
-QUnit.skip("print keys", function(assert)
-{
-   const values = EnumUtilities.values(DamageCard);
-   let content = "";
-
-   values.forEach(value =>
-   {
-      for (let i = 0; i < value.amount; i++)
-      {
-         content += "\"" + value.key + "\", ";
-      }
-
-      console.log(content);
-   });
-
-   assert.ok(true);
-});
+// QUnit.skip("print keys", function(assert)
+// {
+//    const values = EnumUtilities.values(DamageCard);
+//    let content = "";
+//
+//    values.forEach(value =>
+//    {
+//       for (let i = 0; i < value.amount; i++)
+//       {
+//          content += "\"" + value.key + "\", ";
+//       }
+//
+//       console.log(content);
+//    });
+//
+//    assert.ok(true);
+// });
 
 const DamageCardTest = {};
 export default DamageCardTest;

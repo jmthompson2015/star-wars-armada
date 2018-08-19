@@ -371,21 +371,15 @@
          const cells = R.map(mapFunction, sortedDice);
          const row = ReactUtilities.createRow(cells);
 
-         return ReactUtilities.createTable(row, undefined, "bg-white center");
+         return ReactUtilities.createTable(row, undefined, "bg-white center v-mid");
       }
    }
 
    const createImage = function(die)
    {
-      const dieName = R.cond([
-        [R.equals("hitHit"), R.always("hit-hit")], // hit + hit
-        [R.equals("hitCriticalHit"), R.always("hit-critical-hit")], // hit + critical hit
-        [R.equals("criticalHit"), R.always("critical-hit")], // critical hit
-        [R.T, R.identity]
-      ])(die.dieKey);
-      const source = Endpoint.ARMADA_IMAGES + `dice/${die.color}-${dieName}.png`;
+      const src = Endpoint.ARMADA_IMAGES + die.image;
 
-      return ReactUtilities.createImg(source, undefined, undefined,
+      return ReactUtilities.createImg(src, undefined, "tc v-mid",
       {
          width: 48
       });
@@ -393,31 +387,15 @@
 
    const comparator = (a, b) =>
    {
-      const dieValueA = AA.Selector.diceValue(a.dieKey);
-      const dieValueB = AA.Selector.diceValue(b.dieKey);
-
-      let answer = dieValueA.sortOrder - dieValueB.sortOrder;
-
-      if (answer === 0)
-      {
-         const colorA = a.color;
-         const colorB = b.color;
-
-         if (colorA > colorB)
-         {
-            answer = 1;
-         }
-         else if (colorA < colorB)
-         {
-            answer = -1;
-         }
-      }
+      let answer = a.sortOrder - b.sortOrder;
+      answer = ((answer === 0 && a.color > b.color) ? 1 : answer);
+      answer = ((answer === 0 && a.color < b.color) ? -1 : answer);
 
       return answer;
    };
 
    DicePanel.propTypes = {
-      dice: PropTypes.object
+      dice: PropTypes.array
    };
 
    DicePanel.defaultProps = {

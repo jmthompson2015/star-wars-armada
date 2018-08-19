@@ -17,9 +17,9 @@ QUnit.test("rollDice()", function(assert)
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 1 + 2 + 3);
-   verifyBlackDice(assert, 1, result.filter(die => die.color === "black"));
-   verifyBlueDice(assert, 2, result.filter(die => die.color === "blue"));
-   verifyRedDice(assert, 3, result.filter(die => die.color === "red"));
+   verifyBlackDice(assert, 1, result.filter(key => AA.Selector.diceValue(key).color === "black"));
+   verifyBlueDice(assert, 2, result.filter(key => AA.Selector.diceValue(key).color === "blue"));
+   verifyRedDice(assert, 3, result.filter(key => AA.Selector.diceValue(key).color === "red"));
 });
 
 QUnit.test("rollDice() black", function(assert)
@@ -33,9 +33,9 @@ QUnit.test("rollDice() black", function(assert)
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 3);
-   verifyBlackDice(assert, 3, result.filter(die => die.color === "black"));
-   verifyBlueDice(assert, 0, result.filter(die => die.color === "blue"));
-   verifyRedDice(assert, 0, result.filter(die => die.color === "red"));
+   verifyBlackDice(assert, 3, result.filter(key => AA.Selector.diceValue(key).color === "black"));
+   verifyBlueDice(assert, 0, result.filter(key => AA.Selector.diceValue(key).color === "blue"));
+   verifyRedDice(assert, 0, result.filter(key => AA.Selector.diceValue(key).color === "red"));
 });
 
 QUnit.test("rollDice() blue", function(assert)
@@ -49,9 +49,9 @@ QUnit.test("rollDice() blue", function(assert)
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 3);
-   verifyBlackDice(assert, 0, result.filter(die => die.color === "black"));
-   verifyBlueDice(assert, 3, result.filter(die => die.color === "blue"));
-   verifyRedDice(assert, 0, result.filter(die => die.color === "red"));
+   verifyBlackDice(assert, 0, result.filter(key => AA.Selector.diceValue(key).color === "black"));
+   verifyBlueDice(assert, 3, result.filter(key => AA.Selector.diceValue(key).color === "blue"));
+   verifyRedDice(assert, 0, result.filter(key => AA.Selector.diceValue(key).color === "red"));
 });
 
 QUnit.test("rollDice() red", function(assert)
@@ -65,9 +65,9 @@ QUnit.test("rollDice() red", function(assert)
    // Verify.
    assert.ok(result);
    assert.equal(result.length, 3);
-   verifyBlackDice(assert, 0, result.filter(die => die.color === "black"));
-   verifyBlueDice(assert, 0, result.filter(die => die.color === "blue"));
-   verifyRedDice(assert, 3, result.filter(die => die.color === "red"));
+   verifyBlackDice(assert, 0, result.filter(key => AA.Selector.diceValue(key).color === "black"));
+   verifyBlueDice(assert, 0, result.filter(key => AA.Selector.diceValue(key).color === "blue"));
+   verifyRedDice(assert, 3, result.filter(key => AA.Selector.diceValue(key).color === "red"));
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -75,12 +75,11 @@ const verifyBlackDice = (assert, count, dice) =>
 {
    assert.equal(dice.length, count);
 
-   const blackDiceKeys = [DiceValue.HIT, DiceValue.HIT_CRITICAL_HIT, DiceValue.BLANK];
-   const diceKeys = dice.map(die => die.dieKey);
+   const blackDiceKeys = [DiceValue.BLACK_HIT, DiceValue.BLACK_HIT_CRITICAL, DiceValue.BLACK_BLANK];
 
    for (let i = 0; i < count; i++)
    {
-      assert.equal(blackDiceKeys.includes(diceKeys[i]), true, diceKeys[i]);
+      assert.equal(blackDiceKeys.includes(dice[i]), true, dice[i]);
    }
 };
 
@@ -88,12 +87,11 @@ const verifyBlueDice = (assert, count, dice) =>
 {
    assert.equal(dice.length, count);
 
-   const blueDiceKeys = [DiceValue.HIT, DiceValue.CRITICAL_HIT, DiceValue.ACCURACY];
-   const diceKeys = dice.map(die => die.dieKey);
+   const blueDiceKeys = [DiceValue.BLUE_HIT, DiceValue.BLUE_CRITICAL, DiceValue.BLUE_ACCURACY];
 
    for (let i = 0; i < count; i++)
    {
-      assert.equal(blueDiceKeys.includes(diceKeys[i]), true, diceKeys[i]);
+      assert.equal(blueDiceKeys.includes(dice[i]), true, dice[i]);
    }
 };
 
@@ -101,12 +99,11 @@ const verifyRedDice = (assert, count, dice) =>
 {
    assert.equal(dice.length, count);
 
-   const redDiceKeys = [DiceValue.HIT, DiceValue.HIT_HIT, DiceValue.CRITICAL_HIT, DiceValue.ACCURACY, DiceValue.BLANK];
-   const diceKeys = dice.map(die => die.dieKey);
+   const redDiceKeys = [DiceValue.RED_HIT_HIT, DiceValue.RED_HIT, DiceValue.RED_CRITICAL, DiceValue.RED_ACCURACY, DiceValue.RED_BLANK];
 
    for (let i = 0; i < count; i++)
    {
-      assert.equal(redDiceKeys.includes(diceKeys[i]), true, diceKeys[i]);
+      assert.equal(redDiceKeys.includes(dice[i]), true, dice[i]);
    }
 };
 

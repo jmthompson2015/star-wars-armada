@@ -3,21 +3,27 @@ import EnumTest from "./Enum.test.js";
 
 QUnit.module("DiceValue");
 
-QUnit.test("DiceValue properties Hit", function(assert)
+QUnit.test("DiceValue properties Black Hit + Critical", function(assert)
 {
-   const dieKey = DiceValue.HIT;
+   const dieKey = DiceValue.BLACK_HIT_CRITICAL;
    const properties = DiceValue.properties[dieKey];
-   assert.equal(properties.name, "Hit");
-   assert.equal(properties.sortOrder, 1);
+   assert.equal(properties.name, "Black Hit + Critical");
+   assert.equal(properties.color, "black");
+   assert.equal(properties.value, "hitCritical");
+   assert.equal(properties.sortOrder, 5);
+   assert.equal(properties.image, "dice/black-hit-critical-hit.png");
    assert.equal(properties.key, dieKey);
 });
 
-QUnit.test("DiceValue properties Hit + Critical Hit", function(assert)
+QUnit.test("DiceValue properties Red Hit", function(assert)
 {
-   const dieKey = DiceValue.HIT_CRITICAL_HIT;
+   const dieKey = DiceValue.RED_HIT;
    const properties = DiceValue.properties[dieKey];
-   assert.equal(properties.name, "Hit + Critical Hit");
-   assert.equal(properties.sortOrder, 2);
+   assert.equal(properties.name, "Red Hit");
+   assert.equal(properties.color, "red");
+   assert.equal(properties.value, "hit");
+   assert.equal(properties.sortOrder, 4);
+   assert.equal(properties.image, "dice/red-hit.png");
    assert.equal(properties.key, dieKey);
 });
 
@@ -28,7 +34,7 @@ QUnit.test("keys and values", function(assert)
 
 QUnit.test("keys()", function(assert)
 {
-   EnumTest.keys(assert, DiceValue, 6, DiceValue.ACCURACY, DiceValue.HIT_HIT);
+   EnumTest.keys(assert, DiceValue, 11, DiceValue.BLACK_BLANK, DiceValue.RED_HIT_HIT);
 });
 
 const DiceValueTest = {};

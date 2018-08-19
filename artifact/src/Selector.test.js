@@ -29,7 +29,7 @@ QUnit.test("damageCard()", function(assert)
 QUnit.test("diceValue()", function(assert)
 {
    // Setup.
-   const diceKey = DiceValue.HIT;
+   const diceKey = DiceValue.RED_HIT;
 
    // Run.
    const result = Selector.diceValue(diceKey);

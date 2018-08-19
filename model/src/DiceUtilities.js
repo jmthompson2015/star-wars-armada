@@ -9,11 +9,6 @@ DiceUtilities.rollDice = (
    red = 0
 }) =>
 {
-   // const answer = {};
-   //
-   // answer.black = myRollDice(rollRandomBlackValue)(black);
-   // answer.blue = myRollDice(rollRandomBlueValue)(blue);
-   // answer.red = myRollDice(rollRandomRedValue)(red);
    let answer = [];
 
    answer = R.concat(answer, myRollDice(rollRandomBlackValue)(black));
@@ -41,7 +36,7 @@ const rollRandomBlackValue = () =>
    const min = 1;
    const max = 8;
    const roll = Math.floor(Math.random() * (max - min + 1)) + min;
-   let value;
+   let answer;
 
    // There are 4x hit, 2x (hit + critical hit), and 2x blank.
    switch (roll)
@@ -50,24 +45,21 @@ const rollRandomBlackValue = () =>
       case 4:
       case 7:
       case 8:
-         value = DiceValue.HIT;
+         answer = DiceValue.BLACK_HIT;
          break;
       case 2:
       case 5:
-         value = DiceValue.HIT_CRITICAL_HIT;
+         answer = DiceValue.BLACK_HIT_CRITICAL;
          break;
       case 3:
       case 6:
-         value = DiceValue.BLANK;
+         answer = DiceValue.BLACK_BLANK;
          break;
       default:
          throw "Unsupported roll: " + roll;
    }
 
-   return {
-      color: "black",
-      dieKey: value
-   };
+   return answer;
 };
 
 const rollRandomBlueValue = () =>
@@ -75,7 +67,7 @@ const rollRandomBlueValue = () =>
    const min = 1;
    const max = 8;
    const roll = Math.floor(Math.random() * (max - min + 1)) + min;
-   let value;
+   let answer;
 
    // There are 4x hit, 2x critical hit, and 2x accuracy.
    switch (roll)
@@ -84,24 +76,21 @@ const rollRandomBlueValue = () =>
       case 4:
       case 7:
       case 8:
-         value = DiceValue.HIT;
+         answer = DiceValue.BLUE_HIT;
          break;
       case 2:
       case 5:
-         value = DiceValue.CRITICAL_HIT;
+         answer = DiceValue.BLUE_CRITICAL;
          break;
       case 3:
       case 6:
-         value = DiceValue.ACCURACY;
+         answer = DiceValue.BLUE_ACCURACY;
          break;
       default:
          throw "Unsupported roll: " + roll;
    }
 
-   return {
-      color: "blue",
-      dieKey: value
-   };
+   return answer;
 };
 
 const rollRandomRedValue = () =>
@@ -109,37 +98,34 @@ const rollRandomRedValue = () =>
    const min = 1;
    const max = 8;
    const roll = Math.floor(Math.random() * (max - min + 1)) + min;
-   let value;
+   let answer;
 
    // There are 2x hit, 1x double hit, 2x critical hit, 1x accuracy, and 2x blank.
    switch (roll)
    {
       case 1:
       case 6:
-         value = DiceValue.HIT;
+         answer = DiceValue.RED_HIT;
          break;
       case 2:
-         value = DiceValue.HIT_HIT;
+         answer = DiceValue.RED_HIT_HIT;
          break;
       case 3:
       case 7:
-         value = DiceValue.CRITICAL_HIT;
+         answer = DiceValue.RED_CRITICAL;
          break;
       case 4:
-         value = DiceValue.ACCURACY;
+         answer = DiceValue.RED_ACCURACY;
          break;
       case 5:
       case 8:
-         value = DiceValue.BLANK;
+         answer = DiceValue.RED_BLANK;
          break;
       default:
          throw "Unsupported roll: " + roll;
    }
 
-   return {
-      color: "red",
-      dieKey: value
-   };
+   return answer;
 };
 
 Object.freeze(DiceUtilities);
