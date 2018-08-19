@@ -5,6 +5,7 @@ import DiceValue from "./DiceValue.js";
 import Distance from "./Distance.js";
 import EnumUtilities from "./EnumUtilities.js";
 import Faction from "./Faction.js";
+import HullZone from "./HullZone.js";
 import Phase from "./Phase.js";
 import PlayFormat from "./PlayFormat.js";
 import Range from "./Range.js";
@@ -24,6 +25,7 @@ export
    Distance,
    EnumUtilities,
    Faction,
+   HullZone,
    Phase,
    PlayFormat,
    Range,

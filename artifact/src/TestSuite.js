@@ -5,6 +5,7 @@ import DiceValueTest from "./DiceValue.test.js";
 import DistanceTest from "./Distance.test.js";
 import EnumUtilitiesTest from "./EnumUtilities.test.js";
 import FactionTest from "./Faction.test.js";
+import HullZoneTest from "./HullZone.test.js";
 import PhaseTest from "./Phase.test.js";
 import PlayFormatTest from "./PlayFormat.test.js";
 import RangeTest from "./Range.test.js";
