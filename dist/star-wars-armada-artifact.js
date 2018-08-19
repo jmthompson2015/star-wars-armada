@@ -433,6 +433,36 @@
 
    Object.freeze(Faction);
 
+   const HullZone = {
+
+     FRONT: "front",
+     LEFT: "left",
+     REAR: "rear",
+     RIGHT: "right",
+   };
+
+   HullZone.properties = 
+   {
+      "front": {
+         "name": "front",
+         "key": "front"
+      },
+      "left": {
+         "name": "left",
+         "key": "left"
+      },
+      "rear": {
+         "name": "rear",
+         "key": "rear"
+      },
+      "right": {
+         "name": "right",
+         "key": "right"
+      }
+   };
+
+   Object.freeze(HullZone);
+
    const Phase = {
       SETUP: "setup",
 
@@ -3349,6 +3379,7 @@
    exports.Distance = Distance;
    exports.EnumUtilities = EnumUtilities;
    exports.Faction = Faction;
+   exports.HullZone = HullZone;
    exports.Phase = Phase;
    exports.PlayFormat = PlayFormat;
    exports.Range = Range;
