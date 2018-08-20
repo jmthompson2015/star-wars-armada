@@ -89,6 +89,7 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 81,
+      "ship-image": "ship/rebel-alliance/assault-frigate-mark-ii.png",
       "image": "ship-card/rebel-alliance/assault-frigate-mark-ii-a.png",
       "key": "assaultFrigateMarkIiA"
    },
@@ -161,6 +162,7 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 72,
+      "ship-image": "ship/rebel-alliance/assault-frigate-mark-ii.png",
       "image": "ship-card/rebel-alliance/assault-frigate-mark-ii-b.png",
       "key": "assaultFrigateMarkIiB"
    },
@@ -238,6 +240,7 @@ ShipCard.properties =
          "Ion Cannons"
       ],
       "points": 44,
+      "ship-image": "ship/rebel-alliance/cr90-corvette.png",
       "image": "ship-card/rebel-alliance/cr90-corvette-a.png",
       "key": "cr90CorvetteA"
    },
@@ -315,6 +318,7 @@ ShipCard.properties =
          "Ion Cannons"
       ],
       "points": 39,
+      "ship-image": "ship/rebel-alliance/cr90-corvette.png",
       "image": "ship-card/rebel-alliance/cr90-corvette-b.png",
       "key": "cr90CorvetteB"
    },
@@ -384,6 +388,7 @@ ShipCard.properties =
          "Offensive Retrofit"
       ],
       "points": 28,
+      "ship-image": "ship/galactic-empire/gozanti-class-carriers.png",
       "image": "ship-card/galactic-empire/gozanti-class-assault-carriers.png",
       "key": "gozantiClassAssaultCarriers"
    },
@@ -453,6 +458,7 @@ ShipCard.properties =
          "Offensive Retrofit"
       ],
       "points": 23,
+      "ship-image": "ship/galactic-empire/gozanti-class-carriers.png",
       "image": "ship-card/galactic-empire/gozanti-class-cruisers.png",
       "key": "gozantiClassCruisers"
    },
@@ -527,6 +533,7 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 112,
+      "ship-image": "ship/galactic-empire/imperial-class-star-destroyer.png",
       "image": "ship-card/galactic-empire/imperial-i-class-star-destroyer.png",
       "key": "imperialIClassStarDestroyer"
    },
@@ -601,6 +608,7 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 120,
+      "ship-image": "ship/galactic-empire/imperial-class-star-destroyer.png",
       "image": "ship-card/galactic-empire/imperial-ii-class-star-destroyer.png",
       "key": "imperialIiClassStarDestroyer"
    },
@@ -675,6 +683,7 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 112,
+      "ship-image": "ship/galactic-empire/imperial-class-star-destroyer.png",
       "image": "ship-card/galactic-empire/imperial-star-destroyer-cymoon-1-refit.png",
       "key": "imperialStarDestroyerCymoon1Refit"
    },
@@ -749,6 +758,7 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 112,
+      "ship-image": "ship/galactic-empire/imperial-class-star-destroyer.png",
       "image": "ship-card/galactic-empire/imperial-star-destroyer-kuat-refit.png",
       "key": "imperialStarDestroyerKuatRefit"
    },
@@ -822,6 +832,7 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 103,
+      "ship-image": "ship/rebel-alliance/mc80-liberty-cruiser.png",
       "image": "ship-card/rebel-alliance/mc80-battle-cruiser.png",
       "key": "mc80BattleCruiser"
    },
@@ -895,6 +906,7 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 96,
+      "ship-image": "ship/rebel-alliance/mc80-liberty-cruiser.png",
       "image": "ship-card/rebel-alliance/mc80-star-cruiser.png",
       "key": "mc80StarCruiser"
    },
@@ -965,6 +977,7 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 57,
+      "ship-image": "ship/rebel-alliance/nebulon-b-frigate.png",
       "image": "ship-card/rebel-alliance/nebulon-b-escort-frigate.png",
       "key": "nebulonBEscortFrigate"
    },
@@ -1035,6 +1048,7 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 51,
+      "ship-image": "ship/rebel-alliance/nebulon-b-frigate.png",
       "image": "ship-card/rebel-alliance/nebulon-b-support-refit.png",
       "key": "nebulonBSupportRefit"
    },
@@ -1102,6 +1116,7 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 73,
+      "ship-image": "ship/galactic-empire/victory-class-star-destroyer.png",
       "image": "ship-card/galactic-empire/victory-i-class-star-destroyer.png",
       "key": "victoryIClassStarDestroyer"
    },
@@ -1169,6 +1184,7 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 85,
+      "ship-image": "ship/galactic-empire/victory-class-star-destroyer.png",
       "image": "ship-card/galactic-empire/victory-ii-class-star-destroyer.png",
       "key": "victoryIiClassStarDestroyer"
    }

@@ -9,20 +9,20 @@ ShipBase.properties =
 {
    "large": {
       "name": "large",
-      "width": 79,
-      "height": 131,
+      "width": 131,
+      "height": 79,
       "key": "large"
    },
    "medium": {
       "name": "medium",
-      "width": 64,
-      "height": 104,
+      "width": 104,
+      "height": 64,
       "key": "medium"
    },
    "small": {
       "name": "small",
-      "width": 44,
-      "height": 73,
+      "width": 73,
+      "height": 44,
       "key": "small"
    }
 };

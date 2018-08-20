@@ -12,14 +12,14 @@ const CLASS_NAME = "ShipBase";
 const createData = card => key =>
 {
    const width = R.cond([
-     [R.equals("small"), R.always(44)], // small
-     [R.equals("medium"), R.always(64)], // medium
-     [R.equals("large"), R.always(79)] // large
-   ])(card);
-   const height = R.cond([
      [R.equals("small"), R.always(73)], // small
      [R.equals("medium"), R.always(104)], // medium
      [R.equals("large"), R.always(131)] // large
+   ])(card);
+   const height = R.cond([
+     [R.equals("small"), R.always(44)], // small
+     [R.equals("medium"), R.always(64)], // medium
+     [R.equals("large"), R.always(79)] // large
    ])(card);
 
    return (
