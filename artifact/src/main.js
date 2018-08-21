@@ -9,6 +9,7 @@ import HullZone from "./HullZone.js";
 import Phase from "./Phase.js";
 import PlayFormat from "./PlayFormat.js";
 import Range from "./Range.js";
+import ReferenceCard from "./ReferenceCard.js";
 import Selector from "./Selector.js";
 import ShipBase from "./ShipBase.js";
 import ShipCard from "./ShipCard.js";
@@ -29,6 +30,7 @@ export
    Phase,
    PlayFormat,
    Range,
+   ReferenceCard,
    Selector,
    ShipBase,
    ShipCard,

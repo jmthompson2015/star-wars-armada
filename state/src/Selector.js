@@ -27,6 +27,8 @@ Selector.damageDiscardPile = state => R.prop("damageDiscardPile", state);
 
 Selector.phaseKey = state => R.prop("phaseKey", state);
 
+Selector.playFormatKey = state => R.prop("playFormatKey", state);
+
 Selector.round = state => R.prop("round", state);
 
 Selector.userMessage = state => R.prop("userMessage", state);

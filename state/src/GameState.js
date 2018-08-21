@@ -8,6 +8,7 @@ GameState.create = function(
    activeSquadronId,
    isGameOver = false,
    phaseKey = "setup",
+   playFormatKey = "standard",
    round = 0,
    userMessage = "",
 
@@ -35,6 +36,7 @@ GameState.create = function(
       activeSquadronId,
       isGameOver: isGameOver,
       phaseKey: phaseKey,
+      playFormatKey: playFormatKey,
       round: round,
       userMessage: userMessage,
 

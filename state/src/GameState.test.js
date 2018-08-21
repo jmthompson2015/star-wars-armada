@@ -10,6 +10,7 @@ const PROPS = [
   "activeSquadronId",
   "isGameOver",
   "phaseKey",
+  "playFormatKey",
   "round",
   "userMessage",
 
@@ -82,6 +83,7 @@ function createTestState()
       activeSquadronId: i++,
       isGameOver: i++,
       phaseKey: i++,
+      playFormatKey: i++,
       round: i++,
       userMessage: i++,
 

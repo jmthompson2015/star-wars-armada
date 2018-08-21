@@ -836,6 +836,28 @@
 
    Object.freeze(Range);
 
+   const ReferenceCard = {
+
+     COMMANDS: "commands",
+     DEFENSE_TOKENS: "defenseTokens",
+   };
+
+   ReferenceCard.properties = 
+   {
+      "commands": {
+         "title": "Commands",
+         "image": "reference-card/commands.png",
+         "key": "commands"
+      },
+      "defenseTokens": {
+         "title": "Defense Tokens",
+         "image": "reference-card/defense-tokens.png",
+         "key": "defenseTokens"
+      }
+   };
+
+   Object.freeze(ReferenceCard);
+
    const ShipBase = {
 
      LARGE: "large",
@@ -3384,6 +3406,7 @@
 
    Selector.heightByCard = cardKey => R.cond([
         [R.either(cardNotNil(Selector.upgradeCard), cardNotNil(Selector.damageCard)), R.always(64)],
+        [cardNotNil(Selector.referenceCard), R.always(89)],
         [cardNotNil(Selector.squadronCard), R.always(89)],
         [cardNotNil(Selector.shipCard), R.always(120)],
         [R.T, cardKey => "Unknown card type for cardKey: " + cardKey]
@@ -3413,12 +3436,15 @@
       return R.reduce(reduceFunction, undefined)(ranges);
    };
 
+   Selector.shipBaseValueByShip = shipKey => Selector.shipBase(Selector.shipCard(shipKey).size);
+
    Selector.upgradeSlotKeysByShip = shipKey => keysByName(UpgradeSlot, Selector.shipCard(shipKey).slots);
 
    Selector.upgradeSlotKeysByUpgrade = upgradeKey => keysByName(UpgradeSlot, Selector.upgradeCard(upgradeKey).slots);
 
    Selector.widthByCard = cardKey => R.cond([
         [R.either(cardNotNil(Selector.upgradeCard), cardNotNil(Selector.damageCard)), R.always(41)],
+        [cardNotNil(Selector.referenceCard), R.always(62)],
         [cardNotNil(Selector.squadronCard), R.always(62)],
         [cardNotNil(Selector.shipCard), R.always(70)],
         [R.T, cardKey => "Unknown card type for cardKey: " + cardKey]
@@ -3442,6 +3468,8 @@
    Selector.playFormat = key => valueByKey(PlayFormat, key);
 
    Selector.range = key => valueByKey(Range, key);
+
+   Selector.referenceCard = key => valueByKey(ReferenceCard, key);
 
    Selector.shipBase = key => valueByKey(ShipBase, key);
 
@@ -3472,6 +3500,7 @@
    exports.Phase = Phase;
    exports.PlayFormat = PlayFormat;
    exports.Range = Range;
+   exports.ReferenceCard = ReferenceCard;
    exports.Selector = Selector;
    exports.ShipBase = ShipBase;
    exports.ShipCard = ShipCard;

@@ -356,6 +356,7 @@
       activeSquadronId,
       isGameOver = false,
       phaseKey = "setup",
+      playFormatKey = "standard",
       round = 0,
       userMessage = "",
 
@@ -383,6 +384,7 @@
          activeSquadronId,
          isGameOver: isGameOver,
          phaseKey: phaseKey,
+         playFormatKey: playFormatKey,
          round: round,
          userMessage: userMessage,
 
@@ -605,6 +607,8 @@
    Selector.damageDiscardPile = state => R.prop("damageDiscardPile", state);
 
    Selector.phaseKey = state => R.prop("phaseKey", state);
+
+   Selector.playFormatKey = state => R.prop("playFormatKey", state);
 
    Selector.round = state => R.prop("round", state);
 

@@ -9,6 +9,7 @@ import HullZoneTest from "./HullZone.test.js";
 import PhaseTest from "./Phase.test.js";
 import PlayFormatTest from "./PlayFormat.test.js";
 import RangeTest from "./Range.test.js";
+import ReferenceCardTest from "./ReferenceCard.test.js";
 import SelectorTest from "./Selector.test.js";
 import ShipBaseTest from "./ShipBase.test.js";
 import ShipCardTest from "./ShipCard.test.js";

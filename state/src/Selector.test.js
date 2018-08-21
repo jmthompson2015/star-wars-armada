@@ -268,6 +268,19 @@ QUnit.test("phaseKey()", function(assert)
    assert.equal(result, "planningStart");
 });
 
+QUnit.test("playFormatKey()", function(assert)
+{
+   // Setup.
+   const gameState = TestData.createGameState();
+
+   // Run.
+   const result = Selector.playFormatKey(gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result, "standard");
+});
+
 QUnit.test("round()", function(assert)
 {
    // Setup.

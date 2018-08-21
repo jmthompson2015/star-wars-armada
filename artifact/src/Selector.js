@@ -8,6 +8,7 @@ import Faction from "./Faction.js";
 import Phase from "./Phase.js";
 import PlayFormat from "./PlayFormat.js";
 import Range from "./Range.js";
+import ReferenceCard from "./ReferenceCard.js";
 import ShipBase from "./ShipBase.js";
 import ShipCard from "./ShipCard.js";
 import SquadronCard from "./SquadronCard.js";
@@ -36,6 +37,7 @@ Selector.findEnumValueByName = (name, enumClass) => EnumUtils.findByName(name, e
 
 Selector.heightByCard = cardKey => R.cond([
      [R.either(cardNotNil(Selector.upgradeCard), cardNotNil(Selector.damageCard)), R.always(64)],
+     [cardNotNil(Selector.referenceCard), R.always(89)],
      [cardNotNil(Selector.squadronCard), R.always(89)],
      [cardNotNil(Selector.shipCard), R.always(120)],
      [R.T, cardKey => "Unknown card type for cardKey: " + cardKey]
@@ -65,12 +67,15 @@ Selector.rangeKeyByLength = length =>
    return R.reduce(reduceFunction, undefined)(ranges);
 };
 
+Selector.shipBaseValueByShip = shipKey => Selector.shipBase(Selector.shipCard(shipKey).size);
+
 Selector.upgradeSlotKeysByShip = shipKey => keysByName(UpgradeSlot, Selector.shipCard(shipKey).slots);
 
 Selector.upgradeSlotKeysByUpgrade = upgradeKey => keysByName(UpgradeSlot, Selector.upgradeCard(upgradeKey).slots);
 
 Selector.widthByCard = cardKey => R.cond([
      [R.either(cardNotNil(Selector.upgradeCard), cardNotNil(Selector.damageCard)), R.always(41)],
+     [cardNotNil(Selector.referenceCard), R.always(62)],
      [cardNotNil(Selector.squadronCard), R.always(62)],
      [cardNotNil(Selector.shipCard), R.always(70)],
      [R.T, cardKey => "Unknown card type for cardKey: " + cardKey]
@@ -94,6 +99,8 @@ Selector.phase = key => valueByKey(Phase, key);
 Selector.playFormat = key => valueByKey(PlayFormat, key);
 
 Selector.range = key => valueByKey(Range, key);
+
+Selector.referenceCard = key => valueByKey(ReferenceCard, key);
 
 Selector.shipBase = key => valueByKey(ShipBase, key);
 
