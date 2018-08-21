@@ -522,6 +522,54 @@
       context.stroke();
    };
 
+   const StatusBarUI = props =>
+   {
+      const helpLinkUI = ReactDOMFactories.a(
+      {
+         href: props.helpBase + "Help.html",
+         target: "_blank",
+      }, "Help");
+
+      let i = 0;
+      const cellClassName = "ba";
+
+      const roundCell = ReactUtilities.createCell(["Round: ", props.round], i++, cellClassName,
+      {
+         title: "Round"
+      });
+      const phaseCell = ReactUtilities.createCell(["Phase: ", props.phaseName], i++, cellClassName,
+      {
+         title: "Phase"
+      });
+      const activeShipCell = ReactUtilities.createCell(["Active Ship: ", props.activeShipName], i++, cellClassName,
+      {
+         title: "Active Ship"
+      });
+      const userMessageCell = ReactUtilities.createCell(props.userMessage, i++, cellClassName,
+      {
+         title: "User Message"
+      });
+      const helpCell = ReactUtilities.createCell(helpLinkUI, i++, cellClassName);
+
+      const cells = [roundCell, phaseCell, activeShipCell, userMessageCell, helpCell];
+      const row = ReactUtilities.createRow(cells);
+
+      return ReactUtilities.createTable(row, "statusBarUITable", "bg-xw-light collapse ma0 tc v-mid w-100");
+   };
+
+   StatusBarUI.propTypes = {
+      activeShipName: PropTypes.string.isRequired,
+      phaseName: PropTypes.string.isRequired,
+      round: PropTypes.number.isRequired,
+      userMessage: PropTypes.string.isRequired,
+
+      helpBase: PropTypes.string
+   };
+
+   StatusBarUI.defaultProps = {
+      helpBase: "./"
+   };
+
    const UpgradeSlotUI = props =>
    {
       const upgradeSlot = props.upgradeSlot;
@@ -551,14 +599,56 @@
       showLabel: false
    };
 
+   const StatusBarContainer = (gameState, ownProps = {}) =>
+   {
+      const activeShipId = gameState.activeShipId;
+      const shipInstance = (activeShipId !== undefined ? AS.Selector.shipInstance(activeShipId, gameState) : undefined);
+      const shipCard = (shipInstance !== undefined ? AA.Selector.shipCard(shipInstance.shipKey) : undefined);
+      const activeShipName = (shipCard !== undefined ? shipCard.name : "");
+      const phaseName = AA.Selector.phase(gameState.phaseKey).name;
+      const round = AS.Selector.round(gameState);
+      const userMessage = AS.Selector.userMessage(gameState);
+
+      return React.createElement(StatusBarUI,
+      {
+         activeShipName: activeShipName,
+         phaseName: phaseName,
+         round: round,
+         userMessage: userMessage,
+         helpBase: ownProps.helpBase
+      });
+   };
+
+   const Help = {};
+
+   const referenceCards = AA.EnumUtilities.values(AA.ReferenceCard);
+   const mapFunction = referenceCard =>
+   {
+      return React.createElement(CardImage,
+      {
+         key: "referenceCard" + referenceCard.key,
+         card: referenceCard,
+         resourceBase: Endpoint.ARMADA_IMAGES,
+         width: 250
+      });
+   };
+   const rows = R.map(mapFunction, referenceCards);
+
+   const mainPanel = ReactDOMFactories.div(
+   {}, rows);
+   ReactDOM.render(mainPanel, document.getElementById("panel"));
+
    exports.CardImage = CardImage;
    exports.CommandChooser = CommandChooser;
    exports.DicePanel = DicePanel;
    exports.FactionUI = FactionUI;
    exports.ImageWithLabelUI = ImageWithLabelUI;
    exports.ShipImage = ShipImage;
+   exports.StatusBarUI = StatusBarUI;
    exports.UpgradeSlotUI = UpgradeSlotUI;
+   exports.StatusBarContainer = StatusBarContainer;
    exports.Endpoint = Endpoint;
+   exports.Help = Help;
    exports.ReactUtilities = ReactUtilities;
 
    Object.defineProperty(exports, '__esModule', { value: true });
