@@ -7,6 +7,7 @@
    const Endpoint = {};
 
    Endpoint.ARMADA_IMAGES = "https://raw.githubusercontent.com/jmthompson2015/star-wars-armada-data/master/image/";
+   Endpoint.LOCAL_RESOURCE = "../../resource/";
 
    class CardImage extends React.Component
    {
@@ -477,14 +478,11 @@
       const height = shipBase.height;
       const halfWidth = Math.ceil(width / 2);
       const halfHeight = Math.ceil(height / 2);
-      const x = position.x;
-      const y = position.y;
-      const angle = position.heading * DEG_TO_RADIANS;
 
       context.save();
       context.scale(scale, scale);
-      context.translate(x, y);
-      context.rotate(angle);
+      context.translate(position.x, position.y);
+      context.rotate(position.heading * DEG_TO_RADIANS);
 
       // Draw background square.
       context.fillStyle = "rgba(255,255,255,0.4)";

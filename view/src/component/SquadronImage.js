@@ -1,12 +1,12 @@
-const ShipImage = {};
+const SquadronImage = {};
 
 const DEG_TO_RADIANS = Math.PI / 180.0;
 
-ShipImage.draw = function(context, scale, id, image, position, shipBase, factionColor)
+SquadronImage.draw = function(context, scale, id, image, position, factionColor)
 {
    // Setup.
-   const width = shipBase.width;
-   const height = shipBase.height;
+   const width = 35;
+   const height = 35;
    const halfWidth = Math.ceil(width / 2);
    const halfHeight = Math.ceil(height / 2);
 
@@ -15,13 +15,11 @@ ShipImage.draw = function(context, scale, id, image, position, shipBase, faction
    context.translate(position.x, position.y);
    context.rotate(position.heading * DEG_TO_RADIANS);
 
-   // Draw background square.
+   // Draw background circle.
    context.fillStyle = "rgba(255,255,255,0.4)";
-   context.fillRect(-halfWidth, -halfHeight, width, height);
-
-   // Draw the firing arcs.
-   context.strokeStyle = factionColor;
-   drawFiringArcs(context, halfWidth, halfHeight);
+   context.beginPath();
+   context.arc(0, 0, halfWidth, 0, 2 * Math.PI);
+   context.fill();
 
    // Draw ship image.
    context.drawImage(image, -image.width / 2, -image.height / 2, image.width, image.height);
@@ -40,15 +38,4 @@ ShipImage.draw = function(context, scale, id, image, position, shipBase, faction
    context.restore();
 };
 
-const drawFiringArcs = (context, halfWidth, halfHeight) =>
-{
-   // Draw the firing arcs.
-   context.beginPath();
-   context.moveTo(-halfWidth, -halfHeight);
-   context.lineTo(halfWidth, halfHeight);
-   context.moveTo(halfWidth, -halfHeight);
-   context.lineTo(-halfWidth, halfHeight);
-   context.stroke();
-};
-
-export default ShipImage;
+export default SquadronImage;

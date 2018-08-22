@@ -2122,6 +2122,7 @@
             "Brace"
          ],
          "points": 23,
+         "squadron-image": "squadron/galactic-empire/mandalorian-gauntlet-fighter.png",
          "image": "squadron-card/galactic-empire/gar-saxon.png",
          "key": "garSaxon"
       },
@@ -2152,6 +2153,7 @@
             "Scatter"
          ],
          "points": 16,
+         "squadron-image": "squadron/galactic-empire/tie-fighter-squadron.png",
          "image": "squadron-card/galactic-empire/howlrunner.png",
          "key": "howlrunner"
       },
@@ -2183,6 +2185,7 @@
             "Brace"
          ],
          "points": 20,
+         "squadron-image": "squadron/rebel-alliance/x-wing-squadron.png",
          "image": "squadron-card/rebel-alliance/luke-skywalker.png",
          "key": "lukeSkywalker"
       },
@@ -2210,6 +2213,7 @@
          ],
          "defense-tokens": [],
          "points": 20,
+         "squadron-image": "squadron/galactic-empire/mandalorian-gauntlet-fighter.png",
          "image": "squadron-card/galactic-empire/mandalorian-gauntlet-fighter.png",
          "key": "mandalorianGauntletFighter"
       },
@@ -2234,6 +2238,7 @@
             "Swarm"
          ],
          "points": 8,
+         "squadron-image": "squadron/galactic-empire/tie-fighter-squadron.png",
          "image": "squadron-card/galactic-empire/tie-fighter-squadron.png",
          "key": "tieFighterSquadron"
       },
@@ -2259,6 +2264,7 @@
             "Escort"
          ],
          "points": 13,
+         "squadron-image": "squadron/rebel-alliance/x-wing-squadron.png",
          "image": "squadron-card/rebel-alliance/x-wing-squadron.png",
          "key": "xWingSquadron"
       }

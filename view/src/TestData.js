@@ -85,7 +85,7 @@ TestData.createSquadron = function(id, squadronKey, position)
    });
 };
 
-TestData.createStore = () =>
+TestData.createStore = (width = 915) =>
 {
    const store = Redux.createStore(AS.Reducer.root);
 
@@ -98,17 +98,17 @@ TestData.createStore = () =>
    store.dispatch(ActionCreator.setUpgradeInstance(TestData.createUpgrade(3, "generalDodonna")));
    store.dispatch(ActionCreator.setUpgradeInstance(TestData.createUpgrade(4, "dodonnasPride")));
 
-   const squadronPosition1 = TestData.createPosition(Math.round(1830 * 1 / 6), 52, 90);
-   const squadronPosition2 = TestData.createPosition(Math.round(1830 * 2 / 6), 52, 90);
-   const shipPosition1 = TestData.createPosition(Math.round(1830 * 3 / 6), 52, 90);
-   const squadronPosition3 = TestData.createPosition(Math.round(1830 * 4 / 6), 52, 90);
-   const squadronPosition4 = TestData.createPosition(Math.round(1830 * 5 / 6), 52, 90);
+   const squadronPosition1 = TestData.createPosition(Math.round(width / 2 - 200), 52, 90);
+   const squadronPosition2 = TestData.createPosition(Math.round(width / 2 - 100), 52, 90);
+   const shipPosition1 = TestData.createPosition(Math.round(width / 2), 52, 90);
+   const squadronPosition3 = TestData.createPosition(Math.round(width / 2 + 100), 52, 90);
+   const squadronPosition4 = TestData.createPosition(Math.round(width / 2 + 200), 52, 90);
 
-   const squadronPosition5 = TestData.createPosition(Math.round(1830 * 1 / 6), 915 - 37, 270);
-   const shipPosition2 = TestData.createPosition(Math.round(1830 * 2 / 6), 915 - 37, 270);
-   const squadronPosition6 = TestData.createPosition(Math.round(1830 * 3 / 6), 915 - 37, 270);
-   const shipPosition3 = TestData.createPosition(Math.round(1830 * 4 / 6), 915 - 37, 270);
-   const squadronPosition7 = TestData.createPosition(Math.round(1830 * 5 / 6), 915 - 37, 270);
+   const squadronPosition5 = TestData.createPosition(Math.round(width / 2 - 200), 915 - 37, 270);
+   const shipPosition2 = TestData.createPosition(Math.round(width / 2 - 100), 915 - 37, 270);
+   const squadronPosition6 = TestData.createPosition(Math.round(width / 2), 915 - 37, 270);
+   const shipPosition3 = TestData.createPosition(Math.round(width / 2 + 100), 915 - 37, 270);
+   const squadronPosition7 = TestData.createPosition(Math.round(width / 2 + 200), 915 - 37, 270);
 
    store.dispatch(ActionCreator.setShipInstance(TestData.createShip(1, "victoryIiClassStarDestroyer", [1, 2], shipPosition1, [1, 2])));
    store.dispatch(ActionCreator.setShipInstance(TestData.createShip(2, "nebulonBEscortFrigate", [3], shipPosition2, [3])));
