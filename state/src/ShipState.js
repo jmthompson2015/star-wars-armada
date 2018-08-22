@@ -7,6 +7,7 @@ ShipState.create = function(
    speed,
 
    position,
+   tokenCounts = {},
 
    commands = [],
    criticals = [],
@@ -22,6 +23,7 @@ ShipState.create = function(
       speed: speed,
 
       position: Immutable(position),
+      tokenCounts: Immutable(tokenCounts),
 
       commands: Immutable(commands),
       criticals: Immutable(criticals),

@@ -664,6 +664,7 @@
       speed,
 
       position,
+      tokenCounts = {},
 
       commands = [],
       criticals = [],
@@ -679,6 +680,7 @@
          speed: speed,
 
          position: Immutable(position),
+         tokenCounts: Immutable(tokenCounts),
 
          commands: Immutable(commands),
          criticals: Immutable(criticals),
@@ -721,32 +723,18 @@
 
    TokenCountsState.create = function(
    {
-      // cloak,
-      // energy,
-      // evade,
-      // focus,
-      // ion,
-      // ordnance,
-      // reinforce,
-      // shield,
-      // stress,
-      // tractorBeam,
-      // weaponsDisabled
+      concentrateFire,
+      navigate,
+      repair,
+      squadron
    } = {})
    {
       return Immutable(
       {
-         // cloak: cloak,
-         // energy: energy,
-         // evade: evade,
-         // focus: focus,
-         // ion: ion,
-         // ordnance: ordnance,
-         // reinforce: reinforce,
-         // shield: shield,
-         // stress: stress,
-         // tractorBeam: tractorBeam,
-         // weaponsDisabled: weaponsDisabled
+         concentrateFire: concentrateFire,
+         navigate: navigate,
+         repair: repair,
+         squadron: squadron
       });
    };
 

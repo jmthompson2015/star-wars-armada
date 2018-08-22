@@ -8,6 +8,7 @@ const PROPS = [
   "speed",
 
   "position",
+  "tokenCounts",
 
   "commands",
   "criticals",
@@ -56,6 +57,7 @@ function createTestState()
       speed: i++,
 
       position: i++,
+      tokenCounts: i++,
 
       commands: i++,
       criticals: i++,

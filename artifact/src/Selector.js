@@ -17,6 +17,14 @@ import UpgradeSlot from "./UpgradeSlot.js";
 
 const Selector = {};
 
+Selector.defenseTokenValuesByShip = shipKey =>
+{
+   const shipCard = Selector.shipCard(shipKey);
+   const defenseTokenNames = shipCard["defense-tokens"];
+
+   return R.map(name => EnumUtils.findByName(name, DefenseToken), defenseTokenNames);
+};
+
 Selector.distanceKeyByLength = length =>
 {
    const distances = EnumUtils.values(Distance);

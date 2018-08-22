@@ -3392,6 +3392,14 @@
 
    const Selector = {};
 
+   Selector.defenseTokenValuesByShip = shipKey =>
+   {
+      const shipCard = Selector.shipCard(shipKey);
+      const defenseTokenNames = shipCard["defense-tokens"];
+
+      return R.map(name => EnumUtilities.findByName(name, DefenseToken), defenseTokenNames);
+   };
+
    Selector.distanceKeyByLength = length =>
    {
       const distances = EnumUtilities.values(Distance);

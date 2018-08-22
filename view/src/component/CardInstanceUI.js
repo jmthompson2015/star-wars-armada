@@ -2,7 +2,7 @@ import ReactUtilities from "../ReactUtilities.js";
 
 import CardImage from "./CardImage.js";
 import CardInstancesArea from "./CardInstancesArea.js";
-// import TokenPanel from "./TokenPanel.js";
+import TokenPanel from "./TokenPanel.js";
 
 class CardInstanceUI extends React.Component
 {
@@ -25,7 +25,7 @@ class CardInstanceUI extends React.Component
       if (cardInstance)
       {
          const image = this.createCardImage(cardInstance);
-         // const tokenPanel = this.createTokenPanel(cardInstance.id);
+         const tokenPanel = this.createTokenPanel(cardInstance.id);
          const cell = ReactDOMFactories.div(
          {
             key: "imagePanel" + columns.length,
@@ -34,7 +34,7 @@ class CardInstanceUI extends React.Component
          }, image);
 
          columns.push(cell);
-         // columns.push(tokenPanel);
+         columns.push(tokenPanel);
          this.createAttachmentPanel(columns);
       }
 
@@ -130,28 +130,31 @@ CardInstanceUI.prototype.createCardImage = function(cardInstance)
    });
 };
 
-// CardInstanceUI.prototype.createTokenPanel = function(cardId)
-// {
-//    let props = {
-//       key: "token" + cardId,
-//       attackerTargetLocks: this.props.attackerTargetLocks,
-//       defenderTargetLocks: this.props.defenderTargetLocks,
-//       statBonuses: this.props.statBonuses,
-//       tokenCounts: this.props.tokenCounts
-//    };
-//
-//    return React.createElement(TokenPanel, props);
-// };
+CardInstanceUI.prototype.createTokenPanel = function(cardId)
+{
+   let props = {
+      key: "token" + cardId,
+      defenseInstances: this.props.defenseInstances,
+      tokenCounts: this.props.tokenCounts
+   };
+
+   return React.createElement(TokenPanel, props);
+};
 
 CardInstanceUI.propTypes = {
    cardInstance: PropTypes.object,
    damageInstances: PropTypes.array,
+   defenseInstances: PropTypes.array,
+   tokenCounts: PropTypes.object,
    upgradeInstances: PropTypes.array,
    width: PropTypes.number
 };
 
 CardInstanceUI.defaultProps = {
    damageInstances: [],
+   defenseInstances: [],
+   tokenCounts:
+   {},
    upgradeInstances: [],
    width: 250
 };

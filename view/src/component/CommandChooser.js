@@ -1,5 +1,7 @@
 import ReactUtils from "../ReactUtilities.js";
 
+import CommandUI from "./CommandUI.js";
+
 class CommandChooser extends React.Component
 {
    constructor(props)
@@ -59,16 +61,13 @@ CommandChooser.prototype.handleChangeFunction = function(event)
 
 const labelFunction = function(command)
 {
-   const fontKey = (command.key === "concentrateFire" ? "concentrate" : command.key);
-
-   return ReactDOMFactories.span(
+   return React.createElement(CommandUI,
    {
-      className: "v-mid",
+      command: command,
+      isSmall: true,
+      showLabel: true,
       title: command.text
-   }, ReactDOMFactories.i(
-   {
-      className: "f3 tc v-mid ffi ffi-swa-" + fontKey,
-   }), " ", command.name);
+   });
 };
 
 CommandChooser.propTypes = {

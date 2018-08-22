@@ -26,6 +26,22 @@ QUnit.test("damageCard()", function(assert)
    assert.equal(result.key, damageKey);
 });
 
+QUnit.test("defenseTokenValuesByShip()", function(assert)
+{
+   // Setup.
+   const shipKey = ShipCard.VICTORY_II_CLASS_STAR_DESTROYER;
+
+   // Run.
+   const result = Selector.defenseTokenValuesByShip(shipKey);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 3);
+   assert.equal(result[0].key, "brace");
+   assert.equal(result[1].key, "redirect");
+   assert.equal(result[2].key, "redirect");
+});
+
 QUnit.test("diceValue()", function(assert)
 {
    // Setup.
