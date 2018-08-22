@@ -275,6 +275,253 @@
       return ReactDOMFactories.div(newProps, rows);
    };
 
+   class CardInstancesArea extends React.Component
+   {
+      constructor(props)
+      {
+         super(props);
+
+         this.state = {
+            isExpanded: this.props.isExpanded,
+         };
+
+         this.toggleExpand = this.toggleExpandFunction.bind(this);
+      }
+
+      render()
+      {
+         const rows = [];
+
+         rows.push(this.createLabelUI());
+         rows.push(this.createCardInstanceCells());
+
+         return ReactUtilities.createTable(rows, undefined);
+      }
+   }
+
+   CardInstancesArea.prototype.createCardInstanceCells = function()
+   {
+      const cardInstanceUIs = this.props.cardInstanceUIs;
+      const isExpanded = this.state.isExpanded;
+
+      const cells = cardInstanceUIs.map(function(cardInstanceUI, i)
+      {
+         let myClassName;
+
+         if (isExpanded || i === cardInstanceUIs.length - 1)
+         {
+            myClassName = "dtc pa1 v-mid";
+         }
+         else if (i < cardInstanceUIs.length - 1)
+         {
+            myClassName = "dn";
+         }
+
+         return ReactDOMFactories.div(
+         {
+            key: "cardCell" + i,
+            className: myClassName,
+         }, cardInstanceUI);
+      });
+
+      const cell = ReactUtilities.createCell(cells);
+
+      return ReactUtilities.createRow(cell, "mainRow");
+   };
+
+   CardInstancesArea.prototype.createLabelUI = function()
+   {
+      const label = ReactUtilities.createCell(this.props.label, "labelCell", "b tc");
+
+      const cardCount = this.props.cardInstanceUIs.length;
+      const isExpanded = this.state.isExpanded;
+      const expandLabel = (cardCount > 1 ? (isExpanded ? "\u25B6" : "\u25BC") : "");
+      const expandControl = ReactDOMFactories.div(
+      {
+         key: "expandCell",
+         onClick: this.toggleExpand,
+      }, expandLabel);
+
+      const row = ReactUtilities.createRow([label, expandControl], "labelExpandRow");
+      const table = ReactUtilities.createTable(row, "labelExpandTable", "w-100");
+
+      const tableCell = ReactUtilities.createCell(table, "tableCell");
+      return ReactUtilities.createRow(tableCell, "labelRow");
+   };
+
+   CardInstancesArea.prototype.toggleExpandFunction = function()
+   {
+      this.setState(
+      {
+         isExpanded: !this.state.isExpanded,
+      });
+   };
+
+   CardInstancesArea.propTypes = {
+      cardInstanceUIs: PropTypes.array.isRequired,
+
+      isExpanded: PropTypes.bool,
+      label: PropTypes.string, // default: undefined
+   };
+
+   CardInstancesArea.defaultProps = {
+      isExpanded: true,
+   };
+
+   // import TokenPanel from "./TokenPanel.js";
+
+   class CardInstanceUI extends React.Component
+   {
+      constructor(props)
+      {
+         super(props);
+
+         this.state = {
+            isSmall: true,
+         };
+
+         this.toggleSize = this.toggleSizeFunction.bind(this);
+      }
+
+      render()
+      {
+         const columns = [];
+         const cardInstance = this.props.cardInstance;
+
+         if (cardInstance)
+         {
+            const image = this.createCardImage(cardInstance);
+            // const tokenPanel = this.createTokenPanel(cardInstance.id);
+            const cell = ReactDOMFactories.div(
+            {
+               key: "imagePanel" + columns.length,
+               className: "v-mid",
+               onClick: this.toggleSize,
+            }, image);
+
+            columns.push(cell);
+            // columns.push(tokenPanel);
+            this.createAttachmentPanel(columns);
+         }
+
+         return ReactUtilities.createFlexboxWrap(columns, "cardInstanceUI", "bg-xw-medium items-center justify-center ma0 pa0");
+      }
+   }
+
+   CardInstanceUI.prototype.toggleSizeFunction = function()
+   {
+      this.setState(
+      {
+         isSmall: !this.state.isSmall,
+      });
+   };
+
+   CardInstanceUI.prototype.createAttachmentPanel = function(columns)
+   {
+      const attachments = [];
+      const upgrades = this.props.upgradeInstances;
+
+      if (upgrades.length > 0)
+      {
+         for (let i = 0; i < upgrades.length; i++)
+         {
+            const upgradeInstance = upgrades[i];
+            const upgradeUI = this.createAttachmentUI(upgradeInstance);
+            attachments.push(upgradeUI);
+         }
+      }
+
+      const damages = this.props.damageInstances;
+
+      if (damages.length > 0)
+      {
+         for (let j = 0; j < damages.length; j++)
+         {
+            const damageInstance = damages[j];
+            const damageUI = this.createAttachmentUI(damageInstance);
+            attachments.push(damageUI);
+         }
+      }
+
+      columns.push(React.createElement(CardInstancesArea,
+      {
+         key: "attachmentPanel",
+         cardInstanceUIs: attachments,
+         isExpanded: false
+      }));
+   };
+
+   CardInstanceUI.prototype.createAttachmentUI = function(cardInstance)
+   {
+      return React.createElement(CardInstanceUI,
+      {
+         key: "attachment" + cardInstance.id,
+         cardInstance: cardInstance,
+         width: this.props.width / 1.4,
+      });
+   };
+
+   CardInstanceUI.prototype.createCardImage = function(cardInstance)
+   {
+      let width = this.props.width;
+
+      if (this.state.isSmall)
+      {
+         width /= 2;
+      }
+
+      let card;
+
+      if (cardInstance.shipKey !== undefined)
+      {
+         card = AA.Selector.shipCard(cardInstance.shipKey);
+      }
+      else if (cardInstance.squadronKey !== undefined)
+      {
+         card = AA.Selector.squadronCard(cardInstance.squadronKey);
+      }
+      else if (cardInstance.upgradeKey !== undefined)
+      {
+         card = AA.Selector.upgradeCard(cardInstance.upgradeKey);
+      }
+      else if (cardInstance.damageKey !== undefined)
+      {
+         card = AA.Selector.damageCard(cardInstance.damageKey);
+      }
+
+      return React.createElement(CardImage,
+      {
+         card: card,
+         width: width
+      });
+   };
+
+   // CardInstanceUI.prototype.createTokenPanel = function(cardId)
+   // {
+   //    let props = {
+   //       key: "token" + cardId,
+   //       attackerTargetLocks: this.props.attackerTargetLocks,
+   //       defenderTargetLocks: this.props.defenderTargetLocks,
+   //       statBonuses: this.props.statBonuses,
+   //       tokenCounts: this.props.tokenCounts
+   //    };
+   //
+   //    return React.createElement(TokenPanel, props);
+   // };
+
+   CardInstanceUI.propTypes = {
+      cardInstance: PropTypes.object,
+      damageInstances: PropTypes.array,
+      upgradeInstances: PropTypes.array,
+      width: PropTypes.number
+   };
+
+   CardInstanceUI.defaultProps = {
+      damageInstances: [],
+      upgradeInstances: [],
+      width: 250
+   };
+
    class CommandChooser extends React.Component
    {
       constructor(props)
@@ -637,6 +884,8 @@
    ReactDOM.render(mainPanel, document.getElementById("panel"));
 
    exports.CardImage = CardImage;
+   exports.CardInstancesArea = CardInstancesArea;
+   exports.CardInstanceUI = CardInstanceUI;
    exports.CommandChooser = CommandChooser;
    exports.DicePanel = DicePanel;
    exports.FactionUI = FactionUI;

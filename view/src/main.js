@@ -1,4 +1,6 @@
 import CardImage from "./component/CardImage.js";
+import CardInstancesArea from "./component/CardInstancesArea.js";
+import CardInstanceUI from "./component/CardInstanceUI.js";
 import CommandChooser from "./component/CommandChooser.js";
 import DicePanel from "./component/DicePanel.js";
 import FactionUI from "./component/FactionUI.js";
@@ -16,6 +18,8 @@ import ReactUtilities from "./ReactUtilities.js";
 export
 {
    CardImage,
+   CardInstancesArea,
+   CardInstanceUI,
    CommandChooser,
    DicePanel,
    FactionUI,
