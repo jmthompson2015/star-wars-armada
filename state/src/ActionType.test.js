@@ -7,7 +7,7 @@ QUnit.test("all action creators", function(assert)
 {
    // Setup.
    const actionCreatorKeys = Object.getOwnPropertyNames(ActionCreator);
-   assert.equal(actionCreatorKeys.length, 48);
+   assert.equal(actionCreatorKeys.length, 49);
    const actionTypeKeys = Object.getOwnPropertyNames(ActionType);
    const actionTypes = actionTypeKeys.map(key => ActionType[key]);
 

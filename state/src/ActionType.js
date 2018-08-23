@@ -16,8 +16,6 @@ ActionType.DEAL_DAMAGE = "dealDamage";
 ActionType.DEQUEUE_COMMAND = "dequeueCommand";
 ActionType.DEQUEUE_SHIP = "dequeueShip";
 ActionType.DEQUEUE_SQUADRON = "dequeueSquadron";
-// ActionType.DEQUEUE_STATUS_SHIP = "dequeueStatusShip";
-// ActionType.DEQUEUE_STATUS_SQUADRON = "dequeueStatusSquadron";
 
 ActionType.INCREMENT_ROUND = "incrementRound";
 
@@ -51,6 +49,7 @@ ActionType.SET_FLEET_SHIPS = "setFleetShips";
 ActionType.SET_FLEET_SQUADRONS = "setFleetSquadrons";
 ActionType.SET_GAME_OVER = "setGameOver";
 ActionType.SET_PHASE = "setPhase";
+ActionType.SET_SHIP_DEFENSE_TOKEN = "setShipDefenseToken";
 ActionType.SET_SHIP_INSTANCE = "setShipInstance";
 ActionType.SET_SHIP_TOKEN_COUNTS = "setShipTokenCounts";
 ActionType.SET_SHIP_UPGRADES = "setShipUpgrades";

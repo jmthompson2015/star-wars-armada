@@ -148,6 +148,24 @@ QUnit.test("combatInstance() 3", function(assert)
    assert.equal(result.defenderId, defenderId);
 });
 
+QUnit.test("criticalInstancesByShip() 1", function(assert)
+{
+   // Setup.
+   const shipId = 1;
+   const gameState = R.assocPath(["shipInstances", shipId, "criticals"], [1, 4], TestData.createGameState());
+
+   // Run.
+   const result = Selector.criticalInstancesByShip(shipId, gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 2);
+   assert.equal(result[0].id, 1);
+   assert.equal(result[0].damageKey, "blindedGunners");
+   assert.equal(result[1].id, 4);
+   assert.equal(result[1].damageKey, "capacitorFailure");
+});
+
 QUnit.test("damageDeck()", function(assert)
 {
    // Setup.
@@ -310,6 +328,40 @@ QUnit.test("shipIds()", function(assert)
    assert.equal(result[2], 3);
 });
 
+QUnit.test("shipInstancesByFleet() 1", function(assert)
+{
+   // Setup.
+   const gameState = TestData.createGameState();
+   const fleetId = 1;
+
+   // Run.
+   const result = Selector.shipInstancesByFleet(fleetId, gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 1);
+   assert.equal(result[0].id, 1);
+   assert.equal(result[0].shipKey, "victoryIiClassStarDestroyer");
+});
+
+QUnit.test("shipInstancesByFleet() 2", function(assert)
+{
+   // Setup.
+   const gameState = TestData.createGameState();
+   const fleetId = 2;
+
+   // Run.
+   const result = Selector.shipInstancesByFleet(fleetId, gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 2);
+   assert.equal(result[0].id, 2);
+   assert.equal(result[0].shipKey, "nebulonBEscortFrigate");
+   assert.equal(result[1].id, 3);
+   assert.equal(result[1].shipKey, "cr90CorvetteA");
+});
+
 QUnit.test("squadronIds()", function(assert)
 {
    // Setup.
@@ -330,6 +382,48 @@ QUnit.test("squadronIds()", function(assert)
    assert.equal(result[6], 7);
 });
 
+QUnit.test("squadronInstancesByFleet() 1", function(assert)
+{
+   // Setup.
+   const gameState = TestData.createGameState();
+   const fleetId = 1;
+
+   // Run.
+   const result = Selector.squadronInstancesByFleet(fleetId, gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 4);
+   assert.equal(result[0].id, 1);
+   assert.equal(result[0].squadronKey, "howlrunner");
+   assert.equal(result[1].id, 2);
+   assert.equal(result[1].squadronKey, "tieFighterSquadron");
+   assert.equal(result[2].id, 3);
+   assert.equal(result[2].squadronKey, "tieFighterSquadron");
+   assert.equal(result[3].id, 4);
+   assert.equal(result[3].squadronKey, "tieFighterSquadron");
+});
+
+QUnit.test("squadronInstancesByFleet() 2", function(assert)
+{
+   // Setup.
+   const gameState = TestData.createGameState();
+   const fleetId = 2;
+
+   // Run.
+   const result = Selector.squadronInstancesByFleet(fleetId, gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 3);
+   assert.equal(result[0].id, 5);
+   assert.equal(result[0].squadronKey, "lukeSkywalker");
+   assert.equal(result[1].id, 6);
+   assert.equal(result[1].squadronKey, "xWingSquadron");
+   assert.equal(result[2].id, 7);
+   assert.equal(result[2].squadronKey, "xWingSquadron");
+});
+
 QUnit.test("upgradeInstance() 1", function(assert)
 {
    // Setup.
@@ -343,6 +437,56 @@ QUnit.test("upgradeInstance() 1", function(assert)
    assert.ok(result);
    assert.equal(result.id, upgradeId);
    assert.equal(result.upgradeKey, "grandMoffTarkin");
+});
+
+QUnit.test("upgradeInstancesByShip() 1", function(assert)
+{
+   // Setup.
+   const gameState = TestData.createGameState();
+   const shipId = 1;
+
+   // Run.
+   const result = Selector.upgradeInstancesByShip(shipId, gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 2);
+   assert.equal(result[0].id, 1);
+   assert.equal(result[0].upgradeKey, "grandMoffTarkin");
+   assert.equal(result[1].id, 2);
+   assert.equal(result[1].upgradeKey, "dominator");
+});
+
+QUnit.test("upgradeInstancesByShip() 2", function(assert)
+{
+   // Setup.
+   const gameState = TestData.createGameState();
+   const shipId = 2;
+
+   // Run.
+   const result = Selector.upgradeInstancesByShip(shipId, gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 1);
+   assert.equal(result[0].id, 3);
+   assert.equal(result[0].upgradeKey, "generalDodonna");
+});
+
+QUnit.test("upgradeInstancesByShip() 3", function(assert)
+{
+   // Setup.
+   const gameState = TestData.createGameState();
+   const shipId = 3;
+
+   // Run.
+   const result = Selector.upgradeInstancesByShip(shipId, gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 1);
+   assert.equal(result[0].id, 4);
+   assert.equal(result[0].upgradeKey, "dodonnasPride");
 });
 
 QUnit.test("userMessage()", function(assert)

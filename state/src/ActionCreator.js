@@ -84,6 +84,8 @@ ActionCreator.setGameOver = makeActionCreator(ActionType.SET_GAME_OVER, "isGameO
 
 ActionCreator.setPhase = makeActionCreator(ActionType.SET_PHASE, "phaseKey");
 
+ActionCreator.setShipDefenseToken = makeActionCreator(ActionType.SET_SHIP_DEFENSE_TOKEN, "shipId", "defenseToken");
+
 ActionCreator.setShipInstance = makeActionCreator(ActionType.SET_SHIP_INSTANCE, "shipInstance");
 
 ActionCreator.setShipTokenCounts = makeActionCreator(ActionType.SET_SHIP_TOKEN_COUNTS, "shipId", "tokenCounts");

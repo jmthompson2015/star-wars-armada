@@ -26,6 +26,16 @@ TestData.createAgentRebel = function(id, fleetId, strategy)
    });
 };
 
+TestData.createDefenseToken = (id, defenseTokenKey, isReady) =>
+{
+   return AS.DefenseTokenState.create(
+   {
+      id: id,
+      defenseTokenKey: defenseTokenKey,
+      isReady: isReady
+   });
+};
+
 TestData.createFleetCoreSetImperial = function(fleetId, shipIds, squadronIds)
 {
    return FleetState.create(
@@ -36,7 +46,7 @@ TestData.createFleetCoreSetImperial = function(fleetId, shipIds, squadronIds)
       description: "Victory II, Howlrunner, TIE Fighters x3",
       points: 175,
       ships: shipIds,
-      squadronIds: squadronIds
+      squadrons: squadronIds
    });
 };
 
@@ -50,7 +60,7 @@ TestData.createFleetCoreSetRebel = function(fleetId, shipIds, squadronIds)
       description: "Nebulon-B, CR90, Luke Skywalker, X-Wings x2",
       points: 173,
       ships: shipIds,
-      squadronIds: squadronIds
+      squadrons: squadronIds
    });
 };
 
@@ -66,11 +76,16 @@ TestData.createPosition = function(x, y, heading)
 
 TestData.createShip = function(id, shipKey, upgradeIds, position)
 {
+   const defenseTokens = AA.Selector.defenseTokenValuesByShip(shipKey);
+   let i = 1;
+   const defenseInstances = defenseTokens.map(token => TestData.createDefenseToken(i++, token.key));
+
    return AS.ShipState.create(
    {
       id: id,
       shipKey: shipKey,
       position: position,
+      defenseTokens: defenseInstances,
       upgrades: upgradeIds
    });
 };

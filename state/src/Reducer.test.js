@@ -3,6 +3,7 @@ import AgentQueryState from "./AgentQueryState.js";
 import AgentResponseState from "./AgentResponseState.js";
 import AgentState from "./AgentState.js";
 import CombatState from "./CombatState.js";
+import DefenseTokenState from "./DefenseTokenState.js";
 import FleetState from "./FleetState.js";
 import Reducer from "./Reducer.js";
 import ShipState from "./ShipState.js";
@@ -12,6 +13,27 @@ import TokenCountsState from "./TokenCountsState.js";
 import UpgradeState from "./UpgradeState.js";
 
 QUnit.module("Reducer");
+
+QUnit.test("addShipTokenCount()", function(assert)
+{
+   // Setup.
+   const store = Redux.createStore(Reducer.root, TestData.createGameState());
+   const shipId = 1;
+   const tokenKey = "navigate";
+   assert.equal(store.getState().shipInstances[shipId].tokenCounts[tokenKey], undefined);
+
+   // Run.
+   store.dispatch(ActionCreator.addShipTokenCount(shipId, tokenKey));
+
+   // Verify.
+   assert.equal(store.getState().shipInstances[shipId].tokenCounts[tokenKey], 1);
+
+   // Run.
+   store.dispatch(ActionCreator.addShipTokenCount(shipId, tokenKey));
+
+   // Verify.
+   assert.equal(store.getState().shipInstances[shipId].tokenCounts[tokenKey], 2);
+});
 
 QUnit.test("clearAgentQuery()", function(assert)
 {
@@ -423,6 +445,28 @@ QUnit.test("setPhase()", function(assert)
 
    // Verify.
    assert.equal(store.getState().phaseKey, phaseKey);
+});
+
+QUnit.test("setShipDefenseToken()", function(assert)
+{
+   // Setup.
+   const store = Redux.createStore(Reducer.root, TestData.createGameState());
+   const shipId = 1;
+   const defenseToken = DefenseTokenState.create(
+   {
+      id: 1,
+      defenseTokenKey: "evade"
+   });
+
+   // Run.
+   store.dispatch(ActionCreator.setShipDefenseToken(shipId, defenseToken));
+
+   // Verify.
+   const result = store.getState().shipInstances[shipId].defenseTokens;
+   assert.ok(result);
+   assert.equal(result.length, 1);
+   assert.equal(result[0].id, 1);
+   assert.equal(result[0].defenseTokenKey, "evade");
 });
 
 QUnit.test("setShipInstance()", function(assert)

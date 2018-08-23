@@ -504,26 +504,29 @@
 
       render()
       {
-         const columns = [];
+         const cells = [];
          const cardInstance = this.props.cardInstance;
+         let myKey = "cardInstanceUI";
 
          if (cardInstance)
          {
-            const image = this.createCardImage(cardInstance);
+            const card = determineCard(cardInstance);
+            myKey += cardInstance.id + card.key;
+            const image = this.createCardImage(cardInstance, myKey);
             const tokenPanel = this.createTokenPanel(cardInstance.id);
             const cell = ReactDOMFactories.div(
             {
-               key: "imagePanel" + columns.length,
+               key: "imagePanel" + cells.length,
                className: "v-mid",
-               onClick: this.toggleSize,
+               onClick: this.toggleSize
             }, image);
 
-            columns.push(cell);
-            columns.push(tokenPanel);
-            this.createAttachmentPanel(columns);
+            cells.push(cell);
+            cells.push(tokenPanel);
+            this.createAttachmentPanel(cells);
          }
 
-         return ReactUtilities.createFlexboxWrap(columns, "cardInstanceUI", "bg-xw-medium items-center justify-center ma0 pa0");
+         return ReactUtilities.createFlexboxWrap(cells, myKey, "bg-xw-medium items-center justify-center ma0 pa0");
       }
    }
 
@@ -535,7 +538,7 @@
       });
    };
 
-   CardInstanceUI.prototype.createAttachmentPanel = function(columns)
+   CardInstanceUI.prototype.createAttachmentPanel = function(cells)
    {
       const attachments = [];
       const upgrades = this.props.upgradeInstances;
@@ -562,7 +565,7 @@
          }
       }
 
-      columns.push(React.createElement(CardInstancesArea,
+      cells.push(React.createElement(CardInstancesArea,
       {
          key: "attachmentPanel",
          cardInstanceUIs: attachments,
@@ -580,7 +583,7 @@
       });
    };
 
-   CardInstanceUI.prototype.createCardImage = function(cardInstance)
+   CardInstanceUI.prototype.createCardImage = function(cardInstance, myKey)
    {
       let width = this.props.width;
 
@@ -588,29 +591,12 @@
       {
          width /= 2;
       }
-
-      let card;
-
-      if (cardInstance.shipKey !== undefined)
-      {
-         card = AA.Selector.shipCard(cardInstance.shipKey);
-      }
-      else if (cardInstance.squadronKey !== undefined)
-      {
-         card = AA.Selector.squadronCard(cardInstance.squadronKey);
-      }
-      else if (cardInstance.upgradeKey !== undefined)
-      {
-         card = AA.Selector.upgradeCard(cardInstance.upgradeKey);
-      }
-      else if (cardInstance.damageKey !== undefined)
-      {
-         card = AA.Selector.damageCard(cardInstance.damageKey);
-      }
+      const card = determineCard(cardInstance);
 
       return React.createElement(CardImage,
       {
          card: card,
+         myKey: myKey,
          width: width
       });
    };
@@ -624,6 +610,30 @@
       };
 
       return React.createElement(TokenPanel, props);
+   };
+
+   const determineCard = cardInstance =>
+   {
+      let answer;
+
+      if (cardInstance.shipKey !== undefined)
+      {
+         answer = AA.Selector.shipCard(cardInstance.shipKey);
+      }
+      else if (cardInstance.squadronKey !== undefined)
+      {
+         answer = AA.Selector.squadronCard(cardInstance.squadronKey);
+      }
+      else if (cardInstance.upgradeKey !== undefined)
+      {
+         answer = AA.Selector.upgradeCard(cardInstance.upgradeKey);
+      }
+      else if (cardInstance.damageKey !== undefined)
+      {
+         answer = AA.Selector.damageCard(cardInstance.damageKey);
+      }
+
+      return answer;
    };
 
    CardInstanceUI.propTypes = {

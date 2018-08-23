@@ -2,9 +2,41 @@ const Selector = {};
 
 Selector.agentIds = state => Object.keys(state.agentInstances).sort();
 
+Selector.criticalInstancesByShip = (shipId, state) =>
+{
+   const shipInstance = Selector.shipInstance(shipId, state);
+   const criticalIds = shipInstance.criticals;
+
+   return R.map(criticalId => Selector.damageInstance(criticalId, state), criticalIds);
+};
+
 Selector.shipIds = state => Object.keys(state.shipInstances).sort();
 
+Selector.shipInstancesByFleet = (fleetId, state) =>
+{
+   const fleetInstance = Selector.fleetInstance(fleetId, state);
+   const shipIds = fleetInstance.ships;
+
+   return R.map(shipId => Selector.shipInstance(shipId, state), shipIds);
+};
+
+Selector.squadronInstancesByFleet = (fleetId, state) =>
+{
+   const fleetInstance = Selector.fleetInstance(fleetId, state);
+   const squadronIds = fleetInstance.squadrons;
+
+   return R.map(squadronId => Selector.squadronInstance(squadronId, state), squadronIds);
+};
+
 Selector.squadronIds = state => Object.keys(state.squadronInstances).sort();
+
+Selector.upgradeInstancesByShip = (shipId, state) =>
+{
+   const shipInstance = Selector.shipInstance(shipId, state);
+   const upgradeIds = shipInstance.upgrades;
+
+   return R.map(upgradeId => Selector.upgradeInstance(upgradeId, state), upgradeIds);
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 Selector.activeAgentId = state => R.prop("activeAgentId", state);

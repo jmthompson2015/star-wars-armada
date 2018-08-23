@@ -14,7 +14,7 @@ Reducer.root = function(state, action)
 
    switch (action.type)
    {
-      case ActionType.ADD_PILOT_TOKEN_COUNT:
+      case ActionType.ADD_SHIP_TOKEN_COUNT:
          const newValue = R.defaultTo(0, state.shipInstances[action.shipId].tokenCounts[action.tokenKey]) + R.defaultTo(1, action.value);
          return assocPath(["shipInstances", action.shipId, "tokenCounts", action.tokenKey], newValue, state);
 
@@ -124,6 +124,9 @@ Reducer.root = function(state, action)
       case ActionType.SET_PHASE:
          console.log("Phase: " + action.phaseKey);
          return assoc("phaseKey", action.phaseKey, state);
+      case ActionType.SET_SHIP_DEFENSE_TOKEN:
+         const newDefenseTokens = R.append(action.defenseToken, R.path(["shipInstances", action.shipId, "defenseTokens"], state));
+         return assocPath(["shipInstances", action.shipId, "defenseTokens"], newDefenseTokens, state);
       case ActionType.SET_SHIP_INSTANCE:
          const newShipInstances = assoc(action.shipInstance.id, action.shipInstance, state.shipInstances);
          return assoc("shipInstances", newShipInstances, state);

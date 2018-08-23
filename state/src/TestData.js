@@ -76,7 +76,7 @@ TestData.createFleetCoreSetImperial = function(fleetId, shipIds, squadronIds)
       description: "Victory II, Howlrunner, TIE Fighters x3",
       points: 175,
       ships: shipIds,
-      squadronIds: squadronIds
+      squadrons: squadronIds
    });
 };
 
@@ -90,7 +90,7 @@ TestData.createFleetCoreSetRebel = function(fleetId, shipIds, squadronIds)
       description: "Nebulon-B, CR90, Luke Skywalker, X-Wings x2",
       points: 173,
       ships: shipIds,
-      squadronIds: squadronIds
+      squadrons: squadronIds
    });
 };
 
@@ -167,22 +167,24 @@ TestData.createPosition = function(x, y, heading)
    });
 };
 
-TestData.createShip = function(id, shipKey, position)
+TestData.createShip = function(id, shipKey, upgradeIds, position)
 {
    return ShipState.create(
    {
       id: id,
       shipKey: shipKey,
-      position: position
+      upgrades: upgradeIds,
+      position: position,
    });
 };
 
-TestData.createSquadron = function(id, squadronKey, position)
+TestData.createSquadron = function(id, squadronKey, upgradeIds, position)
 {
    return SquadronState.create(
    {
       id: id,
       squadronKey: squadronKey,
+      upgrades: upgradeIds,
       position: position
    });
 };

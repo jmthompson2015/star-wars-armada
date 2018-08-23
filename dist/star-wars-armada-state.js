@@ -22,8 +22,6 @@
    ActionType.DEQUEUE_COMMAND = "dequeueCommand";
    ActionType.DEQUEUE_SHIP = "dequeueShip";
    ActionType.DEQUEUE_SQUADRON = "dequeueSquadron";
-   // ActionType.DEQUEUE_STATUS_SHIP = "dequeueStatusShip";
-   // ActionType.DEQUEUE_STATUS_SQUADRON = "dequeueStatusSquadron";
 
    ActionType.INCREMENT_ROUND = "incrementRound";
 
@@ -57,6 +55,7 @@
    ActionType.SET_FLEET_SQUADRONS = "setFleetSquadrons";
    ActionType.SET_GAME_OVER = "setGameOver";
    ActionType.SET_PHASE = "setPhase";
+   ActionType.SET_SHIP_DEFENSE_TOKEN = "setShipDefenseToken";
    ActionType.SET_SHIP_INSTANCE = "setShipInstance";
    ActionType.SET_SHIP_TOKEN_COUNTS = "setShipTokenCounts";
    ActionType.SET_SHIP_UPGRADES = "setShipUpgrades";
@@ -150,6 +149,8 @@
    ActionCreator.setGameOver = makeActionCreator(ActionType.SET_GAME_OVER, "isGameOver");
 
    ActionCreator.setPhase = makeActionCreator(ActionType.SET_PHASE, "phaseKey");
+
+   ActionCreator.setShipDefenseToken = makeActionCreator(ActionType.SET_SHIP_DEFENSE_TOKEN, "shipId", "defenseToken");
 
    ActionCreator.setShipInstance = makeActionCreator(ActionType.SET_SHIP_INSTANCE, "shipInstance");
 
@@ -439,7 +440,7 @@
 
       switch (action.type)
       {
-         case ActionType.ADD_PILOT_TOKEN_COUNT:
+         case ActionType.ADD_SHIP_TOKEN_COUNT:
             const newValue = R.defaultTo(0, state.shipInstances[action.shipId].tokenCounts[action.tokenKey]) + R.defaultTo(1, action.value);
             return assocPath(["shipInstances", action.shipId, "tokenCounts", action.tokenKey], newValue, state);
 
@@ -549,6 +550,9 @@
          case ActionType.SET_PHASE:
             console.log("Phase: " + action.phaseKey);
             return assoc("phaseKey", action.phaseKey, state);
+         case ActionType.SET_SHIP_DEFENSE_TOKEN:
+            const newDefenseTokens = R.append(action.defenseToken, R.path(["shipInstances", action.shipId, "defenseTokens"], state));
+            return assocPath(["shipInstances", action.shipId, "defenseTokens"], newDefenseTokens, state);
          case ActionType.SET_SHIP_INSTANCE:
             const newShipInstances = assoc(action.shipInstance.id, action.shipInstance, state.shipInstances);
             return assoc("shipInstances", newShipInstances, state);
@@ -583,9 +587,41 @@
 
    Selector.agentIds = state => Object.keys(state.agentInstances).sort();
 
+   Selector.criticalInstancesByShip = (shipId, state) =>
+   {
+      const shipInstance = Selector.shipInstance(shipId, state);
+      const criticalIds = shipInstance.criticals;
+
+      return R.map(criticalId => Selector.damageInstance(criticalId, state), criticalIds);
+   };
+
    Selector.shipIds = state => Object.keys(state.shipInstances).sort();
 
+   Selector.shipInstancesByFleet = (fleetId, state) =>
+   {
+      const fleetInstance = Selector.fleetInstance(fleetId, state);
+      const shipIds = fleetInstance.ships;
+
+      return R.map(shipId => Selector.shipInstance(shipId, state), shipIds);
+   };
+
+   Selector.squadronInstancesByFleet = (fleetId, state) =>
+   {
+      const fleetInstance = Selector.fleetInstance(fleetId, state);
+      const squadronIds = fleetInstance.squadrons;
+
+      return R.map(squadronId => Selector.squadronInstance(squadronId, state), squadronIds);
+   };
+
    Selector.squadronIds = state => Object.keys(state.squadronInstances).sort();
+
+   Selector.upgradeInstancesByShip = (shipId, state) =>
+   {
+      const shipInstance = Selector.shipInstance(shipId, state);
+      const upgradeIds = shipInstance.upgrades;
+
+      return R.map(upgradeId => Selector.upgradeInstance(upgradeId, state), upgradeIds);
+   };
 
    ////////////////////////////////////////////////////////////////////////////////
    Selector.activeAgentId = state => R.prop("activeAgentId", state);

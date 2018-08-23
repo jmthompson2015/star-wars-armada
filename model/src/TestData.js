@@ -42,7 +42,7 @@ TestData.createFleetCoreSetImperial = function(fleetId, shipIds, squadronIds)
       description: "Victory II, Howlrunner, TIE Fighters x3",
       points: 175,
       ships: shipIds,
-      squadronIds: squadronIds
+      squadrons: squadronIds
    });
 };
 
@@ -56,7 +56,7 @@ TestData.createFleetCoreSetRebel = function(fleetId, shipIds, squadronIds)
       description: "Nebulon-B, CR90, Luke Skywalker, X-Wings x2",
       points: 173,
       ships: shipIds,
-      squadronIds: squadronIds
+      squadrons: squadronIds
    });
 };
 
