@@ -50,15 +50,17 @@
    ActionType.SET_COMBAT_SHIELD_DAMAGE = "setCombatShieldDamage";
    ActionType.SET_DAMAGE_DECK = "setDamageDeck";
    ActionType.SET_DAMAGE_INSTANCES = "setDamageInstances";
+   ActionType.SET_DEFENSE_TOKEN_INSTANCE = "setDefenseTokenInstance";
    ActionType.SET_FLEET_INSTANCE = "setFleetInstance";
    ActionType.SET_FLEET_SHIPS = "setFleetShips";
    ActionType.SET_FLEET_SQUADRONS = "setFleetSquadrons";
    ActionType.SET_GAME_OVER = "setGameOver";
    ActionType.SET_PHASE = "setPhase";
-   ActionType.SET_SHIP_DEFENSE_TOKEN = "setShipDefenseToken";
+   ActionType.SET_SHIP_DEFENSE_TOKENS = "setShipDefenseTokens";
    ActionType.SET_SHIP_INSTANCE = "setShipInstance";
    ActionType.SET_SHIP_TOKEN_COUNTS = "setShipTokenCounts";
    ActionType.SET_SHIP_UPGRADES = "setShipUpgrades";
+   ActionType.SET_SQUADRON_DEFENSE_TOKENS = "setSquadronDefenseTokens";
    ActionType.SET_SQUADRON_INSTANCE = "setSquadronInstance";
    ActionType.SET_SQUADRON_TOKEN_COUNTS = "setSquadronTokenCounts";
    ActionType.SET_UPGRADE_INSTANCE = "setUpgradeInstance";
@@ -140,6 +142,8 @@
 
    ActionCreator.setDamageInstances = makeActionCreator(ActionType.SET_DAMAGE_INSTANCES, "damageInstances");
 
+   ActionCreator.setDefenseTokenInstance = makeActionCreator(ActionType.SET_DEFENSE_TOKEN_INSTANCE, "defenseTokenInstance");
+
    ActionCreator.setFleetInstance = makeActionCreator(ActionType.SET_FLEET_INSTANCE, "fleetInstance");
 
    ActionCreator.setFleetShips = makeActionCreator(ActionType.SET_FLEET_SHIPS, "fleetId", "shipIds");
@@ -150,13 +154,15 @@
 
    ActionCreator.setPhase = makeActionCreator(ActionType.SET_PHASE, "phaseKey");
 
-   ActionCreator.setShipDefenseToken = makeActionCreator(ActionType.SET_SHIP_DEFENSE_TOKEN, "shipId", "defenseToken");
+   ActionCreator.setShipDefenseTokens = makeActionCreator(ActionType.SET_SHIP_DEFENSE_TOKENS, "shipId", "defenseTokenIds");
 
    ActionCreator.setShipInstance = makeActionCreator(ActionType.SET_SHIP_INSTANCE, "shipInstance");
 
    ActionCreator.setShipTokenCounts = makeActionCreator(ActionType.SET_SHIP_TOKEN_COUNTS, "shipId", "tokenCounts");
 
    ActionCreator.setShipUpgrades = makeActionCreator(ActionType.SET_SHIP_UPGRADES, "shipId", "upgradeIds");
+
+   ActionCreator.setSquadronDefenseTokens = makeActionCreator(ActionType.SET_SQUADRON_DEFENSE_TOKENS, "squadronId", "defenseTokenIds");
 
    ActionCreator.setSquadronInstance = makeActionCreator(ActionType.SET_SQUADRON_INSTANCE, "squadronInstance");
 
@@ -371,6 +377,7 @@
       agentInstances = {},
       combatInstances = {},
       damageInstances = {},
+      defenseTokenInstances = {},
       fleetInstances = {},
       shipInstances = {},
       squadronInstances = {},
@@ -399,6 +406,7 @@
          agentInstances: Immutable(agentInstances),
          combatInstances: Immutable(combatInstances),
          damageInstances: Immutable(damageInstances),
+         defenseTokenInstances: Immutable(defenseTokenInstances),
          fleetInstances: Immutable(fleetInstances),
          shipInstances: Immutable(shipInstances),
          squadronInstances: Immutable(squadronInstances),
@@ -538,6 +546,9 @@
             return assoc("damageDeck", action.damageDeck, state);
          case ActionType.SET_DAMAGE_INSTANCES:
             return assoc("damageInstances", action.damageInstances, state);
+         case ActionType.SET_DEFENSE_TOKEN_INSTANCE:
+            const newDefenseInstances = assoc(action.defenseTokenInstance.id, action.defenseTokenInstance, state.defenseTokenInstances);
+            return assoc("defenseTokenInstances", newDefenseInstances, state);
          case ActionType.SET_FLEET_INSTANCE:
             const newFleetInstances = assoc(action.fleetInstance.id, action.fleetInstance, state.fleetInstances);
             return assoc("fleetInstances", newFleetInstances, state);
@@ -550,9 +561,8 @@
          case ActionType.SET_PHASE:
             console.log("Phase: " + action.phaseKey);
             return assoc("phaseKey", action.phaseKey, state);
-         case ActionType.SET_SHIP_DEFENSE_TOKEN:
-            const newDefenseTokens = R.append(action.defenseToken, R.path(["shipInstances", action.shipId, "defenseTokens"], state));
-            return assocPath(["shipInstances", action.shipId, "defenseTokens"], newDefenseTokens, state);
+         case ActionType.SET_SHIP_DEFENSE_TOKENS:
+            return assocPath(["shipInstances", action.shipId, "defenseTokens"], action.defenseTokenIds, state);
          case ActionType.SET_SHIP_INSTANCE:
             const newShipInstances = assoc(action.shipInstance.id, action.shipInstance, state.shipInstances);
             return assoc("shipInstances", newShipInstances, state);
@@ -560,6 +570,8 @@
             return assocPath(["shipInstances", action.shipId, "tokenCounts"], action.tokenCounts, state);
          case ActionType.SET_SHIP_UPGRADES:
             return assocPath(["shipInstances", action.shipId, "upgrades"], action.upgradeIds, state);
+         case ActionType.SET_SQUADRON_DEFENSE_TOKENS:
+            return assocPath(["squadronInstances", action.squadronId, "defenseTokens"], action.defenseTokenIds, state);
          case ActionType.SET_SQUADRON_INSTANCE:
             const newSquadronInstances = assoc(action.squadronInstance.id, action.squadronInstance, state.squadronInstances);
             return assoc("squadronInstances", newSquadronInstances, state);
@@ -594,6 +606,31 @@
 
       return R.map(criticalId => Selector.damageInstance(criticalId, state), criticalIds);
    };
+
+   Selector.defenseTokenInstancesByShip = (shipId, state) =>
+   {
+      const shipInstance = Selector.shipInstance(shipId, state);
+      const tokenIds = shipInstance.defenseTokens;
+
+      return R.map(tokenId => Selector.defenseTokenInstance(tokenId, state), tokenIds);
+   };
+
+   Selector.defenseTokenInstancesBySquadron = (shipId, state) =>
+   {
+      const squadronInstance = Selector.squadronInstance(shipId, state);
+      const tokenIds = squadronInstance.defenseTokens;
+
+      return R.map(tokenId => Selector.defenseTokenInstance(tokenId, state), tokenIds);
+   };
+
+   Selector.shipCountByAgent = (agentId, state) =>
+   {
+      const agent = Selector.agentInstance(agentId, state);
+
+      return Selector.shipCountByFleet(agent.fleet, state);
+   };
+
+   Selector.shipCountByFleet = (fleetId, state) => Selector.fleetInstance(fleetId, state).ships.length;
 
    Selector.shipIds = state => Object.keys(state.shipInstances).sort();
 
@@ -657,6 +694,8 @@
 
    Selector.nextDamageId = state => nextId(state.damageInstances);
 
+   Selector.nextDefenseTokenId = state => nextId(state.defenseTokenInstances);
+
    Selector.nextFleetId = state => nextId(state.fleetInstances);
 
    Selector.nextShipId = state => nextId(state.shipInstances);
@@ -671,6 +710,8 @@
    Selector.combatInstance = (combatId, state) => R.path(["combatInstances", combatId], state);
 
    Selector.damageInstance = (damageId, state) => R.path(["damageInstances", damageId], state);
+
+   Selector.defenseTokenInstance = (tokenId, state) => R.path(["defenseTokenInstances", tokenId], state);
 
    Selector.fleetInstance = (fleetId, state) => R.path(["fleetInstances", fleetId], state);
 

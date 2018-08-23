@@ -3,7 +3,6 @@ import AgentQueryState from "./AgentQueryState.js";
 import AgentResponseState from "./AgentResponseState.js";
 import AgentState from "./AgentState.js";
 import CombatState from "./CombatState.js";
-import DefenseTokenState from "./DefenseTokenState.js";
 import FleetState from "./FleetState.js";
 import Reducer from "./Reducer.js";
 import ShipState from "./ShipState.js";
@@ -447,26 +446,22 @@ QUnit.test("setPhase()", function(assert)
    assert.equal(store.getState().phaseKey, phaseKey);
 });
 
-QUnit.test("setShipDefenseToken()", function(assert)
+QUnit.test("setShipDefenseTokens()", function(assert)
 {
    // Setup.
    const store = Redux.createStore(Reducer.root, TestData.createGameState());
    const shipId = 1;
-   const defenseToken = DefenseTokenState.create(
-   {
-      id: 1,
-      defenseTokenKey: "evade"
-   });
+   const defenseTokenIds = [14, 15];
 
    // Run.
-   store.dispatch(ActionCreator.setShipDefenseToken(shipId, defenseToken));
+   store.dispatch(ActionCreator.setShipDefenseTokens(shipId, defenseTokenIds));
 
    // Verify.
    const result = store.getState().shipInstances[shipId].defenseTokens;
    assert.ok(result);
-   assert.equal(result.length, 1);
-   assert.equal(result[0].id, 1);
-   assert.equal(result[0].defenseTokenKey, "evade");
+   assert.equal(result.length, 2);
+   assert.equal(result[0], defenseTokenIds[0]);
+   assert.equal(result[1], defenseTokenIds[1]);
 });
 
 QUnit.test("setShipInstance()", function(assert)
@@ -494,6 +489,24 @@ QUnit.test("setShipInstance()", function(assert)
    assert.equal(result[i++].shipKey, "cr90CorvetteA");
    assert.equal(result[i].id, 4);
    assert.equal(result[i++].shipKey, "hanSolo");
+});
+
+QUnit.test("setSquadronDefenseTokens()", function(assert)
+{
+   // Setup.
+   const store = Redux.createStore(Reducer.root, TestData.createGameState());
+   const squadronId = 1;
+   const defenseTokenIds = [14, 15];
+
+   // Run.
+   store.dispatch(ActionCreator.setSquadronDefenseTokens(squadronId, defenseTokenIds));
+
+   // Verify.
+   const result = store.getState().squadronInstances[squadronId].defenseTokens;
+   assert.ok(result);
+   assert.equal(result.length, 2);
+   assert.equal(result[0], defenseTokenIds[0]);
+   assert.equal(result[1], defenseTokenIds[1]);
 });
 
 QUnit.test("setSquadronInstance()", function(assert)

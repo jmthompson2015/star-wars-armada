@@ -1,5 +1,4 @@
 import CommandTask from "./CommandTask.js";
-import Selector from "./Selector.js";
 import SetupTask from "./SetupTask.js";
 import ShipTask from "./ShipTask.js";
 import SquadronTask from "./SquadronTask.js";
@@ -61,8 +60,8 @@ ArmadaModel.nextGameState = (
 
 const determineWinner = state =>
 {
-   const shipCount1 = Selector.shipCountByAgent(1, state);
-   const shipCount2 = Selector.shipCountByAgent(2, state);
+   const shipCount1 = AS.Selector.shipCountByAgent(1, state);
+   const shipCount2 = AS.Selector.shipCountByAgent(2, state);
 
    return ((shipCount1 > 0 && shipCount2 === 0) ? 1 : ((shipCount1 === 0 && shipCount2 > 0) ? 2 : undefined));
 };
@@ -70,8 +69,8 @@ const determineWinner = state =>
 const isGameOver = state =>
 {
    const round = AS.Selector.round(state);
-   const shipCount1 = Selector.shipCountByAgent(1, state);
-   const shipCount2 = Selector.shipCountByAgent(2, state);
+   const shipCount1 = AS.Selector.shipCountByAgent(1, state);
+   const shipCount2 = AS.Selector.shipCountByAgent(2, state);
 
    return (round > 6 || shipCount1 === 0 || shipCount2 === 0);
 };

@@ -112,6 +112,9 @@ Reducer.root = function(state, action)
          return assoc("damageDeck", action.damageDeck, state);
       case ActionType.SET_DAMAGE_INSTANCES:
          return assoc("damageInstances", action.damageInstances, state);
+      case ActionType.SET_DEFENSE_TOKEN_INSTANCE:
+         const newDefenseInstances = assoc(action.defenseTokenInstance.id, action.defenseTokenInstance, state.defenseTokenInstances);
+         return assoc("defenseTokenInstances", newDefenseInstances, state);
       case ActionType.SET_FLEET_INSTANCE:
          const newFleetInstances = assoc(action.fleetInstance.id, action.fleetInstance, state.fleetInstances);
          return assoc("fleetInstances", newFleetInstances, state);
@@ -124,9 +127,8 @@ Reducer.root = function(state, action)
       case ActionType.SET_PHASE:
          console.log("Phase: " + action.phaseKey);
          return assoc("phaseKey", action.phaseKey, state);
-      case ActionType.SET_SHIP_DEFENSE_TOKEN:
-         const newDefenseTokens = R.append(action.defenseToken, R.path(["shipInstances", action.shipId, "defenseTokens"], state));
-         return assocPath(["shipInstances", action.shipId, "defenseTokens"], newDefenseTokens, state);
+      case ActionType.SET_SHIP_DEFENSE_TOKENS:
+         return assocPath(["shipInstances", action.shipId, "defenseTokens"], action.defenseTokenIds, state);
       case ActionType.SET_SHIP_INSTANCE:
          const newShipInstances = assoc(action.shipInstance.id, action.shipInstance, state.shipInstances);
          return assoc("shipInstances", newShipInstances, state);
@@ -134,6 +136,8 @@ Reducer.root = function(state, action)
          return assocPath(["shipInstances", action.shipId, "tokenCounts"], action.tokenCounts, state);
       case ActionType.SET_SHIP_UPGRADES:
          return assocPath(["shipInstances", action.shipId, "upgrades"], action.upgradeIds, state);
+      case ActionType.SET_SQUADRON_DEFENSE_TOKENS:
+         return assocPath(["squadronInstances", action.squadronId, "defenseTokens"], action.defenseTokenIds, state);
       case ActionType.SET_SQUADRON_INSTANCE:
          const newSquadronInstances = assoc(action.squadronInstance.id, action.squadronInstance, state.squadronInstances);
          return assoc("squadronInstances", newSquadronInstances, state);

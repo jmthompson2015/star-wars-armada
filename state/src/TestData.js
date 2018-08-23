@@ -1,5 +1,6 @@
 import AgentState from "./AgentState.js";
 import DamageState from "./DamageState.js";
+import DefenseTokenState from "./DefenseTokenState.js";
 import FleetState from "./FleetState.js";
 import GameState from "./GameState.js";
 import PositionState from "./PositionState.js";
@@ -66,6 +67,16 @@ TestData.createDamageDeck = function()
    });
 };
 
+TestData.createDefenseToken = (id, defenseTokenKey, isReady) =>
+{
+   return DefenseTokenState.create(
+   {
+      id: id,
+      defenseTokenKey: defenseTokenKey,
+      isReady: isReady
+   });
+};
+
 TestData.createFleetCoreSetImperial = function(fleetId, shipIds, squadronIds)
 {
    return FleetState.create(
@@ -106,6 +117,21 @@ TestData.createGameState = function()
    upgradeInstances[3] = TestData.createUpgrade(3, "generalDodonna");
    upgradeInstances[4] = TestData.createUpgrade(4, "dodonnasPride");
 
+   const defenseTokenInstances = {};
+   defenseTokenInstances[1] = TestData.createDefenseToken(1, "brace");
+   defenseTokenInstances[2] = TestData.createDefenseToken(2, "redirect");
+   defenseTokenInstances[3] = TestData.createDefenseToken(3, "redirect");
+   defenseTokenInstances[4] = TestData.createDefenseToken(4, "evade");
+   defenseTokenInstances[5] = TestData.createDefenseToken(5, "brace");
+   defenseTokenInstances[6] = TestData.createDefenseToken(6, "brace");
+   defenseTokenInstances[7] = TestData.createDefenseToken(7, "evade");
+   defenseTokenInstances[8] = TestData.createDefenseToken(8, "evade");
+   defenseTokenInstances[9] = TestData.createDefenseToken(9, "redirect");
+   defenseTokenInstances[10] = TestData.createDefenseToken(10, "brace");
+   defenseTokenInstances[11] = TestData.createDefenseToken(11, "scatter");
+   defenseTokenInstances[12] = TestData.createDefenseToken(12, "brace");
+   defenseTokenInstances[13] = TestData.createDefenseToken(13, "brace");
+
    const squadronPosition1 = TestData.createPosition(Math.round(915 * 1 / 6), 20, 90);
    const squadronPosition2 = TestData.createPosition(Math.round(915 * 2 / 6), 20, 90);
    const shipPosition1 = TestData.createPosition(Math.round(915 * 3 / 6), 20, 90);
@@ -119,16 +145,16 @@ TestData.createGameState = function()
    const squadronPosition7 = TestData.createPosition(Math.round(915 * 5 / 6), 915 - 20, 270);
 
    const shipInstances = {};
-   shipInstances[1] = TestData.createShip(1, "victoryIiClassStarDestroyer", [1, 2], shipPosition1);
-   shipInstances[2] = TestData.createShip(2, "nebulonBEscortFrigate", [3], shipPosition2);
-   shipInstances[3] = TestData.createShip(3, "cr90CorvetteA", [4], shipPosition3);
+   shipInstances[1] = TestData.createShip(1, "victoryIiClassStarDestroyer", [1, 2], [1, 2, 3], shipPosition1);
+   shipInstances[2] = TestData.createShip(2, "nebulonBEscortFrigate", [3], [4, 5, 6], shipPosition2);
+   shipInstances[3] = TestData.createShip(3, "cr90CorvetteA", [4], [7, 8, 9], shipPosition3);
 
    const squadronInstances = {};
-   squadronInstances[1] = TestData.createSquadron(1, "howlrunner", squadronPosition1);
+   squadronInstances[1] = TestData.createSquadron(1, "howlrunner", squadronPosition1, [10, 11]);
    squadronInstances[2] = TestData.createSquadron(2, "tieFighterSquadron", squadronPosition2);
    squadronInstances[3] = TestData.createSquadron(3, "tieFighterSquadron", squadronPosition3);
    squadronInstances[4] = TestData.createSquadron(4, "tieFighterSquadron", squadronPosition4);
-   squadronInstances[5] = TestData.createSquadron(5, "lukeSkywalker", squadronPosition5);
+   squadronInstances[5] = TestData.createSquadron(5, "lukeSkywalker", squadronPosition5, [12, 13]);
    squadronInstances[6] = TestData.createSquadron(6, "xWingSquadron", squadronPosition6);
    squadronInstances[7] = TestData.createSquadron(7, "xWingSquadron", squadronPosition7);
 
@@ -150,6 +176,7 @@ TestData.createGameState = function()
 
       agentInstances: agentInstances,
       damageInstances: damageInstances,
+      defenseTokenInstances: defenseTokenInstances,
       fleetInstances: fleetInstances,
       shipInstances: shipInstances,
       squadronInstances: squadronInstances,
@@ -167,24 +194,25 @@ TestData.createPosition = function(x, y, heading)
    });
 };
 
-TestData.createShip = function(id, shipKey, upgradeIds, position)
+TestData.createShip = function(id, shipKey, upgradeIds, defenseTokenIds, position)
 {
    return ShipState.create(
    {
       id: id,
       shipKey: shipKey,
+      defenseTokens: defenseTokenIds,
       upgrades: upgradeIds,
       position: position,
    });
 };
 
-TestData.createSquadron = function(id, squadronKey, upgradeIds, position)
+TestData.createSquadron = function(id, squadronKey, position, defenseTokenIds)
 {
    return SquadronState.create(
    {
       id: id,
       squadronKey: squadronKey,
-      upgrades: upgradeIds,
+      defenseTokens: defenseTokenIds,
       position: position
    });
 };

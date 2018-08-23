@@ -74,28 +74,25 @@ TestData.createPosition = function(x, y, heading)
    });
 };
 
-TestData.createShip = function(id, shipKey, upgradeIds, position)
+TestData.createShip = function(id, shipKey, upgradeIds, defenseTokenIds, position)
 {
-   const defenseTokens = AA.Selector.defenseTokenValuesByShip(shipKey);
-   let i = 1;
-   const defenseInstances = defenseTokens.map(token => TestData.createDefenseToken(i++, token.key));
-
    return AS.ShipState.create(
    {
       id: id,
       shipKey: shipKey,
-      position: position,
-      defenseTokens: defenseInstances,
-      upgrades: upgradeIds
+      defenseTokens: defenseTokenIds,
+      upgrades: upgradeIds,
+      position: position
    });
 };
 
-TestData.createSquadron = function(id, squadronKey, position)
+TestData.createSquadron = function(id, squadronKey, position, defenseTokenIds)
 {
    return AS.SquadronState.create(
    {
       id: id,
       squadronKey: squadronKey,
+      defenseTokens: defenseTokenIds,
       position: position
    });
 };
@@ -113,6 +110,20 @@ TestData.createStore = (width = 915) =>
    store.dispatch(ActionCreator.setUpgradeInstance(TestData.createUpgrade(3, "generalDodonna")));
    store.dispatch(ActionCreator.setUpgradeInstance(TestData.createUpgrade(4, "dodonnasPride")));
 
+   store.dispatch(ActionCreator.setDefenseTokenInstance(TestData.createDefenseToken(1, "brace")));
+   store.dispatch(ActionCreator.setDefenseTokenInstance(TestData.createDefenseToken(2, "redirect")));
+   store.dispatch(ActionCreator.setDefenseTokenInstance(TestData.createDefenseToken(3, "redirect")));
+   store.dispatch(ActionCreator.setDefenseTokenInstance(TestData.createDefenseToken(4, "evade")));
+   store.dispatch(ActionCreator.setDefenseTokenInstance(TestData.createDefenseToken(5, "brace")));
+   store.dispatch(ActionCreator.setDefenseTokenInstance(TestData.createDefenseToken(6, "brace")));
+   store.dispatch(ActionCreator.setDefenseTokenInstance(TestData.createDefenseToken(7, "evade")));
+   store.dispatch(ActionCreator.setDefenseTokenInstance(TestData.createDefenseToken(8, "evade")));
+   store.dispatch(ActionCreator.setDefenseTokenInstance(TestData.createDefenseToken(9, "redirect")));
+   store.dispatch(ActionCreator.setDefenseTokenInstance(TestData.createDefenseToken(10, "brace")));
+   store.dispatch(ActionCreator.setDefenseTokenInstance(TestData.createDefenseToken(11, "scatter")));
+   store.dispatch(ActionCreator.setDefenseTokenInstance(TestData.createDefenseToken(12, "brace")));
+   store.dispatch(ActionCreator.setDefenseTokenInstance(TestData.createDefenseToken(13, "brace")));
+
    const squadronPosition1 = TestData.createPosition(Math.round(width / 2 - 200), 52, 90);
    const squadronPosition2 = TestData.createPosition(Math.round(width / 2 - 100), 52, 90);
    const shipPosition1 = TestData.createPosition(Math.round(width / 2), 52, 90);
@@ -125,15 +136,15 @@ TestData.createStore = (width = 915) =>
    const shipPosition3 = TestData.createPosition(Math.round(width / 2 + 100), 915 - 37, 270);
    const squadronPosition7 = TestData.createPosition(Math.round(width / 2 + 200), 915 - 37, 270);
 
-   store.dispatch(ActionCreator.setShipInstance(TestData.createShip(1, "victoryIiClassStarDestroyer", [1, 2], shipPosition1, [1, 2])));
-   store.dispatch(ActionCreator.setShipInstance(TestData.createShip(2, "nebulonBEscortFrigate", [3], shipPosition2, [3])));
-   store.dispatch(ActionCreator.setShipInstance(TestData.createShip(3, "cr90CorvetteA", [4], shipPosition3, [4])));
+   store.dispatch(ActionCreator.setShipInstance(TestData.createShip(1, "victoryIiClassStarDestroyer", [1, 2], [1, 2, 3], shipPosition1)));
+   store.dispatch(ActionCreator.setShipInstance(TestData.createShip(2, "nebulonBEscortFrigate", [3], [4, 5, 6], shipPosition2)));
+   store.dispatch(ActionCreator.setShipInstance(TestData.createShip(3, "cr90CorvetteA", [4], [7, 8, 9], shipPosition3)));
 
-   store.dispatch(ActionCreator.setSquadronInstance(TestData.createSquadron(1, "howlrunner", squadronPosition1)));
+   store.dispatch(ActionCreator.setSquadronInstance(TestData.createSquadron(1, "howlrunner", squadronPosition1, [10, 11])));
    store.dispatch(ActionCreator.setSquadronInstance(TestData.createSquadron(2, "tieFighterSquadron", squadronPosition2)));
    store.dispatch(ActionCreator.setSquadronInstance(TestData.createSquadron(3, "tieFighterSquadron", squadronPosition3)));
    store.dispatch(ActionCreator.setSquadronInstance(TestData.createSquadron(4, "tieFighterSquadron", squadronPosition4)));
-   store.dispatch(ActionCreator.setSquadronInstance(TestData.createSquadron(5, "lukeSkywalker", squadronPosition5)));
+   store.dispatch(ActionCreator.setSquadronInstance(TestData.createSquadron(5, "lukeSkywalker", squadronPosition5, [12, 13])));
    store.dispatch(ActionCreator.setSquadronInstance(TestData.createSquadron(6, "xWingSquadron", squadronPosition6)));
    store.dispatch(ActionCreator.setSquadronInstance(TestData.createSquadron(7, "xWingSquadron", squadronPosition7)));
 

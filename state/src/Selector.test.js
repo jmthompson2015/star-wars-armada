@@ -207,6 +207,44 @@ QUnit.test("damageInstance() 1", function(assert)
    assert.equal(result.damageKey, "blindedGunners");
 });
 
+QUnit.test("defenseTokenInstancesByShip() 1", function(assert)
+{
+   // Setup.
+   const shipId = 1;
+   const gameState = TestData.createGameState();
+
+   // Run.
+   const result = Selector.defenseTokenInstancesByShip(shipId, gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 3);
+   assert.equal(result[0].id, 1);
+   assert.equal(result[0].defenseTokenKey, "brace");
+   assert.equal(result[1].id, 2);
+   assert.equal(result[1].defenseTokenKey, "redirect");
+   assert.equal(result[2].id, 3);
+   assert.equal(result[2].defenseTokenKey, "redirect");
+});
+
+QUnit.test("defenseTokenInstancesBySquadron() 1", function(assert)
+{
+   // Setup.
+   const squadronId = 1;
+   const gameState = TestData.createGameState();
+
+   // Run.
+   const result = Selector.defenseTokenInstancesBySquadron(squadronId, gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 2);
+   assert.equal(result[0].id, 10);
+   assert.equal(result[0].defenseTokenKey, "brace");
+   assert.equal(result[1].id, 11);
+   assert.equal(result[1].defenseTokenKey, "scatter");
+});
+
 QUnit.test("fleetInstance() 1", function(assert)
 {
    // Setup.
@@ -310,6 +348,32 @@ QUnit.test("round()", function(assert)
    // Verify.
    assert.ok(result);
    assert.equal(result, 1);
+});
+
+QUnit.test("shipCountByAgent() 1", function(assert)
+{
+   // Setup.
+   let gameState = TestData.createGameState();
+   const agentId = 1;
+
+   // Run.
+   const result = Selector.shipCountByAgent(agentId, gameState);
+
+   // Verify.
+   assert.equal(result, 1);
+});
+
+QUnit.test("shipCountByAgent() 1", function(assert)
+{
+   // Setup.
+   let gameState = TestData.createGameState();
+   const agentId = 2;
+
+   // Run.
+   const result = Selector.shipCountByAgent(agentId, gameState);
+
+   // Verify.
+   assert.equal(result, 2);
 });
 
 QUnit.test("shipIds()", function(assert)

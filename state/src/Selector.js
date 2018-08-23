@@ -10,6 +10,31 @@ Selector.criticalInstancesByShip = (shipId, state) =>
    return R.map(criticalId => Selector.damageInstance(criticalId, state), criticalIds);
 };
 
+Selector.defenseTokenInstancesByShip = (shipId, state) =>
+{
+   const shipInstance = Selector.shipInstance(shipId, state);
+   const tokenIds = shipInstance.defenseTokens;
+
+   return R.map(tokenId => Selector.defenseTokenInstance(tokenId, state), tokenIds);
+};
+
+Selector.defenseTokenInstancesBySquadron = (shipId, state) =>
+{
+   const squadronInstance = Selector.squadronInstance(shipId, state);
+   const tokenIds = squadronInstance.defenseTokens;
+
+   return R.map(tokenId => Selector.defenseTokenInstance(tokenId, state), tokenIds);
+};
+
+Selector.shipCountByAgent = (agentId, state) =>
+{
+   const agent = Selector.agentInstance(agentId, state);
+
+   return Selector.shipCountByFleet(agent.fleet, state);
+};
+
+Selector.shipCountByFleet = (fleetId, state) => Selector.fleetInstance(fleetId, state).ships.length;
+
 Selector.shipIds = state => Object.keys(state.shipInstances).sort();
 
 Selector.shipInstancesByFleet = (fleetId, state) =>
@@ -72,6 +97,8 @@ Selector.nextCombatId = state => nextId(state.combatInstances);
 
 Selector.nextDamageId = state => nextId(state.damageInstances);
 
+Selector.nextDefenseTokenId = state => nextId(state.defenseTokenInstances);
+
 Selector.nextFleetId = state => nextId(state.fleetInstances);
 
 Selector.nextShipId = state => nextId(state.shipInstances);
@@ -86,6 +113,8 @@ Selector.agentInstance = (agentId, state) => R.path(["agentInstances", agentId],
 Selector.combatInstance = (combatId, state) => R.path(["combatInstances", combatId], state);
 
 Selector.damageInstance = (damageId, state) => R.path(["damageInstances", damageId], state);
+
+Selector.defenseTokenInstance = (tokenId, state) => R.path(["defenseTokenInstances", tokenId], state);
 
 Selector.fleetInstance = (fleetId, state) => R.path(["fleetInstances", fleetId], state);
 

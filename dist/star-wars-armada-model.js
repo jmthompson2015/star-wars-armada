@@ -159,19 +159,6 @@
 
    Object.freeze(CommandTask);
 
-   const Selector = {};
-
-   Selector.shipCountByAgent = (agentId, state) =>
-   {
-      const agent = AS.Selector.agentInstance(agentId, state);
-
-      return Selector.shipCountByFleet(agent.fleet, state);
-   };
-
-   Selector.shipCountByFleet = (fleetId, state) => AS.Selector.fleetInstance(fleetId, state).ships.length;
-
-   Object.freeze(Selector);
-
    const ActionCreator$2 = AS.ActionCreator;
 
    const SetupTask = {};
@@ -468,8 +455,8 @@
 
    const determineWinner = state =>
    {
-      const shipCount1 = Selector.shipCountByAgent(1, state);
-      const shipCount2 = Selector.shipCountByAgent(2, state);
+      const shipCount1 = AS.Selector.shipCountByAgent(1, state);
+      const shipCount2 = AS.Selector.shipCountByAgent(2, state);
 
       return ((shipCount1 > 0 && shipCount2 === 0) ? 1 : ((shipCount1 === 0 && shipCount2 > 0) ? 2 : undefined));
    };
@@ -477,8 +464,8 @@
    const isGameOver = state =>
    {
       const round = AS.Selector.round(state);
-      const shipCount1 = Selector.shipCountByAgent(1, state);
-      const shipCount2 = Selector.shipCountByAgent(2, state);
+      const shipCount1 = AS.Selector.shipCountByAgent(1, state);
+      const shipCount2 = AS.Selector.shipCountByAgent(2, state);
 
       return (round > 6 || shipCount1 === 0 || shipCount2 === 0);
    };
@@ -847,7 +834,6 @@
    exports.DamageDeck = DamageDeck;
    exports.DiceUtilities = DiceUtilities;
    exports.FleetBuilder = FleetBuilder;
-   exports.Selector = Selector;
    exports.SetupTask = SetupTask;
    exports.ShipTask = ShipTask;
    exports.SquadronTask = SquadronTask;

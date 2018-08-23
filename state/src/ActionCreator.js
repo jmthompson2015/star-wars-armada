@@ -74,6 +74,8 @@ ActionCreator.setDamageDeck = makeActionCreator(ActionType.SET_DAMAGE_DECK, "dam
 
 ActionCreator.setDamageInstances = makeActionCreator(ActionType.SET_DAMAGE_INSTANCES, "damageInstances");
 
+ActionCreator.setDefenseTokenInstance = makeActionCreator(ActionType.SET_DEFENSE_TOKEN_INSTANCE, "defenseTokenInstance");
+
 ActionCreator.setFleetInstance = makeActionCreator(ActionType.SET_FLEET_INSTANCE, "fleetInstance");
 
 ActionCreator.setFleetShips = makeActionCreator(ActionType.SET_FLEET_SHIPS, "fleetId", "shipIds");
@@ -84,13 +86,15 @@ ActionCreator.setGameOver = makeActionCreator(ActionType.SET_GAME_OVER, "isGameO
 
 ActionCreator.setPhase = makeActionCreator(ActionType.SET_PHASE, "phaseKey");
 
-ActionCreator.setShipDefenseToken = makeActionCreator(ActionType.SET_SHIP_DEFENSE_TOKEN, "shipId", "defenseToken");
+ActionCreator.setShipDefenseTokens = makeActionCreator(ActionType.SET_SHIP_DEFENSE_TOKENS, "shipId", "defenseTokenIds");
 
 ActionCreator.setShipInstance = makeActionCreator(ActionType.SET_SHIP_INSTANCE, "shipInstance");
 
 ActionCreator.setShipTokenCounts = makeActionCreator(ActionType.SET_SHIP_TOKEN_COUNTS, "shipId", "tokenCounts");
 
 ActionCreator.setShipUpgrades = makeActionCreator(ActionType.SET_SHIP_UPGRADES, "shipId", "upgradeIds");
+
+ActionCreator.setSquadronDefenseTokens = makeActionCreator(ActionType.SET_SQUADRON_DEFENSE_TOKENS, "squadronId", "defenseTokenIds");
 
 ActionCreator.setSquadronInstance = makeActionCreator(ActionType.SET_SQUADRON_INSTANCE, "squadronInstance");
 
