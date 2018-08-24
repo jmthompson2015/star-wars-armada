@@ -11,7 +11,7 @@ const FleetCardsContainer = (gameState, ownProps = {}) =>
    const reduceFunction1 = (accum, shipId) => R.assoc(shipId, AS.Selector.criticalInstancesByShip(shipId, gameState), accum);
    const shipToDamages = R.reduce(reduceFunction1,
    {}, shipIds);
-   const reduceFunction2 = (accum, shipInstance) => R.assoc(shipInstance.id, shipInstance.defenseTokens, accum);
+   const reduceFunction2 = (accum, shipInstance) => R.assoc(shipInstance.id, AS.Selector.defenseTokenInstancesByShip(shipInstance.id, gameState), accum);
    const shipToDefenseInstances = R.reduce(reduceFunction2,
    {}, shipInstances);
    const reduceFunction3 = (accum, shipInstance) => R.assoc(shipInstance.id, shipInstance.tokenCounts, accum);

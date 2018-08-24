@@ -12,6 +12,7 @@ import StatusBarUI from "./component/StatusBarUI.js";
 import TokenPanel from "./component/TokenPanel.js";
 import UpgradeSlotUI from "./component/UpgradeSlotUI.js";
 
+import FleetCardsContainer from "./container/FleetCardsContainer.js";
 import PlayAreaContainer from "./container/PlayAreaContainer.js";
 import StatusBarContainer from "./container/StatusBarContainer.js";
 
@@ -35,6 +36,7 @@ export
    TokenPanel,
    UpgradeSlotUI,
 
+   FleetCardsContainer,
    PlayAreaContainer,
    StatusBarContainer,
 

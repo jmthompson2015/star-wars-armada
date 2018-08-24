@@ -973,6 +973,91 @@
       showLabel: false
    };
 
+   const FleetCardsUI = props =>
+   {
+      const shipInstances = props.shipInstances;
+      const shipToDamages = (props.shipToDamages ||
+      {});
+      const shipToDefenseInstances = (props.shipToDefenseInstances ||
+      {});
+      const shipToTokenCounts = (props.shipToTokenCounts ||
+      {});
+      const shipToUpgrades = (props.shipToUpgrades ||
+      {});
+      let i = 0;
+      const mapFunction0 = shipInstance =>
+      {
+         const element = React.createElement(CardInstanceUI,
+         {
+            cardInstance: shipInstance,
+            damageInstances: shipToDamages[shipInstance.id],
+            defenseInstances: shipToDefenseInstances[shipInstance.id],
+            tokenCounts: shipToTokenCounts[shipInstance.id],
+            upgradeInstances: shipToUpgrades[shipInstance.id]
+         });
+
+         return ReactUtilities.createCell(element, "shipCell" + i++, "alignTop v-top");
+      };
+      const shipCells = R.map(mapFunction0, shipInstances);
+
+      const squadronInstances = props.squadronInstances;
+      let j = 0;
+      const mapFunction1 = squadronInstance =>
+      {
+         const element = React.createElement(CardInstanceUI,
+         {
+            cardInstance: squadronInstance
+         });
+         return ReactUtilities.createCell(element, "squadronCell" + j++, "alignTop v-top");
+      };
+      const squadronCells = R.map(mapFunction1, squadronInstances);
+
+      const cells = R.concat(shipCells, squadronCells);
+      const row = ReactUtilities.createRow(cells, "fleetCardsUIRow");
+
+      return ReactUtilities.createTable(row, "fleetCardsUITable", "center");
+   };
+
+   FleetCardsUI.propTypes = {
+      shipInstances: PropTypes.array.isRequired,
+      squadronInstances: PropTypes.array.isRequired,
+
+      shipToDamages: PropTypes.object,
+      shipToDefenseInstances: PropTypes.object,
+      shipToTokenCounts: PropTypes.object,
+      shipToUpgrades: PropTypes.object
+   };
+
+   const FleetCardsContainer = (gameState, ownProps = {}) =>
+   {
+      const fleetId = ownProps.fleetId;
+      const shipInstances = AS.Selector.shipInstancesByFleet(fleetId, gameState);
+      const shipIds = R.map(shipInstance => shipInstance.id, shipInstances);
+      const reduceFunction0 = (accum, shipId) => R.assoc(shipId, AS.Selector.upgradeInstancesByShip(shipId, gameState), accum);
+      const shipToUpgrades = R.reduce(reduceFunction0,
+      {}, shipIds);
+      const reduceFunction1 = (accum, shipId) => R.assoc(shipId, AS.Selector.criticalInstancesByShip(shipId, gameState), accum);
+      const shipToDamages = R.reduce(reduceFunction1,
+      {}, shipIds);
+      const reduceFunction2 = (accum, shipInstance) => R.assoc(shipInstance.id, AS.Selector.defenseTokenInstancesByShip(shipInstance.id, gameState), accum);
+      const shipToDefenseInstances = R.reduce(reduceFunction2,
+      {}, shipInstances);
+      const reduceFunction3 = (accum, shipInstance) => R.assoc(shipInstance.id, shipInstance.tokenCounts, accum);
+      const shipToTokenCounts = R.reduce(reduceFunction3,
+      {}, shipInstances);
+      const squadronInstances = AS.Selector.squadronInstancesByFleet(fleetId, gameState);
+
+      return React.createElement(FleetCardsUI,
+      {
+         shipInstances: shipInstances,
+         shipToDamages: shipToDamages,
+         shipToDefenseInstances: shipToDefenseInstances,
+         shipToTokenCounts: shipToTokenCounts,
+         shipToUpgrades: shipToUpgrades,
+         squadronInstances: squadronInstances
+      });
+   };
+
    const SquadronImage = {};
 
    const DEG_TO_RADIANS$1 = Math.PI / 180.0;
@@ -1420,6 +1505,7 @@
    exports.StatusBarUI = StatusBarUI;
    exports.TokenPanel = TokenPanel;
    exports.UpgradeSlotUI = UpgradeSlotUI;
+   exports.FleetCardsContainer = FleetCardsContainer;
    exports.PlayAreaContainer = PlayAreaContainer;
    exports.StatusBarContainer = StatusBarContainer;
    exports.Endpoint = Endpoint;
