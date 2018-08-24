@@ -19,6 +19,7 @@ import StatusBarContainer from "./container/StatusBarContainer.js";
 import Endpoint from "./Endpoint.js";
 import Help from "./Help.js";
 import ReactUtilities from "./ReactUtilities.js";
+import StarWarsArmadaView from "./StarWarsArmadaView.js";
 
 export
 {
@@ -42,5 +43,6 @@ export
 
    Endpoint,
    Help,
-   ReactUtilities
+   ReactUtilities,
+   StarWarsArmadaView
 };

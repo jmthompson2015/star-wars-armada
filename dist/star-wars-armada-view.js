@@ -1492,6 +1492,41 @@
    {}, rows);
    ReactDOM.render(mainPanel, document.getElementById("panel"));
 
+   const StarWarsArmadaView = {};
+
+   StarWarsArmadaView.drawView = (
+   {
+      gameState,
+      document,
+      resourceBase = "../resource/"
+   }) =>
+   {
+      const statusBarContainer = StatusBarContainer(gameState);
+      ReactDOM.render(statusBarContainer, document.getElementById("statusBarContainer"));
+
+      const fleetArea1 = FleetCardsContainer(gameState,
+      {
+         fleetId: 1
+      });
+      ReactDOM.render(fleetArea1, document.getElementById("fleetArea1"));
+
+      // FIXME: display firstPilotInputArea
+
+      const playAreaContainer = PlayAreaContainer(gameState,
+      {
+         resourceBase: resourceBase
+      });
+      ReactDOM.render(playAreaContainer, document.getElementById("playAreaContainer"));
+
+      // FIXME: display secondPilotInputArea
+
+      const fleetArea2 = FleetCardsContainer(gameState,
+      {
+         fleetId: 2
+      });
+      ReactDOM.render(fleetArea2, document.getElementById("fleetArea2"));
+   };
+
    exports.CardImage = CardImage;
    exports.CardInstancesArea = CardInstancesArea;
    exports.CardInstanceUI = CardInstanceUI;
@@ -1511,6 +1546,7 @@
    exports.Endpoint = Endpoint;
    exports.Help = Help;
    exports.ReactUtilities = ReactUtilities;
+   exports.StarWarsArmadaView = StarWarsArmadaView;
 
    Object.defineProperty(exports, '__esModule', { value: true });
 
