@@ -1,9 +1,9 @@
 import TestData from "./TestData.js";
-import ArmadaModel from "./ArmadaModel.js";
+import StarWarsArmadaModel from "./StarWarsArmadaModel.js";
 
 const Phase = AA.Phase;
 
-QUnit.module("ArmadaModel");
+QUnit.module("StarWarsArmadaModel");
 
 QUnit.test("nextGameState() Setup", function(assert)
 {
@@ -35,11 +35,11 @@ QUnit.test("nextGameState() Setup", function(assert)
 
    // Run.
    const done = assert.async();
-   ArmadaModel.nextGameState(
+   StarWarsArmadaModel.nextGameState(
    {
       gameState: gameState0
    }).then(callback);
 });
 
-const ArmadaModelTest = {};
-export default ArmadaModelTest;
+const StarWarsArmadaModelTest = {};
+export default StarWarsArmadaModelTest;

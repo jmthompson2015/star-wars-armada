@@ -7,9 +7,9 @@ import StatusTask from "./StatusTask.js";
 const ActionCreator = AS.ActionCreator;
 const Reducer = AS.Reducer;
 
-const ArmadaModel = {};
+const StarWarsArmadaModel = {};
 
-ArmadaModel.nextGameState = (
+StarWarsArmadaModel.nextGameState = (
 {
    gameState
 }) =>
@@ -84,6 +84,6 @@ const processGameOver = store =>
    store.dispatch(ActionCreator.setUserMessage(message));
 };
 
-Object.freeze(ArmadaModel);
+Object.freeze(StarWarsArmadaModel);
 
-export default ArmadaModel;
+export default StarWarsArmadaModel;
