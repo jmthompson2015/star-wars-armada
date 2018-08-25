@@ -52,12 +52,22 @@ PHASE_TO_CONFIG[Phase.COMMAND_COMMANDING] = {
       {
          store.dispatch(ActionCreator.dequeueCommand());
          const activeAgentId = AS.Selector.activeAgentId(store.getState());
+         const fleetId = AS.Selector.agentInstance(activeAgentId, store.getState()).fleet;
+         const shipInstances = AS.Selector.shipInstancesByFleet(fleetId, store.getState());
+         const reduceFunction = (accum, ship) =>
+         {
+            return R.assoc(ship.id, AA.Selector.enumKeys(AA.Command), accum);
+         };
+         const shipToValidCommands = R.reduce(reduceFunction,
+         {}, shipInstances);
          const newAgentQuery = AS.AgentQueryState.create(
          {
             agentId: activeAgentId,
             queryKey: AgentQueryType.CHOOSE_COMMANDS,
             payload:
-            {}
+            {
+               shipToValidCommands: shipToValidCommands
+            }
          });
          store.dispatch(ActionCreator.setAgentQuery(newAgentQuery));
       }
@@ -70,8 +80,9 @@ PHASE_TO_CONFIG[Phase.COMMAND_COMMANDING] = {
    responseKey: AgentQueryType.CHOOSE_COMMANDS,
    responseFunction: store =>
    {
-      const agentResponse = AS.Selector.agentResponse(store.getState());
-      console.log("COMMANDING responseFunction() agentResponse = " + JSON.stringify(agentResponse, null, "   "));
+      // FIXME: process agent response.
+      // const agentResponse = AS.Selector.agentResponse(store.getState());
+      // console.log("COMMANDING responseFunction() agentResponse = " + JSON.stringify(agentResponse, null, "   "));
       store.dispatch(ActionCreator.clearAgentResponse());
    }
 };

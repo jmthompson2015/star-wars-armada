@@ -150,7 +150,7 @@ Reducer.root = function(state, action)
          return assocPath(["upgradeInstances", action.upgradeId, "tokenCounts"], action.tokenCounts, state);
 
       default:
-         console.warn("Reducer.root: Unhandled action type: " + action.type);
+         // console.warn("Reducer.root: Unhandled action type: " + action.type);
          return state;
    }
 };

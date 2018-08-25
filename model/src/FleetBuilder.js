@@ -31,6 +31,22 @@ FleetBuilder.build = function(store, name, year, description, fleetId, shipAndUp
    store.dispatch(ActionCreator.setFleetShips(fleetId, shipIds));
    store.dispatch(ActionCreator.setFleetSquadrons(fleetId, squadronIds));
 
+   shipIds.forEach(shipId =>
+   {
+      const shipInstance = AS.Selector.shipInstance(shipId, store.getState());
+      const defenseTokens = AA.Selector.defenseTokenValuesByShip(shipInstance.shipKey);
+      const defenseTokenIds = processDefenseTokens(store, defenseTokens);
+      store.dispatch(ActionCreator.setShipDefenseTokens(shipId, defenseTokenIds));
+   });
+
+   squadronIds.forEach(squadronId =>
+   {
+      const squadronInstance = AS.Selector.squadronInstance(squadronId, store.getState());
+      const defenseTokens = AA.Selector.defenseTokenValuesBySquadron(squadronInstance.squadronKey);
+      const defenseTokenIds = processDefenseTokens(store, defenseTokens);
+      store.dispatch(ActionCreator.setSquadronDefenseTokens(squadronId, defenseTokenIds));
+   });
+
    return answer;
 };
 
@@ -124,6 +140,24 @@ const createUpgrade = (store, upgradeKey) =>
       id: upgradeId,
       upgradeKey: upgradeKey
    });
+};
+
+const processDefenseTokens = (store, defenseTokens) =>
+{
+   const reduceFunction = (accum, token) =>
+   {
+      const tokenId = AS.Selector.nextDefenseTokenId(store.getState());
+      const defenseTokenInstance = AS.DefenseTokenState.create(
+      {
+         id: tokenId,
+         defenseTokenKey: token.key
+      });
+      store.dispatch(ActionCreator.setDefenseTokenInstance(defenseTokenInstance));
+
+      return R.append(tokenId, accum);
+   };
+
+   return R.reduce(reduceFunction, [], defenseTokens);
 };
 
 const processShipKey = store => (accumulator, shipObj) =>

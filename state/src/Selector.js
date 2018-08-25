@@ -2,6 +2,8 @@ const Selector = {};
 
 Selector.agentIds = state => Object.keys(state.agentInstances).sort();
 
+Selector.agentInstances = state => Object.values(R.prop("agentInstances", state));
+
 Selector.criticalInstancesByShip = (shipId, state) =>
 {
    const shipInstance = Selector.shipInstance(shipId, state);

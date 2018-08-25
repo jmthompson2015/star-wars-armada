@@ -17,7 +17,6 @@ import PlayAreaContainer from "./container/PlayAreaContainer.js";
 import StatusBarContainer from "./container/StatusBarContainer.js";
 
 import Endpoint from "./Endpoint.js";
-import Help from "./Help.js";
 import ReactUtilities from "./ReactUtilities.js";
 import StarWarsArmadaView from "./StarWarsArmadaView.js";
 
@@ -42,7 +41,6 @@ export
    StatusBarContainer,
 
    Endpoint,
-   Help,
    ReactUtilities,
    StarWarsArmadaView
 };

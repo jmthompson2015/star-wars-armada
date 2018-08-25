@@ -42,6 +42,21 @@ QUnit.test("defenseTokenValuesByShip()", function(assert)
    assert.equal(result[2].key, "redirect");
 });
 
+QUnit.test("defenseTokenValuesBySquadron()", function(assert)
+{
+   // Setup.
+   const squadronKey = SquadronCard.HOWLRUNNER;
+
+   // Run.
+   const result = Selector.defenseTokenValuesBySquadron(squadronKey);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.length, 2);
+   assert.equal(result[0].key, "brace");
+   assert.equal(result[1].key, "scatter");
+});
+
 QUnit.test("diceValue()", function(assert)
 {
    // Setup.

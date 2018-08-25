@@ -584,7 +584,7 @@
             return assocPath(["upgradeInstances", action.upgradeId, "tokenCounts"], action.tokenCounts, state);
 
          default:
-            console.warn("Reducer.root: Unhandled action type: " + action.type);
+            // console.warn("Reducer.root: Unhandled action type: " + action.type);
             return state;
       }
    };
@@ -598,6 +598,8 @@
    const Selector = {};
 
    Selector.agentIds = state => Object.keys(state.agentInstances).sort();
+
+   Selector.agentInstances = state => Object.values(R.prop("agentInstances", state));
 
    Selector.criticalInstancesByShip = (shipId, state) =>
    {

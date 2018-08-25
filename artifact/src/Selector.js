@@ -25,6 +25,14 @@ Selector.defenseTokenValuesByShip = shipKey =>
    return R.map(name => EnumUtils.findByName(name, DefenseToken), defenseTokenNames);
 };
 
+Selector.defenseTokenValuesBySquadron = squadronKey =>
+{
+   const squadronCard = Selector.squadronCard(squadronKey);
+   const defenseTokenNames = squadronCard["defense-tokens"];
+
+   return (defenseTokenNames !== undefined ? R.map(name => EnumUtils.findByName(name, DefenseToken), defenseTokenNames) : []);
+};
+
 Selector.distanceKeyByLength = length =>
 {
    const distances = EnumUtils.values(Distance);

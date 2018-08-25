@@ -298,6 +298,19 @@ QUnit.test("nextDamageId()", function(assert)
    assert.equal(result, 53);
 });
 
+QUnit.test("nextDefenseTokenId()", function(assert)
+{
+   // Setup.
+   const gameState = TestData.createGameState();
+
+   // Run.
+   const result = Selector.nextDefenseTokenId(gameState);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result, 14);
+});
+
 QUnit.test("nextUpgradeId()", function(assert)
 {
    // Setup.

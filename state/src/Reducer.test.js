@@ -3,6 +3,7 @@ import AgentQueryState from "./AgentQueryState.js";
 import AgentResponseState from "./AgentResponseState.js";
 import AgentState from "./AgentState.js";
 import CombatState from "./CombatState.js";
+import DefenseTokenState from "./DefenseTokenState.js";
 import FleetState from "./FleetState.js";
 import Reducer from "./Reducer.js";
 import ShipState from "./ShipState.js";
@@ -393,6 +394,27 @@ QUnit.test("setCombatShieldDamage()", function(assert)
 
    // Verify.
    assert.equal(store.getState().combatInstances[combatId].shieldDamage, shieldDamage);
+});
+
+QUnit.test("setDefenseTokenInstance()", function(assert)
+{
+   // Setup.
+   const store = Redux.createStore(Reducer.root, TestData.createGameState());
+   const tokenId = 12;
+   const defenseTokenInstance = DefenseTokenState.create(
+   {
+      id: tokenId,
+      defenseTokenKey: "brace"
+   });
+
+   // Run.
+   store.dispatch(ActionCreator.setDefenseTokenInstance(defenseTokenInstance));
+
+   // Verify.
+   const result = store.getState().defenseTokenInstances[tokenId];
+   assert.ok(result);
+   assert.equal(result.id, tokenId);
+   assert.equal(result.defenseTokenKey, "brace");
 });
 
 QUnit.test("setFleetInstance()", function(assert)

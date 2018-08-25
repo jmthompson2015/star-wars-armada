@@ -118,12 +118,22 @@
          {
             store.dispatch(ActionCreator$1.dequeueCommand());
             const activeAgentId = AS.Selector.activeAgentId(store.getState());
+            const fleetId = AS.Selector.agentInstance(activeAgentId, store.getState()).fleet;
+            const shipInstances = AS.Selector.shipInstancesByFleet(fleetId, store.getState());
+            const reduceFunction = (accum, ship) =>
+            {
+               return R.assoc(ship.id, AA.Selector.enumKeys(AA.Command), accum);
+            };
+            const shipToValidCommands = R.reduce(reduceFunction,
+            {}, shipInstances);
             const newAgentQuery = AS.AgentQueryState.create(
             {
                agentId: activeAgentId,
                queryKey: AgentQueryType.CHOOSE_COMMANDS,
                payload:
-               {}
+               {
+                  shipToValidCommands: shipToValidCommands
+               }
             });
             store.dispatch(ActionCreator$1.setAgentQuery(newAgentQuery));
          }
@@ -136,8 +146,9 @@
       responseKey: AgentQueryType.CHOOSE_COMMANDS,
       responseFunction: store =>
       {
-         const agentResponse = AS.Selector.agentResponse(store.getState());
-         console.log("COMMANDING responseFunction() agentResponse = " + JSON.stringify(agentResponse, null, "   "));
+         // FIXME: process agent response.
+         // const agentResponse = AS.Selector.agentResponse(store.getState());
+         // console.log("COMMANDING responseFunction() agentResponse = " + JSON.stringify(agentResponse, null, "   "));
          store.dispatch(ActionCreator$1.clearAgentResponse());
       }
    };
@@ -368,6 +379,22 @@
       store.dispatch(ActionCreator$2.setFleetShips(fleetId, shipIds));
       store.dispatch(ActionCreator$2.setFleetSquadrons(fleetId, squadronIds));
 
+      shipIds.forEach(shipId =>
+      {
+         const shipInstance = AS.Selector.shipInstance(shipId, store.getState());
+         const defenseTokens = AA.Selector.defenseTokenValuesByShip(shipInstance.shipKey);
+         const defenseTokenIds = processDefenseTokens(store, defenseTokens);
+         store.dispatch(ActionCreator$2.setShipDefenseTokens(shipId, defenseTokenIds));
+      });
+
+      squadronIds.forEach(squadronId =>
+      {
+         const squadronInstance = AS.Selector.squadronInstance(squadronId, store.getState());
+         const defenseTokens = AA.Selector.defenseTokenValuesBySquadron(squadronInstance.squadronKey);
+         const defenseTokenIds = processDefenseTokens(store, defenseTokens);
+         store.dispatch(ActionCreator$2.setSquadronDefenseTokens(squadronId, defenseTokenIds));
+      });
+
       return answer;
    };
 
@@ -461,6 +488,24 @@
          id: upgradeId,
          upgradeKey: upgradeKey
       });
+   };
+
+   const processDefenseTokens = (store, defenseTokens) =>
+   {
+      const reduceFunction = (accum, token) =>
+      {
+         const tokenId = AS.Selector.nextDefenseTokenId(store.getState());
+         const defenseTokenInstance = AS.DefenseTokenState.create(
+         {
+            id: tokenId,
+            defenseTokenKey: token.key
+         });
+         store.dispatch(ActionCreator$2.setDefenseTokenInstance(defenseTokenInstance));
+
+         return R.append(tokenId, accum);
+      };
+
+      return R.reduce(reduceFunction, [], defenseTokens);
    };
 
    const processShipKey = store => (accumulator, shipObj) =>

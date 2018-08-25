@@ -1473,25 +1473,6 @@
       });
    };
 
-   const Help = {};
-
-   const referenceCards = AA.EnumUtilities.values(AA.ReferenceCard);
-   const mapFunction = referenceCard =>
-   {
-      return React.createElement(CardImage,
-      {
-         key: "referenceCard" + referenceCard.key,
-         card: referenceCard,
-         resourceBase: Endpoint.ARMADA_IMAGES,
-         width: 250
-      });
-   };
-   const rows = R.map(mapFunction, referenceCards);
-
-   const mainPanel = ReactDOMFactories.div(
-   {}, rows);
-   ReactDOM.render(mainPanel, document.getElementById("panel"));
-
    const StarWarsArmadaView = {};
 
    StarWarsArmadaView.drawView = (
@@ -1544,7 +1525,6 @@
    exports.PlayAreaContainer = PlayAreaContainer;
    exports.StatusBarContainer = StatusBarContainer;
    exports.Endpoint = Endpoint;
-   exports.Help = Help;
    exports.ReactUtilities = ReactUtilities;
    exports.StarWarsArmadaView = StarWarsArmadaView;
 
