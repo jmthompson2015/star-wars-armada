@@ -17,7 +17,8 @@ const createFleetCardsUI = (fleetId, state) =>
    const reduceFunction1 = (accum, shipId) => R.assoc(shipId, criticalInstancesByShip0(shipId), accum);
    const shipToDamages = R.reduce(reduceFunction1,
    {}, shipIds);
-   const reduceFunction2 = (accum, shipInstance) => R.assoc(shipInstance.id, shipInstance.defenseTokens, accum);
+   // const reduceFunction2 = (accum, shipInstance) => R.assoc(shipInstance.id, shipInstance.defenseTokens, accum);
+   const reduceFunction2 = (accum, shipInstance) => R.assoc(shipInstance.id, AS.Selector.defenseTokenInstancesByShip(shipInstance.id, state), accum);
    const shipToDefenseInstances = R.reduce(reduceFunction2,
    {}, shipInstances);
    const reduceFunction3 = (accum, shipInstance) => R.assoc(shipInstance.id, shipInstance.tokenCounts, accum);

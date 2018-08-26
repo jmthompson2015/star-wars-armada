@@ -1,20 +1,30 @@
 import Endpoint from "../Endpoint.js";
 import ImageWithLabelUI from "./ImageWithLabelUI.js";
 
-const FactionUI = props =>
+class FactionUI extends React.Component
 {
-   const faction = props.faction;
-   const src = props.resourceBase + faction.image;
-   const size = (props.isSmall ? 24 : 32);
-
-   return React.createElement(ImageWithLabelUI,
+   render()
    {
-      src: src,
-      label: faction.name,
-      showLabel: props.showLabel,
-      width: size
-   });
-};
+      const
+      {
+         faction,
+         isSmall,
+         resourceBase,
+         showLabel
+      } = this.props;
+
+      const src = resourceBase + faction.image;
+      const size = (isSmall ? 24 : 32);
+
+      return React.createElement(ImageWithLabelUI,
+      {
+         src: src,
+         label: faction.name,
+         showLabel: showLabel,
+         width: size
+      });
+   }
+}
 
 FactionUI.propTypes = {
    faction: PropTypes.object.isRequired,

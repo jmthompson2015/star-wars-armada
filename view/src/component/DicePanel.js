@@ -16,7 +16,7 @@ class DicePanel extends React.Component
    }
 }
 
-const createImage = function(die)
+const createImage = die =>
 {
    const src = Endpoint.ARMADA_IMAGES + die.image;
 

@@ -1,39 +1,51 @@
 import ReactUtilities from "../ReactUtilities.js";
 
-const StatusBarUI = props =>
+class StatusBarUI extends React.Component
 {
-   const helpLinkUI = ReactDOMFactories.a(
+   render()
    {
-      href: props.helpBase + "Help.html",
-      target: "_blank",
-   }, "Help");
+      const
+      {
+         activeShipName,
+         phaseName,
+         round,
+         userMessage,
+         helpBase
+      } = this.props;
 
-   let i = 0;
-   const cellClassName = "ba";
+      const helpLinkUI = ReactDOMFactories.a(
+      {
+         href: helpBase + "Help.html",
+         target: "_blank",
+      }, "Help");
 
-   const roundCell = ReactUtilities.createCell(["Round: ", props.round], i++, cellClassName,
-   {
-      title: "Round"
-   });
-   const phaseCell = ReactUtilities.createCell(["Phase: ", props.phaseName], i++, cellClassName,
-   {
-      title: "Phase"
-   });
-   const activeShipCell = ReactUtilities.createCell(["Active Ship: ", props.activeShipName], i++, cellClassName,
-   {
-      title: "Active Ship"
-   });
-   const userMessageCell = ReactUtilities.createCell(props.userMessage, i++, cellClassName,
-   {
-      title: "User Message"
-   });
-   const helpCell = ReactUtilities.createCell(helpLinkUI, i++, cellClassName);
+      let i = 0;
+      const cellClassName = "ba";
 
-   const cells = [roundCell, phaseCell, activeShipCell, userMessageCell, helpCell];
-   const row = ReactUtilities.createRow(cells);
+      const roundCell = ReactUtilities.createCell(["Round: ", round], i++, cellClassName,
+      {
+         title: "Round"
+      });
+      const phaseCell = ReactUtilities.createCell(["Phase: ", phaseName], i++, cellClassName,
+      {
+         title: "Phase"
+      });
+      const activeShipCell = ReactUtilities.createCell(["Active Ship: ", activeShipName], i++, cellClassName,
+      {
+         title: "Active Ship"
+      });
+      const userMessageCell = ReactUtilities.createCell(userMessage, i++, cellClassName,
+      {
+         title: "User Message"
+      });
+      const helpCell = ReactUtilities.createCell(helpLinkUI, i++, cellClassName);
 
-   return ReactUtilities.createTable(row, "statusBarUITable", "bg-xw-light collapse ma0 tc v-mid w-100");
-};
+      const cells = [roundCell, phaseCell, activeShipCell, userMessageCell, helpCell];
+      const row = ReactUtilities.createRow(cells);
+
+      return ReactUtilities.createTable(row, "statusBarUITable", "bg-xw-light collapse ma0 tc v-mid w-100");
+   }
+}
 
 StatusBarUI.propTypes = {
    activeShipName: PropTypes.string.isRequired,

@@ -1,20 +1,30 @@
 import Endpoint from "../Endpoint.js";
 import ImageWithLabelUI from "./ImageWithLabelUI.js";
 
-const UpgradeSlotUI = props =>
+class UpgradeSlotUI extends React.Component
 {
-   const upgradeSlot = props.upgradeSlot;
-   const src = props.resourceBase + upgradeSlot.image;
-   const size = (props.isSmall ? 24 : 32);
-
-   return React.createElement(ImageWithLabelUI,
+   render()
    {
-      src: src,
-      label: upgradeSlot.name,
-      showLabel: props.showLabel,
-      width: size
-   });
-};
+      const
+      {
+         upgradeSlot,
+         isSmall,
+         resourceBase,
+         showLabel
+      } = this.props;
+
+      const src = resourceBase + upgradeSlot.image;
+      const size = (isSmall ? 24 : 32);
+
+      return React.createElement(ImageWithLabelUI,
+      {
+         src: src,
+         label: upgradeSlot.name,
+         showLabel: showLabel,
+         width: size
+      });
+   }
+}
 
 UpgradeSlotUI.propTypes = {
    upgradeSlot: PropTypes.object.isRequired,

@@ -55,26 +55,29 @@ CardInstanceUI.prototype.toggleSizeFunction = function()
 
 CardInstanceUI.prototype.createAttachmentPanel = function(cells)
 {
-   const attachments = [];
-   const upgrades = this.props.upgradeInstances;
-
-   if (upgrades.length > 0)
+   const
    {
-      for (let i = 0; i < upgrades.length; i++)
+      damageInstances,
+      upgradeInstances
+   } = this.props;
+
+   const attachments = [];
+
+   if (upgradeInstances.length > 0)
+   {
+      for (let i = 0; i < upgradeInstances.length; i++)
       {
-         const upgradeInstance = upgrades[i];
+         const upgradeInstance = upgradeInstances[i];
          const upgradeUI = this.createAttachmentUI(upgradeInstance);
          attachments.push(upgradeUI);
       }
    }
 
-   const damages = this.props.damageInstances;
-
-   if (damages.length > 0)
+   if (damageInstances.length > 0)
    {
-      for (let j = 0; j < damages.length; j++)
+      for (let j = 0; j < damageInstances.length; j++)
       {
-         const damageInstance = damages[j];
+         const damageInstance = damageInstances[j];
          const damageUI = this.createAttachmentUI(damageInstance);
          attachments.push(damageUI);
       }
@@ -118,10 +121,16 @@ CardInstanceUI.prototype.createCardImage = function(cardInstance, myKey)
 
 CardInstanceUI.prototype.createTokenPanel = function(cardId)
 {
+   const
+   {
+      defenseInstances,
+      tokenCounts,
+   } = this.props;
+
    let props = {
       key: "token" + cardId,
-      defenseInstances: this.props.defenseInstances,
-      tokenCounts: this.props.tokenCounts
+      defenseInstances: defenseInstances,
+      tokenCounts: tokenCounts
    };
 
    return React.createElement(TokenPanel, props);

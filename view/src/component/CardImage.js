@@ -14,32 +14,38 @@ class CardImage extends React.Component
 
    render()
    {
-      let className;
-      const card = this.props.card;
-      const isReady = this.props.isReady;
-      const width = this.props.width;
-      const height = computeHeight(card.key, width);
-      const title = determineCardTitle(card, this.props.isFaceUp);
-      let canvasHeight, canvasWidth;
+      const
+      {
+         card,
+         isFaceUp,
+         isReady,
+         slicing,
+         width
+      } = this.props;
 
-      if (this.props.slicing === undefined)
+      const canvasId = this.canvasId();
+      const height = computeHeight(card.key, width);
+      const title = determineCardTitle(card, isFaceUp);
+      let className, canvasHeight, canvasWidth;
+
+      if (slicing === undefined)
       {
          className = "br3";
-         canvasWidth = (isReady ? this.props.width : height);
-         canvasHeight = (isReady ? height : this.props.width);
+         canvasWidth = (isReady ? width : height);
+         canvasHeight = (isReady ? height : width);
       }
       else
       {
-         canvasWidth = (isReady ? this.props.width : height * this.props.slicing);
-         canvasHeight = (isReady ? height * this.props.slicing : this.props.width);
+         canvasWidth = (isReady ? width : height * slicing);
+         canvasHeight = (isReady ? height * slicing : width);
       }
 
       return ReactDOMFactories.canvas(
       {
-         key: this.canvasId(),
+         key: canvasId,
          className: className,
          height: canvasHeight,
-         id: this.canvasId(),
+         id: canvasId,
          title: title,
          width: canvasWidth,
       });
@@ -48,19 +54,35 @@ class CardImage extends React.Component
 
 CardImage.prototype.canvasId = function()
 {
-   return this.props.card.key + this.props.isFaceUp + this.props.isReady + this.props.slicing + "CardImageCanvas" + this.props.myKey;
+   const
+   {
+      card,
+      isFaceUp,
+      isReady,
+      myKey,
+      slicing
+   } = this.props;
+
+   return "CardImageCanvas" + card.key + isFaceUp + isReady + myKey + slicing;
 };
 
 CardImage.prototype.paint = function()
 {
-   const card = this.props.card;
-   const isReady = this.props.isReady;
+   const
+   {
+      card,
+      isFaceUp,
+      isReady,
+      resourceBase,
+      slicing,
+      width
+   } = this.props;
+
    const canvas = document.getElementById(this.canvasId());
    const context = canvas.getContext("2d");
-   const dWidth = this.props.width;
+   const dWidth = width;
    const height = computeHeight(card.key, dWidth);
-   const slicing = this.props.slicing;
-   const src = this.props.resourceBase + createSrc(card, this.props.isFaceUp);
+   const src = resourceBase + createSrc(card, isFaceUp);
    const image = new Image();
    image.onload = function()
    {

@@ -1,21 +1,31 @@
-const CommandUI = props =>
+class CommandUI extends React.Component
 {
-   const command = props.command;
-   const fontKey = (command.key === "concentrateFire" ? "concentrate" : command.key);
-   const size = (props.isSmall ? "f3" : "f2");
-   const title = (props.title !== undefined ? props.title : command.name);
-
-   const image = ReactDOMFactories.i(
+   render()
    {
-      className: size + " v-mid ffi ffi-swa-" + fontKey,
-      title: title
-   });
+      const
+      {
+         command,
+         isSmall,
+         showLabel,
+         title
+      } = this.props;
 
-   return (props.showLabel ? ReactDOMFactories.span(
-   {
-      title: title
-   }, image, " ", command.name) : image);
-};
+      const fontKey = (command.key === "concentrateFire" ? "concentrate" : command.key);
+      const size = (isSmall ? "f3" : "f2");
+      const myTitle = title || command.name;
+
+      const image = ReactDOMFactories.i(
+      {
+         className: size + " v-mid ffi ffi-swa-" + fontKey,
+         title: myTitle
+      });
+
+      return (showLabel ? ReactDOMFactories.span(
+      {
+         title: myTitle
+      }, image, " ", command.name) : image);
+   }
+}
 
 CommandUI.propTypes = {
    command: PropTypes.object.isRequired,
@@ -23,6 +33,11 @@ CommandUI.propTypes = {
    isSmall: PropTypes.bool,
    showLabel: PropTypes.bool,
    title: PropTypes.string
+};
+
+CommandUI.defaultProps = {
+   isSmall: false,
+   showLabel: false
 };
 
 export default CommandUI;

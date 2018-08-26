@@ -23,32 +23,38 @@
 
       render()
       {
-         let className;
-         const card = this.props.card;
-         const isReady = this.props.isReady;
-         const width = this.props.width;
-         const height = computeHeight(card.key, width);
-         const title = determineCardTitle(card, this.props.isFaceUp);
-         let canvasHeight, canvasWidth;
+         const
+         {
+            card,
+            isFaceUp,
+            isReady,
+            slicing,
+            width
+         } = this.props;
 
-         if (this.props.slicing === undefined)
+         const canvasId = this.canvasId();
+         const height = computeHeight(card.key, width);
+         const title = determineCardTitle(card, isFaceUp);
+         let className, canvasHeight, canvasWidth;
+
+         if (slicing === undefined)
          {
             className = "br3";
-            canvasWidth = (isReady ? this.props.width : height);
-            canvasHeight = (isReady ? height : this.props.width);
+            canvasWidth = (isReady ? width : height);
+            canvasHeight = (isReady ? height : width);
          }
          else
          {
-            canvasWidth = (isReady ? this.props.width : height * this.props.slicing);
-            canvasHeight = (isReady ? height * this.props.slicing : this.props.width);
+            canvasWidth = (isReady ? width : height * slicing);
+            canvasHeight = (isReady ? height * slicing : width);
          }
 
          return ReactDOMFactories.canvas(
          {
-            key: this.canvasId(),
+            key: canvasId,
             className: className,
             height: canvasHeight,
-            id: this.canvasId(),
+            id: canvasId,
             title: title,
             width: canvasWidth,
          });
@@ -57,19 +63,35 @@
 
    CardImage.prototype.canvasId = function()
    {
-      return this.props.card.key + this.props.isFaceUp + this.props.isReady + this.props.slicing + "CardImageCanvas" + this.props.myKey;
+      const
+      {
+         card,
+         isFaceUp,
+         isReady,
+         myKey,
+         slicing
+      } = this.props;
+
+      return "CardImageCanvas" + card.key + isFaceUp + isReady + myKey + slicing;
    };
 
    CardImage.prototype.paint = function()
    {
-      const card = this.props.card;
-      const isReady = this.props.isReady;
+      const
+      {
+         card,
+         isFaceUp,
+         isReady,
+         resourceBase,
+         slicing,
+         width
+      } = this.props;
+
       const canvas = document.getElementById(this.canvasId());
       const context = canvas.getContext("2d");
-      const dWidth = this.props.width;
+      const dWidth = width;
       const height = computeHeight(card.key, dWidth);
-      const slicing = this.props.slicing;
-      const src = this.props.resourceBase + createSrc(card, this.props.isFaceUp);
+      const src = resourceBase + createSrc(card, isFaceUp);
       const image = new Image();
       image.onload = function()
       {
@@ -331,9 +353,15 @@
 
    CardInstancesArea.prototype.createLabelUI = function()
    {
-      const label = ReactUtilities.createCell(this.props.label, "labelCell", "b tc");
+      const
+      {
+         cardInstanceUIs,
+         label
+      } = this.props;
 
-      const cardCount = this.props.cardInstanceUIs.length;
+      const labelUI = ReactUtilities.createCell(label, "labelCell", "b tc");
+
+      const cardCount = cardInstanceUIs.length;
       const isExpanded = this.state.isExpanded;
       const expandLabel = (cardCount > 1 ? (isExpanded ? "\u25B6" : "\u25BC") : "");
       const expandControl = ReactDOMFactories.div(
@@ -342,7 +370,7 @@
          onClick: this.toggleExpand,
       }, expandLabel);
 
-      const row = ReactUtilities.createRow([label, expandControl], "labelExpandRow");
+      const row = ReactUtilities.createRow([labelUI, expandControl], "labelExpandRow");
       const table = ReactUtilities.createTable(row, "labelExpandTable", "w-100");
 
       const tableCell = ReactUtilities.createCell(table, "tableCell");
@@ -368,24 +396,34 @@
       isExpanded: true,
    };
 
-   const CommandUI = props =>
+   class CommandUI extends React.Component
    {
-      const command = props.command;
-      const fontKey = (command.key === "concentrateFire" ? "concentrate" : command.key);
-      const size = (props.isSmall ? "f3" : "f2");
-      const title = (props.title !== undefined ? props.title : command.name);
-
-      const image = ReactDOMFactories.i(
+      render()
       {
-         className: size + " v-mid ffi ffi-swa-" + fontKey,
-         title: title
-      });
+         const
+         {
+            command,
+            isSmall,
+            showLabel,
+            title
+         } = this.props;
 
-      return (props.showLabel ? ReactDOMFactories.span(
-      {
-         title: title
-      }, image, " ", command.name) : image);
-   };
+         const fontKey = (command.key === "concentrateFire" ? "concentrate" : command.key);
+         const size = (isSmall ? "f3" : "f2");
+         const myTitle = title || command.name;
+
+         const image = ReactDOMFactories.i(
+         {
+            className: size + " v-mid ffi ffi-swa-" + fontKey,
+            title: myTitle
+         });
+
+         return (showLabel ? ReactDOMFactories.span(
+         {
+            title: myTitle
+         }, image, " ", command.name) : image);
+      }
+   }
 
    CommandUI.propTypes = {
       command: PropTypes.object.isRequired,
@@ -395,27 +433,41 @@
       title: PropTypes.string
    };
 
-   const DefenseTokenUI = props =>
-   {
-      const defenseInstance = props.defenseInstance;
-      const defenseToken = AA.Selector.defenseToken(defenseInstance.defenseTokenKey);
-      const fontKey = defenseInstance.defenseTokenKey;
-      const size = (props.isSmall ? "f3" : "f2");
-      const title = defenseToken.name;
-      const color = (defenseInstance.isReady ? "bg-green" : "bg-orange");
-
-      const image = ReactDOMFactories.i(
-      {
-         className: color + " " + size + " v-mid w-100 ffi ffi-swa-" + fontKey,
-         title: title
-      });
-
-      return (props.showLabel ? ReactDOMFactories.span(
-      {
-         className: color + " h-100 v-mid w-100",
-         title: title
-      }, image, " ", defenseToken.name) : image);
+   CommandUI.defaultProps = {
+      isSmall: false,
+      showLabel: false
    };
+
+   class DefenseTokenUI extends React.Component
+   {
+      render()
+      {
+         const
+         {
+            defenseInstance,
+            isSmall,
+            showLabel
+         } = this.props;
+
+         const defenseToken = AA.Selector.defenseToken(defenseInstance.defenseTokenKey);
+         const fontKey = defenseInstance.defenseTokenKey;
+         const size = (isSmall ? "f3" : "f2");
+         const title = defenseToken.name;
+         const color = (defenseInstance.isReady ? "bg-green" : "bg-orange");
+
+         const image = ReactDOMFactories.i(
+         {
+            className: color + " " + size + " v-mid w-100 ffi ffi-swa-" + fontKey,
+            title: title
+         });
+
+         return (showLabel ? ReactDOMFactories.span(
+         {
+            className: color + " h-100 v-mid w-100",
+            title: title
+         }, image, " ", defenseToken.name) : image);
+      }
+   }
 
    DefenseTokenUI.propTypes = {
       defenseInstance: PropTypes.object.isRequired,
@@ -424,27 +476,37 @@
       showLabel: PropTypes.bool
    };
 
-   const TokenPanel = props =>
-   {
-      const rows = [];
-
-      const defenseInstances = (props.defenseInstances || []);
-      const tokenCounts = props.tokenCounts ||
-      {};
-      const commands = AA.Selector.enumValues(AA.Command).sort(comparator);
-
-      commands.forEach(command =>
-      {
-         maybeAddCommandToken(rows, command, tokenCounts[command.key]);
-      });
-
-      defenseInstances.forEach(defenseInstance =>
-      {
-         addDefenseToken(rows, defenseInstance);
-      });
-
-      return ReactUtilities.createFlexboxWrap(rows, "tokenPanel", "bg-white center content-center flex-column justify-center tc");
+   DefenseTokenUI.defaultProps = {
+      isSmall: false,
+      showLabel: false
    };
+
+   class TokenPanel extends React.Component
+   {
+      render()
+      {
+         const
+         {
+            defenseInstances,
+            tokenCounts
+         } = this.props;
+
+         const rows = [];
+         const commands = AA.Selector.enumValues(AA.Command).sort(comparator);
+
+         commands.forEach(command =>
+         {
+            maybeAddCommandToken(rows, command, tokenCounts[command.key]);
+         });
+
+         defenseInstances.forEach(defenseInstance =>
+         {
+            addDefenseToken(rows, defenseInstance);
+         });
+
+         return ReactUtilities.createFlexboxWrap(rows, "tokenPanel", "bg-white center content-center flex-column justify-center tc");
+      }
+   }
 
    const addDefenseToken = function(rows, defenseInstance)
    {
@@ -487,6 +549,12 @@
    TokenPanel.propTypes = {
       defenseInstances: PropTypes.object,
       tokenCounts: PropTypes.object
+   };
+
+   TokenPanel.defaultProps = {
+      defenseInstances: [],
+      tokenCounts:
+      {}
    };
 
    class CardInstanceUI extends React.Component
@@ -540,26 +608,29 @@
 
    CardInstanceUI.prototype.createAttachmentPanel = function(cells)
    {
-      const attachments = [];
-      const upgrades = this.props.upgradeInstances;
-
-      if (upgrades.length > 0)
+      const
       {
-         for (let i = 0; i < upgrades.length; i++)
+         damageInstances,
+         upgradeInstances
+      } = this.props;
+
+      const attachments = [];
+
+      if (upgradeInstances.length > 0)
+      {
+         for (let i = 0; i < upgradeInstances.length; i++)
          {
-            const upgradeInstance = upgrades[i];
+            const upgradeInstance = upgradeInstances[i];
             const upgradeUI = this.createAttachmentUI(upgradeInstance);
             attachments.push(upgradeUI);
          }
       }
 
-      const damages = this.props.damageInstances;
-
-      if (damages.length > 0)
+      if (damageInstances.length > 0)
       {
-         for (let j = 0; j < damages.length; j++)
+         for (let j = 0; j < damageInstances.length; j++)
          {
-            const damageInstance = damages[j];
+            const damageInstance = damageInstances[j];
             const damageUI = this.createAttachmentUI(damageInstance);
             attachments.push(damageUI);
          }
@@ -603,10 +674,16 @@
 
    CardInstanceUI.prototype.createTokenPanel = function(cardId)
    {
+      const
+      {
+         defenseInstances,
+         tokenCounts,
+      } = this.props;
+
       let props = {
          key: "token" + cardId,
-         defenseInstances: this.props.defenseInstances,
-         tokenCounts: this.props.tokenCounts
+         defenseInstances: defenseInstances,
+         tokenCounts: tokenCounts
       };
 
       return React.createElement(TokenPanel, props);
@@ -669,13 +746,19 @@
 
       render()
       {
-         const commands = this.props.commands;
+         const
+         {
+            clientProps,
+            commands,
+            panelClass
+         } = this.props;
+
          const inputProps = R.merge(
          {
             name: "chooseCommand", // needed for radio
             onChange: this.handleChange,
             type: "radio"
-         }, this.props.clientProps);
+         }, clientProps);
 
          let i = 0;
          const selected = this.state.selected;
@@ -695,20 +778,26 @@
          };
          const rows = R.map(mapFunction, commands);
 
-         return ReactUtilities.createTable(rows, undefined, this.props.panelClass);
+         return ReactUtilities.createTable(rows, undefined, panelClass);
       }
    }
 
    CommandChooser.prototype.handleChangeFunction = function(event)
    {
+      const
+      {
+         commands,
+         onChange
+      } = this.props;
+
       const id = event.target.id;
-      const selected = this.props.commands[id];
+      const selected = commands[id];
 
       this.setState(
          {
             selected: selected,
          },
-         this.props.onChange(selected));
+         onChange(selected));
    };
 
    const labelFunction = function(command)
@@ -752,7 +841,7 @@
       }
    }
 
-   const createImage = function(die)
+   const createImage = die =>
    {
       const src = Endpoint.ARMADA_IMAGES + die.image;
 
@@ -779,26 +868,37 @@
       dice: []
    };
 
-   const ImageWithLabelUI = props =>
+   class ImageWithLabelUI extends React.Component
    {
-      const image = ReactDOMFactories.img(
+      render()
       {
-         className: "v-mid",
-         src: props.src,
-         title: props.label,
-         width: props.width
-      });
+         const
+         {
+            src,
+            label,
+            showLabel,
+            width
+         } = this.props;
 
-      let answer = image;
+         const image = ReactDOMFactories.img(
+         {
+            className: "v-mid",
+            src: src,
+            title: label,
+            width: width
+         });
 
-      if (props.showLabel)
-      {
-         answer = ReactDOMFactories.span(
-         {}, image, " ", props.label);
+         let answer = image;
+
+         if (showLabel)
+         {
+            answer = ReactDOMFactories.span(
+            {}, image, " ", label);
+         }
+
+         return answer;
       }
-
-      return answer;
-   };
+   }
 
    ImageWithLabelUI.propTypes = {
       src: PropTypes.string.isRequired,
@@ -814,20 +914,30 @@
       width: 24
    };
 
-   const FactionUI = props =>
+   class FactionUI extends React.Component
    {
-      const faction = props.faction;
-      const src = props.resourceBase + faction.image;
-      const size = (props.isSmall ? 24 : 32);
-
-      return React.createElement(ImageWithLabelUI,
+      render()
       {
-         src: src,
-         label: faction.name,
-         showLabel: props.showLabel,
-         width: size
-      });
-   };
+         const
+         {
+            faction,
+            isSmall,
+            resourceBase,
+            showLabel
+         } = this.props;
+
+         const src = resourceBase + faction.image;
+         const size = (isSmall ? 24 : 32);
+
+         return React.createElement(ImageWithLabelUI,
+         {
+            src: src,
+            label: faction.name,
+            showLabel: showLabel,
+            width: size
+         });
+      }
+   }
 
    FactionUI.propTypes = {
       faction: PropTypes.object.isRequired,
@@ -896,40 +1006,52 @@
       context.stroke();
    };
 
-   const StatusBarUI = props =>
+   class StatusBarUI extends React.Component
    {
-      const helpLinkUI = ReactDOMFactories.a(
+      render()
       {
-         href: props.helpBase + "Help.html",
-         target: "_blank",
-      }, "Help");
+         const
+         {
+            activeShipName,
+            phaseName,
+            round,
+            userMessage,
+            helpBase
+         } = this.props;
 
-      let i = 0;
-      const cellClassName = "ba";
+         const helpLinkUI = ReactDOMFactories.a(
+         {
+            href: helpBase + "Help.html",
+            target: "_blank",
+         }, "Help");
 
-      const roundCell = ReactUtilities.createCell(["Round: ", props.round], i++, cellClassName,
-      {
-         title: "Round"
-      });
-      const phaseCell = ReactUtilities.createCell(["Phase: ", props.phaseName], i++, cellClassName,
-      {
-         title: "Phase"
-      });
-      const activeShipCell = ReactUtilities.createCell(["Active Ship: ", props.activeShipName], i++, cellClassName,
-      {
-         title: "Active Ship"
-      });
-      const userMessageCell = ReactUtilities.createCell(props.userMessage, i++, cellClassName,
-      {
-         title: "User Message"
-      });
-      const helpCell = ReactUtilities.createCell(helpLinkUI, i++, cellClassName);
+         let i = 0;
+         const cellClassName = "ba";
 
-      const cells = [roundCell, phaseCell, activeShipCell, userMessageCell, helpCell];
-      const row = ReactUtilities.createRow(cells);
+         const roundCell = ReactUtilities.createCell(["Round: ", round], i++, cellClassName,
+         {
+            title: "Round"
+         });
+         const phaseCell = ReactUtilities.createCell(["Phase: ", phaseName], i++, cellClassName,
+         {
+            title: "Phase"
+         });
+         const activeShipCell = ReactUtilities.createCell(["Active Ship: ", activeShipName], i++, cellClassName,
+         {
+            title: "Active Ship"
+         });
+         const userMessageCell = ReactUtilities.createCell(userMessage, i++, cellClassName,
+         {
+            title: "User Message"
+         });
+         const helpCell = ReactUtilities.createCell(helpLinkUI, i++, cellClassName);
 
-      return ReactUtilities.createTable(row, "statusBarUITable", "bg-xw-light collapse ma0 tc v-mid w-100");
-   };
+         const cells = [roundCell, phaseCell, activeShipCell, userMessageCell, helpCell];
+         const row = ReactUtilities.createRow(cells);
+
+         return ReactUtilities.createTable(row, "statusBarUITable", "bg-xw-light collapse ma0 tc v-mid w-100");
+      }
+   }
 
    StatusBarUI.propTypes = {
       activeShipName: PropTypes.string.isRequired,
@@ -944,20 +1066,30 @@
       helpBase: "./"
    };
 
-   const UpgradeSlotUI = props =>
+   class UpgradeSlotUI extends React.Component
    {
-      const upgradeSlot = props.upgradeSlot;
-      const src = props.resourceBase + upgradeSlot.image;
-      const size = (props.isSmall ? 24 : 32);
-
-      return React.createElement(ImageWithLabelUI,
+      render()
       {
-         src: src,
-         label: upgradeSlot.name,
-         showLabel: props.showLabel,
-         width: size
-      });
-   };
+         const
+         {
+            upgradeSlot,
+            isSmall,
+            resourceBase,
+            showLabel
+         } = this.props;
+
+         const src = resourceBase + upgradeSlot.image;
+         const size = (isSmall ? 24 : 32);
+
+         return React.createElement(ImageWithLabelUI,
+         {
+            src: src,
+            label: upgradeSlot.name,
+            showLabel: showLabel,
+            width: size
+         });
+      }
+   }
 
    UpgradeSlotUI.propTypes = {
       upgradeSlot: PropTypes.object.isRequired,
@@ -973,50 +1105,53 @@
       showLabel: false
    };
 
-   const FleetCardsUI = props =>
+   class FleetCardsUI extends React.Component
    {
-      const shipInstances = props.shipInstances;
-      const shipToDamages = (props.shipToDamages ||
-      {});
-      const shipToDefenseInstances = (props.shipToDefenseInstances ||
-      {});
-      const shipToTokenCounts = (props.shipToTokenCounts ||
-      {});
-      const shipToUpgrades = (props.shipToUpgrades ||
-      {});
-      let i = 0;
-      const mapFunction0 = shipInstance =>
+      render()
       {
-         const element = React.createElement(CardInstanceUI,
+         const
          {
-            cardInstance: shipInstance,
-            damageInstances: shipToDamages[shipInstance.id],
-            defenseInstances: shipToDefenseInstances[shipInstance.id],
-            tokenCounts: shipToTokenCounts[shipInstance.id],
-            upgradeInstances: shipToUpgrades[shipInstance.id]
-         });
+            shipInstances,
+            squadronInstances,
+            shipToDamages,
+            shipToDefenseInstances,
+            shipToTokenCounts,
+            shipToUpgrades
+         } = this.props;
 
-         return ReactUtilities.createCell(element, "shipCell" + i++, "alignTop v-top");
-      };
-      const shipCells = R.map(mapFunction0, shipInstances);
-
-      const squadronInstances = props.squadronInstances;
-      let j = 0;
-      const mapFunction1 = squadronInstance =>
-      {
-         const element = React.createElement(CardInstanceUI,
+         let i = 0;
+         const mapFunction0 = shipInstance =>
          {
-            cardInstance: squadronInstance
-         });
-         return ReactUtilities.createCell(element, "squadronCell" + j++, "alignTop v-top");
-      };
-      const squadronCells = R.map(mapFunction1, squadronInstances);
+            const element = React.createElement(CardInstanceUI,
+            {
+               cardInstance: shipInstance,
+               damageInstances: shipToDamages[shipInstance.id],
+               defenseInstances: shipToDefenseInstances[shipInstance.id],
+               tokenCounts: shipToTokenCounts[shipInstance.id],
+               upgradeInstances: shipToUpgrades[shipInstance.id]
+            });
 
-      const cells = R.concat(shipCells, squadronCells);
-      const row = ReactUtilities.createRow(cells, "fleetCardsUIRow");
+            return ReactUtilities.createCell(element, "shipCell" + i++, "alignTop v-top");
+         };
+         const shipCells = R.map(mapFunction0, shipInstances);
 
-      return ReactUtilities.createTable(row, "fleetCardsUITable", "center");
-   };
+         let j = 0;
+         const mapFunction1 = squadronInstance =>
+         {
+            const element = React.createElement(CardInstanceUI,
+            {
+               cardInstance: squadronInstance
+            });
+            return ReactUtilities.createCell(element, "squadronCell" + j++, "alignTop v-top");
+         };
+         const squadronCells = R.map(mapFunction1, squadronInstances);
+
+         const cells = R.concat(shipCells, squadronCells);
+         const row = ReactUtilities.createRow(cells, "fleetCardsUIRow");
+
+         return ReactUtilities.createTable(row, "fleetCardsUITable", "center");
+      }
+   }
 
    FleetCardsUI.propTypes = {
       shipInstances: PropTypes.array.isRequired,
@@ -1026,6 +1161,17 @@
       shipToDefenseInstances: PropTypes.object,
       shipToTokenCounts: PropTypes.object,
       shipToUpgrades: PropTypes.object
+   };
+
+   FleetCardsUI.defaultProps = {
+      shipToDamages:
+      {},
+      shipToDefenseInstances:
+      {},
+      shipToTokenCounts:
+      {},
+      shipToUpgrades:
+      {}
    };
 
    const FleetCardsContainer = (gameState, ownProps = {}) =>
@@ -1122,10 +1268,16 @@
 
       render()
       {
-         const imageSrc = this.props.resourceBase + this.props.image;
-         const scale = this.props.scale;
-         const width = scale * this.props.width;
-         const height = scale * this.props.height;
+         const
+         {
+            height,
+            image,
+            resourceBase,
+            scale,
+            width
+         } = this.props;
+
+         const imageSrc = resourceBase + image;
 
          return ReactDOMFactories.canvas(
          {
@@ -1135,8 +1287,8 @@
                backgroundImage: "url(" + imageSrc + ")",
                backgroundSize: "100%",
             },
-            width: width,
-            height: height
+            width: scale * width,
+            height: scale * height
          });
       }
    }
@@ -1179,7 +1331,11 @@
 
    PlayAreaUI.prototype.drawExplosion = function(context)
    {
-      const explosion = this.props.explosion;
+      const
+      {
+         explosion,
+         scale
+      } = this.props;
 
       if (explosion)
       {
@@ -1193,7 +1349,7 @@
          const height = size;
 
          context.save();
-         context.scale(this.props.scale, this.props.scale);
+         context.scale(scale, scale);
          context.translate(x, y);
          context.drawImage(this.explosionImage, -width / 2, -height / 2, width, height);
 
@@ -1206,7 +1362,11 @@
 
    PlayAreaUI.prototype.drawLaserBeam = function(context)
    {
-      const laserBeam = this.props.laserBeam;
+      const
+      {
+         laserBeam,
+         scale
+      } = this.props;
 
       if (laserBeam)
       {
@@ -1217,7 +1377,7 @@
          const toPosition = laserBeam.toPosition;
 
          context.save();
-         context.scale(this.props.scale, this.props.scale);
+         context.scale(scale, scale);
          context.lineWidth = 3;
          context.strokeStyle = color;
 
@@ -1248,35 +1408,35 @@
 
    PlayAreaUI.prototype.drawManeuver = function(context)
    {
-      const maneuverObj = this.props.maneuver;
-
-      if (maneuverObj)
+      const
       {
-         const color = maneuverObj.color;
-         const fromPosition = maneuverObj.fromPosition;
-         const toPolygon = maneuverObj.toPolygon;
+         maneuver,
+         scale
+      } = this.props;
 
+      if (maneuver)
+      {
          context.save();
-         context.scale(this.props.scale, this.props.scale);
+         context.scale(scale, scale);
 
          // Mark the center.
          context.fillStyle = PlayAreaUI.FOREGROUND_COLOR;
          const radius = 4;
          context.beginPath();
-         context.arc(fromPosition.x, fromPosition.y, radius, 0, 2 * Math.PI);
+         context.arc(maneuver.fromPosition.x, maneuver.fromPosition.y, radius, 0, 2 * Math.PI);
          context.fill();
 
          // Draw from ship base.
-         paintPathComponent(maneuverObj.fromPolygon, context, PlayAreaUI.FOREGROUND_COLOR);
+         paintPathComponent(maneuver.fromPolygon, context, PlayAreaUI.FOREGROUND_COLOR);
 
-         if (toPolygon)
+         if (maneuver.toPolygon)
          {
             // Draw to ship base.
-            paintPathComponent(toPolygon, context, PlayAreaUI.FOREGROUND_COLOR);
+            paintPathComponent(maneuver.toPolygon, context, PlayAreaUI.FOREGROUND_COLOR);
          }
 
          // Draw maneuver path.
-         paintPathComponent(maneuverObj.path, context, color);
+         paintPathComponent(maneuver.path, context, maneuver.color);
 
          // Cleanup.
          context.restore();
@@ -1285,8 +1445,11 @@
 
    PlayAreaUI.prototype.drawShips = function(context)
    {
-      const scale = this.props.scale;
-      const shipInstances = this.props.shipInstances;
+      const
+      {
+         scale,
+         shipInstances
+      } = this.props;
 
       Object.values(shipInstances).forEach(shipInstance =>
       {
@@ -1304,8 +1467,11 @@
 
    PlayAreaUI.prototype.drawSquadrons = function(context)
    {
-      const scale = this.props.scale;
-      const squadronInstances = this.props.squadronInstances;
+      const
+      {
+         scale,
+         squadronInstances
+      } = this.props;
 
       Object.values(squadronInstances).forEach(squadronInstance =>
       {
@@ -1322,7 +1488,12 @@
 
    PlayAreaUI.prototype.loadImages = function()
    {
-      const shipInstances = this.props.shipInstances;
+      const
+      {
+         shipInstances,
+         squadronInstances
+      } = this.props;
+
       const factionShips = [];
 
       shipInstances.forEach(shipInstance =>
@@ -1345,7 +1516,6 @@
       }
 
       const factionSquadrons = [];
-      const squadronInstances = this.props.squadronInstances;
 
       squadronInstances.forEach(squadronInstance =>
       {
@@ -1371,13 +1541,17 @@
 
    PlayAreaUI.prototype.paint = function()
    {
+      const
+      {
+         height,
+         scale,
+         width
+      } = this.props;
+
       const canvas = document.getElementById("playAreaCanvas");
       const context = canvas.getContext("2d");
-      const scale = this.props.scale;
-      const width = scale * this.props.width;
-      const height = scale * this.props.height;
 
-      context.clearRect(0, 0, width, height);
+      context.clearRect(0, 0, scale * width, scale * height);
 
       this.drawShips(context);
       this.drawSquadrons(context);

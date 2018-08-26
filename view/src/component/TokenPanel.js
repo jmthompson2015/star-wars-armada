@@ -3,27 +3,32 @@ import ReactUtilities from "../ReactUtilities.js";
 import CommandUI from "./CommandUI.js";
 import DefenseTokenUI from "./DefenseTokenUI.js";
 
-const TokenPanel = props =>
+class TokenPanel extends React.Component
 {
-   const rows = [];
-
-   const defenseInstances = (props.defenseInstances || []);
-   const tokenCounts = props.tokenCounts ||
-   {};
-   const commands = AA.Selector.enumValues(AA.Command).sort(comparator);
-
-   commands.forEach(command =>
+   render()
    {
-      maybeAddCommandToken(rows, command, tokenCounts[command.key]);
-   });
+      const
+      {
+         defenseInstances,
+         tokenCounts
+      } = this.props;
 
-   defenseInstances.forEach(defenseInstance =>
-   {
-      addDefenseToken(rows, defenseInstance);
-   });
+      const rows = [];
+      const commands = AA.Selector.enumValues(AA.Command).sort(comparator);
 
-   return ReactUtilities.createFlexboxWrap(rows, "tokenPanel", "bg-white center content-center flex-column justify-center tc");
-};
+      commands.forEach(command =>
+      {
+         maybeAddCommandToken(rows, command, tokenCounts[command.key]);
+      });
+
+      defenseInstances.forEach(defenseInstance =>
+      {
+         addDefenseToken(rows, defenseInstance);
+      });
+
+      return ReactUtilities.createFlexboxWrap(rows, "tokenPanel", "bg-white center content-center flex-column justify-center tc");
+   }
+}
 
 const addDefenseToken = function(rows, defenseInstance)
 {
@@ -66,6 +71,12 @@ const maybeAddCommandToken = function(rows, command, count)
 TokenPanel.propTypes = {
    defenseInstances: PropTypes.object,
    tokenCounts: PropTypes.object
+};
+
+TokenPanel.defaultProps = {
+   defenseInstances: [],
+   tokenCounts:
+   {}
 };
 
 export default TokenPanel;

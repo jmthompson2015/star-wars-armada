@@ -56,9 +56,15 @@ CardInstancesArea.prototype.createCardInstanceCells = function()
 
 CardInstancesArea.prototype.createLabelUI = function()
 {
-   const label = ReactUtilities.createCell(this.props.label, "labelCell", "b tc");
+   const
+   {
+      cardInstanceUIs,
+      label
+   } = this.props;
 
-   const cardCount = this.props.cardInstanceUIs.length;
+   const labelUI = ReactUtilities.createCell(label, "labelCell", "b tc");
+
+   const cardCount = cardInstanceUIs.length;
    const isExpanded = this.state.isExpanded;
    const expandLabel = (cardCount > 1 ? (isExpanded ? "\u25B6" : "\u25BC") : "");
    const expandControl = ReactDOMFactories.div(
@@ -67,7 +73,7 @@ CardInstancesArea.prototype.createLabelUI = function()
       onClick: this.toggleExpand,
    }, expandLabel);
 
-   const row = ReactUtilities.createRow([label, expandControl], "labelExpandRow");
+   const row = ReactUtilities.createRow([labelUI, expandControl], "labelExpandRow");
    const table = ReactUtilities.createTable(row, "labelExpandTable", "w-100");
 
    const tableCell = ReactUtilities.createCell(table, "tableCell");

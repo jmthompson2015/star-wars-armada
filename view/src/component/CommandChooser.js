@@ -17,13 +17,19 @@ class CommandChooser extends React.Component
 
    render()
    {
-      const commands = this.props.commands;
+      const
+      {
+         clientProps,
+         commands,
+         panelClass
+      } = this.props;
+
       const inputProps = R.merge(
       {
          name: "chooseCommand", // needed for radio
          onChange: this.handleChange,
          type: "radio"
-      }, this.props.clientProps);
+      }, clientProps);
 
       let i = 0;
       const selected = this.state.selected;
@@ -43,20 +49,26 @@ class CommandChooser extends React.Component
       };
       const rows = R.map(mapFunction, commands);
 
-      return ReactUtils.createTable(rows, undefined, this.props.panelClass);
+      return ReactUtils.createTable(rows, undefined, panelClass);
    }
 }
 
 CommandChooser.prototype.handleChangeFunction = function(event)
 {
+   const
+   {
+      commands,
+      onChange
+   } = this.props;
+
    const id = event.target.id;
-   const selected = this.props.commands[id];
+   const selected = commands[id];
 
    this.setState(
       {
          selected: selected,
       },
-      this.props.onChange(selected));
+      onChange(selected));
 };
 
 const labelFunction = function(command)

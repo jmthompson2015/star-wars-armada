@@ -27,10 +27,16 @@ class PlayAreaUI extends React.Component
 
    render()
    {
-      const imageSrc = this.props.resourceBase + this.props.image;
-      const scale = this.props.scale;
-      const width = scale * this.props.width;
-      const height = scale * this.props.height;
+      const
+      {
+         height,
+         image,
+         resourceBase,
+         scale,
+         width
+      } = this.props;
+
+      const imageSrc = resourceBase + image;
 
       return ReactDOMFactories.canvas(
       {
@@ -40,8 +46,8 @@ class PlayAreaUI extends React.Component
             backgroundImage: "url(" + imageSrc + ")",
             backgroundSize: "100%",
          },
-         width: width,
-         height: height
+         width: scale * width,
+         height: scale * height
       });
    }
 }
@@ -84,7 +90,11 @@ PlayAreaUI.prototype.createSquadronIcon = function(faction, squadronCard)
 
 PlayAreaUI.prototype.drawExplosion = function(context)
 {
-   const explosion = this.props.explosion;
+   const
+   {
+      explosion,
+      scale
+   } = this.props;
 
    if (explosion)
    {
@@ -98,7 +108,7 @@ PlayAreaUI.prototype.drawExplosion = function(context)
       const height = size;
 
       context.save();
-      context.scale(this.props.scale, this.props.scale);
+      context.scale(scale, scale);
       context.translate(x, y);
       context.drawImage(this.explosionImage, -width / 2, -height / 2, width, height);
 
@@ -111,7 +121,11 @@ PlayAreaUI.prototype.drawExplosion = function(context)
 
 PlayAreaUI.prototype.drawLaserBeam = function(context)
 {
-   const laserBeam = this.props.laserBeam;
+   const
+   {
+      laserBeam,
+      scale
+   } = this.props;
 
    if (laserBeam)
    {
@@ -122,7 +136,7 @@ PlayAreaUI.prototype.drawLaserBeam = function(context)
       const toPosition = laserBeam.toPosition;
 
       context.save();
-      context.scale(this.props.scale, this.props.scale);
+      context.scale(scale, scale);
       context.lineWidth = 3;
       context.strokeStyle = color;
 
@@ -153,35 +167,35 @@ PlayAreaUI.HARD_COLOR = "red";
 
 PlayAreaUI.prototype.drawManeuver = function(context)
 {
-   const maneuverObj = this.props.maneuver;
-
-   if (maneuverObj)
+   const
    {
-      const color = maneuverObj.color;
-      const fromPosition = maneuverObj.fromPosition;
-      const toPolygon = maneuverObj.toPolygon;
+      maneuver,
+      scale
+   } = this.props;
 
+   if (maneuver)
+   {
       context.save();
-      context.scale(this.props.scale, this.props.scale);
+      context.scale(scale, scale);
 
       // Mark the center.
       context.fillStyle = PlayAreaUI.FOREGROUND_COLOR;
       const radius = 4;
       context.beginPath();
-      context.arc(fromPosition.x, fromPosition.y, radius, 0, 2 * Math.PI);
+      context.arc(maneuver.fromPosition.x, maneuver.fromPosition.y, radius, 0, 2 * Math.PI);
       context.fill();
 
       // Draw from ship base.
-      paintPathComponent(maneuverObj.fromPolygon, context, PlayAreaUI.FOREGROUND_COLOR);
+      paintPathComponent(maneuver.fromPolygon, context, PlayAreaUI.FOREGROUND_COLOR);
 
-      if (toPolygon)
+      if (maneuver.toPolygon)
       {
          // Draw to ship base.
-         paintPathComponent(toPolygon, context, PlayAreaUI.FOREGROUND_COLOR);
+         paintPathComponent(maneuver.toPolygon, context, PlayAreaUI.FOREGROUND_COLOR);
       }
 
       // Draw maneuver path.
-      paintPathComponent(maneuverObj.path, context, color);
+      paintPathComponent(maneuver.path, context, maneuver.color);
 
       // Cleanup.
       context.restore();
@@ -190,8 +204,11 @@ PlayAreaUI.prototype.drawManeuver = function(context)
 
 PlayAreaUI.prototype.drawShips = function(context)
 {
-   const scale = this.props.scale;
-   const shipInstances = this.props.shipInstances;
+   const
+   {
+      scale,
+      shipInstances
+   } = this.props;
 
    Object.values(shipInstances).forEach(shipInstance =>
    {
@@ -209,8 +226,11 @@ PlayAreaUI.prototype.drawShips = function(context)
 
 PlayAreaUI.prototype.drawSquadrons = function(context)
 {
-   const scale = this.props.scale;
-   const squadronInstances = this.props.squadronInstances;
+   const
+   {
+      scale,
+      squadronInstances
+   } = this.props;
 
    Object.values(squadronInstances).forEach(squadronInstance =>
    {
@@ -227,7 +247,12 @@ PlayAreaUI.prototype.drawSquadrons = function(context)
 
 PlayAreaUI.prototype.loadImages = function()
 {
-   const shipInstances = this.props.shipInstances;
+   const
+   {
+      shipInstances,
+      squadronInstances
+   } = this.props;
+
    const factionShips = [];
 
    shipInstances.forEach(shipInstance =>
@@ -250,7 +275,6 @@ PlayAreaUI.prototype.loadImages = function()
    }
 
    const factionSquadrons = [];
-   const squadronInstances = this.props.squadronInstances;
 
    squadronInstances.forEach(squadronInstance =>
    {
@@ -276,13 +300,17 @@ PlayAreaUI.prototype.loadImages = function()
 
 PlayAreaUI.prototype.paint = function()
 {
+   const
+   {
+      height,
+      scale,
+      width
+   } = this.props;
+
    const canvas = document.getElementById("playAreaCanvas");
    const context = canvas.getContext("2d");
-   const scale = this.props.scale;
-   const width = scale * this.props.width;
-   const height = scale * this.props.height;
 
-   context.clearRect(0, 0, width, height);
+   context.clearRect(0, 0, scale * width, scale * height);
 
    this.drawShips(context);
    this.drawSquadrons(context);
