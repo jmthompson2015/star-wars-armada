@@ -10,3 +10,6 @@ rollup -c
 
 cd ../view
 rollup -c
+
+cd ../app
+rollup -c

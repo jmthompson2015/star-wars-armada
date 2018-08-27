@@ -7,6 +7,7 @@ module.exports = {
     AA: true,
     AM: true,
     AS: true,
+    AV: true,
     Immutable: true,
     PropTypes: true,
     QUnit: true,
