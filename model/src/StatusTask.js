@@ -1,125 +1,114 @@
-import TaskUtilities from "./TaskUtilities.js";
+import TaskUtilities from './TaskUtilities.js';
 
-const Phase = AA.Phase;
+const { Phase } = AA;
 
-const ActionCreator = AS.ActionCreator;
+const { ActionCreator } = AS;
 
 const StatusTask = {};
 const PHASE_TO_CONFIG = {};
 
-StatusTask.doIt = store =>
-{
-   let answer;
-   const phaseKey = AS.Selector.phaseKey(store.getState());
+const setPhase = (store, phaseKey) => store.dispatch(ActionCreator.setPhase(phaseKey));
 
-   switch (phaseKey)
-   {
-      case Phase.STATUS_START:
-         answer = start(store);
-         break;
-      case Phase.STATUS_END:
-         answer = end(store);
-         break;
-      default:
-         const config = PHASE_TO_CONFIG[phaseKey];
-         answer = TaskUtilities.processPhase(
-         {
-            phaseKey: phaseKey,
-            responseKey: config.responseKey,
-            responseFunction: config.responseFunction,
-            processFunction: config.processFunction
-         })(store);
-   }
+const start = store =>
+  new Promise(resolve => {
+    setPhase(store, Phase.STATUS_READY_DEFENSE_TOKENS);
+    resolve(store);
+  });
 
-   return answer;
+const end = store =>
+  new Promise(resolve => {
+    setPhase(store, Phase.COMMAND_START);
+    resolve(store);
+  });
+
+const setStatusQueueShip = store => {
+  const shipIds = AS.Selector.shipIds(store.getState());
+  store.dispatch(ActionCreator.setActiveQueue(shipIds));
 };
 
-////////////////////////////////////////////////////////////////////////////////
-const start = store => new Promise((resolve) =>
-{
-   setPhase(store, Phase.STATUS_READY_DEFENSE_TOKENS);
-   resolve(store);
-});
+const setStatusQueueSquadron = store => {
+  const squadronIds = AS.Selector.squadronIds(store.getState());
+  store.dispatch(ActionCreator.setActiveQueue(squadronIds));
+};
 
+// /////////////////////////////////////////////////////////////////////////////////////////////////
+StatusTask.doIt = store => {
+  let answer;
+  let config;
+  const phaseKey = AS.Selector.phaseKey(store.getState());
+
+  switch (phaseKey) {
+    case Phase.STATUS_START:
+      answer = start(store);
+      break;
+    case Phase.STATUS_END:
+      answer = end(store);
+      break;
+    default:
+      config = PHASE_TO_CONFIG[phaseKey];
+      answer = TaskUtilities.processPhase({
+        phaseKey,
+        responseKey: config.responseKey,
+        responseFunction: config.responseFunction,
+        processFunction: config.processFunction,
+      })(store);
+  }
+
+  return answer;
+};
+
+// /////////////////////////////////////////////////////////////////////////////////////////////////
 PHASE_TO_CONFIG[Phase.STATUS_READY_DEFENSE_TOKENS] = {
-   processFunction: store =>
-   {
-      // Ships.
-      setStatusQueueShip(store);
+  processFunction: store => {
+    // Ships.
+    setStatusQueueShip(store);
 
-      while (AS.Selector.activeQueue(store.getState()).length > 0)
-      {
-         store.dispatch(ActionCreator.dequeueShip());
-         const shipId = AS.Selector.activeShipId(store.getState());
-         store.dispatch(ActionCreator.readyShipDefenseTokens(shipId));
-      }
+    while (AS.Selector.activeQueue(store.getState()).length > 0) {
+      store.dispatch(ActionCreator.dequeueShip());
+      const shipId = AS.Selector.activeShipId(store.getState());
+      store.dispatch(ActionCreator.readyShipDefenseTokens(shipId));
+    }
 
-      // Squadrons.
-      setStatusQueueSquadron(store);
+    // Squadrons.
+    setStatusQueueSquadron(store);
 
-      while (AS.Selector.activeQueue(store.getState()).length > 0)
-      {
-         store.dispatch(ActionCreator.dequeueSquadron());
-         const squadronId = AS.Selector.activeSquadronId(store.getState());
-         store.dispatch(ActionCreator.readySquadronDefenseTokens(squadronId));
-      }
+    while (AS.Selector.activeQueue(store.getState()).length > 0) {
+      store.dispatch(ActionCreator.dequeueSquadron());
+      const squadronId = AS.Selector.activeSquadronId(store.getState());
+      store.dispatch(ActionCreator.readySquadronDefenseTokens(squadronId));
+    }
 
-      setPhase(store, Phase.STATUS_READY_UPGRADE_CARDS);
-   }
+    setPhase(store, Phase.STATUS_READY_UPGRADE_CARDS);
+  },
 };
 
 PHASE_TO_CONFIG[Phase.STATUS_READY_UPGRADE_CARDS] = {
-   processFunction: store =>
-   {
-      setStatusQueueShip(store);
+  processFunction: store => {
+    setStatusQueueShip(store);
 
-      while (AS.Selector.activeQueue(store.getState()).length > 0)
-      {
-         store.dispatch(ActionCreator.dequeueShip());
-         const shipId = AS.Selector.activeShipId(store.getState());
-         store.dispatch(ActionCreator.readyUpgradeCards(shipId));
-      }
+    while (AS.Selector.activeQueue(store.getState()).length > 0) {
+      store.dispatch(ActionCreator.dequeueShip());
+      const shipId = AS.Selector.activeShipId(store.getState());
+      store.dispatch(ActionCreator.readyUpgradeCards(shipId));
+    }
 
-      setPhase(store, Phase.STATUS_FLIP_INITIATIVE_TOKEN);
-   }
+    setPhase(store, Phase.STATUS_FLIP_INITIATIVE_TOKEN);
+  },
 };
 
 PHASE_TO_CONFIG[Phase.STATUS_FLIP_INITIATIVE_TOKEN] = {
-   processFunction: store =>
-   {
-      // TODO: flip initiative token.
-      setPhase(store, Phase.STATUS_PLACE_ROUND_TOKEN);
-   }
+  processFunction: store => {
+    // TODO: flip initiative token.
+    setPhase(store, Phase.STATUS_PLACE_ROUND_TOKEN);
+  },
 };
 
 PHASE_TO_CONFIG[Phase.STATUS_PLACE_ROUND_TOKEN] = {
-   processFunction: store =>
-   {
-      store.dispatch(ActionCreator.incrementRound());
-      setPhase(store, Phase.STATUS_END);
-   }
+  processFunction: store => {
+    store.dispatch(ActionCreator.incrementRound());
+    setPhase(store, Phase.STATUS_END);
+  },
 };
-
-const end = store => new Promise((resolve) =>
-{
-   setPhase(store, Phase.COMMAND_START);
-   resolve(store);
-});
-
-////////////////////////////////////////////////////////////////////////////////
-const setStatusQueueShip = store =>
-{
-   const shipIds = AS.Selector.shipIds(store.getState());
-   store.dispatch(ActionCreator.setActiveQueue(shipIds));
-};
-
-const setStatusQueueSquadron = store =>
-{
-   const squadronIds = AS.Selector.squadronIds(store.getState());
-   store.dispatch(ActionCreator.setActiveQueue(squadronIds));
-};
-
-const setPhase = (store, phaseKey) => store.dispatch(ActionCreator.setPhase(phaseKey));
 
 Object.freeze(StatusTask);
 

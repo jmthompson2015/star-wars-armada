@@ -1,13 +1,13 @@
-const ActionCreator = AS.ActionCreator;
+const { ActionCreator } = AS;
 
 const SetupTask = {};
 
-SetupTask.doIt = store => new Promise((resolve) =>
-{
-   store.dispatch(ActionCreator.setPhase(AA.Phase.COMMAND_START));
+SetupTask.doIt = store =>
+  new Promise(resolve => {
+    store.dispatch(ActionCreator.setPhase(AA.Phase.COMMAND_START));
 
-   resolve(store);
-});
+    resolve(store);
+  });
 
 Object.freeze(SetupTask);
 

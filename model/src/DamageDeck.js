@@ -1,44 +1,37 @@
 const DamageDeck = {};
 
-DamageDeck.create = function()
-{
-   const keys = AA.EnumUtilities.keys(AA.DamageCard);
-   let count = 0;
+const createDamage = (id, damageKey) =>
+  AS.DamageState.create({
+    id,
+    damageKey,
+  });
 
-   const damageInstances = keys.reduce((accum, damageKey) =>
-   {
-      const damageCard = AA.Selector.damageCard(damageKey);
+DamageDeck.create = () => {
+  const keys = AA.EnumUtilities.keys(AA.DamageCard);
+  let count = 0;
 
-      for (let i = 0; i < damageCard.amount; i++)
-      {
-         count++;
-         const damageInstance = createDamage(count, damageKey);
-         accum[damageInstance.id] = damageInstance;
-      }
-      return accum;
-   },
-   {});
+  const damageInstances = keys.reduce((accum, damageKey) => {
+    const damageCard = AA.Selector.damageCard(damageKey);
+    const map = accum;
 
-   const damageDeck = Object.values(damageInstances).map(damage => damage.id);
+    for (let i = 0; i < damageCard.amount; i += 1) {
+      count += 1;
+      const damageInstance = createDamage(count, damageKey);
+      map[damageInstance.id] = damageInstance;
+    }
+    return map;
+  }, {});
 
-   // Shuffle.
-   damageDeck.sort(() => Math.random() - 0.5);
+  const damageDeck = Object.values(damageInstances).map(damage => damage.id);
 
-   return (
-   {
-      damageInstances: damageInstances,
-      damageDeck: damageDeck
-   });
+  // Shuffle.
+  damageDeck.sort(() => Math.random() - 0.5);
+
+  return {
+    damageInstances,
+    damageDeck,
+  };
 };
-
-function createDamage(id, damageKey)
-{
-   return AS.DamageState.create(
-   {
-      id: id,
-      damageKey: damageKey
-   });
-}
 
 Object.freeze(DamageDeck);
 
