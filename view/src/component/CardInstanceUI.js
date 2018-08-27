@@ -1,181 +1,160 @@
-import ReactUtilities from "../ReactUtilities.js";
+import ReactUtilities from '../ReactUtilities.js';
 
-import CardImage from "./CardImage.js";
-import CardInstancesArea from "./CardInstancesArea.js";
-import TokenPanel from "./TokenPanel.js";
+import CardImage from './CardImage.js';
+import CardInstancesArea from './CardInstancesArea.js';
+import TokenPanel from './TokenPanel.js';
 
-class CardInstanceUI extends React.Component
-{
-   constructor(props)
-   {
-      super(props);
+const determineCard = cardInstance => {
+  let answer;
 
-      this.state = {
-         isSmall: true,
-      };
+  if (cardInstance.shipKey !== undefined) {
+    answer = AA.Selector.shipCard(cardInstance.shipKey);
+  } else if (cardInstance.squadronKey !== undefined) {
+    answer = AA.Selector.squadronCard(cardInstance.squadronKey);
+  } else if (cardInstance.upgradeKey !== undefined) {
+    answer = AA.Selector.upgradeCard(cardInstance.upgradeKey);
+  } else if (cardInstance.damageKey !== undefined) {
+    answer = AA.Selector.damageCard(cardInstance.damageKey);
+  }
 
-      this.toggleSize = this.toggleSizeFunction.bind(this);
-   }
-
-   render()
-   {
-      const cells = [];
-      const cardInstance = this.props.cardInstance;
-      let myKey = "cardInstanceUI";
-
-      if (cardInstance)
-      {
-         const card = determineCard(cardInstance);
-         myKey += cardInstance.id + card.key;
-         const image = this.createCardImage(cardInstance, myKey);
-         const tokenPanel = this.createTokenPanel(cardInstance.id);
-         const cell = ReactDOMFactories.div(
-         {
-            key: "imagePanel" + cells.length,
-            className: "v-mid",
-            onClick: this.toggleSize
-         }, image);
-
-         cells.push(cell);
-         cells.push(tokenPanel);
-         this.createAttachmentPanel(cells);
-      }
-
-      return ReactUtilities.createFlexboxWrap(cells, myKey, "bg-xw-medium items-center justify-center ma0 pa0");
-   }
-}
-
-CardInstanceUI.prototype.toggleSizeFunction = function()
-{
-   this.setState(
-   {
-      isSmall: !this.state.isSmall,
-   });
+  return answer;
 };
 
-CardInstanceUI.prototype.createAttachmentPanel = function(cells)
-{
-   const
-   {
-      damageInstances,
-      upgradeInstances
-   } = this.props;
+class CardInstanceUI extends React.Component {
+  constructor(props) {
+    super(props);
 
-   const attachments = [];
+    this.state = {
+      isSmall: true,
+    };
 
-   if (upgradeInstances.length > 0)
-   {
-      for (let i = 0; i < upgradeInstances.length; i++)
-      {
-         const upgradeInstance = upgradeInstances[i];
-         const upgradeUI = this.createAttachmentUI(upgradeInstance);
-         attachments.push(upgradeUI);
+    this.toggleSize = this.toggleSizeFunction.bind(this);
+  }
+
+  createAttachmentPanel(cells) {
+    const { damageInstances, upgradeInstances } = this.props;
+
+    const attachments = [];
+
+    if (upgradeInstances.length > 0) {
+      for (let i = 0; i < upgradeInstances.length; i += 1) {
+        const upgradeInstance = upgradeInstances[i];
+        const upgradeUI = this.createAttachmentUI(upgradeInstance);
+        attachments.push(upgradeUI);
       }
-   }
+    }
 
-   if (damageInstances.length > 0)
-   {
-      for (let j = 0; j < damageInstances.length; j++)
-      {
-         const damageInstance = damageInstances[j];
-         const damageUI = this.createAttachmentUI(damageInstance);
-         attachments.push(damageUI);
+    if (damageInstances.length > 0) {
+      for (let j = 0; j < damageInstances.length; j += 1) {
+        const damageInstance = damageInstances[j];
+        const damageUI = this.createAttachmentUI(damageInstance);
+        attachments.push(damageUI);
       }
-   }
+    }
 
-   cells.push(React.createElement(CardInstancesArea,
-   {
-      key: "attachmentPanel",
-      cardInstanceUIs: attachments,
-      isExpanded: false
-   }));
-};
+    cells.push(
+      React.createElement(CardInstancesArea, {
+        key: 'attachmentPanel',
+        cardInstanceUIs: attachments,
+        isExpanded: false,
+      }),
+    );
+  }
 
-CardInstanceUI.prototype.createAttachmentUI = function(cardInstance)
-{
-   return React.createElement(CardInstanceUI,
-   {
-      key: "attachment" + cardInstance.id,
-      cardInstance: cardInstance,
-      width: this.props.width / 1.4,
-   });
-};
+  createAttachmentUI(cardInstance) {
+    const { width } = this.props;
 
-CardInstanceUI.prototype.createCardImage = function(cardInstance, myKey)
-{
-   let width = this.props.width;
+    return React.createElement(CardInstanceUI, {
+      key: `attachment${cardInstance.id}`,
+      cardInstance,
+      width: width / 1.4,
+    });
+  }
 
-   if (this.state.isSmall)
-   {
+  createCardImage(cardInstance, myKey) {
+    let { width } = this.props;
+    const { isSmall } = this.state;
+
+    if (isSmall) {
       width /= 2;
-   }
-   const card = determineCard(cardInstance);
+    }
+    const card = determineCard(cardInstance);
 
-   return React.createElement(CardImage,
-   {
-      card: card,
-      myKey: myKey,
-      width: width
-   });
-};
+    return React.createElement(CardImage, {
+      card,
+      myKey,
+      width,
+    });
+  }
 
-CardInstanceUI.prototype.createTokenPanel = function(cardId)
-{
-   const
-   {
+  createTokenPanel(cardId) {
+    const { defenseInstances, tokenCounts } = this.props;
+
+    const props = {
+      key: `token${cardId}`,
       defenseInstances,
       tokenCounts,
-   } = this.props;
+    };
 
-   let props = {
-      key: "token" + cardId,
-      defenseInstances: defenseInstances,
-      tokenCounts: tokenCounts
-   };
+    return React.createElement(TokenPanel, props);
+  }
 
-   return React.createElement(TokenPanel, props);
-};
+  toggleSizeFunction() {
+    const { isSmall: isSmallOld } = this.state;
 
-const determineCard = cardInstance =>
-{
-   let answer;
+    this.setState({
+      isSmall: !isSmallOld,
+    });
+  }
 
-   if (cardInstance.shipKey !== undefined)
-   {
-      answer = AA.Selector.shipCard(cardInstance.shipKey);
-   }
-   else if (cardInstance.squadronKey !== undefined)
-   {
-      answer = AA.Selector.squadronCard(cardInstance.squadronKey);
-   }
-   else if (cardInstance.upgradeKey !== undefined)
-   {
-      answer = AA.Selector.upgradeCard(cardInstance.upgradeKey);
-   }
-   else if (cardInstance.damageKey !== undefined)
-   {
-      answer = AA.Selector.damageCard(cardInstance.damageKey);
-   }
+  render() {
+    const cells = [];
+    const { cardInstance } = this.props;
+    let myKey = 'cardInstanceUI';
 
-   return answer;
-};
+    if (cardInstance) {
+      const card = determineCard(cardInstance);
+      myKey += cardInstance.id + card.key;
+      const image = this.createCardImage(cardInstance, myKey);
+      const tokenPanel = this.createTokenPanel(cardInstance.id);
+      const cell = ReactDOMFactories.div(
+        {
+          key: `imagePanel${cells.length}`,
+          className: 'v-mid',
+          onClick: this.toggleSize,
+        },
+        image,
+      );
+
+      cells.push(cell);
+      cells.push(tokenPanel);
+      this.createAttachmentPanel(cells);
+    }
+
+    return ReactUtilities.createFlexboxWrap(
+      cells,
+      myKey,
+      'bg-xw-medium items-center justify-center ma0 pa0',
+    );
+  }
+}
 
 CardInstanceUI.propTypes = {
-   cardInstance: PropTypes.object,
-   damageInstances: PropTypes.array,
-   defenseInstances: PropTypes.array,
-   tokenCounts: PropTypes.object,
-   upgradeInstances: PropTypes.array,
-   width: PropTypes.number
+  cardInstance: PropTypes.shape(),
+  damageInstances: PropTypes.arrayOf(PropTypes.instanceOf(AS.DamageState)),
+  defenseInstances: PropTypes.arrayOf(PropTypes.instanceOf(AS.DefenseTokenState)),
+  tokenCounts: PropTypes.shape(),
+  upgradeInstances: PropTypes.arrayOf(PropTypes.instanceOf(AS.UpgradeState)),
+  width: PropTypes.number,
 };
 
 CardInstanceUI.defaultProps = {
-   damageInstances: [],
-   defenseInstances: [],
-   tokenCounts:
-   {},
-   upgradeInstances: [],
-   width: 250
+  cardInstance: undefined,
+  damageInstances: [],
+  defenseInstances: [],
+  tokenCounts: {},
+  upgradeInstances: [],
+  width: 250,
 };
 
 export default CardInstanceUI;

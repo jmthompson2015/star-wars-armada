@@ -1,26 +1,26 @@
-import TokenPanel from "./TokenPanel.js";
+import TokenPanel from './TokenPanel.js';
 
-let i = 1;
 const tokenCounts = {
-   navigate: i++,
-   squadron: i++,
-   repair: i++,
-   concentrateFire: i++
+  navigate: 1,
+  squadron: 2,
+  repair: 3,
+  concentrateFire: 4,
 };
 
 const defenseKeys = AA.Selector.enumKeys(AA.DefenseToken);
 let j = 0;
-const defenseInstances = R.map(key => AS.DefenseTokenState.create(
-{
-   id: j++,
-   defenseTokenKey: key,
-   isReady: (j % 2 === 1)
-}), defenseKeys);
+const defenseInstances = R.map(key => {
+  j += 1;
+  return AS.DefenseTokenState.create({
+    id: j,
+    defenseTokenKey: key,
+    isReady: j % 2 === 1,
+  });
+}, defenseKeys);
 
-const element = React.createElement(TokenPanel,
-{
-   defenseInstances: defenseInstances,
-   tokenCounts: tokenCounts
+const element = React.createElement(TokenPanel, {
+  defenseInstances,
+  tokenCounts,
 });
 
-ReactDOM.render(element, document.getElementById("panel"));
+ReactDOM.render(element, document.getElementById('panel'));

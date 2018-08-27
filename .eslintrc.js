@@ -5,10 +5,15 @@ module.exports = {
   extends: ['airbnb', 'prettier'],
   globals: {
     AA: true,
+    AM: true,
     AS: true,
     Immutable: true,
+    PropTypes: true,
     QUnit: true,
     R: true,
+    React: true,
+    ReactDOM: true,
+    ReactDOMFactories: true,
     Redux: true,
   },
   rules: {

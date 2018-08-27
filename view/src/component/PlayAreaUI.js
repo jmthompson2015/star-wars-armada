@@ -1,109 +1,76 @@
-import Endpoint from "../Endpoint.js";
+import Endpoint from '../Endpoint.js';
 
-import ShipImage from "./ShipImage.js";
-import SquadronImage from "./SquadronImage.js";
+import ShipImage from './ShipImage.js';
+import SquadronImage from './SquadronImage.js';
 
-class PlayAreaUI extends React.Component
-{
-   constructor(props)
-   {
-      super(props);
+// const createExplosionImage = () => {
+//   const image = new Image();
+//   image.src = `${Endpoint.LOCAL_RESOURCE}ship/explosion.png`;
+//
+//   return image;
+// };
 
-      this.explosionImage = undefined;
-      this.factionShipToImage = {};
-      this.factionSquadronToImage = {};
-   }
+const paintPathComponent = (path, context0, strokeStyle) => {
+  if (path.length >= 2) {
+    const context = context0;
+    context.beginPath();
+    context.moveTo(path[0], path[1]);
 
-   componentDidMount()
-   {
-      this.loadImages();
-      this.paint();
-   }
+    for (let i = 2; i < path.length; i += 2) {
+      context.lineTo(path[i], path[i + 1]);
+    }
 
-   componentDidUpdate()
-   {
-      this.paint();
-   }
-
-   render()
-   {
-      const
-      {
-         height,
-         image,
-         resourceBase,
-         scale,
-         width
-      } = this.props;
-
-      const imageSrc = resourceBase + image;
-
-      return ReactDOMFactories.canvas(
-      {
-         id: "playAreaCanvas",
-         style:
-         {
-            backgroundImage: "url(" + imageSrc + ")",
-            backgroundSize: "100%",
-         },
-         width: scale * width,
-         height: scale * height
-      });
-   }
-}
-
-PlayAreaUI.prototype.createExplosionImage = function()
-{
-   const image = new Image();
-   image.src = Endpoint.LOCAL_RESOURCE + "ship/explosion.png";
-
-   return image;
+    context.strokeStyle = strokeStyle;
+    context.stroke();
+  }
 };
 
-PlayAreaUI.prototype.createShipIcon = function(faction, shipCard)
-{
-   const image = new Image();
-   image.onload = function()
-   {
-      this.forceUpdate();
-   }.bind(this);
+class PlayAreaUI extends React.Component {
+  constructor(props) {
+    super(props);
 
-   const filename = shipCard["ship-image"];
-   image.src = Endpoint.ARMADA_IMAGES + filename;
+    this.explosionImage = undefined;
+    this.factionShipToImage = {};
+    this.factionSquadronToImage = {};
+  }
 
-   return image;
-};
+  componentDidMount() {
+    this.loadImages();
+    this.paint();
+  }
 
-PlayAreaUI.prototype.createSquadronIcon = function(faction, squadronCard)
-{
-   const image = new Image();
-   image.onload = function()
-   {
-      this.forceUpdate();
-   }.bind(this);
+  componentDidUpdate() {
+    this.paint();
+  }
 
-   const filename = squadronCard["squadron-image"];
-   image.src = Endpoint.ARMADA_IMAGES + filename;
+  createShipIcon(faction, shipCard) {
+    const image = new Image();
+    image.onload = () => this.forceUpdate();
 
-   return image;
-};
+    const filename = shipCard['ship-image'];
+    image.src = Endpoint.ARMADA_IMAGES + filename;
 
-PlayAreaUI.prototype.drawExplosion = function(context)
-{
-   const
-   {
-      explosion,
-      scale
-   } = this.props;
+    return image;
+  }
 
-   if (explosion)
-   {
-      const position = explosion.position;
-      const size = explosion.size;
-      const audioClip = document.getElementById("explosionAudio");
+  createSquadronIcon(faction, squadronCard) {
+    const image = new Image();
+    image.onload = () => this.forceUpdate();
 
-      const x = position.x;
-      const y = position.y;
+    const filename = squadronCard['squadron-image'];
+    image.src = Endpoint.ARMADA_IMAGES + filename;
+
+    return image;
+  }
+
+  drawExplosion(context) {
+    const { explosion, scale } = this.props;
+
+    if (explosion) {
+      const { position, size } = explosion;
+      const audioClip = document.getElementById('explosionAudio');
+
+      const { x, y } = position;
       const width = size;
       const height = size;
 
@@ -116,34 +83,24 @@ PlayAreaUI.prototype.drawExplosion = function(context)
 
       // Cleanup.
       context.restore();
-   }
-};
+    }
+  }
 
-PlayAreaUI.prototype.drawLaserBeam = function(context)
-{
-   const
-   {
-      laserBeam,
-      scale
-   } = this.props;
+  drawLaserBeam(context0) {
+    const { laserBeam, scale } = this.props;
 
-   if (laserBeam)
-   {
-      const audioClip = laserBeam.audioClip;
-      const color = laserBeam.color;
-      const fromPosition = laserBeam.fromPosition;
-      const isPrimary = laserBeam.isPrimary;
-      const toPosition = laserBeam.toPosition;
+    if (laserBeam) {
+      const { audioClip, color, fromPosition, isPrimary, toPosition } = laserBeam;
 
+      const context = context0;
       context.save();
       context.scale(scale, scale);
       context.lineWidth = 3;
       context.strokeStyle = color;
 
-      if (!isPrimary)
-      {
-         const lineDashSegments = [10, 5];
-         context.setLineDash(lineDashSegments);
+      if (!isPrimary) {
+        const lineDashSegments = [10, 5];
+        context.setLineDash(lineDashSegments);
       }
 
       context.beginPath();
@@ -151,30 +108,20 @@ PlayAreaUI.prototype.drawLaserBeam = function(context)
       context.lineTo(toPosition.x, toPosition.y);
       context.stroke();
 
-      if (audioClip)
-      {
-         audioClip.play();
+      if (audioClip) {
+        audioClip.play();
       }
 
       // Cleanup.
       context.restore();
-   }
-};
+    }
+  }
 
-PlayAreaUI.FOREGROUND_COLOR = "white";
-PlayAreaUI.EASY_COLOR = "lime";
-PlayAreaUI.HARD_COLOR = "red";
+  drawManeuver(context0) {
+    const { maneuver, scale } = this.props;
 
-PlayAreaUI.prototype.drawManeuver = function(context)
-{
-   const
-   {
-      maneuver,
-      scale
-   } = this.props;
-
-   if (maneuver)
-   {
+    if (maneuver) {
+      const context = context0;
       context.save();
       context.scale(scale, scale);
 
@@ -188,10 +135,9 @@ PlayAreaUI.prototype.drawManeuver = function(context)
       // Draw from ship base.
       paintPathComponent(maneuver.fromPolygon, context, PlayAreaUI.FOREGROUND_COLOR);
 
-      if (maneuver.toPolygon)
-      {
-         // Draw to ship base.
-         paintPathComponent(maneuver.toPolygon, context, PlayAreaUI.FOREGROUND_COLOR);
+      if (maneuver.toPolygon) {
+        // Draw to ship base.
+        paintPathComponent(maneuver.toPolygon, context, PlayAreaUI.FOREGROUND_COLOR);
       }
 
       // Draw maneuver path.
@@ -199,164 +145,139 @@ PlayAreaUI.prototype.drawManeuver = function(context)
 
       // Cleanup.
       context.restore();
-   }
-};
+    }
+  }
 
-PlayAreaUI.prototype.drawShips = function(context)
-{
-   const
-   {
-      scale,
-      shipInstances
-   } = this.props;
+  drawShips(context) {
+    const { scale, shipInstances } = this.props;
 
-   Object.values(shipInstances).forEach(shipInstance =>
-   {
-      const id = shipInstance.id;
-      const shipKey = shipInstance.shipKey;
+    Object.values(shipInstances).forEach(shipInstance => {
+      const { id, position, shipKey } = shipInstance;
       const faction = AA.Selector.factionValueByShip(shipKey);
-      const image = this.factionShipToImage[faction.key + "|" + shipKey];
-      const position = shipInstance.position;
+      const image = this.factionShipToImage[`${faction.key}|${shipKey}`];
       const shipBase = AA.Selector.shipBaseValueByShip(shipKey);
       const factionColor = faction.color;
 
       ShipImage.draw(context, scale, id, image, position, shipBase, factionColor);
-   }, this);
-};
+    }, this);
+  }
 
-PlayAreaUI.prototype.drawSquadrons = function(context)
-{
-   const
-   {
-      scale,
-      squadronInstances
-   } = this.props;
+  drawSquadrons(context) {
+    const { scale, squadronInstances } = this.props;
 
-   Object.values(squadronInstances).forEach(squadronInstance =>
-   {
-      const id = squadronInstance.id;
-      const squadronKey = squadronInstance.squadronKey;
+    Object.values(squadronInstances).forEach(squadronInstance => {
+      const { id, position, squadronKey } = squadronInstance;
       const faction = AA.Selector.factionValueBySquadron(squadronKey);
-      const image = this.factionSquadronToImage[faction.key + "|" + squadronKey];
-      const position = squadronInstance.position;
+      const image = this.factionSquadronToImage[`${faction.key}|${squadronKey}`];
       const factionColor = faction.color;
 
       SquadronImage.draw(context, scale, id, image, position, factionColor);
-   }, this);
-};
+    }, this);
+  }
 
-PlayAreaUI.prototype.loadImages = function()
-{
-   const
-   {
-      shipInstances,
-      squadronInstances
-   } = this.props;
+  loadImages() {
+    const { shipInstances, squadronInstances } = this.props;
 
-   const factionShips = [];
+    const factionShips = [];
 
-   shipInstances.forEach(shipInstance =>
-   {
-      const shipKey = shipInstance.shipKey;
+    shipInstances.forEach(shipInstance => {
+      const { shipKey } = shipInstance;
       const faction = AA.Selector.factionValueByShip(shipKey);
-      const factionShip = faction.key + "|" + shipKey;
-      if (!factionShips.includes(factionShip))
-      {
-         factionShips.push(factionShip);
+      const factionShip = `${faction.key}|${shipKey}`;
+      if (!factionShips.includes(factionShip)) {
+        factionShips.push(factionShip);
       }
-   });
+    });
 
-   for (let i = 0; i < factionShips.length; i++)
-   {
+    for (let i = 0; i < factionShips.length; i += 1) {
       const factionShip = factionShips[i];
-      const faction = AA.Selector.faction(factionShip.split("|")[0]);
-      const shipCard = AA.Selector.shipCard(factionShip.split("|")[1]);
+      const faction = AA.Selector.faction(factionShip.split('|')[0]);
+      const shipCard = AA.Selector.shipCard(factionShip.split('|')[1]);
       this.factionShipToImage[factionShip] = this.createShipIcon(faction, shipCard);
-   }
+    }
 
-   const factionSquadrons = [];
+    const factionSquadrons = [];
 
-   squadronInstances.forEach(squadronInstance =>
-   {
-      const squadronKey = squadronInstance.squadronKey;
+    squadronInstances.forEach(squadronInstance => {
+      const { squadronKey } = squadronInstance;
       const faction = AA.Selector.factionValueBySquadron(squadronKey);
-      const factionSquadron = faction.key + "|" + squadronKey;
-      if (!factionSquadrons.includes(factionSquadron))
-      {
-         factionSquadrons.push(factionSquadron);
+      const factionSquadron = `${faction.key}|${squadronKey}`;
+      if (!factionSquadrons.includes(factionSquadron)) {
+        factionSquadrons.push(factionSquadron);
       }
-   });
+    });
 
-   for (let i = 0; i < factionSquadrons.length; i++)
-   {
+    for (let i = 0; i < factionSquadrons.length; i += 1) {
       const factionSquadron = factionSquadrons[i];
-      const faction = AA.Selector.faction(factionSquadron.split("|")[0]);
-      const squadronCard = AA.Selector.squadronCard(factionSquadron.split("|")[1]);
+      const faction = AA.Selector.faction(factionSquadron.split('|')[0]);
+      const squadronCard = AA.Selector.squadronCard(factionSquadron.split('|')[1]);
       this.factionSquadronToImage[factionSquadron] = this.createSquadronIcon(faction, squadronCard);
-   }
+    }
 
-   // this.explosionImage = this.createExplosionImage();
-};
+    // this.explosionImage = this.createExplosionImage();
+  }
 
-PlayAreaUI.prototype.paint = function()
-{
-   const
-   {
-      height,
-      scale,
-      width
-   } = this.props;
+  paint() {
+    const { height, scale, width } = this.props;
 
-   const canvas = document.getElementById("playAreaCanvas");
-   const context = canvas.getContext("2d");
+    const canvas = document.getElementById('playAreaCanvas');
+    const context = canvas.getContext('2d');
 
-   context.clearRect(0, 0, scale * width, scale * height);
+    context.clearRect(0, 0, scale * width, scale * height);
 
-   this.drawShips(context);
-   this.drawSquadrons(context);
-   this.drawManeuver(context);
-   this.drawLaserBeam(context);
-   this.drawExplosion(context);
-};
+    this.drawShips(context);
+    this.drawSquadrons(context);
+    this.drawManeuver(context);
+    this.drawLaserBeam(context);
+    this.drawExplosion(context);
+  }
 
-const paintPathComponent = function(path, context, strokeStyle)
-{
-   if (path.length >= 2)
-   {
-      context.beginPath();
-      context.moveTo(path[0], path[1]);
+  render() {
+    const { height, image, resourceBase, scale, width } = this.props;
 
-      for (let i = 2; i < path.length; i += 2)
-      {
-         context.lineTo(path[i], path[i + 1]);
-      }
+    const imageSrc = resourceBase + image;
 
-      context.strokeStyle = strokeStyle;
-      context.stroke();
-   }
-};
+    return ReactDOMFactories.canvas({
+      id: 'playAreaCanvas',
+      style: {
+        backgroundImage: `url(${imageSrc})`,
+        backgroundSize: '100%',
+      },
+      width: scale * width,
+      height: scale * height,
+    });
+  }
+}
+
+PlayAreaUI.FOREGROUND_COLOR = 'white';
+PlayAreaUI.EASY_COLOR = 'lime';
+PlayAreaUI.HARD_COLOR = 'red';
 
 PlayAreaUI.propTypes = {
-   shipInstances: PropTypes.object.isRequired,
-   squadronInstances: PropTypes.object.isRequired,
+  shipInstances: PropTypes.shape().isRequired,
+  squadronInstances: PropTypes.shape().isRequired,
 
-   height: PropTypes.number,
-   image: PropTypes.string,
-   resourceBase: PropTypes.string,
-   scale: PropTypes.number,
-   width: PropTypes.number,
+  height: PropTypes.number,
+  image: PropTypes.string,
+  resourceBase: PropTypes.string,
+  scale: PropTypes.number,
+  width: PropTypes.number,
 
-   explosion: PropTypes.object,
-   laserBeam: PropTypes.object,
-   maneuver: PropTypes.object
+  explosion: PropTypes.shape(),
+  laserBeam: PropTypes.shape(),
+  maneuver: PropTypes.shape(),
 };
 
 PlayAreaUI.defaultProps = {
-   height: 915,
-   image: "background/horsehead_nebula_02092008.jpg",
-   resourceBase: Endpoint.LOCAL_RESOURCE,
-   scale: 1.0,
-   width: 1830
+  height: 915,
+  image: 'background/horsehead_nebula_02092008.jpg',
+  resourceBase: Endpoint.LOCAL_RESOURCE,
+  scale: 1.0,
+  width: 1830,
+
+  explosion: undefined,
+  laserBeam: undefined,
+  maneuver: undefined,
 };
 
 export default PlayAreaUI;

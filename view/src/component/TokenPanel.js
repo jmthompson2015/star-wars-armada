@@ -1,82 +1,74 @@
-import ReactUtilities from "../ReactUtilities.js";
+import ReactUtilities from '../ReactUtilities.js';
 
-import CommandUI from "./CommandUI.js";
-import DefenseTokenUI from "./DefenseTokenUI.js";
+import CommandUI from './CommandUI.js';
+import DefenseTokenUI from './DefenseTokenUI.js';
 
-class TokenPanel extends React.Component
-{
-   render()
-   {
-      const
+const addDefenseToken = (rows, defenseInstance) => {
+  const icon = React.createElement(DefenseTokenUI, {
+    defenseInstance,
+  });
+
+  const labeledImage = ReactDOMFactories.span(
+    {
+      className: 'center tc v-mid w-100',
+    },
+    icon,
+  );
+
+  rows.push(ReactUtilities.createFlexbox(labeledImage, `defenseRow${rows.length}`, 'tc v-mid'));
+};
+
+const comparator = (a, b) => a.sortOrder - b.sortOrder;
+
+const maybeAddCommandToken = (rows, command, count) => {
+  if (count !== undefined && count !== 0) {
+    const icon = React.createElement(CommandUI, {
+      command,
+    });
+
+    const labeledImage = ReactDOMFactories.span(
       {
-         defenseInstances,
-         tokenCounts
-      } = this.props;
+        className: 'center tc v-mid',
+      },
+      icon,
+      count,
+    );
 
-      const rows = [];
-      const commands = AA.Selector.enumValues(AA.Command).sort(comparator);
+    rows.push(ReactUtilities.createFlexbox(labeledImage, `tokenRow${rows.length}`, 'tc v-mid'));
+  }
+};
 
-      commands.forEach(command =>
-      {
-         maybeAddCommandToken(rows, command, tokenCounts[command.key]);
-      });
+class TokenPanel extends React.PureComponent {
+  render() {
+    const { defenseInstances, tokenCounts } = this.props;
 
-      defenseInstances.forEach(defenseInstance =>
-      {
-         addDefenseToken(rows, defenseInstance);
-      });
+    const rows = [];
+    const commands = AA.Selector.enumValues(AA.Command).sort(comparator);
 
-      return ReactUtilities.createFlexboxWrap(rows, "tokenPanel", "bg-white center content-center flex-column justify-center tc");
-   }
+    commands.forEach(command => {
+      maybeAddCommandToken(rows, command, tokenCounts[command.key]);
+    });
+
+    defenseInstances.forEach(defenseInstance => {
+      addDefenseToken(rows, defenseInstance);
+    });
+
+    return ReactUtilities.createFlexboxWrap(
+      rows,
+      'tokenPanel',
+      'bg-white center content-center flex-column justify-center tc',
+    );
+  }
 }
 
-const addDefenseToken = function(rows, defenseInstance)
-{
-   const icon = React.createElement(DefenseTokenUI,
-   {
-      defenseInstance: defenseInstance
-   });
-
-   const labeledImage = ReactDOMFactories.span(
-   {
-      className: "center tc v-mid w-100"
-   }, icon);
-
-   rows.push(ReactUtilities.createFlexbox(labeledImage, "defenseRow" + rows.length, "tc v-mid"));
-};
-
-const comparator = (a, b) =>
-{
-   return a.sortOrder - b.sortOrder;
-};
-
-const maybeAddCommandToken = function(rows, command, count)
-{
-   if (count !== undefined && count !== 0)
-   {
-      const icon = React.createElement(CommandUI,
-      {
-         command: command
-      });
-
-      const labeledImage = ReactDOMFactories.span(
-      {
-         className: "center tc v-mid"
-      }, icon, count);
-
-      rows.push(ReactUtilities.createFlexbox(labeledImage, "tokenRow" + rows.length, "tc v-mid"));
-   }
-};
-
 TokenPanel.propTypes = {
-   defenseInstances: PropTypes.object,
-   tokenCounts: PropTypes.object
+  defenseInstances: PropTypes.shape(),
+  tokenCounts: PropTypes.shape(),
 };
 
 TokenPanel.defaultProps = {
-   defenseInstances: [],
-   tokenCounts:
-   {}
+  defenseInstances: [],
+  tokenCounts: {},
 };
 
 export default TokenPanel;

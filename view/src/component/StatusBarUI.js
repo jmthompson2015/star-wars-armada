@@ -1,63 +1,60 @@
-import ReactUtilities from "../ReactUtilities.js";
+import ReactUtilities from '../ReactUtilities.js';
 
-class StatusBarUI extends React.Component
-{
-   render()
-   {
-      const
-      {
-         activeShipName,
-         phaseName,
-         round,
-         userMessage,
-         helpBase
-      } = this.props;
+class StatusBarUI extends React.PureComponent {
+  render() {
+    const { activeShipName, phaseName, round, userMessage, helpBase } = this.props;
 
-      const helpLinkUI = ReactDOMFactories.a(
+    const helpLinkUI = ReactDOMFactories.a(
       {
-         href: helpBase + "Help.html",
-         target: "_blank",
-      }, "Help");
+        href: `${helpBase}Help.html`,
+        target: '_blank',
+      },
+      'Help',
+    );
 
-      let i = 0;
-      const cellClassName = "ba";
+    const cellClassName = 'ba';
 
-      const roundCell = ReactUtilities.createCell(["Round: ", round], i++, cellClassName,
+    const roundCell = ReactUtilities.createCell(['Round: ', round], 0, cellClassName, {
+      title: 'Round',
+    });
+    const phaseCell = ReactUtilities.createCell(['Phase: ', phaseName], 1, cellClassName, {
+      title: 'Phase',
+    });
+    const activeShipCell = ReactUtilities.createCell(
+      ['Active Ship: ', activeShipName],
+      2,
+      cellClassName,
       {
-         title: "Round"
-      });
-      const phaseCell = ReactUtilities.createCell(["Phase: ", phaseName], i++, cellClassName,
-      {
-         title: "Phase"
-      });
-      const activeShipCell = ReactUtilities.createCell(["Active Ship: ", activeShipName], i++, cellClassName,
-      {
-         title: "Active Ship"
-      });
-      const userMessageCell = ReactUtilities.createCell(userMessage, i++, cellClassName,
-      {
-         title: "User Message"
-      });
-      const helpCell = ReactUtilities.createCell(helpLinkUI, i++, cellClassName);
+        title: 'Active Ship',
+      },
+    );
+    const userMessageCell = ReactUtilities.createCell(userMessage, 3, cellClassName, {
+      title: 'User Message',
+    });
+    const helpCell = ReactUtilities.createCell(helpLinkUI, 4, cellClassName);
 
-      const cells = [roundCell, phaseCell, activeShipCell, userMessageCell, helpCell];
-      const row = ReactUtilities.createRow(cells);
+    const cells = [roundCell, phaseCell, activeShipCell, userMessageCell, helpCell];
+    const row = ReactUtilities.createRow(cells);
 
-      return ReactUtilities.createTable(row, "statusBarUITable", "bg-xw-light collapse ma0 tc v-mid w-100");
-   }
+    return ReactUtilities.createTable(
+      row,
+      'statusBarUITable',
+      'bg-xw-light collapse ma0 tc v-mid w-100',
+    );
+  }
 }
 
 StatusBarUI.propTypes = {
-   activeShipName: PropTypes.string.isRequired,
-   phaseName: PropTypes.string.isRequired,
-   round: PropTypes.number.isRequired,
-   userMessage: PropTypes.string.isRequired,
+  activeShipName: PropTypes.string.isRequired,
+  phaseName: PropTypes.string.isRequired,
+  round: PropTypes.number.isRequired,
+  userMessage: PropTypes.string.isRequired,
 
-   helpBase: PropTypes.string
+  helpBase: PropTypes.string,
 };
 
 StatusBarUI.defaultProps = {
-   helpBase: "./"
+  helpBase: './',
 };
 
 export default StatusBarUI;

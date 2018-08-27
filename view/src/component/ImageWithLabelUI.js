@@ -1,47 +1,36 @@
-class ImageWithLabelUI extends React.Component
-{
-   render()
-   {
-      const
-      {
-         src,
-         label,
-         showLabel,
-         width
-      } = this.props;
+class ImageWithLabelUI extends React.PureComponent {
+  render() {
+    const { src, label, showLabel, width } = this.props;
 
-      const image = ReactDOMFactories.img(
-      {
-         className: "v-mid",
-         src: src,
-         title: label,
-         width: width
-      });
+    const image = ReactDOMFactories.img({
+      className: 'v-mid',
+      src,
+      title: label,
+      width,
+    });
 
-      let answer = image;
+    let answer = image;
 
-      if (showLabel)
-      {
-         answer = ReactDOMFactories.span(
-         {}, image, " ", label);
-      }
+    if (showLabel) {
+      answer = ReactDOMFactories.span({}, image, ' ', label);
+    }
 
-      return answer;
-   }
+    return answer;
+  }
 }
 
 ImageWithLabelUI.propTypes = {
-   src: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
 
-   label: PropTypes.string,
-   showLabel: PropTypes.bool,
-   width: PropTypes.number
+  label: PropTypes.string,
+  showLabel: PropTypes.bool,
+  width: PropTypes.number,
 };
 
 ImageWithLabelUI.defaultProps = {
-   label: "",
-   showLabel: false,
-   width: 24
+  label: '',
+  showLabel: false,
+  width: 24,
 };
 
 export default ImageWithLabelUI;

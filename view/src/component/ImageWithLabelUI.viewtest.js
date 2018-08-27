@@ -1,52 +1,48 @@
-import Endpoint from "../Endpoint.js";
-import ReactUtilities from "../ReactUtilities.js";
+import Endpoint from '../Endpoint.js';
+import ReactUtilities from '../ReactUtilities.js';
 
-import ImageWithLabelUI from "./ImageWithLabelUI.js";
+import ImageWithLabelUI from './ImageWithLabelUI.js';
 
 const faction = AA.Selector.faction(AA.Faction.GALACTIC_EMPIRE);
 const upgradeSlot = AA.Selector.upgradeSlot(AA.UpgradeSlot.COMMANDER);
-const typeName = upgradeSlot.name.toLowerCase().replace(/ /g, "-");
-const className = "ba b--silver bg-near-white f6 pa1 tl v-mid";
+const typeName = upgradeSlot.name.toLowerCase().replace(/ /g, '-');
+const className = 'ba b--silver bg-near-white f6 pa1 tl v-mid';
 const rows = [];
 
-const image0 = React.createElement(ImageWithLabelUI,
-{
-   src: Endpoint.ARMADA_IMAGES + faction.image,
-   label: faction.name,
+const image0 = React.createElement(ImageWithLabelUI, {
+  src: Endpoint.ARMADA_IMAGES + faction.image,
+  label: faction.name,
 });
 
-const image1 = React.createElement(ImageWithLabelUI,
-{
-   src: Endpoint.ARMADA_IMAGES + faction.image,
-   label: faction.name,
-   showLabel: true,
+const image1 = React.createElement(ImageWithLabelUI, {
+  src: Endpoint.ARMADA_IMAGES + faction.image,
+  label: faction.name,
+  showLabel: true,
 });
 
 let cells = [];
 
-cells.push(ReactUtilities.createCell(image0, "standard", className));
-cells.push(ReactUtilities.createCell(image1, "standard+label", className));
+cells.push(ReactUtilities.createCell(image0, 'standard', className));
+cells.push(ReactUtilities.createCell(image1, 'standard+label', className));
 
 rows.push(ReactUtilities.createRow(cells, rows.length));
 
-const image2 = React.createElement(ImageWithLabelUI,
-{
-   src: Endpoint.ARMADA_IMAGES + "upgrade-slot/" + typeName + ".png",
-   label: upgradeSlot.name,
+const image2 = React.createElement(ImageWithLabelUI, {
+  src: `${Endpoint.ARMADA_IMAGES}upgrade-slot/${typeName}.png`,
+  label: upgradeSlot.name,
 });
 
-const image3 = React.createElement(ImageWithLabelUI,
-{
-   src: Endpoint.ARMADA_IMAGES + "upgrade-slot/" + typeName + ".png",
-   label: upgradeSlot.name,
-   showLabel: true,
+const image3 = React.createElement(ImageWithLabelUI, {
+  src: `${Endpoint.ARMADA_IMAGES}upgrade-slot/${typeName}.png`,
+  label: upgradeSlot.name,
+  showLabel: true,
 });
 
 cells = [];
 
-cells.push(ReactUtilities.createCell(image2, "standard", className));
-cells.push(ReactUtilities.createCell(image3, "standard+label", className));
+cells.push(ReactUtilities.createCell(image2, 'standard', className));
+cells.push(ReactUtilities.createCell(image3, 'standard+label', className));
 
 rows.push(ReactUtilities.createRow(cells, rows.length));
 
-ReactDOM.render(ReactUtilities.createTable(rows), document.getElementById("upgradeSlotPanel"));
+ReactDOM.render(ReactUtilities.createTable(rows), document.getElementById('upgradeSlotPanel'));

@@ -1,6 +1,6 @@
 body {
   background-image: url(../resource/background/SeamlessMetalTextureSmooth.jpg);
-  font-family: "San Francisco", "Helvetica Neue", Helvetica, sans-serif;
+  font-family: 'San Francisco', 'Helvetica Neue', Helvetica, sans-serif;
 }
 
 table {
@@ -28,7 +28,7 @@ table {
 
 .bg-xw-light {
   /* near Tachyons near-white */
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
 }
 
 .bg-xw-medium {
@@ -43,7 +43,7 @@ table {
 
 .xw-f8 {
   /* Used by Maneuver Chooser */
-  font-size: .60rem;
+  font-size: 0.6rem;
 }
 
 .xw-green {

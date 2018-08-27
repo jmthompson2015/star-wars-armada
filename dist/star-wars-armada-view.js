@@ -1,1555 +1,1343 @@
 (function (global, factory) {
-   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-   (factory((global.AV = {})));
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+  typeof define === 'function' && define.amd ? define(['exports'], factory) :
+  (factory((global.AV = {})));
 }(this, (function (exports) { 'use strict';
 
-   const Endpoint = {};
+  const Endpoint = {};
 
-   Endpoint.ARMADA_IMAGES = "https://raw.githubusercontent.com/jmthompson2015/star-wars-armada-data/master/image/";
-   Endpoint.LOCAL_RESOURCE = "../../resource/";
+  Endpoint.ARMADA_IMAGES =
+    'https://raw.githubusercontent.com/jmthompson2015/star-wars-armada-data/master/image/';
+  Endpoint.LOCAL_RESOURCE = '../../resource/';
 
-   class CardImage extends React.Component
-   {
-      componentDidMount()
-      {
-         this.paint();
-      }
+  const computeHeight = (cardKey, widthIn) =>
+    (widthIn * AA.Selector.heightByCard(cardKey)) / AA.Selector.widthByCard(cardKey);
 
-      componentDidUpdate()
-      {
-         this.paint();
-      }
+  const createShipBackSrc = cardKey => {
+    const faction = AA.Selector.factionValueByShip(cardKey);
+    const factionName = faction.name.toLowerCase().replace(/ /g, '-');
 
-      render()
-      {
-         const
-         {
-            card,
-            isFaceUp,
-            isReady,
-            slicing,
-            width
-         } = this.props;
+    return `ship-card/${factionName}/${factionName}-back.png`;
+  };
 
-         const canvasId = this.canvasId();
-         const height = computeHeight(card.key, width);
-         const title = determineCardTitle(card, isFaceUp);
-         let className, canvasHeight, canvasWidth;
+  const createSquadronBackSrc = cardKey => {
+    const faction = AA.Selector.factionValueBySquadron(cardKey);
+    const factionName = faction.name.toLowerCase().replace(/ /g, '-');
 
-         if (slicing === undefined)
-         {
-            className = "br3";
-            canvasWidth = (isReady ? width : height);
-            canvasHeight = (isReady ? height : width);
-         }
-         else
-         {
-            canvasWidth = (isReady ? width : height * slicing);
-            canvasHeight = (isReady ? height * slicing : width);
-         }
+    return `squadron-card/${factionName}/${factionName}-back.png`;
+  };
 
-         return ReactDOMFactories.canvas(
-         {
-            key: canvasId,
-            className: className,
-            height: canvasHeight,
-            id: canvasId,
-            title: title,
-            width: canvasWidth,
-         });
-      }
-   }
+  const createUpgradeBackSrc = cardKey => {
+    const slotKey = AA.Selector.upgradeSlotKeysByUpgrade(cardKey)[0];
+    const slot = AA.Selector.upgradeSlot(slotKey);
+    const slotName = slot.name.toLowerCase().replace(/ /g, '-');
 
-   CardImage.prototype.canvasId = function()
-   {
-      const
-      {
-         card,
-         isFaceUp,
-         isReady,
-         myKey,
-         slicing
-      } = this.props;
+    return `upgrade-card/${slotName}/${slotName}-back.png`;
+  };
 
-      return "CardImageCanvas" + card.key + isFaceUp + isReady + myKey + slicing;
-   };
+  const determineCardBack = card0 =>
+    R.cond([
+      [AA.Selector.isDamageCard, R.always('damage-card/damage-back.png')],
+      [AA.Selector.isShipCard, card => createShipBackSrc(card.key)],
+      [AA.Selector.isSquadronCard, card => createSquadronBackSrc(card.key)],
+      [AA.Selector.isUpgradeCard, card => createUpgradeBackSrc(card.key)],
+    ])(card0);
 
-   CardImage.prototype.paint = function()
-   {
-      const
-      {
-         card,
-         isFaceUp,
-         isReady,
-         resourceBase,
-         slicing,
-         width
-      } = this.props;
+  const createSrc = (card, isFaceUp) =>
+    R.ifElse(R.always(isFaceUp), R.prop('image'), determineCardBack)(card);
+
+  const determineFaceUpCardTitle = card =>
+    R.ifElse(AA.Selector.isDamageCard, R.prop('title'), R.prop('name'))(card);
+
+  const determineFaceDownCardTitle = card =>
+    R.cond([
+      [AA.Selector.isDamageCard, R.always('Damage Card')],
+      [AA.Selector.isShipCard, R.always('Ship Card')],
+      [AA.Selector.isSquadronCard, R.always('Squadron Card')],
+      [AA.Selector.isUpgradeCard, R.always('Upgrade Card')],
+    ])(card);
+
+  const determineCardTitle = (card, isFaceUp) =>
+    R.ifElse(R.always(isFaceUp), determineFaceUpCardTitle, determineFaceDownCardTitle)(card);
+
+  // /////////////////////////////////////////////////////////////////////////////////////////////////
+  class CardImage extends React.PureComponent {
+    componentDidMount() {
+      this.paint(this.props);
+    }
+
+    componentDidUpdate() {
+      this.paint(this.props);
+    }
+
+    paint() {
+      const { card, isFaceUp, isReady, resourceBase, slicing, width } = this.props;
 
       const canvas = document.getElementById(this.canvasId());
-      const context = canvas.getContext("2d");
+      const context = canvas.getContext('2d');
       const dWidth = width;
       const height = computeHeight(card.key, dWidth);
       const src = resourceBase + createSrc(card, isFaceUp);
       const image = new Image();
-      image.onload = function()
-      {
-         if (slicing === undefined)
-         {
-            if (isReady)
-            {
-               context.drawImage(image, 0, 0, dWidth, height);
-            }
-            else
-            {
-               context.save();
-               context.translate(height / 2.0, dWidth / 2.0);
-               context.rotate(Math.PI / 2.0);
-               context.drawImage(image, -dWidth / 2.0, -height / 2.0, dWidth, height);
-               context.restore();
-            }
-         }
-         else
-         {
-            const sWidth = image.naturalWidth;
-            const sy = image.naturalHeight * (1.0 - slicing);
-            const sHeight = image.naturalHeight * slicing;
-            const dHeight = height * slicing;
+      image.onload = () => {
+        if (slicing === undefined) {
+          if (isReady) {
+            context.drawImage(image, 0, 0, dWidth, height);
+          } else {
+            context.save();
+            context.translate(height / 2.0, dWidth / 2.0);
+            context.rotate(Math.PI / 2.0);
+            context.drawImage(image, -dWidth / 2.0, -height / 2.0, dWidth, height);
+            context.restore();
+          }
+        } else {
+          const sWidth = image.naturalWidth;
+          const sy = image.naturalHeight * (1.0 - slicing);
+          const sHeight = image.naturalHeight * slicing;
+          const dHeight = height * slicing;
 
-            if (isReady)
-            {
-               context.drawImage(image, 0, sy, sWidth, sHeight, 0, 0, dWidth, dHeight);
-            }
-            else
-            {
-               context.save();
-               context.translate(dHeight / 2.0, dWidth / 2.0);
-               context.rotate(Math.PI / 2.0);
-               context.drawImage(image, 0, sy, sWidth, sHeight, -dWidth / 2.0, -dHeight / 2.0, dWidth, dHeight);
-               context.restore();
-            }
-         }
+          if (isReady) {
+            context.drawImage(image, 0, sy, sWidth, sHeight, 0, 0, dWidth, dHeight);
+          } else {
+            context.save();
+            context.translate(dHeight / 2.0, dWidth / 2.0);
+            context.rotate(Math.PI / 2.0);
+            context.drawImage(
+              image,
+              0,
+              sy,
+              sWidth,
+              sHeight,
+              -dWidth / 2.0,
+              -dHeight / 2.0,
+              dWidth,
+              dHeight,
+            );
+            context.restore();
+          }
+        }
       };
       image.onerror = this.logLoadFailure;
       image.src = src;
-   };
+    }
 
-   const computeHeight = (cardKey, widthIn) => widthIn * AA.Selector.heightByCard(cardKey) / AA.Selector.widthByCard(cardKey);
+    canvasId() {
+      const { card, isFaceUp, isReady, myKey, slicing } = this.props;
 
-   const createShipBackSrc = cardKey =>
-   {
-      const faction = AA.Selector.factionValueByShip(cardKey);
-      const factionName = faction.name.toLowerCase().replace(/ /g, "-");
+      return `CardImageCanvas${card.key}${isFaceUp}${isReady}${myKey}${slicing}`;
+    }
 
-      return `ship-card/${factionName}/${factionName}-back.png`;
-   };
+    render() {
+      const { card, isFaceUp, isReady, slicing, width } = this.props;
 
-   const createSquadronBackSrc = cardKey =>
-   {
-      const faction = AA.Selector.factionValueBySquadron(cardKey);
-      const factionName = faction.name.toLowerCase().replace(/ /g, "-");
+      const myCanvasId = this.canvasId();
+      const height = computeHeight(card.key, width);
+      const title = determineCardTitle(card, isFaceUp);
+      let className;
+      let canvasHeight;
+      let canvasWidth;
 
-      return `squadron-card/${factionName}/${factionName}-back.png`;
-   };
-
-   const createSrc = (card, isFaceUp) => R.ifElse(R.always(isFaceUp), R.prop("image"), determineCardBack)(card);
-
-   const createUpgradeBackSrc = cardKey =>
-   {
-      const slotKey = AA.Selector.upgradeSlotKeysByUpgrade(cardKey)[0];
-      const slot = AA.Selector.upgradeSlot(slotKey);
-      const slotName = slot.name.toLowerCase().replace(/ /g, "-");
-
-      return `upgrade-card/${slotName}/${slotName}-back.png`;
-   };
-
-   const determineCardBack = card =>
-   {
-      return R.cond([
-        [AA.Selector.isDamageCard, R.always("damage-card/damage-back.png")],
-        [AA.Selector.isShipCard, card => createShipBackSrc(card.key)],
-        [AA.Selector.isSquadronCard, card => createSquadronBackSrc(card.key)],
-        [AA.Selector.isUpgradeCard, card => createUpgradeBackSrc(card.key)],
-      ])(card);
-   };
-
-   const determineCardTitle = (card, isFaceUp) => R.ifElse(R.always(isFaceUp), determineFaceUpCardTitle, determineFaceDownCardTitle)(card);
-
-   const determineFaceUpCardTitle = card => R.ifElse(AA.Selector.isDamageCard, R.prop("title"), R.prop("name"))(card);
-
-   const determineFaceDownCardTitle = card =>
-   {
-      return R.cond([
-        [AA.Selector.isDamageCard, R.always("Damage Card")],
-        [AA.Selector.isShipCard, R.always("Ship Card")],
-        [AA.Selector.isSquadronCard, R.always("Squadron Card")],
-        [AA.Selector.isUpgradeCard, R.always("Upgrade Card")],
-      ])(card);
-   };
-
-   CardImage.propTypes = {
-      card: PropTypes.object.isRequired,
-      resourceBase: PropTypes.string.isRequired,
-
-      isFaceUp: PropTypes.bool,
-      isReady: PropTypes.bool,
-      myKey: PropTypes.string, // default: undefined
-      slicing: PropTypes.number, // default: undefined
-      width: PropTypes.number,
-   };
-
-   CardImage.defaultProps = {
-      isFaceUp: true,
-      isReady: true,
-      resourceBase: Endpoint.ARMADA_IMAGES,
-      width: 200,
-   };
-
-   const ReactUtilities = {};
-
-   ReactUtilities.createButton = function(element, key, className, props = {})
-   {
-      const newProps = R.merge(props,
-      {
-         key: key,
-         className: className
-      });
-
-      return ReactDOMFactories.button(newProps, element);
-   };
-
-   ReactUtilities.createCell = function(element, key, className, props = {})
-   {
-      const newProps = R.merge(props,
-      {
-         key: key,
-         className: "dtc" + (className ? " " + className : "")
-      });
-
-      return ReactDOMFactories.div(newProps, element);
-   };
-
-   ReactUtilities.createFlexbox = function(cells, key, className, props = {})
-   {
-      const newProps = R.merge(props,
-      {
-         key: key,
-         className: "flex" + (className ? " " + className : "")
-      });
-
-      return ReactDOMFactories.div(newProps, cells);
-   };
-
-   ReactUtilities.createFlexboxWrap = function(cells, key, className, props = {})
-   {
-      const newProps = R.merge(props,
-      {
-         key: key,
-         className: "flex flex-wrap" + (className ? " " + className : "")
-      });
-
-      return ReactDOMFactories.div(newProps, cells);
-   };
-
-   ReactUtilities.createImg = function(src, key, className, props = {})
-   {
-      const newProps = R.merge(props,
-      {
-         src: src,
-         key: key,
-         className: className
-      });
-
-      return ReactDOMFactories.img(newProps);
-   };
-
-   ReactUtilities.createRow = function(cells, key, className, props = {})
-   {
-      const newProps = R.merge(props,
-      {
-         key: key,
-         className: "dt-row" + (className ? " " + className : "")
-      });
-
-      return ReactDOMFactories.div(newProps, cells);
-   };
-
-   ReactUtilities.createSpan = function(element, key, className, props = {})
-   {
-      const newProps = R.merge(props,
-      {
-         key: key,
-         className: className
-      });
-
-      return ReactDOMFactories.span(newProps, element);
-   };
-
-   ReactUtilities.createTable = function(rows, key, className, props = {})
-   {
-      const newProps = R.merge(props,
-      {
-         key: key,
-         className: "dt" + (className ? " " + className : "")
-      });
-
-      return ReactDOMFactories.div(newProps, rows);
-   };
-
-   class CardInstancesArea extends React.Component
-   {
-      constructor(props)
-      {
-         super(props);
-
-         this.state = {
-            isExpanded: this.props.isExpanded,
-         };
-
-         this.toggleExpand = this.toggleExpandFunction.bind(this);
+      if (slicing === undefined) {
+        className = 'br3';
+        canvasWidth = isReady ? width : height;
+        canvasHeight = isReady ? height : width;
+      } else {
+        canvasWidth = isReady ? width : height * slicing;
+        canvasHeight = isReady ? height * slicing : width;
       }
 
-      render()
-      {
-         const rows = [];
+      return ReactDOMFactories.canvas({
+        key: myCanvasId,
+        className,
+        height: canvasHeight,
+        id: myCanvasId,
+        title,
+        width: canvasWidth,
+      });
+    }
+  }
 
-         rows.push(this.createLabelUI());
-         rows.push(this.createCardInstanceCells());
+  CardImage.propTypes = {
+    card: PropTypes.shape({ key: PropTypes.string.isRequired }).isRequired,
 
-         return ReactUtilities.createTable(rows, undefined);
-      }
-   }
+    isFaceUp: PropTypes.bool,
+    isReady: PropTypes.bool,
+    myKey: PropTypes.string, // default: undefined
+    resourceBase: PropTypes.string,
+    slicing: PropTypes.number, // default: undefined
+    width: PropTypes.number,
+  };
 
-   CardInstancesArea.prototype.createCardInstanceCells = function()
-   {
-      const cardInstanceUIs = this.props.cardInstanceUIs;
-      const isExpanded = this.state.isExpanded;
+  CardImage.defaultProps = {
+    isFaceUp: true,
+    isReady: true,
+    myKey: '',
+    resourceBase: Endpoint.ARMADA_IMAGES,
+    slicing: undefined,
+    width: 200,
+  };
 
-      const cells = cardInstanceUIs.map(function(cardInstanceUI, i)
-      {
-         let myClassName;
+  const ReactUtilities = {};
 
-         if (isExpanded || i === cardInstanceUIs.length - 1)
-         {
-            myClassName = "dtc pa1 v-mid";
-         }
-         else if (i < cardInstanceUIs.length - 1)
-         {
-            myClassName = "dn";
-         }
+  ReactUtilities.createButton = (element, key, className, props = {}) => {
+    const newProps = R.merge(props, {
+      key,
+      className,
+    });
 
-         return ReactDOMFactories.div(
-         {
-            key: "cardCell" + i,
+    return ReactDOMFactories.button(newProps, element);
+  };
+
+  ReactUtilities.createCell = (element, key, className, props = {}) => {
+    const newProps = R.merge(props, {
+      key,
+      className: `dtc${className ? ` ${className}` : ''}`,
+    });
+
+    return ReactDOMFactories.div(newProps, element);
+  };
+
+  ReactUtilities.createFlexbox = (cells, key, className, props = {}) => {
+    const newProps = R.merge(props, {
+      key,
+      className: `flex${className ? ` ${className}` : ''}`,
+    });
+
+    return ReactDOMFactories.div(newProps, cells);
+  };
+
+  ReactUtilities.createFlexboxWrap = (cells, key, className, props = {}) => {
+    const newProps = R.merge(props, {
+      key,
+      className: `flex flex-wrap${className ? ` ${className}` : ''}`,
+    });
+
+    return ReactDOMFactories.div(newProps, cells);
+  };
+
+  ReactUtilities.createImg = (src, key, className, props = {}) => {
+    const newProps = R.merge(props, {
+      src,
+      key,
+      className,
+    });
+
+    return ReactDOMFactories.img(newProps);
+  };
+
+  ReactUtilities.createRow = (cells, key, className, props = {}) => {
+    const newProps = R.merge(props, {
+      key,
+      className: `dt-row${className ? ` ${className}` : ''}`,
+    });
+
+    return ReactDOMFactories.div(newProps, cells);
+  };
+
+  ReactUtilities.createSpan = (element, key, className, props = {}) => {
+    const newProps = R.merge(props, {
+      key,
+      className,
+    });
+
+    return ReactDOMFactories.span(newProps, element);
+  };
+
+  ReactUtilities.createTable = (rows, key, className, props = {}) => {
+    const newProps = R.merge(props, {
+      key,
+      className: `dt${className ? ` ${className}` : ''}`,
+    });
+
+    return ReactDOMFactories.div(newProps, rows);
+  };
+
+  class CardInstancesArea extends React.Component {
+    constructor(props) {
+      super(props);
+
+      const { isExpanded } = this.props;
+
+      this.state = {
+        isExpanded,
+      };
+
+      this.toggleExpand = this.toggleExpandFunction.bind(this);
+    }
+
+    createCardInstanceCells() {
+      const { cardInstanceUIs } = this.props;
+      const { isExpanded } = this.state;
+
+      const cells = cardInstanceUIs.map((cardInstanceUI, i) => {
+        let myClassName;
+
+        if (isExpanded || i === cardInstanceUIs.length - 1) {
+          myClassName = 'dtc pa1 v-mid';
+        } else if (i < cardInstanceUIs.length - 1) {
+          myClassName = 'dn';
+        }
+
+        return ReactDOMFactories.div(
+          {
+            key: `cardCell${i}`,
             className: myClassName,
-         }, cardInstanceUI);
+          },
+          cardInstanceUI,
+        );
       });
 
       const cell = ReactUtilities.createCell(cells);
 
-      return ReactUtilities.createRow(cell, "mainRow");
-   };
+      return ReactUtilities.createRow(cell, 'mainRow');
+    }
 
-   CardInstancesArea.prototype.createLabelUI = function()
-   {
-      const
-      {
-         cardInstanceUIs,
-         label
-      } = this.props;
+    createLabelUI() {
+      const { cardInstanceUIs, label } = this.props;
 
-      const labelUI = ReactUtilities.createCell(label, "labelCell", "b tc");
+      const labelUI = ReactUtilities.createCell(label, 'labelCell', 'b tc');
 
       const cardCount = cardInstanceUIs.length;
-      const isExpanded = this.state.isExpanded;
-      const expandLabel = (cardCount > 1 ? (isExpanded ? "\u25B6" : "\u25BC") : "");
+      const { isExpanded } = this.state;
+      let expandLabel;
+
+      if (cardCount > 1) {
+        if (isExpanded) {
+          expandLabel = '\u25B6';
+        } else {
+          expandLabel = '\u25BC';
+        }
+      } else {
+        expandLabel = '';
+      }
+
       const expandControl = ReactDOMFactories.div(
-      {
-         key: "expandCell",
-         onClick: this.toggleExpand,
-      }, expandLabel);
+        {
+          key: 'expandCell',
+          onClick: this.toggleExpand,
+        },
+        expandLabel,
+      );
 
-      const row = ReactUtilities.createRow([labelUI, expandControl], "labelExpandRow");
-      const table = ReactUtilities.createTable(row, "labelExpandTable", "w-100");
+      const row = ReactUtilities.createRow([labelUI, expandControl], 'labelExpandRow');
+      const table = ReactUtilities.createTable(row, 'labelExpandTable', 'w-100');
 
-      const tableCell = ReactUtilities.createCell(table, "tableCell");
-      return ReactUtilities.createRow(tableCell, "labelRow");
-   };
+      const tableCell = ReactUtilities.createCell(table, 'tableCell');
+      return ReactUtilities.createRow(tableCell, 'labelRow');
+    }
 
-   CardInstancesArea.prototype.toggleExpandFunction = function()
-   {
-      this.setState(
-      {
-         isExpanded: !this.state.isExpanded,
+    toggleExpandFunction() {
+      const { isExpanded: isExpandedOld } = this.state;
+
+      this.setState({
+        isExpanded: !isExpandedOld,
       });
-   };
+    }
 
-   CardInstancesArea.propTypes = {
-      cardInstanceUIs: PropTypes.array.isRequired,
+    render() {
+      const rows = [];
 
-      isExpanded: PropTypes.bool,
-      label: PropTypes.string, // default: undefined
-   };
+      rows.push(this.createLabelUI());
+      rows.push(this.createCardInstanceCells());
 
-   CardInstancesArea.defaultProps = {
-      isExpanded: true,
-   };
+      return ReactUtilities.createTable(rows, undefined);
+    }
+  }
 
-   class CommandUI extends React.Component
-   {
-      render()
+  CardInstancesArea.propTypes = {
+    cardInstanceUIs: PropTypes.arrayOf().isRequired,
+
+    isExpanded: PropTypes.bool,
+    label: PropTypes.string,
+  };
+
+  CardInstancesArea.defaultProps = {
+    isExpanded: true,
+    label: undefined,
+  };
+
+  class CommandUI extends React.PureComponent {
+    render() {
+      const { command, isSmall, showLabel, title } = this.props;
+
+      const fontKey = command.key === 'concentrateFire' ? 'concentrate' : command.key;
+      const size = isSmall ? 'f3' : 'f2';
+      const myTitle = title || command.name;
+
+      const image = ReactDOMFactories.i({
+        className: `${size} v-mid ffi ffi-swa-${fontKey}`,
+        title: myTitle,
+      });
+
+      return showLabel
+        ? ReactDOMFactories.span(
+            {
+              title: myTitle,
+            },
+            image,
+            ' ',
+            command.name,
+          )
+        : image;
+    }
+  }
+
+  CommandUI.propTypes = {
+    command: PropTypes.shape().isRequired,
+
+    isSmall: PropTypes.bool,
+    showLabel: PropTypes.bool,
+    title: PropTypes.string,
+  };
+
+  CommandUI.defaultProps = {
+    isSmall: false,
+    showLabel: false,
+    title: undefined,
+  };
+
+  class DefenseTokenUI extends React.PureComponent {
+    render() {
+      const { defenseInstance, isSmall, showLabel } = this.props;
+
+      const defenseToken = AA.Selector.defenseToken(defenseInstance.defenseTokenKey);
+      const fontKey = defenseInstance.defenseTokenKey;
+      const size = isSmall ? 'f3' : 'f2';
+      const title = defenseToken.name;
+      const color = defenseInstance.isReady ? 'bg-green' : 'bg-orange';
+
+      const image = ReactDOMFactories.i({
+        className: `${color} ${size} v-mid w-100 ffi ffi-swa-${fontKey}`,
+        title,
+      });
+
+      return showLabel
+        ? ReactDOMFactories.span(
+            {
+              className: `${color} h-100 v-mid w-100`,
+              title,
+            },
+            image,
+            ' ',
+            defenseToken.name,
+          )
+        : image;
+    }
+  }
+
+  DefenseTokenUI.propTypes = {
+    defenseInstance: PropTypes.shape().isRequired,
+
+    isSmall: PropTypes.bool,
+    showLabel: PropTypes.bool,
+  };
+
+  DefenseTokenUI.defaultProps = {
+    isSmall: false,
+    showLabel: false,
+  };
+
+  const addDefenseToken = (rows, defenseInstance) => {
+    const icon = React.createElement(DefenseTokenUI, {
+      defenseInstance,
+    });
+
+    const labeledImage = ReactDOMFactories.span(
       {
-         const
-         {
-            command,
-            isSmall,
-            showLabel,
-            title
-         } = this.props;
+        className: 'center tc v-mid w-100',
+      },
+      icon,
+    );
 
-         const fontKey = (command.key === "concentrateFire" ? "concentrate" : command.key);
-         const size = (isSmall ? "f3" : "f2");
-         const myTitle = title || command.name;
+    rows.push(ReactUtilities.createFlexbox(labeledImage, `defenseRow${rows.length}`, 'tc v-mid'));
+  };
 
-         const image = ReactDOMFactories.i(
-         {
-            className: size + " v-mid ffi ffi-swa-" + fontKey,
-            title: myTitle
-         });
+  const comparator = (a, b) => a.sortOrder - b.sortOrder;
 
-         return (showLabel ? ReactDOMFactories.span(
-         {
-            title: myTitle
-         }, image, " ", command.name) : image);
-      }
-   }
-
-   CommandUI.propTypes = {
-      command: PropTypes.object.isRequired,
-
-      isSmall: PropTypes.bool,
-      showLabel: PropTypes.bool,
-      title: PropTypes.string
-   };
-
-   CommandUI.defaultProps = {
-      isSmall: false,
-      showLabel: false
-   };
-
-   class DefenseTokenUI extends React.Component
-   {
-      render()
-      {
-         const
-         {
-            defenseInstance,
-            isSmall,
-            showLabel
-         } = this.props;
-
-         const defenseToken = AA.Selector.defenseToken(defenseInstance.defenseTokenKey);
-         const fontKey = defenseInstance.defenseTokenKey;
-         const size = (isSmall ? "f3" : "f2");
-         const title = defenseToken.name;
-         const color = (defenseInstance.isReady ? "bg-green" : "bg-orange");
-
-         const image = ReactDOMFactories.i(
-         {
-            className: color + " " + size + " v-mid w-100 ffi ffi-swa-" + fontKey,
-            title: title
-         });
-
-         return (showLabel ? ReactDOMFactories.span(
-         {
-            className: color + " h-100 v-mid w-100",
-            title: title
-         }, image, " ", defenseToken.name) : image);
-      }
-   }
-
-   DefenseTokenUI.propTypes = {
-      defenseInstance: PropTypes.object.isRequired,
-
-      isSmall: PropTypes.bool,
-      showLabel: PropTypes.bool
-   };
-
-   DefenseTokenUI.defaultProps = {
-      isSmall: false,
-      showLabel: false
-   };
-
-   class TokenPanel extends React.Component
-   {
-      render()
-      {
-         const
-         {
-            defenseInstances,
-            tokenCounts
-         } = this.props;
-
-         const rows = [];
-         const commands = AA.Selector.enumValues(AA.Command).sort(comparator);
-
-         commands.forEach(command =>
-         {
-            maybeAddCommandToken(rows, command, tokenCounts[command.key]);
-         });
-
-         defenseInstances.forEach(defenseInstance =>
-         {
-            addDefenseToken(rows, defenseInstance);
-         });
-
-         return ReactUtilities.createFlexboxWrap(rows, "tokenPanel", "bg-white center content-center flex-column justify-center tc");
-      }
-   }
-
-   const addDefenseToken = function(rows, defenseInstance)
-   {
-      const icon = React.createElement(DefenseTokenUI,
-      {
-         defenseInstance: defenseInstance
+  const maybeAddCommandToken = (rows, command, count) => {
+    if (count !== undefined && count !== 0) {
+      const icon = React.createElement(CommandUI, {
+        command,
       });
 
       const labeledImage = ReactDOMFactories.span(
-      {
-         className: "center tc v-mid w-100"
-      }, icon);
+        {
+          className: 'center tc v-mid',
+        },
+        icon,
+        count,
+      );
 
-      rows.push(ReactUtilities.createFlexbox(labeledImage, "defenseRow" + rows.length, "tc v-mid"));
-   };
+      rows.push(ReactUtilities.createFlexbox(labeledImage, `tokenRow${rows.length}`, 'tc v-mid'));
+    }
+  };
 
-   const comparator = (a, b) =>
-   {
-      return a.sortOrder - b.sortOrder;
-   };
+  class TokenPanel extends React.PureComponent {
+    render() {
+      const { defenseInstances, tokenCounts } = this.props;
 
-   const maybeAddCommandToken = function(rows, command, count)
-   {
-      if (count !== undefined && count !== 0)
-      {
-         const icon = React.createElement(CommandUI,
-         {
-            command: command
-         });
+      const rows = [];
+      const commands = AA.Selector.enumValues(AA.Command).sort(comparator);
 
-         const labeledImage = ReactDOMFactories.span(
-         {
-            className: "center tc v-mid"
-         }, icon, count);
-
-         rows.push(ReactUtilities.createFlexbox(labeledImage, "tokenRow" + rows.length, "tc v-mid"));
-      }
-   };
-
-   TokenPanel.propTypes = {
-      defenseInstances: PropTypes.object,
-      tokenCounts: PropTypes.object
-   };
-
-   TokenPanel.defaultProps = {
-      defenseInstances: [],
-      tokenCounts:
-      {}
-   };
-
-   class CardInstanceUI extends React.Component
-   {
-      constructor(props)
-      {
-         super(props);
-
-         this.state = {
-            isSmall: true,
-         };
-
-         this.toggleSize = this.toggleSizeFunction.bind(this);
-      }
-
-      render()
-      {
-         const cells = [];
-         const cardInstance = this.props.cardInstance;
-         let myKey = "cardInstanceUI";
-
-         if (cardInstance)
-         {
-            const card = determineCard(cardInstance);
-            myKey += cardInstance.id + card.key;
-            const image = this.createCardImage(cardInstance, myKey);
-            const tokenPanel = this.createTokenPanel(cardInstance.id);
-            const cell = ReactDOMFactories.div(
-            {
-               key: "imagePanel" + cells.length,
-               className: "v-mid",
-               onClick: this.toggleSize
-            }, image);
-
-            cells.push(cell);
-            cells.push(tokenPanel);
-            this.createAttachmentPanel(cells);
-         }
-
-         return ReactUtilities.createFlexboxWrap(cells, myKey, "bg-xw-medium items-center justify-center ma0 pa0");
-      }
-   }
-
-   CardInstanceUI.prototype.toggleSizeFunction = function()
-   {
-      this.setState(
-      {
-         isSmall: !this.state.isSmall,
+      commands.forEach(command => {
+        maybeAddCommandToken(rows, command, tokenCounts[command.key]);
       });
-   };
 
-   CardInstanceUI.prototype.createAttachmentPanel = function(cells)
-   {
-      const
-      {
-         damageInstances,
-         upgradeInstances
-      } = this.props;
+      defenseInstances.forEach(defenseInstance => {
+        addDefenseToken(rows, defenseInstance);
+      });
+
+      return ReactUtilities.createFlexboxWrap(
+        rows,
+        'tokenPanel',
+        'bg-white center content-center flex-column justify-center tc',
+      );
+    }
+  }
+
+  TokenPanel.propTypes = {
+    defenseInstances: PropTypes.shape(),
+    tokenCounts: PropTypes.shape(),
+  };
+
+  TokenPanel.defaultProps = {
+    defenseInstances: [],
+    tokenCounts: {},
+  };
+
+  const determineCard = cardInstance => {
+    let answer;
+
+    if (cardInstance.shipKey !== undefined) {
+      answer = AA.Selector.shipCard(cardInstance.shipKey);
+    } else if (cardInstance.squadronKey !== undefined) {
+      answer = AA.Selector.squadronCard(cardInstance.squadronKey);
+    } else if (cardInstance.upgradeKey !== undefined) {
+      answer = AA.Selector.upgradeCard(cardInstance.upgradeKey);
+    } else if (cardInstance.damageKey !== undefined) {
+      answer = AA.Selector.damageCard(cardInstance.damageKey);
+    }
+
+    return answer;
+  };
+
+  class CardInstanceUI extends React.Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        isSmall: true,
+      };
+
+      this.toggleSize = this.toggleSizeFunction.bind(this);
+    }
+
+    createAttachmentPanel(cells) {
+      const { damageInstances, upgradeInstances } = this.props;
 
       const attachments = [];
 
-      if (upgradeInstances.length > 0)
-      {
-         for (let i = 0; i < upgradeInstances.length; i++)
-         {
-            const upgradeInstance = upgradeInstances[i];
-            const upgradeUI = this.createAttachmentUI(upgradeInstance);
-            attachments.push(upgradeUI);
-         }
+      if (upgradeInstances.length > 0) {
+        for (let i = 0; i < upgradeInstances.length; i += 1) {
+          const upgradeInstance = upgradeInstances[i];
+          const upgradeUI = this.createAttachmentUI(upgradeInstance);
+          attachments.push(upgradeUI);
+        }
       }
 
-      if (damageInstances.length > 0)
-      {
-         for (let j = 0; j < damageInstances.length; j++)
-         {
-            const damageInstance = damageInstances[j];
-            const damageUI = this.createAttachmentUI(damageInstance);
-            attachments.push(damageUI);
-         }
+      if (damageInstances.length > 0) {
+        for (let j = 0; j < damageInstances.length; j += 1) {
+          const damageInstance = damageInstances[j];
+          const damageUI = this.createAttachmentUI(damageInstance);
+          attachments.push(damageUI);
+        }
       }
 
-      cells.push(React.createElement(CardInstancesArea,
-      {
-         key: "attachmentPanel",
-         cardInstanceUIs: attachments,
-         isExpanded: false
-      }));
-   };
+      cells.push(
+        React.createElement(CardInstancesArea, {
+          key: 'attachmentPanel',
+          cardInstanceUIs: attachments,
+          isExpanded: false,
+        }),
+      );
+    }
 
-   CardInstanceUI.prototype.createAttachmentUI = function(cardInstance)
-   {
-      return React.createElement(CardInstanceUI,
-      {
-         key: "attachment" + cardInstance.id,
-         cardInstance: cardInstance,
-         width: this.props.width / 1.4,
+    createAttachmentUI(cardInstance) {
+      const { width } = this.props;
+
+      return React.createElement(CardInstanceUI, {
+        key: `attachment${cardInstance.id}`,
+        cardInstance,
+        width: width / 1.4,
       });
-   };
+    }
 
-   CardInstanceUI.prototype.createCardImage = function(cardInstance, myKey)
-   {
-      let width = this.props.width;
+    createCardImage(cardInstance, myKey) {
+      let { width } = this.props;
+      const { isSmall } = this.state;
 
-      if (this.state.isSmall)
-      {
-         width /= 2;
+      if (isSmall) {
+        width /= 2;
       }
       const card = determineCard(cardInstance);
 
-      return React.createElement(CardImage,
-      {
-         card: card,
-         myKey: myKey,
-         width: width
+      return React.createElement(CardImage, {
+        card,
+        myKey,
+        width,
       });
-   };
+    }
 
-   CardInstanceUI.prototype.createTokenPanel = function(cardId)
-   {
-      const
-      {
-         defenseInstances,
-         tokenCounts,
-      } = this.props;
+    createTokenPanel(cardId) {
+      const { defenseInstances, tokenCounts } = this.props;
 
-      let props = {
-         key: "token" + cardId,
-         defenseInstances: defenseInstances,
-         tokenCounts: tokenCounts
+      const props = {
+        key: `token${cardId}`,
+        defenseInstances,
+        tokenCounts,
       };
 
       return React.createElement(TokenPanel, props);
-   };
+    }
 
-   const determineCard = cardInstance =>
-   {
-      let answer;
+    toggleSizeFunction() {
+      const { isSmall: isSmallOld } = this.state;
 
-      if (cardInstance.shipKey !== undefined)
-      {
-         answer = AA.Selector.shipCard(cardInstance.shipKey);
-      }
-      else if (cardInstance.squadronKey !== undefined)
-      {
-         answer = AA.Selector.squadronCard(cardInstance.squadronKey);
-      }
-      else if (cardInstance.upgradeKey !== undefined)
-      {
-         answer = AA.Selector.upgradeCard(cardInstance.upgradeKey);
-      }
-      else if (cardInstance.damageKey !== undefined)
-      {
-         answer = AA.Selector.damageCard(cardInstance.damageKey);
-      }
+      this.setState({
+        isSmall: !isSmallOld,
+      });
+    }
 
-      return answer;
-   };
+    render() {
+      const cells = [];
+      const { cardInstance } = this.props;
+      let myKey = 'cardInstanceUI';
 
-   CardInstanceUI.propTypes = {
-      cardInstance: PropTypes.object,
-      damageInstances: PropTypes.array,
-      defenseInstances: PropTypes.array,
-      tokenCounts: PropTypes.object,
-      upgradeInstances: PropTypes.array,
-      width: PropTypes.number
-   };
+      if (cardInstance) {
+        const card = determineCard(cardInstance);
+        myKey += cardInstance.id + card.key;
+        const image = this.createCardImage(cardInstance, myKey);
+        const tokenPanel = this.createTokenPanel(cardInstance.id);
+        const cell = ReactDOMFactories.div(
+          {
+            key: `imagePanel${cells.length}`,
+            className: 'v-mid',
+            onClick: this.toggleSize,
+          },
+          image,
+        );
 
-   CardInstanceUI.defaultProps = {
-      damageInstances: [],
-      defenseInstances: [],
-      tokenCounts:
-      {},
-      upgradeInstances: [],
-      width: 250
-   };
-
-   class CommandChooser extends React.Component
-   {
-      constructor(props)
-      {
-         super(props);
-
-         this.state = {
-            selected: this.props.initialCommand
-         };
-
-         this.handleChange = this.handleChangeFunction.bind(this);
+        cells.push(cell);
+        cells.push(tokenPanel);
+        this.createAttachmentPanel(cells);
       }
 
-      render()
-      {
-         const
-         {
-            clientProps,
-            commands,
-            panelClass
-         } = this.props;
+      return ReactUtilities.createFlexboxWrap(
+        cells,
+        myKey,
+        'bg-xw-medium items-center justify-center ma0 pa0',
+      );
+    }
+  }
 
-         const inputProps = R.merge(
-         {
-            name: "chooseCommand", // needed for radio
-            onChange: this.handleChange,
-            type: "radio"
-         }, clientProps);
+  CardInstanceUI.propTypes = {
+    cardInstance: PropTypes.shape(),
+    damageInstances: PropTypes.arrayOf(PropTypes.instanceOf(AS.DamageState)),
+    defenseInstances: PropTypes.arrayOf(PropTypes.instanceOf(AS.DefenseTokenState)),
+    tokenCounts: PropTypes.shape(),
+    upgradeInstances: PropTypes.arrayOf(PropTypes.instanceOf(AS.UpgradeState)),
+    width: PropTypes.number,
+  };
 
-         let i = 0;
-         const selected = this.state.selected;
-         const mapFunction = command =>
-         {
-            const input = ReactDOMFactories.input(R.merge(inputProps,
-            {
-               id: i,
-               defaultChecked: (command === selected)
-            }));
-            const label = labelFunction(command);
-            const cells = [];
-            cells.push(ReactUtilities.createCell(input, cells.length, "pa1 v-mid"));
-            cells.push(ReactUtilities.createCell(label, cells.length, "pa1 v-mid"));
+  CardInstanceUI.defaultProps = {
+    cardInstance: undefined,
+    damageInstances: [],
+    defenseInstances: [],
+    tokenCounts: {},
+    upgradeInstances: [],
+    width: 250,
+  };
 
-            return ReactUtilities.createRow(cells, "row" + command.sourceName + command.sourceKey + i++);
-         };
-         const rows = R.map(mapFunction, commands);
+  const labelFunction = command =>
+    React.createElement(CommandUI, {
+      command,
+      isSmall: true,
+      showLabel: true,
+      title: command.text,
+    });
 
-         return ReactUtilities.createTable(rows, undefined, panelClass);
-      }
-   }
+  class CommandChooser extends React.Component {
+    constructor(props) {
+      super(props);
 
-   CommandChooser.prototype.handleChangeFunction = function(event)
-   {
-      const
-      {
-         commands,
-         onChange
-      } = this.props;
+      const { initialCommand } = this.props;
 
-      const id = event.target.id;
+      this.state = {
+        selected: initialCommand,
+      };
+
+      this.handleChange = this.handleChangeFunction.bind(this);
+    }
+
+    handleChangeFunction(event) {
+      const { commands, onChange } = this.props;
+
+      const { id } = event.target;
       const selected = commands[id];
 
       this.setState(
-         {
-            selected: selected,
-         },
-         onChange(selected));
-   };
+        {
+          selected,
+        },
+        onChange(selected),
+      );
+    }
 
-   const labelFunction = function(command)
-   {
-      return React.createElement(CommandUI,
-      {
-         command: command,
-         isSmall: true,
-         showLabel: true,
-         title: command.text
+    render() {
+      const { clientProps, commands, panelClass } = this.props;
+
+      const inputProps = R.merge(
+        {
+          name: 'chooseCommand', // needed for radio
+          onChange: this.handleChange,
+          type: 'radio',
+        },
+        clientProps,
+      );
+
+      let i = 0;
+      const { selected } = this.state;
+      const mapFunction = command => {
+        const input = ReactDOMFactories.input(
+          R.merge(inputProps, {
+            id: i,
+            defaultChecked: command === selected,
+          }),
+        );
+        const label = labelFunction(command);
+        const cells = [];
+        cells.push(ReactUtilities.createCell(input, cells.length, 'pa1 v-mid'));
+        cells.push(ReactUtilities.createCell(label, cells.length, 'pa1 v-mid'));
+        i += 1;
+
+        return ReactUtilities.createRow(cells, `row${command.sourceName}${command.sourceKey}${i}`);
+      };
+      const rows = R.map(mapFunction, commands);
+
+      return ReactUtilities.createTable(rows, undefined, panelClass);
+    }
+  }
+
+  CommandChooser.propTypes = {
+    onChange: PropTypes.func.isRequired,
+    commands: PropTypes.arrayOf(PropTypes.instanceOf(AA.Command)).isRequired,
+
+    clientProps: PropTypes.shape(),
+    initialCommand: PropTypes.shape(),
+    panelClass: PropTypes.string,
+  };
+
+  CommandChooser.defaultProps = {
+    clientProps: {},
+    initialCommand: undefined,
+    panelClass: 'bg-xw-light f6',
+  };
+
+  const comparator$1 = (a, b) => {
+    let answer = a.sortOrder - b.sortOrder;
+    answer = answer === 0 && a.color > b.color ? 1 : answer;
+    answer = answer === 0 && a.color < b.color ? -1 : answer;
+
+    return answer;
+  };
+
+  const createImage = die => {
+    const src = Endpoint.ARMADA_IMAGES + die.image;
+
+    return ReactUtilities.createImg(src, undefined, 'tc v-mid', {
+      width: 48,
+    });
+  };
+
+  class DicePanel extends React.PureComponent {
+    render() {
+      const { dice } = this.props;
+      const sortedDice = R.sort(comparator$1, dice);
+      let count = 0;
+      const mapFunction = diceKey => {
+        count += 1;
+        return ReactUtilities.createCell(createImage(diceKey), count);
+      };
+      const cells = R.map(mapFunction, sortedDice);
+      const row = ReactUtilities.createRow(cells);
+
+      return ReactUtilities.createTable(row, undefined, 'bg-white center v-mid');
+    }
+  }
+
+  DicePanel.propTypes = {
+    dice: PropTypes.arrayOf(PropTypes.instanceOf(AA.DiceValue)),
+  };
+
+  DicePanel.defaultProps = {
+    dice: [],
+  };
+
+  class ImageWithLabelUI extends React.PureComponent {
+    render() {
+      const { src, label, showLabel, width } = this.props;
+
+      const image = ReactDOMFactories.img({
+        className: 'v-mid',
+        src,
+        title: label,
+        width,
       });
-   };
 
-   CommandChooser.propTypes = {
-      onChange: PropTypes.func.isRequired,
-      commands: PropTypes.array.isRequired,
+      let answer = image;
 
-      clientProps: PropTypes.object,
-      initialCommand: PropTypes.object,
-      panelClass: PropTypes.string,
-   };
-
-   CommandChooser.defaultProps = {
-      clientProps:
-      {},
-      panelClass: "bg-xw-light f6"
-   };
-
-   class DicePanel extends React.Component
-   {
-      render()
-      {
-         const dice = this.props.dice;
-         const sortedDice = R.sort(comparator$1, dice);
-         let count = 0;
-         const mapFunction = diceKey => ReactUtilities.createCell(createImage(diceKey), count++);
-         const cells = R.map(mapFunction, sortedDice);
-         const row = ReactUtilities.createRow(cells);
-
-         return ReactUtilities.createTable(row, undefined, "bg-white center v-mid");
+      if (showLabel) {
+        answer = ReactDOMFactories.span({}, image, ' ', label);
       }
-   }
-
-   const createImage = die =>
-   {
-      const src = Endpoint.ARMADA_IMAGES + die.image;
-
-      return ReactUtilities.createImg(src, undefined, "tc v-mid",
-      {
-         width: 48
-      });
-   };
-
-   const comparator$1 = (a, b) =>
-   {
-      let answer = a.sortOrder - b.sortOrder;
-      answer = ((answer === 0 && a.color > b.color) ? 1 : answer);
-      answer = ((answer === 0 && a.color < b.color) ? -1 : answer);
 
       return answer;
-   };
+    }
+  }
 
-   DicePanel.propTypes = {
-      dice: PropTypes.array
-   };
+  ImageWithLabelUI.propTypes = {
+    src: PropTypes.string.isRequired,
 
-   DicePanel.defaultProps = {
-      dice: []
-   };
+    label: PropTypes.string,
+    showLabel: PropTypes.bool,
+    width: PropTypes.number,
+  };
 
-   class ImageWithLabelUI extends React.Component
-   {
-      render()
-      {
-         const
-         {
-            src,
-            label,
-            showLabel,
-            width
-         } = this.props;
+  ImageWithLabelUI.defaultProps = {
+    label: '',
+    showLabel: false,
+    width: 24,
+  };
 
-         const image = ReactDOMFactories.img(
-         {
-            className: "v-mid",
-            src: src,
-            title: label,
-            width: width
-         });
+  class FactionUI extends React.PureComponent {
+    render() {
+      const { faction, isSmall, resourceBase, showLabel } = this.props;
 
-         let answer = image;
+      const src = resourceBase + faction.image;
+      const size = isSmall ? 24 : 32;
 
-         if (showLabel)
-         {
-            answer = ReactDOMFactories.span(
-            {}, image, " ", label);
-         }
-
-         return answer;
-      }
-   }
-
-   ImageWithLabelUI.propTypes = {
-      src: PropTypes.string.isRequired,
-
-      label: PropTypes.string,
-      showLabel: PropTypes.bool,
-      width: PropTypes.number
-   };
-
-   ImageWithLabelUI.defaultProps = {
-      label: "",
-      showLabel: false,
-      width: 24
-   };
-
-   class FactionUI extends React.Component
-   {
-      render()
-      {
-         const
-         {
-            faction,
-            isSmall,
-            resourceBase,
-            showLabel
-         } = this.props;
-
-         const src = resourceBase + faction.image;
-         const size = (isSmall ? 24 : 32);
-
-         return React.createElement(ImageWithLabelUI,
-         {
-            src: src,
-            label: faction.name,
-            showLabel: showLabel,
-            width: size
-         });
-      }
-   }
-
-   FactionUI.propTypes = {
-      faction: PropTypes.object.isRequired,
-
-      isSmall: PropTypes.bool,
-      resourceBase: PropTypes.string,
-      showLabel: PropTypes.bool
-   };
-
-   FactionUI.defaultProps = {
-      isSmall: false,
-      resourceBase: Endpoint.ARMADA_IMAGES,
-      showLabel: false
-   };
-
-   const ShipImage = {};
-
-   const DEG_TO_RADIANS = Math.PI / 180.0;
-
-   ShipImage.draw = function(context, scale, id, image, position, shipBase, factionColor)
-   {
-      // Setup.
-      const width = shipBase.width;
-      const height = shipBase.height;
-      const halfWidth = Math.ceil(width / 2);
-      const halfHeight = Math.ceil(height / 2);
-
-      context.save();
-      context.scale(scale, scale);
-      context.translate(position.x, position.y);
-      context.rotate(position.heading * DEG_TO_RADIANS);
-
-      // Draw background square.
-      context.fillStyle = "rgba(255,255,255,0.4)";
-      context.fillRect(-halfWidth, -halfHeight, width, height);
-
-      // Draw the firing arcs.
-      context.strokeStyle = factionColor;
-      drawFiringArcs(context, halfWidth, halfHeight);
-
-      // Draw ship image.
-      context.drawImage(image, -image.width / 2, -image.height / 2, image.width, image.height);
-
-      if (id !== undefined)
-      {
-         // Draw the ship ID.
-         context.rotate(90 * DEG_TO_RADIANS);
-         context.fillStyle = factionColor;
-         context.font = "14px sans-serif";
-         context.fillText(id, -halfHeight, halfWidth);
-         context.rotate(-90 * DEG_TO_RADIANS);
-      }
-
-      // Cleanup.
-      context.restore();
-   };
-
-   const drawFiringArcs = (context, halfWidth, halfHeight) =>
-   {
-      // Draw the firing arcs.
-      context.beginPath();
-      context.moveTo(-halfWidth, -halfHeight);
-      context.lineTo(halfWidth, halfHeight);
-      context.moveTo(halfWidth, -halfHeight);
-      context.lineTo(-halfWidth, halfHeight);
-      context.stroke();
-   };
-
-   class StatusBarUI extends React.Component
-   {
-      render()
-      {
-         const
-         {
-            activeShipName,
-            phaseName,
-            round,
-            userMessage,
-            helpBase
-         } = this.props;
-
-         const helpLinkUI = ReactDOMFactories.a(
-         {
-            href: helpBase + "Help.html",
-            target: "_blank",
-         }, "Help");
-
-         let i = 0;
-         const cellClassName = "ba";
-
-         const roundCell = ReactUtilities.createCell(["Round: ", round], i++, cellClassName,
-         {
-            title: "Round"
-         });
-         const phaseCell = ReactUtilities.createCell(["Phase: ", phaseName], i++, cellClassName,
-         {
-            title: "Phase"
-         });
-         const activeShipCell = ReactUtilities.createCell(["Active Ship: ", activeShipName], i++, cellClassName,
-         {
-            title: "Active Ship"
-         });
-         const userMessageCell = ReactUtilities.createCell(userMessage, i++, cellClassName,
-         {
-            title: "User Message"
-         });
-         const helpCell = ReactUtilities.createCell(helpLinkUI, i++, cellClassName);
-
-         const cells = [roundCell, phaseCell, activeShipCell, userMessageCell, helpCell];
-         const row = ReactUtilities.createRow(cells);
-
-         return ReactUtilities.createTable(row, "statusBarUITable", "bg-xw-light collapse ma0 tc v-mid w-100");
-      }
-   }
-
-   StatusBarUI.propTypes = {
-      activeShipName: PropTypes.string.isRequired,
-      phaseName: PropTypes.string.isRequired,
-      round: PropTypes.number.isRequired,
-      userMessage: PropTypes.string.isRequired,
-
-      helpBase: PropTypes.string
-   };
-
-   StatusBarUI.defaultProps = {
-      helpBase: "./"
-   };
-
-   class UpgradeSlotUI extends React.Component
-   {
-      render()
-      {
-         const
-         {
-            upgradeSlot,
-            isSmall,
-            resourceBase,
-            showLabel
-         } = this.props;
-
-         const src = resourceBase + upgradeSlot.image;
-         const size = (isSmall ? 24 : 32);
-
-         return React.createElement(ImageWithLabelUI,
-         {
-            src: src,
-            label: upgradeSlot.name,
-            showLabel: showLabel,
-            width: size
-         });
-      }
-   }
-
-   UpgradeSlotUI.propTypes = {
-      upgradeSlot: PropTypes.object.isRequired,
-
-      isSmall: PropTypes.bool,
-      resourceBase: PropTypes.string,
-      showLabel: PropTypes.bool
-   };
-
-   UpgradeSlotUI.defaultProps = {
-      isSmall: false,
-      resourceBase: Endpoint.ARMADA_IMAGES,
-      showLabel: false
-   };
-
-   class FleetCardsUI extends React.Component
-   {
-      render()
-      {
-         const
-         {
-            shipInstances,
-            squadronInstances,
-            shipToDamages,
-            shipToDefenseInstances,
-            shipToTokenCounts,
-            shipToUpgrades
-         } = this.props;
-
-         let i = 0;
-         const mapFunction0 = shipInstance =>
-         {
-            const element = React.createElement(CardInstanceUI,
-            {
-               cardInstance: shipInstance,
-               damageInstances: shipToDamages[shipInstance.id],
-               defenseInstances: shipToDefenseInstances[shipInstance.id],
-               tokenCounts: shipToTokenCounts[shipInstance.id],
-               upgradeInstances: shipToUpgrades[shipInstance.id]
-            });
-
-            return ReactUtilities.createCell(element, "shipCell" + i++, "alignTop v-top");
-         };
-         const shipCells = R.map(mapFunction0, shipInstances);
-
-         let j = 0;
-         const mapFunction1 = squadronInstance =>
-         {
-            const element = React.createElement(CardInstanceUI,
-            {
-               cardInstance: squadronInstance
-            });
-            return ReactUtilities.createCell(element, "squadronCell" + j++, "alignTop v-top");
-         };
-         const squadronCells = R.map(mapFunction1, squadronInstances);
-
-         const cells = R.concat(shipCells, squadronCells);
-         const row = ReactUtilities.createRow(cells, "fleetCardsUIRow");
-
-         return ReactUtilities.createTable(row, "fleetCardsUITable", "center");
-      }
-   }
-
-   FleetCardsUI.propTypes = {
-      shipInstances: PropTypes.array.isRequired,
-      squadronInstances: PropTypes.array.isRequired,
-
-      shipToDamages: PropTypes.object,
-      shipToDefenseInstances: PropTypes.object,
-      shipToTokenCounts: PropTypes.object,
-      shipToUpgrades: PropTypes.object
-   };
-
-   FleetCardsUI.defaultProps = {
-      shipToDamages:
-      {},
-      shipToDefenseInstances:
-      {},
-      shipToTokenCounts:
-      {},
-      shipToUpgrades:
-      {}
-   };
-
-   const FleetCardsContainer = (gameState, ownProps = {}) =>
-   {
-      const fleetId = ownProps.fleetId;
-      const shipInstances = AS.Selector.shipInstancesByFleet(fleetId, gameState);
-      const shipIds = R.map(shipInstance => shipInstance.id, shipInstances);
-      const reduceFunction0 = (accum, shipId) => R.assoc(shipId, AS.Selector.upgradeInstancesByShip(shipId, gameState), accum);
-      const shipToUpgrades = R.reduce(reduceFunction0,
-      {}, shipIds);
-      const reduceFunction1 = (accum, shipId) => R.assoc(shipId, AS.Selector.criticalInstancesByShip(shipId, gameState), accum);
-      const shipToDamages = R.reduce(reduceFunction1,
-      {}, shipIds);
-      const reduceFunction2 = (accum, shipInstance) => R.assoc(shipInstance.id, AS.Selector.defenseTokenInstancesByShip(shipInstance.id, gameState), accum);
-      const shipToDefenseInstances = R.reduce(reduceFunction2,
-      {}, shipInstances);
-      const reduceFunction3 = (accum, shipInstance) => R.assoc(shipInstance.id, shipInstance.tokenCounts, accum);
-      const shipToTokenCounts = R.reduce(reduceFunction3,
-      {}, shipInstances);
-      const squadronInstances = AS.Selector.squadronInstancesByFleet(fleetId, gameState);
-
-      return React.createElement(FleetCardsUI,
-      {
-         shipInstances: shipInstances,
-         shipToDamages: shipToDamages,
-         shipToDefenseInstances: shipToDefenseInstances,
-         shipToTokenCounts: shipToTokenCounts,
-         shipToUpgrades: shipToUpgrades,
-         squadronInstances: squadronInstances
+      return React.createElement(ImageWithLabelUI, {
+        src,
+        label: faction.name,
+        showLabel,
+        width: size,
       });
-   };
+    }
+  }
 
-   const SquadronImage = {};
+  FactionUI.propTypes = {
+    faction: PropTypes.shape().isRequired,
 
-   const DEG_TO_RADIANS$1 = Math.PI / 180.0;
+    isSmall: PropTypes.bool,
+    resourceBase: PropTypes.string,
+    showLabel: PropTypes.bool,
+  };
 
-   SquadronImage.draw = function(context, scale, id, image, position, factionColor)
-   {
-      // Setup.
-      const width = 35;
-      const height = 35;
-      const halfWidth = Math.ceil(width / 2);
-      const halfHeight = Math.ceil(height / 2);
+  FactionUI.defaultProps = {
+    isSmall: false,
+    resourceBase: Endpoint.ARMADA_IMAGES,
+    showLabel: false,
+  };
 
-      context.save();
-      context.scale(scale, scale);
-      context.translate(position.x, position.y);
-      context.rotate(position.heading * DEG_TO_RADIANS$1);
+  const ShipImage = {};
 
-      // Draw background circle.
-      context.fillStyle = "rgba(255,255,255,0.4)";
+  const DEG_TO_RADIANS = Math.PI / 180.0;
+
+  const drawFiringArcs = (context, halfWidth, halfHeight) => {
+    // Draw the firing arcs.
+    context.beginPath();
+    context.moveTo(-halfWidth, -halfHeight);
+    context.lineTo(halfWidth, halfHeight);
+    context.moveTo(halfWidth, -halfHeight);
+    context.lineTo(-halfWidth, halfHeight);
+    context.stroke();
+  };
+
+  ShipImage.draw = (context0, scale, id, image, position, shipBase, factionColor) => {
+    // Setup.
+    const { height, width } = shipBase;
+    const halfWidth = Math.ceil(width / 2);
+    const halfHeight = Math.ceil(height / 2);
+
+    const context = context0;
+    context.save();
+    context.scale(scale, scale);
+    context.translate(position.x, position.y);
+    context.rotate(position.heading * DEG_TO_RADIANS);
+
+    // Draw background square.
+    context.fillStyle = 'rgba(255,255,255,0.4)';
+    context.fillRect(-halfWidth, -halfHeight, width, height);
+
+    // Draw the firing arcs.
+    context.strokeStyle = factionColor;
+    drawFiringArcs(context, halfWidth, halfHeight);
+
+    // Draw ship image.
+    context.drawImage(image, -image.width / 2, -image.height / 2, image.width, image.height);
+
+    if (id !== undefined) {
+      // Draw the ship ID.
+      context.rotate(90 * DEG_TO_RADIANS);
+      context.fillStyle = factionColor;
+      context.font = '14px sans-serif';
+      context.fillText(id, -halfHeight, halfWidth);
+      context.rotate(-90 * DEG_TO_RADIANS);
+    }
+
+    // Cleanup.
+    context.restore();
+  };
+
+  class StatusBarUI extends React.PureComponent {
+    render() {
+      const { activeShipName, phaseName, round, userMessage, helpBase } = this.props;
+
+      const helpLinkUI = ReactDOMFactories.a(
+        {
+          href: `${helpBase}Help.html`,
+          target: '_blank',
+        },
+        'Help',
+      );
+
+      const cellClassName = 'ba';
+
+      const roundCell = ReactUtilities.createCell(['Round: ', round], 0, cellClassName, {
+        title: 'Round',
+      });
+      const phaseCell = ReactUtilities.createCell(['Phase: ', phaseName], 1, cellClassName, {
+        title: 'Phase',
+      });
+      const activeShipCell = ReactUtilities.createCell(
+        ['Active Ship: ', activeShipName],
+        2,
+        cellClassName,
+        {
+          title: 'Active Ship',
+        },
+      );
+      const userMessageCell = ReactUtilities.createCell(userMessage, 3, cellClassName, {
+        title: 'User Message',
+      });
+      const helpCell = ReactUtilities.createCell(helpLinkUI, 4, cellClassName);
+
+      const cells = [roundCell, phaseCell, activeShipCell, userMessageCell, helpCell];
+      const row = ReactUtilities.createRow(cells);
+
+      return ReactUtilities.createTable(
+        row,
+        'statusBarUITable',
+        'bg-xw-light collapse ma0 tc v-mid w-100',
+      );
+    }
+  }
+
+  StatusBarUI.propTypes = {
+    activeShipName: PropTypes.string.isRequired,
+    phaseName: PropTypes.string.isRequired,
+    round: PropTypes.number.isRequired,
+    userMessage: PropTypes.string.isRequired,
+
+    helpBase: PropTypes.string,
+  };
+
+  StatusBarUI.defaultProps = {
+    helpBase: './',
+  };
+
+  class UpgradeSlotUI extends React.PureComponent {
+    render() {
+      const { upgradeSlot, isSmall, resourceBase, showLabel } = this.props;
+
+      const src = resourceBase + upgradeSlot.image;
+      const size = isSmall ? 24 : 32;
+
+      return React.createElement(ImageWithLabelUI, {
+        src,
+        label: upgradeSlot.name,
+        showLabel,
+        width: size,
+      });
+    }
+  }
+
+  UpgradeSlotUI.propTypes = {
+    upgradeSlot: PropTypes.shape().isRequired,
+
+    isSmall: PropTypes.bool,
+    resourceBase: PropTypes.string,
+    showLabel: PropTypes.bool,
+  };
+
+  UpgradeSlotUI.defaultProps = {
+    isSmall: false,
+    resourceBase: Endpoint.ARMADA_IMAGES,
+    showLabel: false,
+  };
+
+  class FleetCardsUI extends React.PureComponent {
+    render() {
+      const {
+        shipInstances,
+        squadronInstances,
+        shipToDamages,
+        shipToDefenseInstances,
+        shipToTokenCounts,
+        shipToUpgrades,
+      } = this.props;
+
+      let i = 0;
+      const mapFunction0 = shipInstance => {
+        const element = React.createElement(CardInstanceUI, {
+          cardInstance: shipInstance,
+          damageInstances: shipToDamages[shipInstance.id],
+          defenseInstances: shipToDefenseInstances[shipInstance.id],
+          tokenCounts: shipToTokenCounts[shipInstance.id],
+          upgradeInstances: shipToUpgrades[shipInstance.id],
+        });
+
+        i += 1;
+
+        return ReactUtilities.createCell(element, `shipCell${i}`, 'alignTop v-top');
+      };
+      const shipCells = R.map(mapFunction0, shipInstances);
+
+      let j = 0;
+      const mapFunction1 = squadronInstance => {
+        const element = React.createElement(CardInstanceUI, {
+          cardInstance: squadronInstance,
+        });
+
+        j += 1;
+
+        return ReactUtilities.createCell(element, `squadronCell${j}`, 'alignTop v-top');
+      };
+      const squadronCells = R.map(mapFunction1, squadronInstances);
+
+      const cells = R.concat(shipCells, squadronCells);
+      const row = ReactUtilities.createRow(cells, 'fleetCardsUIRow');
+
+      return ReactUtilities.createTable(row, 'fleetCardsUITable', 'center');
+    }
+  }
+
+  FleetCardsUI.propTypes = {
+    shipInstances: PropTypes.arrayOf(PropTypes.instanceOf(AS.ShipState)).isRequired,
+    squadronInstances: PropTypes.arrayOf(PropTypes.instanceOf(AS.SquadronState)).isRequired,
+
+    shipToDamages: PropTypes.shape(),
+    shipToDefenseInstances: PropTypes.shape(),
+    shipToTokenCounts: PropTypes.shape(),
+    shipToUpgrades: PropTypes.shape(),
+  };
+
+  FleetCardsUI.defaultProps = {
+    shipToDamages: {},
+    shipToDefenseInstances: {},
+    shipToTokenCounts: {},
+    shipToUpgrades: {},
+  };
+
+  const FleetCardsContainer = (gameState, ownProps = {}) => {
+    const { fleetId } = ownProps;
+    const shipInstances = AS.Selector.shipInstancesByFleet(fleetId, gameState);
+    const shipIds = R.map(shipInstance => shipInstance.id, shipInstances);
+    const reduceFunction0 = (accum, shipId) =>
+      R.assoc(shipId, AS.Selector.upgradeInstancesByShip(shipId, gameState), accum);
+    const shipToUpgrades = R.reduce(reduceFunction0, {}, shipIds);
+    const reduceFunction1 = (accum, shipId) =>
+      R.assoc(shipId, AS.Selector.criticalInstancesByShip(shipId, gameState), accum);
+    const shipToDamages = R.reduce(reduceFunction1, {}, shipIds);
+    const reduceFunction2 = (accum, shipInstance) =>
+      R.assoc(
+        shipInstance.id,
+        AS.Selector.defenseTokenInstancesByShip(shipInstance.id, gameState),
+        accum,
+      );
+    const shipToDefenseInstances = R.reduce(reduceFunction2, {}, shipInstances);
+    const reduceFunction3 = (accum, shipInstance) =>
+      R.assoc(shipInstance.id, shipInstance.tokenCounts, accum);
+    const shipToTokenCounts = R.reduce(reduceFunction3, {}, shipInstances);
+    const squadronInstances = AS.Selector.squadronInstancesByFleet(fleetId, gameState);
+
+    return React.createElement(FleetCardsUI, {
+      shipInstances,
+      shipToDamages,
+      shipToDefenseInstances,
+      shipToTokenCounts,
+      shipToUpgrades,
+      squadronInstances,
+    });
+  };
+
+  const SquadronImage = {};
+
+  const DEG_TO_RADIANS$1 = Math.PI / 180.0;
+
+  SquadronImage.draw = (context0, scale, id, image, position, factionColor) => {
+    // Setup.
+    const width = 35;
+    const height = 35;
+    const halfWidth = Math.ceil(width / 2);
+    const halfHeight = Math.ceil(height / 2);
+
+    const context = context0;
+    context.save();
+    context.scale(scale, scale);
+    context.translate(position.x, position.y);
+    context.rotate(position.heading * DEG_TO_RADIANS$1);
+
+    // Draw background circle.
+    context.fillStyle = 'rgba(255,255,255,0.4)';
+    context.beginPath();
+    context.arc(0, 0, halfWidth, 0, 2 * Math.PI);
+    context.fill();
+
+    // Draw ship image.
+    context.drawImage(image, -image.width / 2, -image.height / 2, image.width, image.height);
+
+    if (id !== undefined) {
+      // Draw the ship ID.
+      context.rotate(90 * DEG_TO_RADIANS$1);
+      context.fillStyle = factionColor;
+      context.font = '14px sans-serif';
+      context.fillText(id, -halfHeight, halfWidth);
+      context.rotate(-90 * DEG_TO_RADIANS$1);
+    }
+
+    // Cleanup.
+    context.restore();
+  };
+
+  // const createExplosionImage = () => {
+  //   const image = new Image();
+  //   image.src = `${Endpoint.LOCAL_RESOURCE}ship/explosion.png`;
+  //
+  //   return image;
+  // };
+
+  const paintPathComponent = (path, context0, strokeStyle) => {
+    if (path.length >= 2) {
+      const context = context0;
       context.beginPath();
-      context.arc(0, 0, halfWidth, 0, 2 * Math.PI);
-      context.fill();
+      context.moveTo(path[0], path[1]);
 
-      // Draw ship image.
-      context.drawImage(image, -image.width / 2, -image.height / 2, image.width, image.height);
-
-      if (id !== undefined)
-      {
-         // Draw the ship ID.
-         context.rotate(90 * DEG_TO_RADIANS$1);
-         context.fillStyle = factionColor;
-         context.font = "14px sans-serif";
-         context.fillText(id, -halfHeight, halfWidth);
-         context.rotate(-90 * DEG_TO_RADIANS$1);
+      for (let i = 2; i < path.length; i += 2) {
+        context.lineTo(path[i], path[i + 1]);
       }
 
-      // Cleanup.
-      context.restore();
-   };
+      context.strokeStyle = strokeStyle;
+      context.stroke();
+    }
+  };
 
-   class PlayAreaUI extends React.Component
-   {
-      constructor(props)
-      {
-         super(props);
+  class PlayAreaUI extends React.Component {
+    constructor(props) {
+      super(props);
 
-         this.explosionImage = undefined;
-         this.factionShipToImage = {};
-         this.factionSquadronToImage = {};
-      }
+      this.explosionImage = undefined;
+      this.factionShipToImage = {};
+      this.factionSquadronToImage = {};
+    }
 
-      componentDidMount()
-      {
-         this.loadImages();
-         this.paint();
-      }
+    componentDidMount() {
+      this.loadImages();
+      this.paint();
+    }
 
-      componentDidUpdate()
-      {
-         this.paint();
-      }
+    componentDidUpdate() {
+      this.paint();
+    }
 
-      render()
-      {
-         const
-         {
-            height,
-            image,
-            resourceBase,
-            scale,
-            width
-         } = this.props;
-
-         const imageSrc = resourceBase + image;
-
-         return ReactDOMFactories.canvas(
-         {
-            id: "playAreaCanvas",
-            style:
-            {
-               backgroundImage: "url(" + imageSrc + ")",
-               backgroundSize: "100%",
-            },
-            width: scale * width,
-            height: scale * height
-         });
-      }
-   }
-
-   PlayAreaUI.prototype.createExplosionImage = function()
-   {
+    createShipIcon(faction, shipCard) {
       const image = new Image();
-      image.src = Endpoint.LOCAL_RESOURCE + "ship/explosion.png";
+      image.onload = () => this.forceUpdate();
 
-      return image;
-   };
-
-   PlayAreaUI.prototype.createShipIcon = function(faction, shipCard)
-   {
-      const image = new Image();
-      image.onload = function()
-      {
-         this.forceUpdate();
-      }.bind(this);
-
-      const filename = shipCard["ship-image"];
+      const filename = shipCard['ship-image'];
       image.src = Endpoint.ARMADA_IMAGES + filename;
 
       return image;
-   };
+    }
 
-   PlayAreaUI.prototype.createSquadronIcon = function(faction, squadronCard)
-   {
+    createSquadronIcon(faction, squadronCard) {
       const image = new Image();
-      image.onload = function()
-      {
-         this.forceUpdate();
-      }.bind(this);
+      image.onload = () => this.forceUpdate();
 
-      const filename = squadronCard["squadron-image"];
+      const filename = squadronCard['squadron-image'];
       image.src = Endpoint.ARMADA_IMAGES + filename;
 
       return image;
-   };
+    }
 
-   PlayAreaUI.prototype.drawExplosion = function(context)
-   {
-      const
-      {
-         explosion,
-         scale
-      } = this.props;
+    drawExplosion(context) {
+      const { explosion, scale } = this.props;
 
-      if (explosion)
-      {
-         const position = explosion.position;
-         const size = explosion.size;
-         const audioClip = document.getElementById("explosionAudio");
+      if (explosion) {
+        const { position, size } = explosion;
+        const audioClip = document.getElementById('explosionAudio');
 
-         const x = position.x;
-         const y = position.y;
-         const width = size;
-         const height = size;
+        const { x, y } = position;
+        const width = size;
+        const height = size;
 
-         context.save();
-         context.scale(scale, scale);
-         context.translate(x, y);
-         context.drawImage(this.explosionImage, -width / 2, -height / 2, width, height);
+        context.save();
+        context.scale(scale, scale);
+        context.translate(x, y);
+        context.drawImage(this.explosionImage, -width / 2, -height / 2, width, height);
 
-         audioClip.play();
+        audioClip.play();
 
-         // Cleanup.
-         context.restore();
+        // Cleanup.
+        context.restore();
       }
-   };
+    }
 
-   PlayAreaUI.prototype.drawLaserBeam = function(context)
-   {
-      const
-      {
-         laserBeam,
-         scale
-      } = this.props;
+    drawLaserBeam(context0) {
+      const { laserBeam, scale } = this.props;
 
-      if (laserBeam)
-      {
-         const audioClip = laserBeam.audioClip;
-         const color = laserBeam.color;
-         const fromPosition = laserBeam.fromPosition;
-         const isPrimary = laserBeam.isPrimary;
-         const toPosition = laserBeam.toPosition;
+      if (laserBeam) {
+        const { audioClip, color, fromPosition, isPrimary, toPosition } = laserBeam;
 
-         context.save();
-         context.scale(scale, scale);
-         context.lineWidth = 3;
-         context.strokeStyle = color;
+        const context = context0;
+        context.save();
+        context.scale(scale, scale);
+        context.lineWidth = 3;
+        context.strokeStyle = color;
 
-         if (!isPrimary)
-         {
-            const lineDashSegments = [10, 5];
-            context.setLineDash(lineDashSegments);
-         }
+        if (!isPrimary) {
+          const lineDashSegments = [10, 5];
+          context.setLineDash(lineDashSegments);
+        }
 
-         context.beginPath();
-         context.moveTo(fromPosition.x, fromPosition.y);
-         context.lineTo(toPosition.x, toPosition.y);
-         context.stroke();
+        context.beginPath();
+        context.moveTo(fromPosition.x, fromPosition.y);
+        context.lineTo(toPosition.x, toPosition.y);
+        context.stroke();
 
-         if (audioClip)
-         {
-            audioClip.play();
-         }
+        if (audioClip) {
+          audioClip.play();
+        }
 
-         // Cleanup.
-         context.restore();
+        // Cleanup.
+        context.restore();
       }
-   };
+    }
 
-   PlayAreaUI.FOREGROUND_COLOR = "white";
-   PlayAreaUI.EASY_COLOR = "lime";
-   PlayAreaUI.HARD_COLOR = "red";
+    drawManeuver(context0) {
+      const { maneuver, scale } = this.props;
 
-   PlayAreaUI.prototype.drawManeuver = function(context)
-   {
-      const
-      {
-         maneuver,
-         scale
-      } = this.props;
+      if (maneuver) {
+        const context = context0;
+        context.save();
+        context.scale(scale, scale);
 
-      if (maneuver)
-      {
-         context.save();
-         context.scale(scale, scale);
+        // Mark the center.
+        context.fillStyle = PlayAreaUI.FOREGROUND_COLOR;
+        const radius = 4;
+        context.beginPath();
+        context.arc(maneuver.fromPosition.x, maneuver.fromPosition.y, radius, 0, 2 * Math.PI);
+        context.fill();
 
-         // Mark the center.
-         context.fillStyle = PlayAreaUI.FOREGROUND_COLOR;
-         const radius = 4;
-         context.beginPath();
-         context.arc(maneuver.fromPosition.x, maneuver.fromPosition.y, radius, 0, 2 * Math.PI);
-         context.fill();
+        // Draw from ship base.
+        paintPathComponent(maneuver.fromPolygon, context, PlayAreaUI.FOREGROUND_COLOR);
 
-         // Draw from ship base.
-         paintPathComponent(maneuver.fromPolygon, context, PlayAreaUI.FOREGROUND_COLOR);
+        if (maneuver.toPolygon) {
+          // Draw to ship base.
+          paintPathComponent(maneuver.toPolygon, context, PlayAreaUI.FOREGROUND_COLOR);
+        }
 
-         if (maneuver.toPolygon)
-         {
-            // Draw to ship base.
-            paintPathComponent(maneuver.toPolygon, context, PlayAreaUI.FOREGROUND_COLOR);
-         }
+        // Draw maneuver path.
+        paintPathComponent(maneuver.path, context, maneuver.color);
 
-         // Draw maneuver path.
-         paintPathComponent(maneuver.path, context, maneuver.color);
-
-         // Cleanup.
-         context.restore();
+        // Cleanup.
+        context.restore();
       }
-   };
+    }
 
-   PlayAreaUI.prototype.drawShips = function(context)
-   {
-      const
-      {
-         scale,
-         shipInstances
-      } = this.props;
+    drawShips(context) {
+      const { scale, shipInstances } = this.props;
 
-      Object.values(shipInstances).forEach(shipInstance =>
-      {
-         const id = shipInstance.id;
-         const shipKey = shipInstance.shipKey;
-         const faction = AA.Selector.factionValueByShip(shipKey);
-         const image = this.factionShipToImage[faction.key + "|" + shipKey];
-         const position = shipInstance.position;
-         const shipBase = AA.Selector.shipBaseValueByShip(shipKey);
-         const factionColor = faction.color;
+      Object.values(shipInstances).forEach(shipInstance => {
+        const { id, position, shipKey } = shipInstance;
+        const faction = AA.Selector.factionValueByShip(shipKey);
+        const image = this.factionShipToImage[`${faction.key}|${shipKey}`];
+        const shipBase = AA.Selector.shipBaseValueByShip(shipKey);
+        const factionColor = faction.color;
 
-         ShipImage.draw(context, scale, id, image, position, shipBase, factionColor);
+        ShipImage.draw(context, scale, id, image, position, shipBase, factionColor);
       }, this);
-   };
+    }
 
-   PlayAreaUI.prototype.drawSquadrons = function(context)
-   {
-      const
-      {
-         scale,
-         squadronInstances
-      } = this.props;
+    drawSquadrons(context) {
+      const { scale, squadronInstances } = this.props;
 
-      Object.values(squadronInstances).forEach(squadronInstance =>
-      {
-         const id = squadronInstance.id;
-         const squadronKey = squadronInstance.squadronKey;
-         const faction = AA.Selector.factionValueBySquadron(squadronKey);
-         const image = this.factionSquadronToImage[faction.key + "|" + squadronKey];
-         const position = squadronInstance.position;
-         const factionColor = faction.color;
+      Object.values(squadronInstances).forEach(squadronInstance => {
+        const { id, position, squadronKey } = squadronInstance;
+        const faction = AA.Selector.factionValueBySquadron(squadronKey);
+        const image = this.factionSquadronToImage[`${faction.key}|${squadronKey}`];
+        const factionColor = faction.color;
 
-         SquadronImage.draw(context, scale, id, image, position, factionColor);
+        SquadronImage.draw(context, scale, id, image, position, factionColor);
       }, this);
-   };
+    }
 
-   PlayAreaUI.prototype.loadImages = function()
-   {
-      const
-      {
-         shipInstances,
-         squadronInstances
-      } = this.props;
+    loadImages() {
+      const { shipInstances, squadronInstances } = this.props;
 
       const factionShips = [];
 
-      shipInstances.forEach(shipInstance =>
-      {
-         const shipKey = shipInstance.shipKey;
-         const faction = AA.Selector.factionValueByShip(shipKey);
-         const factionShip = faction.key + "|" + shipKey;
-         if (!factionShips.includes(factionShip))
-         {
-            factionShips.push(factionShip);
-         }
+      shipInstances.forEach(shipInstance => {
+        const { shipKey } = shipInstance;
+        const faction = AA.Selector.factionValueByShip(shipKey);
+        const factionShip = `${faction.key}|${shipKey}`;
+        if (!factionShips.includes(factionShip)) {
+          factionShips.push(factionShip);
+        }
       });
 
-      for (let i = 0; i < factionShips.length; i++)
-      {
-         const factionShip = factionShips[i];
-         const faction = AA.Selector.faction(factionShip.split("|")[0]);
-         const shipCard = AA.Selector.shipCard(factionShip.split("|")[1]);
-         this.factionShipToImage[factionShip] = this.createShipIcon(faction, shipCard);
+      for (let i = 0; i < factionShips.length; i += 1) {
+        const factionShip = factionShips[i];
+        const faction = AA.Selector.faction(factionShip.split('|')[0]);
+        const shipCard = AA.Selector.shipCard(factionShip.split('|')[1]);
+        this.factionShipToImage[factionShip] = this.createShipIcon(faction, shipCard);
       }
 
       const factionSquadrons = [];
 
-      squadronInstances.forEach(squadronInstance =>
-      {
-         const squadronKey = squadronInstance.squadronKey;
-         const faction = AA.Selector.factionValueBySquadron(squadronKey);
-         const factionSquadron = faction.key + "|" + squadronKey;
-         if (!factionSquadrons.includes(factionSquadron))
-         {
-            factionSquadrons.push(factionSquadron);
-         }
+      squadronInstances.forEach(squadronInstance => {
+        const { squadronKey } = squadronInstance;
+        const faction = AA.Selector.factionValueBySquadron(squadronKey);
+        const factionSquadron = `${faction.key}|${squadronKey}`;
+        if (!factionSquadrons.includes(factionSquadron)) {
+          factionSquadrons.push(factionSquadron);
+        }
       });
 
-      for (let i = 0; i < factionSquadrons.length; i++)
-      {
-         const factionSquadron = factionSquadrons[i];
-         const faction = AA.Selector.faction(factionSquadron.split("|")[0]);
-         const squadronCard = AA.Selector.squadronCard(factionSquadron.split("|")[1]);
-         this.factionSquadronToImage[factionSquadron] = this.createSquadronIcon(faction, squadronCard);
+      for (let i = 0; i < factionSquadrons.length; i += 1) {
+        const factionSquadron = factionSquadrons[i];
+        const faction = AA.Selector.faction(factionSquadron.split('|')[0]);
+        const squadronCard = AA.Selector.squadronCard(factionSquadron.split('|')[1]);
+        this.factionSquadronToImage[factionSquadron] = this.createSquadronIcon(faction, squadronCard);
       }
 
       // this.explosionImage = this.createExplosionImage();
-   };
+    }
 
-   PlayAreaUI.prototype.paint = function()
-   {
-      const
-      {
-         height,
-         scale,
-         width
-      } = this.props;
+    paint() {
+      const { height, scale, width } = this.props;
 
-      const canvas = document.getElementById("playAreaCanvas");
-      const context = canvas.getContext("2d");
+      const canvas = document.getElementById('playAreaCanvas');
+      const context = canvas.getContext('2d');
 
       context.clearRect(0, 0, scale * width, scale * height);
 
@@ -1558,150 +1346,149 @@
       this.drawManeuver(context);
       this.drawLaserBeam(context);
       this.drawExplosion(context);
-   };
+    }
 
-   const paintPathComponent = function(path, context, strokeStyle)
-   {
-      if (path.length >= 2)
-      {
-         context.beginPath();
-         context.moveTo(path[0], path[1]);
+    render() {
+      const { height, image, resourceBase, scale, width } = this.props;
 
-         for (let i = 2; i < path.length; i += 2)
-         {
-            context.lineTo(path[i], path[i + 1]);
-         }
+      const imageSrc = resourceBase + image;
 
-         context.strokeStyle = strokeStyle;
-         context.stroke();
-      }
-   };
-
-   PlayAreaUI.propTypes = {
-      shipInstances: PropTypes.object.isRequired,
-      squadronInstances: PropTypes.object.isRequired,
-
-      height: PropTypes.number,
-      image: PropTypes.string,
-      resourceBase: PropTypes.string,
-      scale: PropTypes.number,
-      width: PropTypes.number,
-
-      explosion: PropTypes.object,
-      laserBeam: PropTypes.object,
-      maneuver: PropTypes.object
-   };
-
-   PlayAreaUI.defaultProps = {
-      height: 915,
-      image: "background/horsehead_nebula_02092008.jpg",
-      resourceBase: Endpoint.LOCAL_RESOURCE,
-      scale: 1.0,
-      width: 1830
-   };
-
-   const PlayAreaContainer = (gameState, ownProps = {}) =>
-   {
-      const playFormatKey = AS.Selector.playFormatKey(gameState);
-      const playFormat = AA.Selector.playFormat(playFormatKey);
-      const image = "background/" + (playFormat.key === AA.PlayFormat.STANDARD ? "horsehead_nebula_02092008.jpg" : "pia13845.jpg");
-      const scale = (ownProps.scale !== undefined ? ownProps.scale : 1.0);
-
-      // const displayExplosion = gameState.displayExplosion;
-      // const displayLaserBeam = gameState.displayLaserBeam;
-      // const displayManeuver = gameState.displayManeuver;
-
-      return React.createElement(PlayAreaUI,
-      {
-         height: playFormat.height,
-         image: image,
-         resourceBase: ownProps.resourceBase,
-         scale: scale,
-         shipInstances: Object.values(gameState.shipInstances),
-         squadronInstances: Object.values(gameState.squadronInstances),
-         width: playFormat.width,
-
-         // explosion: displayExplosion,
-         // laserBeam: laserBeam,
-         // maneuver: displayManeuver
+      return ReactDOMFactories.canvas({
+        id: 'playAreaCanvas',
+        style: {
+          backgroundImage: `url(${imageSrc})`,
+          backgroundSize: '100%',
+        },
+        width: scale * width,
+        height: scale * height,
       });
-   };
+    }
+  }
 
-   const StatusBarContainer = (gameState, ownProps = {}) =>
-   {
-      const activeShipId = gameState.activeShipId;
-      const shipInstance = (activeShipId !== undefined ? AS.Selector.shipInstance(activeShipId, gameState) : undefined);
-      const shipCard = (shipInstance !== undefined ? AA.Selector.shipCard(shipInstance.shipKey) : undefined);
-      const activeShipName = (shipCard !== undefined ? shipCard.name : "");
-      const phaseName = AA.Selector.phase(gameState.phaseKey).name;
-      const round = AS.Selector.round(gameState);
-      const userMessage = AS.Selector.userMessage(gameState);
+  PlayAreaUI.FOREGROUND_COLOR = 'white';
+  PlayAreaUI.EASY_COLOR = 'lime';
+  PlayAreaUI.HARD_COLOR = 'red';
 
-      return React.createElement(StatusBarUI,
-      {
-         activeShipName: activeShipName,
-         phaseName: phaseName,
-         round: round,
-         userMessage: userMessage,
-         helpBase: ownProps.helpBase
-      });
-   };
+  PlayAreaUI.propTypes = {
+    shipInstances: PropTypes.shape().isRequired,
+    squadronInstances: PropTypes.shape().isRequired,
 
-   const StarWarsArmadaView = {};
+    height: PropTypes.number,
+    image: PropTypes.string,
+    resourceBase: PropTypes.string,
+    scale: PropTypes.number,
+    width: PropTypes.number,
 
-   StarWarsArmadaView.drawView = (
-   {
-      gameState,
-      document,
-      resourceBase = "../resource/"
-   }) =>
-   {
-      const statusBarContainer = StatusBarContainer(gameState);
-      ReactDOM.render(statusBarContainer, document.getElementById("statusBarContainer"));
+    explosion: PropTypes.shape(),
+    laserBeam: PropTypes.shape(),
+    maneuver: PropTypes.shape(),
+  };
 
-      const fleetArea1 = FleetCardsContainer(gameState,
-      {
-         fleetId: 1
-      });
-      ReactDOM.render(fleetArea1, document.getElementById("fleetArea1"));
+  PlayAreaUI.defaultProps = {
+    height: 915,
+    image: 'background/horsehead_nebula_02092008.jpg',
+    resourceBase: Endpoint.LOCAL_RESOURCE,
+    scale: 1.0,
+    width: 1830,
 
-      // FIXME: display firstPilotInputArea
+    explosion: undefined,
+    laserBeam: undefined,
+    maneuver: undefined,
+  };
 
-      const playAreaContainer = PlayAreaContainer(gameState,
-      {
-         resourceBase: resourceBase
-      });
-      ReactDOM.render(playAreaContainer, document.getElementById("playAreaContainer"));
+  const PlayAreaContainer = (gameState, ownProps = {}) => {
+    const playFormatKey = AS.Selector.playFormatKey(gameState);
+    const playFormat = AA.Selector.playFormat(playFormatKey);
+    const image = `background/${
+    playFormat.key === AA.PlayFormat.STANDARD ? 'horsehead_nebula_02092008.jpg' : 'pia13845.jpg'
+  }`;
+    const scale = ownProps.scale !== undefined ? ownProps.scale : 1.0;
 
-      // FIXME: display secondPilotInputArea
+    // const displayExplosion = gameState.displayExplosion;
+    // const displayLaserBeam = gameState.displayLaserBeam;
+    // const displayManeuver = gameState.displayManeuver;
 
-      const fleetArea2 = FleetCardsContainer(gameState,
-      {
-         fleetId: 2
-      });
-      ReactDOM.render(fleetArea2, document.getElementById("fleetArea2"));
-   };
+    return React.createElement(PlayAreaUI, {
+      height: playFormat.height,
+      image,
+      resourceBase: ownProps.resourceBase,
+      scale,
+      shipInstances: Object.values(gameState.shipInstances),
+      squadronInstances: Object.values(gameState.squadronInstances),
+      width: playFormat.width,
 
-   exports.CardImage = CardImage;
-   exports.CardInstancesArea = CardInstancesArea;
-   exports.CardInstanceUI = CardInstanceUI;
-   exports.CommandChooser = CommandChooser;
-   exports.CommandUI = CommandUI;
-   exports.DefenseTokenUI = DefenseTokenUI;
-   exports.DicePanel = DicePanel;
-   exports.FactionUI = FactionUI;
-   exports.ImageWithLabelUI = ImageWithLabelUI;
-   exports.ShipImage = ShipImage;
-   exports.StatusBarUI = StatusBarUI;
-   exports.TokenPanel = TokenPanel;
-   exports.UpgradeSlotUI = UpgradeSlotUI;
-   exports.FleetCardsContainer = FleetCardsContainer;
-   exports.PlayAreaContainer = PlayAreaContainer;
-   exports.StatusBarContainer = StatusBarContainer;
-   exports.Endpoint = Endpoint;
-   exports.ReactUtilities = ReactUtilities;
-   exports.StarWarsArmadaView = StarWarsArmadaView;
+      // explosion: displayExplosion,
+      // laserBeam: laserBeam,
+      // maneuver: displayManeuver
+    });
+  };
 
-   Object.defineProperty(exports, '__esModule', { value: true });
+  const StatusBarContainer = (gameState, ownProps = {}) => {
+    const { activeShipId } = gameState;
+    const shipInstance =
+      activeShipId !== undefined ? AS.Selector.shipInstance(activeShipId, gameState) : undefined;
+    const shipCard =
+      shipInstance !== undefined ? AA.Selector.shipCard(shipInstance.shipKey) : undefined;
+    const activeShipName = shipCard !== undefined ? shipCard.name : '';
+    const phaseName = AA.Selector.phase(gameState.phaseKey).name;
+    const round = AS.Selector.round(gameState);
+    const userMessage = AS.Selector.userMessage(gameState);
+
+    return React.createElement(StatusBarUI, {
+      activeShipName,
+      phaseName,
+      round,
+      userMessage,
+      helpBase: ownProps.helpBase,
+    });
+  };
+
+  const StarWarsArmadaView = {};
+
+  StarWarsArmadaView.drawView = ({ gameState, document, resourceBase = '../resource/' }) => {
+    const statusBarContainer = StatusBarContainer(gameState);
+    ReactDOM.render(statusBarContainer, document.getElementById('statusBarContainer'));
+
+    const fleetArea1 = FleetCardsContainer(gameState, {
+      fleetId: 1,
+    });
+    ReactDOM.render(fleetArea1, document.getElementById('fleetArea1'));
+
+    // FIXME: display firstPilotInputArea
+
+    const playAreaContainer = PlayAreaContainer(gameState, {
+      resourceBase,
+    });
+    ReactDOM.render(playAreaContainer, document.getElementById('playAreaContainer'));
+
+    // FIXME: display secondPilotInputArea
+
+    const fleetArea2 = FleetCardsContainer(gameState, {
+      fleetId: 2,
+    });
+    ReactDOM.render(fleetArea2, document.getElementById('fleetArea2'));
+  };
+
+  exports.CardImage = CardImage;
+  exports.CardInstancesArea = CardInstancesArea;
+  exports.CardInstanceUI = CardInstanceUI;
+  exports.CommandChooser = CommandChooser;
+  exports.CommandUI = CommandUI;
+  exports.DefenseTokenUI = DefenseTokenUI;
+  exports.DicePanel = DicePanel;
+  exports.FactionUI = FactionUI;
+  exports.ImageWithLabelUI = ImageWithLabelUI;
+  exports.ShipImage = ShipImage;
+  exports.StatusBarUI = StatusBarUI;
+  exports.TokenPanel = TokenPanel;
+  exports.UpgradeSlotUI = UpgradeSlotUI;
+  exports.FleetCardsContainer = FleetCardsContainer;
+  exports.PlayAreaContainer = PlayAreaContainer;
+  exports.StatusBarContainer = StatusBarContainer;
+  exports.Endpoint = Endpoint;
+  exports.ReactUtilities = ReactUtilities;
+  exports.StarWarsArmadaView = StarWarsArmadaView;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
