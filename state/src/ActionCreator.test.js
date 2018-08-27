@@ -1,588 +1,546 @@
-import ActionCreator from "./ActionCreator.js";
-import ActionType from "./ActionType.js";
-import AgentQueryState from "./AgentQueryState.js";
-import AgentResponseState from "./AgentResponseState.js";
-import PositionState from "./PositionState.js";
+import ActionCreator from './ActionCreator.js';
+import ActionType from './ActionType.js';
+import AgentQueryState from './AgentQueryState.js';
+import AgentResponseState from './AgentResponseState.js';
+import PositionState from './PositionState.js';
 
-QUnit.module("ActionCreator");
+QUnit.module('ActionCreator');
 
-QUnit.test("all action types", function(assert)
-{
-   // Setup.
-   const actionTypeKeys = Object.getOwnPropertyNames(ActionType);
-   assert.equal(actionTypeKeys.length, 51);
+QUnit.test('all action types', assert => {
+  // Setup.
+  const actionTypeKeys = Object.getOwnPropertyNames(ActionType);
+  assert.equal(actionTypeKeys.length, 51);
 
-   // Run / Verify.
-   actionTypeKeys.forEach(key =>
-   {
-      assert.ok(ActionCreator[ActionType[key]], "actionType = " + key + " " + ActionType[key]);
-   });
+  // Run / Verify.
+  actionTypeKeys.forEach(key => {
+    assert.ok(ActionCreator[ActionType[key]], `actionType = ${key} ${ActionType[key]}`);
+  });
 });
 
-QUnit.test("addShipTokenCount()", function(assert)
-{
-   // Setup.
-   const shipId = 3;
-   const tokenKey = "evade";
-   const value = 12;
+QUnit.test('addShipTokenCount()', assert => {
+  // Setup.
+  const shipId = 3;
+  const tokenKey = 'evade';
+  const value = 12;
 
-   // Run.
-   const result = ActionCreator.addShipTokenCount(shipId, tokenKey, value);
+  // Run.
+  const result = ActionCreator.addShipTokenCount(shipId, tokenKey, value);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.ADD_SHIP_TOKEN_COUNT);
-   assert.equal(result.shipId, shipId);
-   assert.equal(result.tokenKey, tokenKey);
-   assert.equal(result.value, value);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.ADD_SHIP_TOKEN_COUNT);
+  assert.equal(result.shipId, shipId);
+  assert.equal(result.tokenKey, tokenKey);
+  assert.equal(result.value, value);
 });
 
-QUnit.test("clearActiveAgentId()", function(assert)
-{
-   // Setup.
+QUnit.test('clearActiveAgentId()', assert => {
+  // Setup.
 
-   // Run.
-   const result = ActionCreator.clearActiveAgentId();
+  // Run.
+  const result = ActionCreator.clearActiveAgentId();
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.CLEAR_ACTIVE_AGENT_ID);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.CLEAR_ACTIVE_AGENT_ID);
 });
 
-QUnit.test("clearActiveCombatId()", function(assert)
-{
-   // Setup.
+QUnit.test('clearActiveCombatId()', assert => {
+  // Setup.
 
-   // Run.
-   const result = ActionCreator.clearActiveCombatId();
+  // Run.
+  const result = ActionCreator.clearActiveCombatId();
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.CLEAR_ACTIVE_COMBAT_ID);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.CLEAR_ACTIVE_COMBAT_ID);
 });
 
-QUnit.test("clearActiveShipId()", function(assert)
-{
-   // Setup.
+QUnit.test('clearActiveShipId()', assert => {
+  // Setup.
 
-   // Run.
-   const result = ActionCreator.clearActiveShipId();
+  // Run.
+  const result = ActionCreator.clearActiveShipId();
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.CLEAR_ACTIVE_SHIP_ID);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.CLEAR_ACTIVE_SHIP_ID);
 });
 
-QUnit.test("clearActiveSquadronId()", function(assert)
-{
-   // Setup.
+QUnit.test('clearActiveSquadronId()', assert => {
+  // Setup.
 
-   // Run.
-   const result = ActionCreator.clearActiveSquadronId();
+  // Run.
+  const result = ActionCreator.clearActiveSquadronId();
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.CLEAR_ACTIVE_SQUADRON_ID);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.CLEAR_ACTIVE_SQUADRON_ID);
 });
 
-QUnit.test("clearAgentQuery()", function(assert)
-{
-   // Setup.
+QUnit.test('clearAgentQuery()', assert => {
+  // Setup.
 
-   // Run.
-   const result = ActionCreator.clearAgentQuery();
+  // Run.
+  const result = ActionCreator.clearAgentQuery();
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.CLEAR_AGENT_QUERY);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.CLEAR_AGENT_QUERY);
 });
 
-QUnit.test("clearAgentResponse()", function(assert)
-{
-   // Setup.
+QUnit.test('clearAgentResponse()', assert => {
+  // Setup.
 
-   // Run.
-   const result = ActionCreator.clearAgentResponse();
+  // Run.
+  const result = ActionCreator.clearAgentResponse();
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.CLEAR_AGENT_RESPONSE);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.CLEAR_AGENT_RESPONSE);
 });
 
-QUnit.test("clearShipTokenCount()", function(assert)
-{
-   // Setup.
-   const shipId = 3;
-   const tokenKey = "evade";
+QUnit.test('clearShipTokenCount()', assert => {
+  // Setup.
+  const shipId = 3;
+  const tokenKey = 'evade';
 
-   // Run.
-   const result = ActionCreator.clearShipTokenCount(shipId, tokenKey);
+  // Run.
+  const result = ActionCreator.clearShipTokenCount(shipId, tokenKey);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.CLEAR_SHIP_TOKEN_COUNT);
-   assert.equal(result.shipId, shipId);
-   assert.equal(result.tokenKey, tokenKey);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.CLEAR_SHIP_TOKEN_COUNT);
+  assert.equal(result.shipId, shipId);
+  assert.equal(result.tokenKey, tokenKey);
 });
 
-QUnit.test("dealCritical()", function(assert)
-{
-   // Setup.
+QUnit.test('dealCritical()', assert => {
+  // Setup.
 
-   // Run.
-   const result = ActionCreator.dealCritical();
+  // Run.
+  const result = ActionCreator.dealCritical();
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.DEAL_CRITICAL);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.DEAL_CRITICAL);
 });
 
-QUnit.test("dealDamage()", function(assert)
-{
-   // Setup.
+QUnit.test('dealDamage()', assert => {
+  // Setup.
 
-   // Run.
-   const result = ActionCreator.dealDamage();
+  // Run.
+  const result = ActionCreator.dealDamage();
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.DEAL_DAMAGE);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.DEAL_DAMAGE);
 });
 
-QUnit.test("moveShip()", function(assert)
-{
-   // Setup.
-   const shipId = 1;
-   const toPosition = PositionState.create();
+QUnit.test('moveShip()', assert => {
+  // Setup.
+  const shipId = 1;
+  const toPosition = PositionState.create();
 
-   // Run.
-   const result = ActionCreator.moveShip(shipId, toPosition);
+  // Run.
+  const result = ActionCreator.moveShip(shipId, toPosition);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.MOVE_SHIP);
-   assert.equal(result.shipId, shipId);
-   assert.equal(result.toPosition, toPosition);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.MOVE_SHIP);
+  assert.equal(result.shipId, shipId);
+  assert.equal(result.toPosition, toPosition);
 });
 
-QUnit.test("setActiveAgentId()", function(assert)
-{
-   // Setup.
-   const activeAgentId = 12;
+QUnit.test('setActiveAgentId()', assert => {
+  // Setup.
+  const activeAgentId = 12;
 
-   // Run.
-   const result = ActionCreator.setActiveAgentId(activeAgentId);
+  // Run.
+  const result = ActionCreator.setActiveAgentId(activeAgentId);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_ACTIVE_AGENT_ID);
-   assert.equal(result.activeAgentId, activeAgentId);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_ACTIVE_AGENT_ID);
+  assert.equal(result.activeAgentId, activeAgentId);
 });
 
-QUnit.test("setActiveCombatId()", function(assert)
-{
-   // Setup.
-   const activeCombatId = 12;
+QUnit.test('setActiveCombatId()', assert => {
+  // Setup.
+  const activeCombatId = 12;
 
-   // Run.
-   const result = ActionCreator.setActiveCombatId(activeCombatId);
+  // Run.
+  const result = ActionCreator.setActiveCombatId(activeCombatId);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_ACTIVE_COMBAT_ID);
-   assert.equal(result.activeCombatId, activeCombatId);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_ACTIVE_COMBAT_ID);
+  assert.equal(result.activeCombatId, activeCombatId);
 });
 
-QUnit.test("setActiveShipId()", function(assert)
-{
-   // Setup.
-   const activeShipId = 12;
+QUnit.test('setActiveShipId()', assert => {
+  // Setup.
+  const activeShipId = 12;
 
-   // Run.
-   const result = ActionCreator.setActiveShipId(activeShipId);
+  // Run.
+  const result = ActionCreator.setActiveShipId(activeShipId);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_ACTIVE_SHIP_ID);
-   assert.equal(result.activeShipId, activeShipId);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_ACTIVE_SHIP_ID);
+  assert.equal(result.activeShipId, activeShipId);
 });
 
-QUnit.test("setActiveSquadronId()", function(assert)
-{
-   // Setup.
-   const activeSquadronId = 12;
+QUnit.test('setActiveSquadronId()', assert => {
+  // Setup.
+  const activeSquadronId = 12;
 
-   // Run.
-   const result = ActionCreator.setActiveSquadronId(activeSquadronId);
+  // Run.
+  const result = ActionCreator.setActiveSquadronId(activeSquadronId);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_ACTIVE_SQUADRON_ID);
-   assert.equal(result.activeSquadronId, activeSquadronId);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_ACTIVE_SQUADRON_ID);
+  assert.equal(result.activeSquadronId, activeSquadronId);
 });
 
-QUnit.test("setAgentFleet()", function(assert)
-{
-   // Setup.
-   const agentId = 1;
-   const fleetId = 2;
+QUnit.test('setAgentFleet()', assert => {
+  // Setup.
+  const agentId = 1;
+  const fleetId = 2;
 
-   // Run.
-   const result = ActionCreator.setAgentFleet(agentId, fleetId);
+  // Run.
+  const result = ActionCreator.setAgentFleet(agentId, fleetId);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_AGENT_FLEET);
-   assert.equal(result.agentId, agentId);
-   assert.equal(result.fleetId, fleetId);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_AGENT_FLEET);
+  assert.equal(result.agentId, agentId);
+  assert.equal(result.fleetId, fleetId);
 });
 
-QUnit.test("setAgentInstance()", function(assert)
-{
-   // Setup.
-   const agentInstance = 1;
+QUnit.test('setAgentInstance()', assert => {
+  // Setup.
+  const agentInstance = 1;
 
-   // Run.
-   const result = ActionCreator.setAgentInstance(agentInstance);
+  // Run.
+  const result = ActionCreator.setAgentInstance(agentInstance);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_AGENT_INSTANCE);
-   assert.equal(result.agentInstance, agentInstance);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_AGENT_INSTANCE);
+  assert.equal(result.agentInstance, agentInstance);
 });
 
-QUnit.test("setAgentQuery()", function(assert)
-{
-   // Setup.
-   const agentId = 1;
-   const queryKey = "chooseShipAction";
-   const payload = {};
-   const agentQuery = AgentQueryState.create(
-   {
-      agentId: agentId,
-      queryKey: queryKey,
-      payload: payload
-   });
+QUnit.test('setAgentQuery()', assert => {
+  // Setup.
+  const agentId = 1;
+  const queryKey = 'chooseShipAction';
+  const payload = {};
+  const agentQuery = AgentQueryState.create({
+    agentId,
+    queryKey,
+    payload,
+  });
 
-   // Run.
-   const result = ActionCreator.setAgentQuery(agentQuery);
+  // Run.
+  const result = ActionCreator.setAgentQuery(agentQuery);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_AGENT_QUERY);
-   assert.equal(result.agentQuery.agentId, agentId);
-   assert.equal(result.agentQuery.queryKey, queryKey);
-   assert.ok(result.agentQuery.queryKey);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_AGENT_QUERY);
+  assert.equal(result.agentQuery.agentId, agentId);
+  assert.equal(result.agentQuery.queryKey, queryKey);
+  assert.ok(result.agentQuery.queryKey);
 });
 
-QUnit.test("setAgentResponse()", function(assert)
-{
-   // Setup.
-   const agentId = 1;
-   const responseKey = "chooseShipAction";
-   const payload = {};
-   const agentResponse = AgentResponseState.create(
-   {
-      agentId: agentId,
-      responseKey: responseKey,
-      payload: payload
-   });
+QUnit.test('setAgentResponse()', assert => {
+  // Setup.
+  const agentId = 1;
+  const responseKey = 'chooseShipAction';
+  const payload = {};
+  const agentResponse = AgentResponseState.create({
+    agentId,
+    responseKey,
+    payload,
+  });
 
-   // Run.
-   const result = ActionCreator.setAgentResponse(agentResponse);
+  // Run.
+  const result = ActionCreator.setAgentResponse(agentResponse);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_AGENT_RESPONSE);
-   assert.equal(result.agentResponse.agentId, agentId);
-   assert.equal(result.agentResponse.responseKey, responseKey);
-   assert.ok(result.agentResponse.payload);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_AGENT_RESPONSE);
+  assert.equal(result.agentResponse.agentId, agentId);
+  assert.equal(result.agentResponse.responseKey, responseKey);
+  assert.ok(result.agentResponse.payload);
 });
 
-QUnit.test("setCombatAttackDice()", function(assert)
-{
-   // Setup.
-   const combatId = 12;
-   const diceKeys = [1, 2, 3];
+QUnit.test('setCombatAttackDice()', assert => {
+  // Setup.
+  const combatId = 12;
+  const diceKeys = [1, 2, 3];
 
-   // Run.
-   const result = ActionCreator.setCombatAttackDice(combatId, diceKeys);
+  // Run.
+  const result = ActionCreator.setCombatAttackDice(combatId, diceKeys);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_COMBAT_ATTACK_DICE);
-   assert.equal(result.combatId, combatId);
-   assert.equal(result.diceKeys, diceKeys);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_COMBAT_ATTACK_DICE);
+  assert.equal(result.combatId, combatId);
+  assert.equal(result.diceKeys, diceKeys);
 });
 
-QUnit.test("setCombatCriticalDamage()", function(assert)
-{
-   // Setup.
-   const combatId = 12;
-   const criticalDamage = 5;
+QUnit.test('setCombatCriticalDamage()', assert => {
+  // Setup.
+  const combatId = 12;
+  const criticalDamage = 5;
 
-   // Run.
-   const result = ActionCreator.setCombatCriticalDamage(combatId, criticalDamage);
+  // Run.
+  const result = ActionCreator.setCombatCriticalDamage(combatId, criticalDamage);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_COMBAT_CRITICAL_DAMAGE);
-   assert.equal(result.combatId, combatId);
-   assert.equal(result.criticalDamage, criticalDamage);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_COMBAT_CRITICAL_DAMAGE);
+  assert.equal(result.combatId, combatId);
+  assert.equal(result.criticalDamage, criticalDamage);
 });
 
-QUnit.test("setCombatHitDamage()", function(assert)
-{
-   // Setup.
-   const combatId = 12;
-   const hitDamage = 4;
+QUnit.test('setCombatHitDamage()', assert => {
+  // Setup.
+  const combatId = 12;
+  const hitDamage = 4;
 
-   // Run.
-   const result = ActionCreator.setCombatHitDamage(combatId, hitDamage);
+  // Run.
+  const result = ActionCreator.setCombatHitDamage(combatId, hitDamage);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_COMBAT_HIT_DAMAGE);
-   assert.equal(result.combatId, combatId);
-   assert.equal(result.hitDamage, hitDamage);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_COMBAT_HIT_DAMAGE);
+  assert.equal(result.combatId, combatId);
+  assert.equal(result.hitDamage, hitDamage);
 });
 
-QUnit.test("setCombatInstance()", function(assert)
-{
-   // Setup.
-   const combatInstance = 1;
+QUnit.test('setCombatInstance()', assert => {
+  // Setup.
+  const combatInstance = 1;
 
-   // Run.
-   const result = ActionCreator.setCombatInstance(combatInstance);
+  // Run.
+  const result = ActionCreator.setCombatInstance(combatInstance);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_COMBAT_INSTANCE);
-   assert.equal(result.combatInstance, combatInstance);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_COMBAT_INSTANCE);
+  assert.equal(result.combatInstance, combatInstance);
 });
 
-QUnit.test("setCombatShieldDamage()", function(assert)
-{
-   // Setup.
-   const combatId = 12;
-   const shieldDamage = 4;
+QUnit.test('setCombatShieldDamage()', assert => {
+  // Setup.
+  const combatId = 12;
+  const shieldDamage = 4;
 
-   // Run.
-   const result = ActionCreator.setCombatShieldDamage(combatId, shieldDamage);
+  // Run.
+  const result = ActionCreator.setCombatShieldDamage(combatId, shieldDamage);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_COMBAT_SHIELD_DAMAGE);
-   assert.equal(result.combatId, combatId);
-   assert.equal(result.shieldDamage, shieldDamage);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_COMBAT_SHIELD_DAMAGE);
+  assert.equal(result.combatId, combatId);
+  assert.equal(result.shieldDamage, shieldDamage);
 });
 
-QUnit.test("setDamageDeck()", function(assert)
-{
-   // Setup.
-   const damageDeck = 1;
+QUnit.test('setDamageDeck()', assert => {
+  // Setup.
+  const damageDeck = 1;
 
-   // Run.
-   const result = ActionCreator.setDamageDeck(damageDeck);
+  // Run.
+  const result = ActionCreator.setDamageDeck(damageDeck);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_DAMAGE_DECK);
-   assert.equal(result.damageDeck, damageDeck);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_DAMAGE_DECK);
+  assert.equal(result.damageDeck, damageDeck);
 });
 
-QUnit.test("setDamageInstances()", function(assert)
-{
-   // Setup.
-   const damageInstances = 1;
+QUnit.test('setDamageInstances()', assert => {
+  // Setup.
+  const damageInstances = 1;
 
-   // Run.
-   const result = ActionCreator.setDamageInstances(damageInstances);
+  // Run.
+  const result = ActionCreator.setDamageInstances(damageInstances);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_DAMAGE_INSTANCES);
-   assert.equal(result.damageInstances, damageInstances);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_DAMAGE_INSTANCES);
+  assert.equal(result.damageInstances, damageInstances);
 });
 
-QUnit.test("setFleetInstance()", function(assert)
-{
-   // Setup.
-   const fleetInstance = 1;
+QUnit.test('setFleetInstance()', assert => {
+  // Setup.
+  const fleetInstance = 1;
 
-   // Run.
-   const result = ActionCreator.setFleetInstance(fleetInstance);
+  // Run.
+  const result = ActionCreator.setFleetInstance(fleetInstance);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_FLEET_INSTANCE);
-   assert.equal(result.fleetInstance, fleetInstance);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_FLEET_INSTANCE);
+  assert.equal(result.fleetInstance, fleetInstance);
 });
 
-QUnit.test("setFleetShips()", function(assert)
-{
-   // Setup.
-   const fleetId = 1;
-   const shipIds = 2;
+QUnit.test('setFleetShips()', assert => {
+  // Setup.
+  const fleetId = 1;
+  const shipIds = 2;
 
-   // Run.
-   const result = ActionCreator.setFleetShips(fleetId, shipIds);
+  // Run.
+  const result = ActionCreator.setFleetShips(fleetId, shipIds);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_FLEET_SHIPS);
-   assert.equal(result.fleetId, fleetId);
-   assert.equal(result.shipIds, shipIds);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_FLEET_SHIPS);
+  assert.equal(result.fleetId, fleetId);
+  assert.equal(result.shipIds, shipIds);
 });
 
-QUnit.test("setFleetSquadrons()", function(assert)
-{
-   // Setup.
-   const fleetId = 1;
-   const squadronIds = 2;
+QUnit.test('setFleetSquadrons()', assert => {
+  // Setup.
+  const fleetId = 1;
+  const squadronIds = 2;
 
-   // Run.
-   const result = ActionCreator.setFleetSquadrons(fleetId, squadronIds);
+  // Run.
+  const result = ActionCreator.setFleetSquadrons(fleetId, squadronIds);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_FLEET_SQUADRONS);
-   assert.equal(result.fleetId, fleetId);
-   assert.equal(result.squadronIds, squadronIds);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_FLEET_SQUADRONS);
+  assert.equal(result.fleetId, fleetId);
+  assert.equal(result.squadronIds, squadronIds);
 });
 
-QUnit.test("setGameOver()", function(assert)
-{
-   // Setup.
-   const isGameOver = true;
+QUnit.test('setGameOver()', assert => {
+  // Setup.
+  const isGameOver = true;
 
-   // Run.
-   const result = ActionCreator.setGameOver(isGameOver);
+  // Run.
+  const result = ActionCreator.setGameOver(isGameOver);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_GAME_OVER);
-   assert.equal(result.isGameOver, isGameOver);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_GAME_OVER);
+  assert.equal(result.isGameOver, isGameOver);
 });
 
-QUnit.test("setPhase()", function(assert)
-{
-   // Setup.
-   const phaseKey = "some phase";
+QUnit.test('setPhase()', assert => {
+  // Setup.
+  const phaseKey = 'some phase';
 
-   // Run.
-   const result = ActionCreator.setPhase(phaseKey);
+  // Run.
+  const result = ActionCreator.setPhase(phaseKey);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_PHASE);
-   assert.equal(result.phaseKey, phaseKey);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_PHASE);
+  assert.equal(result.phaseKey, phaseKey);
 });
 
-QUnit.test("setShipInstance()", function(assert)
-{
-   // Setup.
-   const shipInstance = 1;
+QUnit.test('setShipInstance()', assert => {
+  // Setup.
+  const shipInstance = 1;
 
-   // Run.
-   const result = ActionCreator.setShipInstance(shipInstance);
+  // Run.
+  const result = ActionCreator.setShipInstance(shipInstance);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_SHIP_INSTANCE);
-   assert.equal(result.shipInstance, shipInstance);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_SHIP_INSTANCE);
+  assert.equal(result.shipInstance, shipInstance);
 });
 
-QUnit.test("setShipTokenCounts()", function(assert)
-{
-   // Setup.
-   const shipId = 1;
-   const tokenCounts = 2;
+QUnit.test('setShipTokenCounts()', assert => {
+  // Setup.
+  const shipId = 1;
+  const tokenCounts = 2;
 
-   // Run.
-   const result = ActionCreator.setShipTokenCounts(shipId, tokenCounts);
+  // Run.
+  const result = ActionCreator.setShipTokenCounts(shipId, tokenCounts);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_SHIP_TOKEN_COUNTS);
-   assert.equal(result.shipId, shipId);
-   assert.equal(result.tokenCounts, tokenCounts);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_SHIP_TOKEN_COUNTS);
+  assert.equal(result.shipId, shipId);
+  assert.equal(result.tokenCounts, tokenCounts);
 });
 
-QUnit.test("setShipUpgrades()", function(assert)
-{
-   // Setup.
-   const shipId = 1;
-   const upgradeIds = 2;
+QUnit.test('setShipUpgrades()', assert => {
+  // Setup.
+  const shipId = 1;
+  const upgradeIds = 2;
 
-   // Run.
-   const result = ActionCreator.setShipUpgrades(shipId, upgradeIds);
+  // Run.
+  const result = ActionCreator.setShipUpgrades(shipId, upgradeIds);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_SHIP_UPGRADES);
-   assert.equal(result.shipId, shipId);
-   assert.equal(result.upgradeIds, upgradeIds);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_SHIP_UPGRADES);
+  assert.equal(result.shipId, shipId);
+  assert.equal(result.upgradeIds, upgradeIds);
 });
 
-QUnit.test("setSquadronInstance()", function(assert)
-{
-   // Setup.
-   const squadronInstance = 1;
+QUnit.test('setSquadronInstance()', assert => {
+  // Setup.
+  const squadronInstance = 1;
 
-   // Run.
-   const result = ActionCreator.setSquadronInstance(squadronInstance);
+  // Run.
+  const result = ActionCreator.setSquadronInstance(squadronInstance);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_SQUADRON_INSTANCE);
-   assert.equal(result.squadronInstance, squadronInstance);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_SQUADRON_INSTANCE);
+  assert.equal(result.squadronInstance, squadronInstance);
 });
 
-QUnit.test("setSquadronTokenCounts()", function(assert)
-{
-   // Setup.
-   const squadronId = 1;
-   const tokenCounts = 2;
+QUnit.test('setSquadronTokenCounts()', assert => {
+  // Setup.
+  const squadronId = 1;
+  const tokenCounts = 2;
 
-   // Run.
-   const result = ActionCreator.setSquadronTokenCounts(squadronId, tokenCounts);
+  // Run.
+  const result = ActionCreator.setSquadronTokenCounts(squadronId, tokenCounts);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_SQUADRON_TOKEN_COUNTS);
-   assert.equal(result.squadronId, squadronId);
-   assert.equal(result.tokenCounts, tokenCounts);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_SQUADRON_TOKEN_COUNTS);
+  assert.equal(result.squadronId, squadronId);
+  assert.equal(result.tokenCounts, tokenCounts);
 });
 
-QUnit.test("setUpgradeInstance()", function(assert)
-{
-   // Setup.
-   const upgradeInstance = 1;
+QUnit.test('setUpgradeInstance()', assert => {
+  // Setup.
+  const upgradeInstance = 1;
 
-   // Run.
-   const result = ActionCreator.setUpgradeInstance(upgradeInstance);
+  // Run.
+  const result = ActionCreator.setUpgradeInstance(upgradeInstance);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_UPGRADE_INSTANCE);
-   assert.equal(result.upgradeInstance, upgradeInstance);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_UPGRADE_INSTANCE);
+  assert.equal(result.upgradeInstance, upgradeInstance);
 });
 
-QUnit.test("setUpgradeTokenCounts()", function(assert)
-{
-   // Setup.
-   const upgradeId = 1;
-   const tokenCounts = 2;
+QUnit.test('setUpgradeTokenCounts()', assert => {
+  // Setup.
+  const upgradeId = 1;
+  const tokenCounts = 2;
 
-   // Run.
-   const result = ActionCreator.setUpgradeTokenCounts(upgradeId, tokenCounts);
+  // Run.
+  const result = ActionCreator.setUpgradeTokenCounts(upgradeId, tokenCounts);
 
-   // Verify.
-   assert.ok(result);
-   assert.equal(result.type, ActionType.SET_UPGRADE_TOKEN_COUNTS);
-   assert.equal(result.upgradeId, upgradeId);
-   assert.equal(result.tokenCounts, tokenCounts);
+  // Verify.
+  assert.ok(result);
+  assert.equal(result.type, ActionType.SET_UPGRADE_TOKEN_COUNTS);
+  assert.equal(result.upgradeId, upgradeId);
+  assert.equal(result.tokenCounts, tokenCounts);
 });
 
 const ActionCreatorTest = {};

@@ -1,53 +1,42 @@
-import FleetState from "./FleetState.js";
+import FleetState from './FleetState.js';
 
-QUnit.module("FleetState");
+QUnit.module('FleetState');
 
-const PROPS = ["id", "name", "year", "description", "points", "ships", "squadrons"];
+const PROPS = ['id', 'name', 'year', 'description', 'points', 'ships', 'squadrons'];
 
-QUnit.test("create()", function(assert)
-{
-   // Run.
-   const squad = createTestData();
+const createTestData = () =>
+  FleetState.create({
+    id: 1,
+    name: 2,
+    year: 3,
+    description: 4,
+    points: 5,
+    ships: 6,
+    squadrons: 7,
+  });
 
-   // Verify.
-   PROPS.forEach((prop, i) =>
-   {
-      assert.equal(squad[prop], i + 1);
-   });
+QUnit.test('create()', assert => {
+  // Run.
+  const squad = createTestData();
+
+  // Verify.
+  PROPS.forEach((prop, i) => {
+    assert.equal(squad[prop], i + 1);
+  });
 });
 
-QUnit.test("create() immutable", function(assert)
-{
-   // Setup.
-   const squad = createTestData();
+QUnit.test('create() immutable', assert => {
+  // Setup.
+  const squad = createTestData();
 
-   // Run / Verify.
-   try
-   {
-      squad.faction = 12;
-      assert.ok(false, "Should have thrown an exception");
-   }
-   catch (e)
-   {
-      assert.ok(true);
-   }
+  // Run / Verify.
+  try {
+    squad.faction = 12;
+    assert.ok(false, 'Should have thrown an exception');
+  } catch (e) {
+    assert.ok(true);
+  }
 });
-
-function createTestData()
-{
-   let i = 1;
-
-   return FleetState.create(
-   {
-      id: i++,
-      name: i++,
-      year: i++,
-      description: i++,
-      points: i++,
-      ships: i++,
-      squadrons: i++
-   });
-}
 
 const FleetStateTest = {};
 export default FleetStateTest;

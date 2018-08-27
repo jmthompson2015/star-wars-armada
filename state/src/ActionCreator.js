@@ -1,8 +1,26 @@
-import ActionType from "./ActionType.js";
+import ActionType from './ActionType.js';
+
+// See https://redux.js.org/recipes/reducing-boilerplate
+function makeActionCreator(type, ...argNames) {
+  return (...args) => {
+    const action = {
+      type,
+    };
+    argNames.forEach((arg, index) => {
+      action[argNames[index]] = args[index];
+    });
+    return action;
+  };
+}
 
 const ActionCreator = {};
 
-ActionCreator.addShipTokenCount = makeActionCreator(ActionType.ADD_SHIP_TOKEN_COUNT, "shipId", "tokenKey", "value");
+ActionCreator.addShipTokenCount = makeActionCreator(
+  ActionType.ADD_SHIP_TOKEN_COUNT,
+  'shipId',
+  'tokenKey',
+  'value',
+);
 
 ActionCreator.clearActiveAgentId = makeActionCreator(ActionType.CLEAR_ACTIVE_AGENT_ID);
 
@@ -16,11 +34,15 @@ ActionCreator.clearAgentQuery = makeActionCreator(ActionType.CLEAR_AGENT_QUERY);
 
 ActionCreator.clearAgentResponse = makeActionCreator(ActionType.CLEAR_AGENT_RESPONSE);
 
-ActionCreator.clearShipTokenCount = makeActionCreator(ActionType.CLEAR_SHIP_TOKEN_COUNT, "shipId", "tokenKey");
+ActionCreator.clearShipTokenCount = makeActionCreator(
+  ActionType.CLEAR_SHIP_TOKEN_COUNT,
+  'shipId',
+  'tokenKey',
+);
 
-ActionCreator.dealCritical = makeActionCreator(ActionType.DEAL_CRITICAL, "shipId");
+ActionCreator.dealCritical = makeActionCreator(ActionType.DEAL_CRITICAL, 'shipId');
 
-ActionCreator.dealDamage = makeActionCreator(ActionType.DEAL_DAMAGE, "shipId");
+ActionCreator.dealDamage = makeActionCreator(ActionType.DEAL_DAMAGE, 'shipId');
 
 ActionCreator.dequeueCommand = makeActionCreator(ActionType.DEQUEUE_COMMAND);
 
@@ -30,95 +52,154 @@ ActionCreator.dequeueSquadron = makeActionCreator(ActionType.DEQUEUE_SQUADRON);
 
 ActionCreator.incrementRound = makeActionCreator(ActionType.INCREMENT_ROUND);
 
-ActionCreator.moveShip = makeActionCreator(ActionType.MOVE_SHIP, "shipId", "toPosition");
+ActionCreator.moveShip = makeActionCreator(ActionType.MOVE_SHIP, 'shipId', 'toPosition');
 
-ActionCreator.moveSquadron = makeActionCreator(ActionType.MOVE_SQUADRON, "squadronId", "toPosition");
+ActionCreator.moveSquadron = makeActionCreator(
+  ActionType.MOVE_SQUADRON,
+  'squadronId',
+  'toPosition',
+);
 
-ActionCreator.readyShipDefenseTokens = makeActionCreator(ActionType.READY_SHIP_DEFENSE_TOKENS, "shipId");
+ActionCreator.readyShipDefenseTokens = makeActionCreator(
+  ActionType.READY_SHIP_DEFENSE_TOKENS,
+  'shipId',
+);
 
-ActionCreator.readySquadronDefenseTokens = makeActionCreator(ActionType.READY_SQUADRON_DEFENSE_TOKENS, "squadronId");
+ActionCreator.readySquadronDefenseTokens = makeActionCreator(
+  ActionType.READY_SQUADRON_DEFENSE_TOKENS,
+  'squadronId',
+);
 
-ActionCreator.readyUpgradeCards = makeActionCreator(ActionType.READY_UPGRADE_CARDS, "shipId");
+ActionCreator.readyUpgradeCards = makeActionCreator(ActionType.READY_UPGRADE_CARDS, 'shipId');
 
 ActionCreator.resetActiveQueue = makeActionCreator(ActionType.RESET_ACTIVE_QUEUE);
 
-ActionCreator.setActiveAgentId = makeActionCreator(ActionType.SET_ACTIVE_AGENT_ID, "activeAgentId");
+ActionCreator.setActiveAgentId = makeActionCreator(ActionType.SET_ACTIVE_AGENT_ID, 'activeAgentId');
 
-ActionCreator.setActiveCombatId = makeActionCreator(ActionType.SET_ACTIVE_COMBAT_ID, "activeCombatId");
+ActionCreator.setActiveCombatId = makeActionCreator(
+  ActionType.SET_ACTIVE_COMBAT_ID,
+  'activeCombatId',
+);
 
-ActionCreator.setActiveQueue = makeActionCreator(ActionType.SET_ACTIVE_QUEUE, "activeQueue");
+ActionCreator.setActiveQueue = makeActionCreator(ActionType.SET_ACTIVE_QUEUE, 'activeQueue');
 
-ActionCreator.setActiveShipId = makeActionCreator(ActionType.SET_ACTIVE_SHIP_ID, "activeShipId");
+ActionCreator.setActiveShipId = makeActionCreator(ActionType.SET_ACTIVE_SHIP_ID, 'activeShipId');
 
-ActionCreator.setActiveSquadronId = makeActionCreator(ActionType.SET_ACTIVE_SQUADRON_ID, "activeSquadronId");
+ActionCreator.setActiveSquadronId = makeActionCreator(
+  ActionType.SET_ACTIVE_SQUADRON_ID,
+  'activeSquadronId',
+);
 
-ActionCreator.setAgentFleet = makeActionCreator(ActionType.SET_AGENT_FLEET, "agentId", "fleetId");
+ActionCreator.setAgentFleet = makeActionCreator(ActionType.SET_AGENT_FLEET, 'agentId', 'fleetId');
 
-ActionCreator.setAgentInstance = makeActionCreator(ActionType.SET_AGENT_INSTANCE, "agentInstance");
+ActionCreator.setAgentInstance = makeActionCreator(ActionType.SET_AGENT_INSTANCE, 'agentInstance');
 
-ActionCreator.setAgentQuery = makeActionCreator(ActionType.SET_AGENT_QUERY, "agentQuery");
+ActionCreator.setAgentQuery = makeActionCreator(ActionType.SET_AGENT_QUERY, 'agentQuery');
 
-ActionCreator.setAgentResponse = makeActionCreator(ActionType.SET_AGENT_RESPONSE, "agentResponse");
+ActionCreator.setAgentResponse = makeActionCreator(ActionType.SET_AGENT_RESPONSE, 'agentResponse');
 
-ActionCreator.setCombatAttackDice = makeActionCreator(ActionType.SET_COMBAT_ATTACK_DICE, "combatId", "diceKeys");
+ActionCreator.setCombatAttackDice = makeActionCreator(
+  ActionType.SET_COMBAT_ATTACK_DICE,
+  'combatId',
+  'diceKeys',
+);
 
-ActionCreator.setCombatCriticalDamage = makeActionCreator(ActionType.SET_COMBAT_CRITICAL_DAMAGE, "combatId", "criticalDamage");
+ActionCreator.setCombatCriticalDamage = makeActionCreator(
+  ActionType.SET_COMBAT_CRITICAL_DAMAGE,
+  'combatId',
+  'criticalDamage',
+);
 
-ActionCreator.setCombatHitDamage = makeActionCreator(ActionType.SET_COMBAT_HIT_DAMAGE, "combatId", "hitDamage");
+ActionCreator.setCombatHitDamage = makeActionCreator(
+  ActionType.SET_COMBAT_HIT_DAMAGE,
+  'combatId',
+  'hitDamage',
+);
 
-ActionCreator.setCombatInstance = makeActionCreator(ActionType.SET_COMBAT_INSTANCE, "combatInstance");
+ActionCreator.setCombatInstance = makeActionCreator(
+  ActionType.SET_COMBAT_INSTANCE,
+  'combatInstance',
+);
 
-ActionCreator.setCombatShieldDamage = makeActionCreator(ActionType.SET_COMBAT_SHIELD_DAMAGE, "combatId", "shieldDamage");
+ActionCreator.setCombatShieldDamage = makeActionCreator(
+  ActionType.SET_COMBAT_SHIELD_DAMAGE,
+  'combatId',
+  'shieldDamage',
+);
 
-ActionCreator.setDamageDeck = makeActionCreator(ActionType.SET_DAMAGE_DECK, "damageDeck");
+ActionCreator.setDamageDeck = makeActionCreator(ActionType.SET_DAMAGE_DECK, 'damageDeck');
 
-ActionCreator.setDamageInstances = makeActionCreator(ActionType.SET_DAMAGE_INSTANCES, "damageInstances");
+ActionCreator.setDamageInstances = makeActionCreator(
+  ActionType.SET_DAMAGE_INSTANCES,
+  'damageInstances',
+);
 
-ActionCreator.setDefenseTokenInstance = makeActionCreator(ActionType.SET_DEFENSE_TOKEN_INSTANCE, "defenseTokenInstance");
+ActionCreator.setDefenseTokenInstance = makeActionCreator(
+  ActionType.SET_DEFENSE_TOKEN_INSTANCE,
+  'defenseTokenInstance',
+);
 
-ActionCreator.setFleetInstance = makeActionCreator(ActionType.SET_FLEET_INSTANCE, "fleetInstance");
+ActionCreator.setFleetInstance = makeActionCreator(ActionType.SET_FLEET_INSTANCE, 'fleetInstance');
 
-ActionCreator.setFleetShips = makeActionCreator(ActionType.SET_FLEET_SHIPS, "fleetId", "shipIds");
+ActionCreator.setFleetShips = makeActionCreator(ActionType.SET_FLEET_SHIPS, 'fleetId', 'shipIds');
 
-ActionCreator.setFleetSquadrons = makeActionCreator(ActionType.SET_FLEET_SQUADRONS, "fleetId", "squadronIds");
+ActionCreator.setFleetSquadrons = makeActionCreator(
+  ActionType.SET_FLEET_SQUADRONS,
+  'fleetId',
+  'squadronIds',
+);
 
-ActionCreator.setGameOver = makeActionCreator(ActionType.SET_GAME_OVER, "isGameOver");
+ActionCreator.setGameOver = makeActionCreator(ActionType.SET_GAME_OVER, 'isGameOver');
 
-ActionCreator.setPhase = makeActionCreator(ActionType.SET_PHASE, "phaseKey");
+ActionCreator.setPhase = makeActionCreator(ActionType.SET_PHASE, 'phaseKey');
 
-ActionCreator.setShipDefenseTokens = makeActionCreator(ActionType.SET_SHIP_DEFENSE_TOKENS, "shipId", "defenseTokenIds");
+ActionCreator.setShipDefenseTokens = makeActionCreator(
+  ActionType.SET_SHIP_DEFENSE_TOKENS,
+  'shipId',
+  'defenseTokenIds',
+);
 
-ActionCreator.setShipInstance = makeActionCreator(ActionType.SET_SHIP_INSTANCE, "shipInstance");
+ActionCreator.setShipInstance = makeActionCreator(ActionType.SET_SHIP_INSTANCE, 'shipInstance');
 
-ActionCreator.setShipTokenCounts = makeActionCreator(ActionType.SET_SHIP_TOKEN_COUNTS, "shipId", "tokenCounts");
+ActionCreator.setShipTokenCounts = makeActionCreator(
+  ActionType.SET_SHIP_TOKEN_COUNTS,
+  'shipId',
+  'tokenCounts',
+);
 
-ActionCreator.setShipUpgrades = makeActionCreator(ActionType.SET_SHIP_UPGRADES, "shipId", "upgradeIds");
+ActionCreator.setShipUpgrades = makeActionCreator(
+  ActionType.SET_SHIP_UPGRADES,
+  'shipId',
+  'upgradeIds',
+);
 
-ActionCreator.setSquadronDefenseTokens = makeActionCreator(ActionType.SET_SQUADRON_DEFENSE_TOKENS, "squadronId", "defenseTokenIds");
+ActionCreator.setSquadronDefenseTokens = makeActionCreator(
+  ActionType.SET_SQUADRON_DEFENSE_TOKENS,
+  'squadronId',
+  'defenseTokenIds',
+);
 
-ActionCreator.setSquadronInstance = makeActionCreator(ActionType.SET_SQUADRON_INSTANCE, "squadronInstance");
+ActionCreator.setSquadronInstance = makeActionCreator(
+  ActionType.SET_SQUADRON_INSTANCE,
+  'squadronInstance',
+);
 
-ActionCreator.setSquadronTokenCounts = makeActionCreator(ActionType.SET_SQUADRON_TOKEN_COUNTS, "squadronId", "tokenCounts");
+ActionCreator.setSquadronTokenCounts = makeActionCreator(
+  ActionType.SET_SQUADRON_TOKEN_COUNTS,
+  'squadronId',
+  'tokenCounts',
+);
 
-ActionCreator.setUpgradeInstance = makeActionCreator(ActionType.SET_UPGRADE_INSTANCE, "upgradeInstance");
+ActionCreator.setUpgradeInstance = makeActionCreator(
+  ActionType.SET_UPGRADE_INSTANCE,
+  'upgradeInstance',
+);
 
-ActionCreator.setUpgradeTokenCounts = makeActionCreator(ActionType.SET_UPGRADE_TOKEN_COUNTS, "upgradeId", "tokenCounts");
-
-// See https://redux.js.org/recipes/reducing-boilerplate
-function makeActionCreator(type, ...argNames)
-{
-   return function(...args)
-   {
-      const action = {
-         type
-      };
-      argNames.forEach((arg, index) =>
-      {
-         action[argNames[index]] = args[index];
-      });
-      return action;
-   };
-}
+ActionCreator.setUpgradeTokenCounts = makeActionCreator(
+  ActionType.SET_UPGRADE_TOKEN_COUNTS,
+  'upgradeId',
+  'tokenCounts',
+);
 
 Object.freeze(ActionCreator);
 

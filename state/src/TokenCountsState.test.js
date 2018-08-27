@@ -1,69 +1,51 @@
-import TokenCountsState from "./TokenCountsState.js";
+import TokenCountsState from './TokenCountsState.js';
 
-QUnit.module("TokenCountsState");
+QUnit.module('TokenCountsState');
 
-const PROPS = [
-  "concentrateFire",
-  "navigate",
-  "repair",
-  "squadron"
-];
+const PROPS = ['concentrateFire', 'navigate', 'repair', 'squadron'];
 
-QUnit.test("create()", function(assert)
-{
-   // Setup.
+const createTestState = () =>
+  TokenCountsState.create({
+    concentrateFire: 1,
+    navigate: 2,
+    repair: 3,
+    squadron: 4,
+  });
 
-   // Run.
-   const tokenCount = createTestState();
+QUnit.test('create()', assert => {
+  // Setup.
 
-   // Verify.
-   PROPS.forEach((prop, i) =>
-   {
-      assert.equal(tokenCount[prop], i + 1);
-   });
+  // Run.
+  const tokenCount = createTestState();
+
+  // Verify.
+  PROPS.forEach((prop, i) => {
+    assert.equal(tokenCount[prop], i + 1);
+  });
 });
 
-QUnit.test("create() Default", function(assert)
-{
-   // Setup.
-   const tokenCount = TokenCountsState.create();
+QUnit.test('create() Default', assert => {
+  // Setup.
+  const tokenCount = TokenCountsState.create();
 
-   // Verify.
-   PROPS.forEach(prop =>
-   {
-      assert.equal(tokenCount[prop], undefined);
-   });
+  // Verify.
+  PROPS.forEach(prop => {
+    assert.equal(tokenCount[prop], undefined);
+  });
 });
 
-QUnit.test("create() immutable", function(assert)
-{
-   // Setup.
-   const tokenCount = createTestState();
+QUnit.test('create() immutable', assert => {
+  // Setup.
+  const tokenCount = createTestState();
 
-   // Run / Verify.
-   try
-   {
-      tokenCount.ion = 12;
-      assert.ok(false, "Should have thrown an exception");
-   }
-   catch (e)
-   {
-      assert.ok(true);
-   }
+  // Run / Verify.
+  try {
+    tokenCount.ion = 12;
+    assert.ok(false, 'Should have thrown an exception');
+  } catch (e) {
+    assert.ok(true);
+  }
 });
-
-function createTestState()
-{
-   let i = 1;
-
-   return TokenCountsState.create(
-   {
-      concentrateFire: i++,
-      navigate: i++,
-      repair: i++,
-      squadron: i++
-   });
-}
 
 const TokenCountsStateTest = {};
 export default TokenCountsStateTest;

@@ -7,6 +7,7 @@ module.exports = {
     Immutable: true,
     QUnit: true,
     R: true,
+    Redux: true,
   },
   rules: {
     'import/extensions': ['error', { js: 'always' }],

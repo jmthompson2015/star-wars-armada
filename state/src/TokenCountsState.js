@@ -1,21 +1,12 @@
 const TokenCountsState = {};
 
-TokenCountsState.create = function(
-{
-   concentrateFire,
-   navigate,
-   repair,
-   squadron
-} = {})
-{
-   return Immutable(
-   {
-      concentrateFire: concentrateFire,
-      navigate: navigate,
-      repair: repair,
-      squadron: squadron
-   });
-};
+TokenCountsState.create = ({ concentrateFire, navigate, repair, squadron } = {}) =>
+  Immutable({
+    concentrateFire,
+    navigate,
+    repair,
+    squadron,
+  });
 
 Object.freeze(TokenCountsState);
 

@@ -1,25 +1,12 @@
 const AgentState = {};
 
-AgentState.create = function(
-{
-   id,
-   name,
-   strategy = "SimpleAgentStrategy",
-
-   fleet
-})
-{
-   name = name || "Agent " + id;
-
-   return Immutable(
-   {
-      id: id,
-      name: name,
-      strategy: strategy,
-
-      fleet: fleet
-   });
-};
+AgentState.create = ({ id, name, strategy = 'SimpleAgentStrategy', fleet }) =>
+  Immutable({
+    id,
+    name: name || `Agent ${id}`,
+    strategy,
+    fleet,
+  });
 
 Object.freeze(AgentState);
 
