@@ -2,6 +2,7 @@ const UpgradeSlot = {
 
   COMMANDER: "commander",
   DEFENSIVE_RETROFIT: "defensiveRetrofit",
+  EXPERIMENTAL_RETROFIT: "experimentalRetrofit",
   FLEET_COMMAND: "fleetCommand",
   FLEET_SUPPORT: "fleetSupport",
   ION_CANNONS: "ionCannons",
@@ -26,6 +27,11 @@ UpgradeSlot.properties =
       "name": "Defensive Retrofit",
       "image": "upgrade-slot/defensive-retrofit.png",
       "key": "defensiveRetrofit"
+   },
+   "experimentalRetrofit": {
+      "name": "Experimental Retrofit",
+      "image": "upgrade-slot/experimental-retrofit.png",
+      "key": "experimentalRetrofit"
    },
    "fleetCommand": {
       "name": "Fleet Command",

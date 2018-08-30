@@ -1,9 +1,9 @@
 /* eslint no-console: ["error", { allow: ["log", "warn", "error"] }] */
 
-const R = require('ramda');
+const R = require("ramda");
 
-const EnumGenerator = require('./EnumGenerator.js');
-const JSONFileLoader = require('./JSONFileLoader.js');
+const EnumGenerator = require("./EnumGenerator.js");
+const JSONFileLoader = require("./JSONFileLoader.js");
 
 const ArmadaConverter = {};
 
@@ -34,8 +34,8 @@ function processData(data0) {
     const enumValue = EnumGenerator.createEnumValue(ArmadaConverter.OPTIONS, card);
     return `${accumulator}
   ${enumName}: "${enumValue}",`;
-  }, '');
-  const suffix0 = '};';
+  }, "");
+  const suffix0 = "};";
   const prefix1 = `
 ${ArmadaConverter.CLASS_NAME}.properties = `;
   const enumProperties = {};
@@ -46,12 +46,12 @@ ${ArmadaConverter.CLASS_NAME}.properties = `;
       console.error(
         `Overwriting card with key ${key} card0 = ${enumProperties[key].name} ${
           enumProperties[key].xws
-        } ${enumProperties[key].faction} ${enumProperties[key].ship} ${enumProperties[key].slots}`,
+        } ${enumProperties[key].faction} ${enumProperties[key].ship} ${enumProperties[key].slots}`
       );
       console.error(
         `Overwriting card with key ${key} card  = ${card.name} ${card.xws} ${card.faction} ${
           card.ship
-        } ${card.slots}`,
+        } ${card.slots}`
       );
     }
     enumProperties[key] = createData(card)(key);
@@ -77,9 +77,9 @@ ArmadaConverter.DEFAULT_OPTIONS = {
   appendId: [],
   appendShip: [],
   appendSlot: [],
-  createData: card => key => R.assoc('key', key, card),
+  createData: card => key => R.assoc("key", key, card),
   determineCardName: card => card.name,
-  determineData: data0 => R.sort(enumValueCompare, data0),
+  determineData: data0 => R.sort(enumValueCompare, data0)
 };
 
 ArmadaConverter.convert = (inputFiles, className, options = ArmadaConverter.DEFAULT_OPTIONS) => {
@@ -93,13 +93,13 @@ ArmadaConverter.convert = (inputFiles, className, options = ArmadaConverter.DEFA
   inputFiles.forEach(inputFile => {
     console.log(`ArmadaConverter.convert() inputFile = ${inputFile}`);
 
-    JSONFileLoader.loadFile(inputFile).then(data => {
+    // JSONFileLoader.loadFile(inputFile).then(data => {
+    JSONFileLoader.loadLocalFile(inputFile).then(data => {
       if (data === undefined) {
         throw new Error(`Failed to load inputFile: ${inputFile}`);
       }
 
       allData = R.concat(allData, data);
-      // allData = R.concat(R.defaultTo([], allData), R.defaultTo([], data));
       count += 1;
 
       if (count === inputFiles.length) {

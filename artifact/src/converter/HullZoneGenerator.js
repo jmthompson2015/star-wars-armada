@@ -1,17 +1,17 @@
-const R = require('ramda');
+const R = require("ramda");
 
-const ArmadaConverter = require('./ArmadaConverter.js');
-const EnumGenerator = require('./EnumGenerator.js');
-const FileList = require('./FileList.js');
+const ArmadaConverter = require("./ArmadaConverter.js");
+const Endpoint = require("./Endpoint.js");
+const EnumGenerator = require("./EnumGenerator.js");
+const FileList = require("./FileList.js");
 
-const BASE =
-  'https://raw.githubusercontent.com/jmthompson2015/star-wars-armada-data/master/data/ship-card/';
+const BASE = `${Endpoint.ARMADA_DATA}ship-card/`;
 const INPUT_FILES = R.map(file => BASE + file, FileList.SHIP_FILES);
-const CLASS_NAME = 'HullZone';
+const CLASS_NAME = "HullZone";
 
 const createData = card => key => ({
   name: card,
-  key,
+  key
 });
 
 function determineData(data) {
@@ -26,8 +26,8 @@ function determineData(data) {
 
 // xws values.
 const OPTIONS = R.pipe(
-  R.assoc('determineData', determineData),
-  R.assoc('createData', createData),
+  R.assoc("determineData", determineData),
+  R.assoc("createData", createData)
 )(ArmadaConverter.DEFAULT_OPTIONS);
 
 ArmadaConverter.convert(INPUT_FILES, CLASS_NAME, OPTIONS);

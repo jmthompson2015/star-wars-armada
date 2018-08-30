@@ -10,7 +10,15 @@ const ShipCard = {
   IMPERIAL_II_CLASS_STAR_DESTROYER: "imperialIiClassStarDestroyer",
   IMPERIAL_STAR_DESTROYER_CYMOON_1_REFIT: "imperialStarDestroyerCymoon1Refit",
   IMPERIAL_STAR_DESTROYER_KUAT_REFIT: "imperialStarDestroyerKuatRefit",
+  INTERDICTOR_COMBAT_REFIT: "interdictorCombatRefit",
+  INTERDICTOR_SUPPRESSION_REFIT: "interdictorSuppressionRefit",
+  MC30C_SCOUT_FRIGATE: "mc30cScoutFrigate",
+  MC30C_TORPEDO_FRIGATE: "mc30cTorpedoFrigate",
+  MC75_ARMORED_CRUISER: "mc75ArmoredCruiser",
+  MC75_ORDNANCE_CRUISER: "mc75OrdnanceCruiser",
+  MC80_ASSAULT_CRUISER: "mc80AssaultCruiser",
   MC80_BATTLE_CRUISER: "mc80BattleCruiser",
+  MC80_COMMAND_CRUISER: "mc80CommandCruiser",
   MC80_STAR_CRUISER: "mc80StarCruiser",
   NEBULON_B_ESCORT_FRIGATE: "nebulonBEscortFrigate",
   NEBULON_B_SUPPORT_REFIT: "nebulonBSupportRefit",
@@ -762,6 +770,526 @@ ShipCard.properties =
       "image": "ship-card/galactic-empire/imperial-star-destroyer-kuat-refit.png",
       "key": "imperialStarDestroyerKuatRefit"
    },
+   "interdictorCombatRefit": {
+      "name": "Interdictor Combat Refit",
+      "size": "medium",
+      "faction": "Galactic Empire",
+      "hull": 9,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         1,
+         1
+      ],
+      "command": 2,
+      "squadron": 2,
+      "engineering": 5,
+      "defense-tokens": [
+         "Brace",
+         "Redirect",
+         "Contain",
+         "Contain"
+      ],
+      "attack": {
+         "front": [
+            2,
+            2,
+            0
+         ],
+         "right": [
+            2,
+            2,
+            0
+         ],
+         "left": [
+            2,
+            2,
+            0
+         ],
+         "rear": [
+            1,
+            2,
+            0
+         ]
+      },
+      "shield": {
+         "front": 3,
+         "right": 2,
+         "left": 2,
+         "rear": 2
+      },
+      "speed-chart": {
+         "1": [
+            "|"
+         ],
+         "2": [
+            "|",
+            "|"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Support Team",
+         "Offensive Retrofit",
+         "Experimental Retrofit",
+         "Ion Cannons"
+      ],
+      "points": 93,
+      "ship-image": "ship/galactic-empire/interdictor.png",
+      "image": "ship-card/galactic-empire/interdictor-combat-refit.png",
+      "key": "interdictorCombatRefit"
+   },
+   "interdictorSuppressionRefit": {
+      "name": "Interdictor Suppression Refit",
+      "size": "medium",
+      "faction": "Galactic Empire",
+      "hull": 9,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         1,
+         0
+      ],
+      "command": 2,
+      "squadron": 2,
+      "engineering": 5,
+      "defense-tokens": [
+         "Brace",
+         "Redirect",
+         "Contain",
+         "Contain"
+      ],
+      "attack": {
+         "front": [
+            1,
+            3,
+            0
+         ],
+         "right": [
+            1,
+            3,
+            0
+         ],
+         "left": [
+            1,
+            3,
+            0
+         ],
+         "rear": [
+            1,
+            2,
+            0
+         ]
+      },
+      "shield": {
+         "front": 3,
+         "right": 2,
+         "left": 2,
+         "rear": 2
+      },
+      "speed-chart": {
+         "1": [
+            "|"
+         ],
+         "2": [
+            "|",
+            "|"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Support Team",
+         "Offensive Retrofit",
+         "Experimental Retrofit",
+         "Experimental Retrofit",
+         "Ion Cannons"
+      ],
+      "points": 90,
+      "ship-image": "ship/galactic-empire/interdictor.png",
+      "image": "ship-card/galactic-empire/interdictor-suppression-refit.png",
+      "key": "interdictorSuppressionRefit"
+   },
+   "mc30cScoutFrigate": {
+      "name": "MC30c Scout Frigate",
+      "size": "small",
+      "faction": "Rebel Alliance",
+      "hull": 4,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         1,
+         0
+      ],
+      "command": 2,
+      "squadron": 1,
+      "engineering": 3,
+      "defense-tokens": [
+         "Evade",
+         "Evade",
+         "Redirect",
+         "Redirect"
+      ],
+      "attack": {
+         "front": [
+            1,
+            0,
+            2
+         ],
+         "right": [
+            2,
+            0,
+            3
+         ],
+         "left": [
+            2,
+            0,
+            3
+         ],
+         "rear": [
+            1,
+            0,
+            1
+         ]
+      },
+      "shield": {
+         "front": 3,
+         "right": 3,
+         "left": 3,
+         "rear": 2
+      },
+      "speed-chart": {
+         "1": [
+            "|"
+         ],
+         "2": [
+            "|",
+            "|"
+         ],
+         "3": [
+            "-",
+            "|",
+            "||"
+         ],
+         "4": [
+            "-",
+            "|",
+            "|",
+            "-"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Weapons Team",
+         "Defensive Retrofit",
+         "Ordnance",
+         "Turbolasers"
+      ],
+      "points": 69,
+      "ship-image": "ship/rebel-alliance/mc30c-frigate.png",
+      "image": "ship-card/rebel-alliance/mc30c-scout-frigate.png",
+      "key": "mc30cScoutFrigate"
+   },
+   "mc30cTorpedoFrigate": {
+      "name": "MC30c Torpedo Frigate",
+      "size": "small",
+      "faction": "Rebel Alliance",
+      "hull": 4,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         1,
+         0
+      ],
+      "command": 2,
+      "squadron": 1,
+      "engineering": 3,
+      "defense-tokens": [
+         "Evade",
+         "Evade",
+         "Redirect",
+         "Redirect"
+      ],
+      "attack": {
+         "front": [
+            0,
+            1,
+            2
+         ],
+         "right": [
+            0,
+            2,
+            3
+         ],
+         "left": [
+            0,
+            2,
+            3
+         ],
+         "rear": [
+            0,
+            1,
+            1
+         ]
+      },
+      "shield": {
+         "front": 3,
+         "right": 3,
+         "left": 3,
+         "rear": 2
+      },
+      "speed-chart": {
+         "1": [
+            "|"
+         ],
+         "2": [
+            "|",
+            "|"
+         ],
+         "3": [
+            "-",
+            "|",
+            "||"
+         ],
+         "4": [
+            "-",
+            "|",
+            "|",
+            "-"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Weapons Team",
+         "Defensive Retrofit",
+         "Ordnance",
+         "Turbolasers"
+      ],
+      "points": 63,
+      "ship-image": "ship/rebel-alliance/mc30c-frigate.png",
+      "image": "ship-card/rebel-alliance/mc30c-torpedo-frigate.png",
+      "key": "mc30cTorpedoFrigate"
+   },
+   "mc75ArmoredCruiser": {
+      "name": "MC75 Armored Cruiser",
+      "size": "large",
+      "faction": "Rebel Alliance",
+      "hull": 9,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         1,
+         1
+      ],
+      "command": 3,
+      "squadron": 3,
+      "engineering": 4,
+      "defense-tokens": [
+         "Brace",
+         "Redirect",
+         "Contain",
+         "Contain"
+      ],
+      "attack": {
+         "front": [
+            0,
+            3,
+            2
+         ],
+         "right": [
+            3,
+            2,
+            0
+         ],
+         "left": [
+            3,
+            2,
+            0
+         ],
+         "rear": [
+            0,
+            1,
+            1
+         ]
+      },
+      "shield": {
+         "front": 4,
+         "right": 3,
+         "left": 3,
+         "rear": 3
+      },
+      "speed-chart": {
+         "1": [
+            "||"
+         ],
+         "2": [
+            "|",
+            "|"
+         ],
+         "3": [
+            "-",
+            "|",
+            "|"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Weapons Team",
+         "Offensive Retrofit",
+         "Defensive Retrofit",
+         "Ordnance",
+         "Ion Cannons",
+         "Turbolasers"
+      ],
+      "points": 104,
+      "ship-image": "ship/rebel-alliance/mc75-cruiser.png",
+      "image": "ship-card/rebel-alliance/mc75-armored-cruiser.png",
+      "key": "mc75ArmoredCruiser"
+   },
+   "mc75OrdnanceCruiser": {
+      "name": "MC75 Ordnance Cruiser",
+      "size": "large",
+      "faction": "Rebel Alliance",
+      "hull": 9,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         0,
+         1
+      ],
+      "command": 3,
+      "squadron": 2,
+      "engineering": 4,
+      "defense-tokens": [
+         "Brace",
+         "Redirect",
+         "Contain",
+         "Contain"
+      ],
+      "attack": {
+         "front": [
+            0,
+            2,
+            3
+         ],
+         "right": [
+            3,
+            0,
+            2
+         ],
+         "left": [
+            3,
+            0,
+            2
+         ],
+         "rear": [
+            0,
+            0,
+            2
+         ]
+      },
+      "shield": {
+         "front": 4,
+         "right": 3,
+         "left": 3,
+         "rear": 3
+      },
+      "speed-chart": {
+         "1": [
+            "||"
+         ],
+         "2": [
+            "|",
+            "|"
+         ],
+         "3": [
+            "-",
+            "|",
+            "|"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Weapons Team",
+         "Offensive Retrofit",
+         "Defensive Retrofit",
+         "Ordnance",
+         "Ordnance"
+      ],
+      "points": 100,
+      "ship-image": "ship/rebel-alliance/mc75-cruiser.png",
+      "image": "ship-card/rebel-alliance/mc75-ordnance-cruiser.png",
+      "key": "mc75OrdnanceCruiser"
+   },
+   "mc80AssaultCruiser": {
+      "name": "MC80 Assault Cruiser",
+      "size": "large",
+      "faction": "Rebel Alliance",
+      "hull": 8,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         2,
+         0
+      ],
+      "command": 3,
+      "squadron": 3,
+      "engineering": 4,
+      "defense-tokens": [
+         "Brace",
+         "Redirect",
+         "Redirect",
+         "Contain"
+      ],
+      "attack": {
+         "front": [
+            2,
+            1,
+            0
+         ],
+         "right": [
+            4,
+            2,
+            0
+         ],
+         "left": [
+            4,
+            2,
+            0
+         ],
+         "rear": [
+            2,
+            1,
+            0
+         ]
+      },
+      "shield": {
+         "front": 4,
+         "right": 4,
+         "left": 4,
+         "rear": 3
+      },
+      "speed-chart": {
+         "1": [
+            "|"
+         ],
+         "2": [
+            "|",
+            "|"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Support Team",
+         "Defensive Retrofit",
+         "Defensive Retrofit",
+         "Ion Cannons",
+         "Turbolasers"
+      ],
+      "points": 114,
+      "ship-image": "ship/rebel-alliance/mc80-home-one-cruiser.png",
+      "image": "ship-card/rebel-alliance/mc80-assault-cruiser.png",
+      "key": "mc80AssaultCruiser"
+   },
    "mc80BattleCruiser": {
       "name": "MC80 Battle Cruiser",
       "size": "large",
@@ -835,6 +1363,76 @@ ShipCard.properties =
       "ship-image": "ship/rebel-alliance/mc80-liberty-cruiser.png",
       "image": "ship-card/rebel-alliance/mc80-battle-cruiser.png",
       "key": "mc80BattleCruiser"
+   },
+   "mc80CommandCruiser": {
+      "name": "MC80 Command Cruiser",
+      "size": "large",
+      "faction": "Rebel Alliance",
+      "hull": 8,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         1,
+         1
+      ],
+      "command": 3,
+      "squadron": 4,
+      "engineering": 4,
+      "defense-tokens": [
+         "Brace",
+         "Redirect",
+         "Redirect",
+         "Contain"
+      ],
+      "attack": {
+         "front": [
+            1,
+            2,
+            0
+         ],
+         "right": [
+            3,
+            3,
+            0
+         ],
+         "left": [
+            3,
+            3,
+            0
+         ],
+         "rear": [
+            1,
+            2,
+            0
+         ]
+      },
+      "shield": {
+         "front": 4,
+         "right": 4,
+         "left": 4,
+         "rear": 3
+      },
+      "speed-chart": {
+         "1": [
+            "|"
+         ],
+         "2": [
+            "|",
+            "|"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Support Team",
+         "Offensive Retrofit",
+         "Defensive Retrofit",
+         "Ion Cannons",
+         "Turbolasers"
+      ],
+      "points": 106,
+      "ship-image": "ship/rebel-alliance/mc80-home-one-cruiser.png",
+      "image": "ship-card/rebel-alliance/mc80-command-cruiser.png",
+      "key": "mc80CommandCruiser"
    },
    "mc80StarCruiser": {
       "name": "MC80 Star Cruiser",

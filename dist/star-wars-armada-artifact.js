@@ -838,7 +838,15 @@
     IMPERIAL_II_CLASS_STAR_DESTROYER: "imperialIiClassStarDestroyer",
     IMPERIAL_STAR_DESTROYER_CYMOON_1_REFIT: "imperialStarDestroyerCymoon1Refit",
     IMPERIAL_STAR_DESTROYER_KUAT_REFIT: "imperialStarDestroyerKuatRefit",
+    INTERDICTOR_COMBAT_REFIT: "interdictorCombatRefit",
+    INTERDICTOR_SUPPRESSION_REFIT: "interdictorSuppressionRefit",
+    MC30C_SCOUT_FRIGATE: "mc30cScoutFrigate",
+    MC30C_TORPEDO_FRIGATE: "mc30cTorpedoFrigate",
+    MC75_ARMORED_CRUISER: "mc75ArmoredCruiser",
+    MC75_ORDNANCE_CRUISER: "mc75OrdnanceCruiser",
+    MC80_ASSAULT_CRUISER: "mc80AssaultCruiser",
     MC80_BATTLE_CRUISER: "mc80BattleCruiser",
+    MC80_COMMAND_CRUISER: "mc80CommandCruiser",
     MC80_STAR_CRUISER: "mc80StarCruiser",
     NEBULON_B_ESCORT_FRIGATE: "nebulonBEscortFrigate",
     NEBULON_B_SUPPORT_REFIT: "nebulonBSupportRefit",
@@ -1590,6 +1598,526 @@
         "image": "ship-card/galactic-empire/imperial-star-destroyer-kuat-refit.png",
         "key": "imperialStarDestroyerKuatRefit"
      },
+     "interdictorCombatRefit": {
+        "name": "Interdictor Combat Refit",
+        "size": "medium",
+        "faction": "Galactic Empire",
+        "hull": 9,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           1,
+           1
+        ],
+        "command": 2,
+        "squadron": 2,
+        "engineering": 5,
+        "defense-tokens": [
+           "Brace",
+           "Redirect",
+           "Contain",
+           "Contain"
+        ],
+        "attack": {
+           "front": [
+              2,
+              2,
+              0
+           ],
+           "right": [
+              2,
+              2,
+              0
+           ],
+           "left": [
+              2,
+              2,
+              0
+           ],
+           "rear": [
+              1,
+              2,
+              0
+           ]
+        },
+        "shield": {
+           "front": 3,
+           "right": 2,
+           "left": 2,
+           "rear": 2
+        },
+        "speed-chart": {
+           "1": [
+              "|"
+           ],
+           "2": [
+              "|",
+              "|"
+           ]
+        },
+        "slots": [
+           "Officer",
+           "Support Team",
+           "Offensive Retrofit",
+           "Experimental Retrofit",
+           "Ion Cannons"
+        ],
+        "points": 93,
+        "ship-image": "ship/galactic-empire/interdictor.png",
+        "image": "ship-card/galactic-empire/interdictor-combat-refit.png",
+        "key": "interdictorCombatRefit"
+     },
+     "interdictorSuppressionRefit": {
+        "name": "Interdictor Suppression Refit",
+        "size": "medium",
+        "faction": "Galactic Empire",
+        "hull": 9,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           1,
+           0
+        ],
+        "command": 2,
+        "squadron": 2,
+        "engineering": 5,
+        "defense-tokens": [
+           "Brace",
+           "Redirect",
+           "Contain",
+           "Contain"
+        ],
+        "attack": {
+           "front": [
+              1,
+              3,
+              0
+           ],
+           "right": [
+              1,
+              3,
+              0
+           ],
+           "left": [
+              1,
+              3,
+              0
+           ],
+           "rear": [
+              1,
+              2,
+              0
+           ]
+        },
+        "shield": {
+           "front": 3,
+           "right": 2,
+           "left": 2,
+           "rear": 2
+        },
+        "speed-chart": {
+           "1": [
+              "|"
+           ],
+           "2": [
+              "|",
+              "|"
+           ]
+        },
+        "slots": [
+           "Officer",
+           "Support Team",
+           "Offensive Retrofit",
+           "Experimental Retrofit",
+           "Experimental Retrofit",
+           "Ion Cannons"
+        ],
+        "points": 90,
+        "ship-image": "ship/galactic-empire/interdictor.png",
+        "image": "ship-card/galactic-empire/interdictor-suppression-refit.png",
+        "key": "interdictorSuppressionRefit"
+     },
+     "mc30cScoutFrigate": {
+        "name": "MC30c Scout Frigate",
+        "size": "small",
+        "faction": "Rebel Alliance",
+        "hull": 4,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           1,
+           0
+        ],
+        "command": 2,
+        "squadron": 1,
+        "engineering": 3,
+        "defense-tokens": [
+           "Evade",
+           "Evade",
+           "Redirect",
+           "Redirect"
+        ],
+        "attack": {
+           "front": [
+              1,
+              0,
+              2
+           ],
+           "right": [
+              2,
+              0,
+              3
+           ],
+           "left": [
+              2,
+              0,
+              3
+           ],
+           "rear": [
+              1,
+              0,
+              1
+           ]
+        },
+        "shield": {
+           "front": 3,
+           "right": 3,
+           "left": 3,
+           "rear": 2
+        },
+        "speed-chart": {
+           "1": [
+              "|"
+           ],
+           "2": [
+              "|",
+              "|"
+           ],
+           "3": [
+              "-",
+              "|",
+              "||"
+           ],
+           "4": [
+              "-",
+              "|",
+              "|",
+              "-"
+           ]
+        },
+        "slots": [
+           "Officer",
+           "Weapons Team",
+           "Defensive Retrofit",
+           "Ordnance",
+           "Turbolasers"
+        ],
+        "points": 69,
+        "ship-image": "ship/rebel-alliance/mc30c-frigate.png",
+        "image": "ship-card/rebel-alliance/mc30c-scout-frigate.png",
+        "key": "mc30cScoutFrigate"
+     },
+     "mc30cTorpedoFrigate": {
+        "name": "MC30c Torpedo Frigate",
+        "size": "small",
+        "faction": "Rebel Alliance",
+        "hull": 4,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           1,
+           0
+        ],
+        "command": 2,
+        "squadron": 1,
+        "engineering": 3,
+        "defense-tokens": [
+           "Evade",
+           "Evade",
+           "Redirect",
+           "Redirect"
+        ],
+        "attack": {
+           "front": [
+              0,
+              1,
+              2
+           ],
+           "right": [
+              0,
+              2,
+              3
+           ],
+           "left": [
+              0,
+              2,
+              3
+           ],
+           "rear": [
+              0,
+              1,
+              1
+           ]
+        },
+        "shield": {
+           "front": 3,
+           "right": 3,
+           "left": 3,
+           "rear": 2
+        },
+        "speed-chart": {
+           "1": [
+              "|"
+           ],
+           "2": [
+              "|",
+              "|"
+           ],
+           "3": [
+              "-",
+              "|",
+              "||"
+           ],
+           "4": [
+              "-",
+              "|",
+              "|",
+              "-"
+           ]
+        },
+        "slots": [
+           "Officer",
+           "Weapons Team",
+           "Defensive Retrofit",
+           "Ordnance",
+           "Turbolasers"
+        ],
+        "points": 63,
+        "ship-image": "ship/rebel-alliance/mc30c-frigate.png",
+        "image": "ship-card/rebel-alliance/mc30c-torpedo-frigate.png",
+        "key": "mc30cTorpedoFrigate"
+     },
+     "mc75ArmoredCruiser": {
+        "name": "MC75 Armored Cruiser",
+        "size": "large",
+        "faction": "Rebel Alliance",
+        "hull": 9,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           1,
+           1
+        ],
+        "command": 3,
+        "squadron": 3,
+        "engineering": 4,
+        "defense-tokens": [
+           "Brace",
+           "Redirect",
+           "Contain",
+           "Contain"
+        ],
+        "attack": {
+           "front": [
+              0,
+              3,
+              2
+           ],
+           "right": [
+              3,
+              2,
+              0
+           ],
+           "left": [
+              3,
+              2,
+              0
+           ],
+           "rear": [
+              0,
+              1,
+              1
+           ]
+        },
+        "shield": {
+           "front": 4,
+           "right": 3,
+           "left": 3,
+           "rear": 3
+        },
+        "speed-chart": {
+           "1": [
+              "||"
+           ],
+           "2": [
+              "|",
+              "|"
+           ],
+           "3": [
+              "-",
+              "|",
+              "|"
+           ]
+        },
+        "slots": [
+           "Officer",
+           "Weapons Team",
+           "Offensive Retrofit",
+           "Defensive Retrofit",
+           "Ordnance",
+           "Ion Cannons",
+           "Turbolasers"
+        ],
+        "points": 104,
+        "ship-image": "ship/rebel-alliance/mc75-cruiser.png",
+        "image": "ship-card/rebel-alliance/mc75-armored-cruiser.png",
+        "key": "mc75ArmoredCruiser"
+     },
+     "mc75OrdnanceCruiser": {
+        "name": "MC75 Ordnance Cruiser",
+        "size": "large",
+        "faction": "Rebel Alliance",
+        "hull": 9,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           0,
+           1
+        ],
+        "command": 3,
+        "squadron": 2,
+        "engineering": 4,
+        "defense-tokens": [
+           "Brace",
+           "Redirect",
+           "Contain",
+           "Contain"
+        ],
+        "attack": {
+           "front": [
+              0,
+              2,
+              3
+           ],
+           "right": [
+              3,
+              0,
+              2
+           ],
+           "left": [
+              3,
+              0,
+              2
+           ],
+           "rear": [
+              0,
+              0,
+              2
+           ]
+        },
+        "shield": {
+           "front": 4,
+           "right": 3,
+           "left": 3,
+           "rear": 3
+        },
+        "speed-chart": {
+           "1": [
+              "||"
+           ],
+           "2": [
+              "|",
+              "|"
+           ],
+           "3": [
+              "-",
+              "|",
+              "|"
+           ]
+        },
+        "slots": [
+           "Officer",
+           "Weapons Team",
+           "Offensive Retrofit",
+           "Defensive Retrofit",
+           "Ordnance",
+           "Ordnance"
+        ],
+        "points": 100,
+        "ship-image": "ship/rebel-alliance/mc75-cruiser.png",
+        "image": "ship-card/rebel-alliance/mc75-ordnance-cruiser.png",
+        "key": "mc75OrdnanceCruiser"
+     },
+     "mc80AssaultCruiser": {
+        "name": "MC80 Assault Cruiser",
+        "size": "large",
+        "faction": "Rebel Alliance",
+        "hull": 8,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           2,
+           0
+        ],
+        "command": 3,
+        "squadron": 3,
+        "engineering": 4,
+        "defense-tokens": [
+           "Brace",
+           "Redirect",
+           "Redirect",
+           "Contain"
+        ],
+        "attack": {
+           "front": [
+              2,
+              1,
+              0
+           ],
+           "right": [
+              4,
+              2,
+              0
+           ],
+           "left": [
+              4,
+              2,
+              0
+           ],
+           "rear": [
+              2,
+              1,
+              0
+           ]
+        },
+        "shield": {
+           "front": 4,
+           "right": 4,
+           "left": 4,
+           "rear": 3
+        },
+        "speed-chart": {
+           "1": [
+              "|"
+           ],
+           "2": [
+              "|",
+              "|"
+           ]
+        },
+        "slots": [
+           "Officer",
+           "Support Team",
+           "Defensive Retrofit",
+           "Defensive Retrofit",
+           "Ion Cannons",
+           "Turbolasers"
+        ],
+        "points": 114,
+        "ship-image": "ship/rebel-alliance/mc80-home-one-cruiser.png",
+        "image": "ship-card/rebel-alliance/mc80-assault-cruiser.png",
+        "key": "mc80AssaultCruiser"
+     },
      "mc80BattleCruiser": {
         "name": "MC80 Battle Cruiser",
         "size": "large",
@@ -1663,6 +2191,76 @@
         "ship-image": "ship/rebel-alliance/mc80-liberty-cruiser.png",
         "image": "ship-card/rebel-alliance/mc80-battle-cruiser.png",
         "key": "mc80BattleCruiser"
+     },
+     "mc80CommandCruiser": {
+        "name": "MC80 Command Cruiser",
+        "size": "large",
+        "faction": "Rebel Alliance",
+        "hull": 8,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           1,
+           1
+        ],
+        "command": 3,
+        "squadron": 4,
+        "engineering": 4,
+        "defense-tokens": [
+           "Brace",
+           "Redirect",
+           "Redirect",
+           "Contain"
+        ],
+        "attack": {
+           "front": [
+              1,
+              2,
+              0
+           ],
+           "right": [
+              3,
+              3,
+              0
+           ],
+           "left": [
+              3,
+              3,
+              0
+           ],
+           "rear": [
+              1,
+              2,
+              0
+           ]
+        },
+        "shield": {
+           "front": 4,
+           "right": 4,
+           "left": 4,
+           "rear": 3
+        },
+        "speed-chart": {
+           "1": [
+              "|"
+           ],
+           "2": [
+              "|",
+              "|"
+           ]
+        },
+        "slots": [
+           "Officer",
+           "Support Team",
+           "Offensive Retrofit",
+           "Defensive Retrofit",
+           "Ion Cannons",
+           "Turbolasers"
+        ],
+        "points": 106,
+        "ship-image": "ship/rebel-alliance/mc80-home-one-cruiser.png",
+        "image": "ship-card/rebel-alliance/mc80-command-cruiser.png",
+        "key": "mc80CommandCruiser"
      },
      "mc80StarCruiser": {
         "name": "MC80 Star Cruiser",
@@ -2212,20 +2810,32 @@
   const UpgradeCard = {
 
     ADAR_TALLON: "adarTallon",
+    ADMIRAL_ACKBAR: "admiralAckbar",
+    ADMIRAL_KONSTANTINE: "admiralKonstantine",
+    ADMIRAL_RADDUS: "admiralRaddus",
+    ADMIRAL_TITUS: "admiralTitus",
+    ADMONITION: "admonition",
     ADVANCED_PROJECTORS: "advancedProjectors",
     AGENT_KALLUS: "agentKallus",
+    ASPIRATION: "aspiration",
     ASSAULT_CONCUSSION_MISSILES: "assaultConcussionMissiles",
+    ASSAULT_PROTON_TORPEDOES: "assaultProtonTorpedoes",
     AVENGER: "avenger",
+    BAIL_ORGANA: "bailOrgana",
     BOMBER_COMMAND_CENTER: "bomberCommandCenter",
     BOOSTED_COMMS: "boostedComms",
+    CAITKEN_AND_SHOLLAN: "caitkenAndShollan",
     CAPTAIN_BRUNSON: "captainBrunson",
     CAPTAIN_NEEDA: "captainNeeda",
     CHART_OFFICER: "chartOfficer",
     CHIMAERA: "chimaera",
+    CLUSTER_BOMBS: "clusterBombs",
+    COMMANDANT_ARESKO: "commandantAresko",
     COMMS_NET: "commsNet",
     DARTH_VADER_COMMANDER: "darthVader_commander",
     DARTH_VADER_WEAPONS_TEAM_OFFENSIVE_RETROFIT: "darthVader_weaponsTeam_offensiveRetrofit",
     DEFENSE_LIAISON: "defenseLiaison",
+    DEFIANCE: "defiance",
     DEVASTATOR: "devastator",
     DODONNAS_PRIDE: "dodonnasPride",
     DOMINATOR: "dominator",
@@ -2238,36 +2848,59 @@
     ENHANCED_ARMAMENT: "enhancedArmament",
     ENTRAPMENT_FORMATION: "entrapmentFormation",
     EXPANDED_HANGAR_BAY: "expandedHangarBay",
+    FIGHTER_COORDINATION_TEAM: "fighterCoordinationTeam",
     FIRE_CONTROL_TEAM: "fireControlTeam",
+    FLIGHT_COMMANDER: "flightCommander",
+    FORESIGHT: "foresight",
+    G7_X_GRAV_WELL_PROJECTOR: "g7XGravWellProjector",
+    G_8_EXPERIMENTAL_PROJECTOR: "g8ExperimentalProjector",
     GALLANT_HAVEN: "gallantHaven",
     GARM_BEL_IBLIS: "garmBelIblis",
     GENERAL_DODONNA: "generalDodonna",
+    GENERAL_DRAVEN: "generalDraven",
     GENERAL_MADINE: "generalMadine",
+    GENERAL_RIEEKAN: "generalRieekan",
     GENERAL_TAGGE: "generalTagge",
     GOVERNOR_PRYCE: "governorPryce",
     GRAND_ADMIRAL_THRAWN: "grandAdmiralThrawn",
     GRAND_MOFF_TARKIN: "grandMoffTarkin",
+    GRAV_SHIFT_REROUTE: "gravShiftReroute",
     GUNNERY_TEAM: "gunneryTeam",
     H9_TURBOLASERS: "h9Turbolasers",
     HARDENED_BULKHEADS: "hardenedBulkheads",
+    HEAVY_ION_EMPLACEMENTS: "heavyIonEmplacements",
     HEAVY_TURBOLASER_TURRETS: "heavyTurbolaserTurrets",
     HIGH_CAPACITY_ION_TURBINES: "highCapacityIonTurbines",
+    HOME_ONE: "homeOne",
+    INDEPENDENCE: "independence",
     INSTRUCTOR_GORAN: "instructorGoran",
     INTEL_OFFICER: "intelOfficer",
     INTENSIFY_FIREPOWER: "intensifyFirepower",
+    INTERDICTOR: "interdictor",
     JAMMING_FIELD: "jammingField",
+    JYN_ERSO: "jynErso",
+    LANDO_CALRISSIAN: "landoCalrissian",
+    LEADING_SHOTS: "leadingShots",
     LEIA_ORGANA: "leiaOrgana",
     LIBERTY: "liberty",
     MEDICAL_TEAM: "medicalTeam",
+    MON_CALAMARI_EXODUS_FLEET: "monCalamariExodusFleet",
     MON_KARREN: "monKarren",
     MS_1_ION_CANNONS: "ms1IonCannons",
     NAV_TEAM: "navTeam",
+    NAVIGATION_OFFICER: "navigationOfficer",
     NK_7_ION_CANNONS: "nk7IonCannons",
+    ORDNANCE_EXPERTS: "ordnanceExperts",
+    ORDNANCE_PODS: "ordnancePods",
     OVERLOAD_PULSE: "overloadPulse",
     PARAGON: "paragon",
     PHYLON_Q7_TRACTOR_BEAMS: "phylonQ7TractorBeams",
     POINT_DEFENSE_REROUTE: "pointDefenseReroute",
+    PROFUNDITY: "profundity",
+    PROJECTION_EXPERTS: "projectionExperts",
+    QUAD_LASER_TURRETS: "quadLaserTurrets",
     QUAD_TURBOLASER_CANNONS: "quadTurbolaserCannons",
+    RAPID_RELOAD: "rapidReload",
     REDEMPTION: "redemption",
     REDUNDANT_SHIELDS: "redundantShields",
     RELENTLESS: "relentless",
@@ -2284,12 +2917,17 @@
     STRATEGIC_ADVISER: "strategicAdviser",
     SUPPORT_OFFICER: "supportOfficer",
     SUPPRESSOR: "suppressor",
+    SW_7_ION_BATTERIES: "sw7IonBatteries",
     TACTICAL_EXPERT: "tacticalExpert",
+    TARGETING_SCRAMBLER: "targetingScrambler",
     TASKMASTER_GRINT: "taskmasterGrint",
+    TURBOLASER_REROUTE_CIRCUITS: "turbolaserRerouteCircuits",
     VECTOR: "vector",
     VETERAN_CAPTAIN: "veteranCaptain",
     VETERAN_GUNNERS: "veteranGunners",
+    WALEX_BLISSEX: "walexBlissex",
     WEAPONS_LIAISON: "weaponsLiaison",
+    WIDE_AREA_BARRAGE: "wideAreaBarrage",
     WING_COMMANDER: "wingCommander",
     WULFF_YULAREN: "wulffYularen",
     XI7_TURBOLASERS: "xi7Turbolasers",
@@ -2310,6 +2948,67 @@
         "points": 10,
         "image": "upgrade-card/officer/adar-tallon.png",
         "key": "adarTallon"
+     },
+     "admiralAckbar": {
+        "name": "Admiral Ackbar",
+        "unique": true,
+        "text": "Before a friendly ship's Attack Step, it may choose to attack from only its left and right hull zones this round. If it does, it may add 2 red dice to its attack pool while attacking a ship.",
+        "faction": "Rebel Alliance",
+        "slots": [
+           "Commander"
+        ],
+        "points": 38,
+        "image": "upgrade-card/commander/admiral-ackbar.png",
+        "key": "admiralAckbar"
+     },
+     "admiralKonstantine": {
+        "name": "Admiral Konstantine",
+        "unique": true,
+        "text": "At the start of each Status Phase, for each enemy ship at distance 1-5 of at least 2 friendly medium or large ships, you may increase or decrease that enemy ship's speed by 1 to a minimum of speed 1.",
+        "faction": "Galactic Empire",
+        "slots": [
+           "Commander"
+        ],
+        "points": 23,
+        "image": "upgrade-card/commander/admiral-konstantine.png",
+        "key": "admiralKonstantine"
+     },
+     "admiralRaddus": {
+        "name": "Admiral Raddus",
+        "unique": true,
+        "text": "Before deploying fleets, you may set aside 1 other friendly ship. At the start of any round, you may deploy that ship at distance 1 of a friendly ship. That ship cannot be deployed overlapping squadrons and cannot be the first ship to activate that round.",
+        "faction": "Rebel Alliance",
+        "slots": [
+           "Commander"
+        ],
+        "points": 26,
+        "image": "upgrade-card/commander/admiral-raddus.png",
+        "key": "admiralRaddus"
+     },
+     "admiralTitus": {
+        "name": "Admiral Titus",
+        "unique": true,
+        "text": "At the start of the first round, you may change 1 enemy ship's speed by 1.",
+        "slots": [
+           "Officer"
+        ],
+        "faction": "Galactic Empire",
+        "points": 2,
+        "image": "upgrade-card/officer/admiral-titus.png",
+        "key": "admiralTitus"
+     },
+     "admonition": {
+        "name": "Admonition",
+        "unique": true,
+        "text": "While defending, during the Spend Defense Tokens Step, you may discard a defense token to cancel 1 attack die.",
+        "slots": [
+           "Title"
+        ],
+        "ship": "MC30c Frigate",
+        "faction": "Rebel Alliance",
+        "points": 8,
+        "image": "upgrade-card/title/admonition.png",
+        "key": "admonition"
      },
      "advancedProjectors": {
         "name": "Advanced Projectors",
@@ -2333,6 +3032,19 @@
         "image": "upgrade-card/officer/agent-kallus.png",
         "key": "agentKallus"
      },
+     "aspiration": {
+        "name": "Aspiration",
+        "unique": true,
+        "text": "When you deploy this ship, you may move shields to up to 2 of your hull zones from your other hull zones. If you do, the number of shields in a zone cannot exceed a maximum of \"6\". You cannot recover shields while any zone is greater than its maximum shield value.",
+        "slots": [
+           "Title"
+        ],
+        "ship": "MC75 Cruiser",
+        "faction": "Rebel Alliance",
+        "points": 3,
+        "image": "upgrade-card/title/aspiration.png",
+        "key": "aspiration"
+     },
      "assaultConcussionMissiles": {
         "name": "Assault Concussion Missiles",
         "text": "Black [Critical Hit]: Each hull zone adjacent to the defending hull zone suffers 1 damage.",
@@ -2342,6 +3054,16 @@
         "points": 7,
         "image": "upgrade-card/ordnance/assault-concussion-missiles.png",
         "key": "assaultConcussionMissiles"
+     },
+     "assaultProtonTorpedoes": {
+        "name": "Assault Proton Torpedoes",
+        "text": "Black [Critical Hit]: Deal 1 faceup damage card to the defender.",
+        "slots": [
+           "Ordnance"
+        ],
+        "points": 5,
+        "image": "upgrade-card/ordnance/assault-proton-torpedoes.png",
+        "key": "assaultProtonTorpedoes"
      },
      "avenger": {
         "name": "Avenger",
@@ -2355,6 +3077,19 @@
         "points": 5,
         "image": "upgrade-card/title/avenger.png",
         "key": "avenger"
+     },
+     "bailOrgana": {
+        "name": "Bail Organa",
+        "unique": true,
+        "restriction": "Medium or large ship only.",
+        "text": "After deploying fleets, you may place 1 round token on this card. At the start of the Ship Phase of the round matching that round token, if you are the second player you must activate, if you are the first player, you may gain up to 2 command tokens of your choice.",
+        "faction": "Rebel Alliance",
+        "slots": [
+           "Officer"
+        ],
+        "points": 7,
+        "image": "upgrade-card/officer/bail-organa.png",
+        "key": "bailOrgana"
      },
      "bomberCommandCenter": {
         "name": "Bomber Command Center",
@@ -2375,6 +3110,17 @@
         "points": 4,
         "image": "upgrade-card/offensive-retrofit/boosted-comms.png",
         "key": "boostedComms"
+     },
+     "caitkenAndShollan": {
+        "name": "Caitken and Shollan",
+        "text": "While attacking, you may exhaust this card to reroll any number of dice of 1 color.",
+        "slots": [
+           "Weapons Team"
+        ],
+        "faction": "Rebel Alliance",
+        "points": 6,
+        "image": "upgrade-card/weapons-team/caitken-and-shollan.png",
+        "key": "caitkenAndShollan"
      },
      "captainBrunson": {
         "name": "Captain Brunson",
@@ -2423,6 +3169,28 @@
         "image": "upgrade-card/title/chimaera.png",
         "key": "chimaera"
      },
+     "clusterBombs": {
+        "name": "Cluster Bombs",
+        "text": "After a squadron performs an attack against you, even if you are destroyed, you may discard this card to roll 4 blue dice. That squadron suffers 1 damage for each [Hit] or [Critical Hit] icon rolled.",
+        "slots": [
+           "Defensive Retrofit"
+        ],
+        "points": 5,
+        "image": "upgrade-card/defensive-retrofit/cluster-bombs.png",
+        "key": "clusterBombs"
+     },
+     "commandantAresko": {
+        "name": "Commandant Aresko",
+        "unique": true,
+        "text": "When another friendly ship at distance 1-3 reveals a command, you may exhaust this card to gain 1 command token of the same type.",
+        "slots": [
+           "Officer"
+        ],
+        "faction": "Galactic Empire",
+        "points": 7,
+        "image": "upgrade-card/officer/commandant-aresko.png",
+        "key": "commandantAresko"
+     },
      "commsNet": {
         "name": "Comms Net",
         "text": "After the Reveal Command Dial Step, you may remove 1 command token from this ship to assign a matching token to another friendly ship at distance 1-5.",
@@ -2465,6 +3233,19 @@
         "points": 3,
         "image": "upgrade-card/officer/defense-liaison.png",
         "key": "defenseLiaison"
+     },
+     "defiance": {
+        "name": "Defiance",
+        "unique": true,
+        "text": "While attacking a ship that has already activated this round, add 1 die of any color to your attack pool.",
+        "slots": [
+           "Title"
+        ],
+        "ship": "MC80 Cruiser",
+        "faction": "Rebel Alliance",
+        "points": 5,
+        "image": "upgrade-card/title/defiance.png",
+        "key": "defiance"
      },
      "devastator": {
         "name": "Devastator",
@@ -2599,6 +3380,16 @@
         "image": "upgrade-card/offensive-retrofit/expanded-hangar-bay.png",
         "key": "expandedHangarBay"
      },
+     "fighterCoordinationTeam": {
+        "name": "Fighter Coordination Team",
+        "text": "After you execute a maneuver, you may select a number of unengaged friendly squadrons up to your squadron value at close-medium range. Those squadrons may move up to distance 1.",
+        "slots": [
+           "Support Team"
+        ],
+        "points": 3,
+        "image": "upgrade-card/support-team/fighter-coordination-team.png",
+        "key": "fighterCoordinationTeam"
+     },
      "fireControlTeam": {
         "name": "Fire-Control Team",
         "text": "During the Resolve Damage Step, you may exhaust this card to resolve 1 additional critical effect. You cannot resolve the same critical effect twice.",
@@ -2608,6 +3399,50 @@
         "points": 2,
         "image": "upgrade-card/weapons-team/fire-control-team.png",
         "key": "fireControlTeam"
+     },
+     "flightCommander": {
+        "name": "Flight Commander",
+        "text": "During your activation, you can resolve your [Squadron] command after you execute a maneuver.",
+        "slots": [
+           "Officer"
+        ],
+        "points": 3,
+        "image": "upgrade-card/officer/flight-commander.png",
+        "key": "flightCommander"
+     },
+     "foresight": {
+        "name": "Foresight",
+        "unique": true,
+        "text": "When you resolve the [Evade] defense effect, you can affect 1 additional die.\nWhen you resolve the [Redirect] defense effect, you can choose 1 additional adjacent hull zone to suffer damage.",
+        "slots": [
+           "Title"
+        ],
+        "ship": "MC30c Frigate",
+        "faction": "Rebel Alliance",
+        "points": 8,
+        "image": "upgrade-card/title/foresight.png",
+        "key": "foresight"
+     },
+     "g7XGravWellProjector": {
+        "name": "G7-X Grav Well Projector",
+        "text": "Before deploying fleets, place 1 grav well token anywhere in the play area.\nWhen a ship deploys at distance 1-3 of a grav well token, its speed dial must be set to 0.",
+        "slots": [
+           "Experimental Retrofit"
+        ],
+        "points": 2,
+        "image": "upgrade-card/experimental-retrofit/g7-x-grav-well-projector.png",
+        "key": "g7XGravWellProjector"
+     },
+     "g8ExperimentalProjector": {
+        "name": "G-8 Experimental Projector",
+        "unique": true,
+        "text": "Before an enemy ship at distance 1-5 resolves the Determine Course step, you may exhaust this card to temporarily reduce its speed by 1 to a minimum of speed 0 until the end of the maneuver.",
+        "slots": [
+           "Experimental Retrofit"
+        ],
+        "points": 8,
+        "image": "upgrade-card/experimental-retrofit/g-8-experimental-projector.png",
+        "key": "g8ExperimentalProjector"
      },
      "gallantHaven": {
         "name": "Gallant Haven",
@@ -2646,6 +3481,18 @@
         "image": "upgrade-card/commander/general-dodonna.png",
         "key": "generalDodonna"
      },
+     "generalDraven": {
+        "name": "General Draven",
+        "unique": true,
+        "text": "While attacking a squadron with Counter or Intel, add 1 die of any color to your attack pool.",
+        "faction": "Rebel Alliance",
+        "slots": [
+           "Officer"
+        ],
+        "points": 3,
+        "image": "upgrade-card/officer/general-draven.png",
+        "key": "generalDraven"
+     },
      "generalMadine": {
         "name": "General Madine",
         "unique": true,
@@ -2657,6 +3504,18 @@
         "points": 30,
         "image": "upgrade-card/commander/general-madine.png",
         "key": "generalMadine"
+     },
+     "generalRieekan": {
+        "name": "General Rieekan",
+        "unique": true,
+        "text": "Once per round, when a friendly ship or friendly unique squadron is destroyed, it remains in the play area and is treated as if it was not destroyed until the end of the Status Phase.",
+        "faction": "Rebel Alliance",
+        "slots": [
+           "Commander"
+        ],
+        "points": 30,
+        "image": "upgrade-card/commander/general-rieekan.png",
+        "key": "generalRieekan"
      },
      "generalTagge": {
         "name": "General Tagge",
@@ -2707,6 +3566,17 @@
         "image": "upgrade-card/commander/grand-moff-tarkin.png",
         "key": "grandMoffTarkin"
      },
+     "gravShiftReroute": {
+        "name": "Grav Shift Reroute",
+        "unique": true,
+        "text": "Before deploying fleets, place 1 grav shift token anywhere in the play area.After deploying fleets, you may move each obstacle at distance 1-3 of that token to within distance 2 of that obstacle's current location. Obstacles cannot overlap tokens, obstacles, or ships.",
+        "slots": [
+           "Experimental Retrofit"
+        ],
+        "points": 2,
+        "image": "upgrade-card/experimental-retrofit/grav-shift-reroute.png",
+        "key": "gravShiftReroute"
+     },
      "gunneryTeam": {
         "name": "Gunnery Team",
         "text": "You can attack from the same hull zone more than once per activation. That hull zone cannot target the same ship or squadron more than once during that activation.",
@@ -2738,6 +3608,16 @@
         "image": "upgrade-card/offensive-retrofit/hardened-bulkheads.png",
         "key": "hardenedBulkheads"
      },
+     "heavyIonEmplacements": {
+        "name": "Heavy Ion Emplacements",
+        "text": "Blue [Critical Hit]: You may exhaust this card. If you do, the defending hull zone and each adjacent hull zone loses 1 shield.",
+        "slots": [
+           "Ion Cannons"
+        ],
+        "points": 9,
+        "image": "upgrade-card/ion-cannons/heavy-ion-emplacements.png",
+        "key": "heavyIonEmplacements"
+     },
      "heavyTurbolaserTurrets": {
         "name": "Heavy Turbolaser Turrets",
         "text": "While attacking, the [Brace] defense effect cannot reduce the damage total by more than 1 unless it is the only defense token spent by the defender during the attack.",
@@ -2758,6 +3638,32 @@
         "points": 8,
         "image": "upgrade-card/ion-cannons/high-capacity-ion-turbines.png",
         "key": "highCapacityIonTurbines"
+     },
+     "homeOne": {
+        "name": "Home One",
+        "unique": true,
+        "text": "While another friendly ship at distance 1-5 is attacking, it may change 1 die to a face with an [Accuracy] icon.",
+        "slots": [
+           "Title"
+        ],
+        "ship": "MC80 Cruiser",
+        "faction": "Rebel Alliance",
+        "points": 7,
+        "image": "upgrade-card/title/home-one.png",
+        "key": "homeOne"
+     },
+     "independence": {
+        "name": "Independence",
+        "unique": true,
+        "text": "[Squadron]: Each squadron you activate may increase its speed to 4 until the end of its activation. Squadrons that change speed in this way cannot attack this activation.",
+        "slots": [
+           "Title"
+        ],
+        "ship": "MC80 Cruiser",
+        "faction": "Rebel Alliance",
+        "points": 8,
+        "image": "upgrade-card/title/independence.png",
+        "key": "independence"
      },
      "instructorGoran": {
         "name": "Instructor Goran",
@@ -2791,6 +3697,19 @@
         "image": "upgrade-card/fleet-command/intensify-firepower.png",
         "key": "intensifyFirepower"
      },
+     "interdictor": {
+        "name": "Interdictor",
+        "unique": true,
+        "text": "When a ship activates, you may exhaust this card to ready 1 other upgrade card equipped to this ship.",
+        "slots": [
+           "Title"
+        ],
+        "ship": "Interdictor",
+        "faction": "Galactic Empire",
+        "points": 3,
+        "image": "upgrade-card/title/interdictor.png",
+        "key": "interdictor"
+     },
      "jammingField": {
         "name": "Jamming Field",
         "text": "While a squadron at distance 1-2 is attacking or defending against a squadron, the attack is treated as obstructed.",
@@ -2800,6 +3719,39 @@
         "points": 2,
         "image": "upgrade-card/fleet-support/jamming-field.png",
         "key": "jammingField"
+     },
+     "jynErso": {
+        "name": "Jyn Erso",
+        "text": "When you reveal a command, you may discard a [Squadron] dial or token and this card to choose 1 enemy ship at close range. If that ship has no raid tokens, it gains 2 raid tokens of your choice. If that ship has an objective token, you may also gain 1 victory token.",
+        "slots": [
+           "Weapons Team",
+           "Offensive Retrofit"
+        ],
+        "points": 4,
+        "image": "upgrade-card/weapons-team-and-offensive-retrofit/jyn-erso.png",
+        "key": "jynErso"
+     },
+     "landoCalrissian": {
+        "name": "Lando Calrissian",
+        "unique": true,
+        "text": "While defending, during the Spend Defense Tokens Step, you may discard this card to force the attacker to reroll 1 or more dice of your choice.",
+        "faction": "Rebel Alliance",
+        "slots": [
+           "Officer"
+        ],
+        "points": 4,
+        "image": "upgrade-card/officer/lando-calrissian.png",
+        "key": "landoCalrissian"
+     },
+     "leadingShots": {
+        "name": "Leading Shots",
+        "text": "While attacking, you may spend 1 blue die to reroll any number of dice in your attack pool.",
+        "slots": [
+           "Ion Cannons"
+        ],
+        "points": 4,
+        "image": "upgrade-card/ion-cannons/leading-shots.png",
+        "key": "leadingShots"
      },
      "leiaOrgana": {
         "name": "Leia Organa",
@@ -2836,6 +3788,20 @@
         "image": "upgrade-card/support-team/medical-team.png",
         "key": "medicalTeam"
      },
+     "monCalamariExodusFleet": {
+        "name": "Mon Calamari Exodus Fleet",
+        "unique": true,
+        "restriction": "\"MC\" only.",
+        "text": "[Repair]: You may choose and exhaust another copy of this card on a friendly ship at distance 1-4. If you do, gain 2 additional engineering points.",
+        "slots": [
+           "Title"
+        ],
+        "ship": "MC75 Cruiser",
+        "faction": "Rebel Alliance",
+        "points": 5,
+        "image": "upgrade-card/title/mon-calamari-exodus-fleet.png",
+        "key": "monCalamariExodusFleet"
+     },
      "monKarren": {
         "name": "Mon Karren",
         "unique": true,
@@ -2869,6 +3835,16 @@
         "image": "upgrade-card/support-team/nav-team.png",
         "key": "navTeam"
      },
+     "navigationOfficer": {
+        "name": "Navigation Officer",
+        "text": "Before you reveal a command, you may change that command to a [Navigate] command.",
+        "slots": [
+           "Officer"
+        ],
+        "points": 6,
+        "image": "upgrade-card/officer/navigation-officer.png",
+        "key": "navigationOfficer"
+     },
      "nk7IonCannons": {
         "name": "NK-7 Ion Cannons",
         "text": "Blue [Critical Hit]: You may exhaust this card to force the defender to choose and discard 1 of his defense tokens.",
@@ -2879,6 +3855,27 @@
         "image": "upgrade-card/ion-cannons/nk-7-ion-cannons.png",
         "key": "nk7IonCannons"
      },
+     "ordnanceExperts": {
+        "name": "Ordnance Experts",
+        "text": "While attacking, you may reroll any number of your black dice.",
+        "slots": [
+           "Weapons Team"
+        ],
+        "points": 4,
+        "image": "upgrade-card/weapons-team/ordnance-experts.png",
+        "key": "ordnanceExperts"
+     },
+     "ordnancePods": {
+        "name": "Ordnance Pods",
+        "restriction": "Medium or large ship only.",
+        "text": "At the end of your Attack Step, you may exhaust this card and choose 1 of your hull zones. Then perform an attack from that hull zone with an anti-squadron armament of 1 black die, even if you have already attacked from that zone this round.",
+        "slots": [
+           "Ordnance"
+        ],
+        "points": 3,
+        "image": "upgrade-card/ordnance/ordnance-pods.png",
+        "key": "ordnancePods"
+     },
      "overloadPulse": {
         "name": "Overload Pulse",
         "text": "Blue [Critical Hit]: Exhaust all of the defender's defense tokens.",
@@ -2886,7 +3883,7 @@
            "Ion Cannons"
         ],
         "points": 8,
-        "image": "upgrade-card/ion-cannons/electronic-countermeasures.png",
+        "image": "upgrade-card/ion-cannons/overload-pulse.png",
         "key": "overloadPulse"
      },
      "paragon": {
@@ -2923,6 +3920,39 @@
         "image": "upgrade-card/offensive-retrofit/point-defense-reroute.png",
         "key": "pointDefenseReroute"
      },
+     "profundity": {
+        "name": "Profundity",
+        "unique": true,
+        "text": "Before deploying fleets, you may set aside 1 small ship with a command value of 1.\nAt the start of any round, you may deploy the set-aside ship at distance 1. You may un-equip up to 1 [Commander] and 1 [Officer] upgrade cards and equip them to it (if able).",
+        "slots": [
+           "Title"
+        ],
+        "ship": "MC75 Cruiser",
+        "faction": "Rebel Alliance",
+        "points": 7,
+        "image": "upgrade-card/title/profundity.png",
+        "key": "profundity"
+     },
+     "projectionExperts": {
+        "name": "Projection Experts",
+        "text": "[Repair]: You may spend up to 2 engineering points to move that many shields from your ship to a friendly ship at distance 1-5.",
+        "slots": [
+           "Support Team"
+        ],
+        "points": 6,
+        "image": "upgrade-card/support-team/projection-experts.png",
+        "key": "projectionExperts"
+     },
+     "quadLaserTurrets": {
+        "name": "Quad Laser Turrets",
+        "text": "While defending at distance 1, if the attacker is a squadron, you have Counter 1.",
+        "slots": [
+           "Offensive Retrofit"
+        ],
+        "points": 5,
+        "image": "upgrade-card/offensive-retrofit/quad-laser-turrets.png",
+        "key": "quadLaserTurrets"
+     },
      "quadTurbolaserCannons": {
         "name": "Quad Turbolaser Cannons",
         "text": "While attacking, if at least 1 red die face has an [Accuracy] icon, add 1 red die set to the [Accuracy] icon to your attack pool.",
@@ -2932,6 +3962,17 @@
         "points": 10,
         "image": "upgrade-card/turbolasers/quad-turbolaser-cannons.png",
         "key": "quadTurbolaserCannons"
+     },
+     "rapidReload": {
+        "name": "Rapid Reload",
+        "trait": "Modification",
+        "text": "The battery armaments for your left and right hull zones are increased by 1 black die.",
+        "slots": [
+           "Ordnance"
+        ],
+        "points": 8,
+        "image": "upgrade-card/ordnance/rapid-reload.png",
+        "key": "rapidReload"
      },
      "redemption": {
         "name": "Redemption",
@@ -3115,6 +4156,16 @@
         "image": "upgrade-card/title/suppressor.png",
         "key": "suppressor"
      },
+     "sw7IonBatteries": {
+        "name": "SW-7 Ion Batteries",
+        "text": "While attacking a ship, each of your unspent blue [Accuracy] icons adds 1 damage to the damage total.",
+        "slots": [
+           "Ion Cannons"
+        ],
+        "points": 5,
+        "image": "upgrade-card/ion-cannons/sw-7-ion-batteries.png",
+        "key": "sw7IonBatteries"
+     },
      "tacticalExpert": {
         "name": "Tactical Expert",
         "text": "Before you reveal a command, you may change that command to a [Concentrate Fire] command.",
@@ -3124,6 +4175,16 @@
         "points": 6,
         "image": "upgrade-card/officer/tactical-expert.png",
         "key": "tacticalExpert"
+     },
+     "targetingScrambler": {
+        "name": "Targeting Scrambler",
+        "text": "While a friendly ship at distance 1-3 is defending at close range, during the Spend Defense Tokens step, you may exhaust this card to force the attacker to reroll up to 4 dice of your choice.",
+        "slots": [
+           "Experimental Retrofit"
+        ],
+        "points": 5,
+        "image": "upgrade-card/experimental-retrofit/targeting-scrambler.png",
+        "key": "targetingScrambler"
      },
      "taskmasterGrint": {
         "name": "Taskmaster Grint",
@@ -3136,6 +4197,16 @@
         "points": 5,
         "image": "upgrade-card/officer/taskmaster-grint.png",
         "key": "taskmasterGrint"
+     },
+     "turbolaserRerouteCircuits": {
+        "name": "Turbolaser Reroute Circuits",
+        "text": "While attacking, you may exhaust this card and spend 1 [Evade] defense token to change 1 red die to a face with a [Critical Hit] icon or 2 [Hit] icons.",
+        "slots": [
+           "Turbolasers"
+        ],
+        "points": 6,
+        "image": "upgrade-card/turbolasers/xi7-turbolasers.png",
+        "key": "turbolaserRerouteCircuits"
      },
      "vector": {
         "name": "Vector",
@@ -3170,6 +4241,18 @@
         "image": "upgrade-card/weapons-team/veteran-gunners.png",
         "key": "veteranGunners"
      },
+     "walexBlissex": {
+        "name": "Walex Blissex",
+        "unique": true,
+        "text": "When you activate, you may discard this card to recover 1 of your discarded defense tokens.",
+        "slots": [
+           "Officer"
+        ],
+        "faction": "Rebel Alliance",
+        "points": 5,
+        "image": "upgrade-card/officer/walex-blissex.png",
+        "key": "walexBlissex"
+     },
      "weaponsLiaison": {
         "name": "Weapons Liaison",
         "text": "Before you reveal a command, you may spend 1 command token to change that command to a [Concentrate Fire] or [Squadron] command.",
@@ -3179,6 +4262,16 @@
         "points": 3,
         "image": "upgrade-card/officer/weapons-liaison.png",
         "key": "weaponsLiaison"
+     },
+     "wideAreaBarrage": {
+        "name": "Wide-Area Barrage",
+        "text": "Black [Critical Hit]: If the defender is a ship, choose 1 other ship or squadron at close range of the defender. That ship or squadron suffers damage equal to half of the total number of black [Hit] icons in your attack pool, rounded up.",
+        "slots": [
+           "Ordnance"
+        ],
+        "points": 2,
+        "image": "upgrade-card/ordnance/wide-area-barrage.png",
+        "key": "wideAreaBarrage"
      },
      "wingCommander": {
         "name": "Wing Commander",
@@ -3243,6 +4336,7 @@
 
     COMMANDER: "commander",
     DEFENSIVE_RETROFIT: "defensiveRetrofit",
+    EXPERIMENTAL_RETROFIT: "experimentalRetrofit",
     FLEET_COMMAND: "fleetCommand",
     FLEET_SUPPORT: "fleetSupport",
     ION_CANNONS: "ionCannons",
@@ -3267,6 +4361,11 @@
         "name": "Defensive Retrofit",
         "image": "upgrade-slot/defensive-retrofit.png",
         "key": "defensiveRetrofit"
+     },
+     "experimentalRetrofit": {
+        "name": "Experimental Retrofit",
+        "image": "upgrade-slot/experimental-retrofit.png",
+        "key": "experimentalRetrofit"
      },
      "fleetCommand": {
         "name": "Fleet Command",
