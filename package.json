@@ -18,7 +18,12 @@
   },
   "homepage": "https://github.com/jmthompson2015/star-wars-armada#readme",
   "dependencies": {
+    "prop-types": "^15.6.2",
     "ramda": "^0.25.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-dom-factories": "^1.0.2",
+    "redux": "^4.0.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
     "seamless-immutable": "^7.1.3",
@@ -30,6 +35,7 @@
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
     "prettier": "^1.14.2",
     "qunit": "^2.6.2"
