@@ -1,9 +1,13 @@
 import SquadronUI from "./SquadronUI.js";
 
-const resourceBase = AV.Endpoint.ARMADA_IMAGES;
+const { Selector, SquadronCard } = AA;
+const { PositionState } = AS;
+const { Endpoint } = AV;
+
+const resourceBase = Endpoint.ARMADA_IMAGES;
 
 function drawSquadron(elementId, squadronCard) {
-  const position = AS.PositionState.create({
+  const position = PositionState.create({
     x: 35 / 2,
     y: 35 / 2,
     heading: 0
@@ -19,5 +23,5 @@ function drawSquadron(elementId, squadronCard) {
   ReactDOM.render(element, document.getElementById(elementId));
 }
 
-drawSquadron("panel0", AA.Selector.squadronCard(AA.SquadronCard.TIE_FIGHTER_SQUADRON));
-drawSquadron("panel1", AA.Selector.squadronCard(AA.SquadronCard.X_WING_SQUADRON));
+drawSquadron("panel0", Selector.squadronCard(SquadronCard.TIE_FIGHTER_SQUADRON));
+drawSquadron("panel1", Selector.squadronCard(SquadronCard.X_WING_SQUADRON));

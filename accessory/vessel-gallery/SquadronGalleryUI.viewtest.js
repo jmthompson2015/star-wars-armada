@@ -1,8 +1,10 @@
 import SquadronGalleryUI from "./SquadronGalleryUI.js";
 
+const { Selector, SquadronCard } = AA;
+
 const squadronCards = [
-  AA.Selector.squadronCard(AA.SquadronCard.TIE_FIGHTER_SQUADRON),
-  AA.Selector.squadronCard(AA.SquadronCard.X_WING_SQUADRON)
+  Selector.squadronCard(SquadronCard.TIE_FIGHTER_SQUADRON),
+  Selector.squadronCard(SquadronCard.X_WING_SQUADRON)
 ];
 
 const cardGalleryUI = React.createElement(SquadronGalleryUI, {

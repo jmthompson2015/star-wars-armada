@@ -1,13 +1,17 @@
-const { ReactUtilities: ReactUtils } = AV;
+const { ReactUtilities: ReactUtils, SquadronImage } = AV;
+
+const { Selector } = AA;
+
+const squadronNameMap = {
+  "Gar Saxon": "Mandalorian Gauntlet Fighter",
+  '"Howlrunner"': "TIE Fighter Squadron",
+  "Luke Skywalker": "X-wing Squadron"
+};
 
 const determineSquadronName = squadronCard => {
-  let squadronName = squadronCard.name;
+  const replacement = squadronNameMap[squadronCard.name];
 
-  squadronName = squadronName.replace("Gar Saxon", "Mandalorian Gauntlet Fighter");
-  squadronName = squadronName.replace('"Howlrunner"', "TIE Fighter Squadron");
-  squadronName = squadronName.replace("Luke Skywalker", "X-wing Squadron");
-
-  return squadronName;
+  return replacement || squadronCard.name;
 };
 
 class SquadronUI extends React.PureComponent {
@@ -48,12 +52,12 @@ class SquadronUI extends React.PureComponent {
     const scale = 1.0;
     let id;
     const { image } = this.state;
-    const faction = AA.Selector.factionValueBySquadron(squadronCard.key);
+    const faction = Selector.factionValueBySquadron(squadronCard.key);
     const factionColor = faction.color;
 
     context.clearRect(0, 0, 35, 35);
 
-    AV.SquadronImage.draw(context, scale, id, image, position, factionColor);
+    SquadronImage.draw(context, scale, id, image, position, factionColor);
   }
 
   render() {

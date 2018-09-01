@@ -1,8 +1,10 @@
 import ShipGalleryUI from "./ShipGalleryUI.js";
 
+const { Selector, ShipCard } = AA;
+
 const shipCards = [
-  AA.Selector.shipCard(AA.ShipCard.VICTORY_II_CLASS_STAR_DESTROYER),
-  AA.Selector.shipCard(AA.ShipCard.CR90_CORVETTE_A)
+  Selector.shipCard(ShipCard.VICTORY_II_CLASS_STAR_DESTROYER),
+  Selector.shipCard(ShipCard.CR90_CORVETTE_A)
 ];
 
 const cardGalleryUI = React.createElement(ShipGalleryUI, {

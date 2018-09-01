@@ -1,22 +1,26 @@
-const { ReactUtilities: ReactUtils } = AV;
+const { ReactUtilities: ReactUtils, ShipImage } = AV;
+
+const { Selector } = AA;
+
+const shipNameMap = {
+  "Assault Frigate Mark II A": "Assault Frigate Mark II",
+  "CR90 Corvette A": "CR90 Corvette",
+  "Gozanti-class Assault Carriers": "Gozanti-class Carriers",
+  "Imperial I-class Star Destroyer": "Imperial-class Star Destroyer",
+  "Imperial Star Destroyer Kuat Refit": "Star Destroyer <i>Chimaera</i>",
+  "Interdictor Combat Refit": "Interdictor",
+  "MC30c Scout Frigate": "MC30c Frigate",
+  "MC75 Armored Cruiser": "MC75 Cruiser",
+  "MC80 Assault Cruiser": "MC80 Cruiser",
+  "MC80 Battle Cruiser": "MC80 Liberty-class Cruiser",
+  "Nebulon-B Escort Frigate": "Nebulon-B Frigate",
+  "Victory I-class Star Destroyer": "Victory-class Star Destroyer"
+};
 
 const determineShipName = shipCard => {
-  let shipName = shipCard.name;
+  const replacement = shipNameMap[shipCard.name];
 
-  shipName = shipName.replace("Imperial Star Destroyer Kuat Refit", "Star Destroyer Chimaera");
-  shipName = shipName.replace(" Armored", "");
-  shipName = shipName.replace(" Assault", "");
-  shipName = shipName.replace(" Battle", " Liberty-class");
-  shipName = shipName.replace(" Combat Refit", "");
-  shipName = shipName.replace(" Escort", "");
-  shipName = shipName.replace(" I-class", "-class");
-  shipName = shipName.replace(" Scout", "");
-
-  if (shipName.endsWith(" A")) {
-    shipName = shipName.substring(0, shipName.length - 2);
-  }
-
-  return shipName;
+  return replacement || shipCard.name;
 };
 
 class ShipUI extends React.PureComponent {
@@ -57,12 +61,12 @@ class ShipUI extends React.PureComponent {
     const scale = 1.0;
     let id;
     const { image } = this.state;
-    const faction = AA.Selector.factionValueByShip(shipCard.key);
+    const faction = Selector.factionValueByShip(shipCard.key);
     const factionColor = faction.color;
 
     context.clearRect(0, 0, shipBase.width, shipBase.height);
 
-    AV.ShipImage.draw(context, scale, id, image, position, shipBase, factionColor);
+    ShipImage.draw(context, scale, id, image, position, shipBase, factionColor);
   }
 
   render() {
@@ -76,7 +80,9 @@ class ShipUI extends React.PureComponent {
     });
 
     const shipName = determineShipName(shipCard);
-    const label = ReactDOMFactories.span({}, shipName);
+    const label = ReactDOMFactories.span({
+      dangerouslySetInnerHTML: { __html: shipName }
+    });
 
     const rows = [
       ReactUtils.createRow(ReactUtils.createCell(canvas, "shipUICanvas", "pa1"), "shipUICanvasRow"),

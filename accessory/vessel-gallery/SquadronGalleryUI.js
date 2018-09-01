@@ -1,6 +1,7 @@
 import SquadronUI from "./SquadronUI.js";
 
-const { ReactUtilities: ReactUtils } = AV;
+const { PositionState } = AS;
+const { Endpoint, ReactUtilities: ReactUtils } = AV;
 
 class SquadronGalleryUI extends React.PureComponent {
   render() {
@@ -9,7 +10,7 @@ class SquadronGalleryUI extends React.PureComponent {
     let id = 1;
     const mapFunction = squadronCard => {
       const canvasId = squadronCard.key + id;
-      const position = AS.PositionState.create({
+      const position = PositionState.create({
         x: 35 / 2,
         y: 35 / 2,
         heading: 0
@@ -17,10 +18,11 @@ class SquadronGalleryUI extends React.PureComponent {
       const squadronUI = React.createElement(SquadronUI, {
         canvasId,
         position,
-        resourceBase: AV.Endpoint.ARMADA_IMAGES,
+        resourceBase: Endpoint.ARMADA_IMAGES,
         squadronCard
       });
       id += 1;
+
       return ReactUtils.createCell(squadronUI, canvasId, "pa1");
     };
 
