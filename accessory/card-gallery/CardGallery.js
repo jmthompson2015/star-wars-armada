@@ -29,7 +29,7 @@ const determineWidth = enumClass => {
 const createDamageRows = () => {
   const enumClass = AA.DamageCard;
   const enumValues = AA.Selector.enumValues(enumClass);
-  const enumKeys = enumValues.map(enumValue => enumValue.key);
+  const enumKeys = R.map(enumValue => enumValue.key, enumValues);
   const cards = R.map(AA.Selector.damageCard, enumKeys);
   const width = determineWidth(enumClass);
 
@@ -69,78 +69,84 @@ const createShipRows = () => {
   const enumClass = AA.ShipCard;
   const enumValues = AA.Selector.enumValues(enumClass);
   const width = determineWidth(enumClass);
-  const rows = [];
   const factionValues = AA.Selector.enumValues(AA.Faction);
 
-  factionValues.forEach(faction => {
-    const myEnumValues = enumValues.filter(enumValue => enumValue.faction === faction.name);
-    const enumKeys = myEnumValues.map(enumValue => enumValue.key);
+  let i = 1;
+  const reduceFunction = (accum, faction) => {
+    const myEnumValues = R.filter(enumValue => enumValue.faction === faction.name, enumValues);
+    const enumKeys = R.map(enumValue => enumValue.key, myEnumValues);
     const cards = R.map(AA.Selector.shipCard, enumKeys);
 
-    rows.push(createHeader(rows.length, faction.image, faction.name));
+    const header = createHeader(i, faction.image, faction.name);
+    const gallery = React.createElement(CardGalleryUI, {
+      key: `cardGallery${i}`,
+      cards,
+      width
+    });
+    i += 1;
 
-    rows.push(
-      React.createElement(CardGalleryUI, {
-        key: `cardGallery${rows.length}`,
-        cards,
-        width
-      })
-    );
-  });
+    return R.pipe(
+      R.append(header),
+      R.append(gallery)
+    )(accum);
+  };
 
-  return rows;
+  return R.reduce(reduceFunction, [], factionValues);
 };
 
 const createSquadronRows = () => {
   const enumClass = AA.SquadronCard;
   const enumValues = AA.Selector.enumValues(enumClass);
   const width = determineWidth(enumClass);
-  const rows = [];
   const factionValues = AA.Selector.enumValues(AA.Faction);
 
-  factionValues.forEach(faction => {
-    const myEnumValues = enumValues.filter(enumValue => enumValue.faction === faction.name);
-    const enumKeys = myEnumValues.map(enumValue => enumValue.key);
+  let i = 1;
+  const reduceFunction = (accum, faction) => {
+    const myEnumValues = R.filter(enumValue => enumValue.faction === faction.name, enumValues);
+    const enumKeys = R.map(enumValue => enumValue.key, myEnumValues);
     const cards = R.map(AA.Selector.squadronCard, enumKeys);
 
-    rows.push(createHeader(rows.length, faction.image, faction.name));
+    const header = createHeader(i, faction.image, faction.name);
+    const gallery = React.createElement(CardGalleryUI, { key: `cardGallery${i}`, cards, width });
+    i += 1;
 
-    rows.push(
-      React.createElement(CardGalleryUI, {
-        key: `cardGallery${rows.length}`,
-        cards,
-        width
-      })
-    );
-  });
+    return R.pipe(
+      R.append(header),
+      R.append(gallery)
+    )(accum);
+  };
 
-  return rows;
+  return R.reduce(reduceFunction, [], factionValues);
 };
 
 const createUpgradeRows = () => {
   const enumClass = AA.UpgradeCard;
   const enumValues = AA.Selector.enumValues(enumClass);
   const width = determineWidth(enumClass);
-  const rows = [];
   const slotValues = AA.Selector.enumValues(AA.UpgradeSlot);
 
-  slotValues.forEach(slot => {
-    const myEnumValues = enumValues.filter(enumValue => enumValue.slots.includes(slot.name));
-    const enumKeys = myEnumValues.map(enumValue => enumValue.key);
+  let i = 1;
+  const reduceFunction = (accum, slot) => {
+    const myEnumValues = R.filter(enumValue => enumValue.slots.includes(slot.name), enumValues);
+    const enumKeys = R.map(enumValue => enumValue.key, myEnumValues);
     const cards = R.map(AA.Selector.upgradeCard, enumKeys);
 
-    rows.push(createHeader(rows.length, slot.image, slot.name));
+    const header = createHeader(i, slot.image, slot.name);
 
-    rows.push(
-      React.createElement(CardGalleryUI, {
-        key: `cardGallery${rows.length}`,
-        cards,
-        width
-      })
-    );
-  });
+    const gallery = React.createElement(CardGalleryUI, {
+      key: `cardGallery${i}`,
+      cards,
+      width
+    });
+    i += 1;
 
-  return rows;
+    return R.pipe(
+      R.append(header),
+      R.append(gallery)
+    )(accum);
+  };
+
+  return R.reduce(reduceFunction, [], slotValues);
 };
 
 const createGallery = enumClass => {

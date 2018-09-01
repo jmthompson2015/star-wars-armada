@@ -12,7 +12,7 @@ class CardGalleryUI extends React.PureComponent {
       return ReactUtils.createCell(element, card.key);
     };
 
-    const cells = cards.map(mapFunction);
+    const cells = R.map(mapFunction, cards);
 
     return ReactUtils.createFlexboxWrap(cells);
   }
