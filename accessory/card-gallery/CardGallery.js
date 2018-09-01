@@ -48,7 +48,7 @@ const createDamageRows = () => {
 const createHeader = (key, image, label) => {
   const imageUI = ReactDOMFactories.img({
     key: `headerImg${key}`,
-    className: "v-mid",
+    className: "pl2 v-mid",
     src: AV.Endpoint.ARMADA_IMAGES + image,
     width: 32
   });

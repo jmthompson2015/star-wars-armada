@@ -766,7 +766,7 @@ ShipCard.properties =
          "Turbolasers"
       ],
       "points": 112,
-      "ship-image": "ship/galactic-empire/imperial-class-star-destroyer.png",
+      "ship-image": "ship/galactic-empire/imperial-class-star-destroyer-v2.png",
       "image": "ship-card/galactic-empire/imperial-star-destroyer-kuat-refit.png",
       "key": "imperialStarDestroyerKuatRefit"
    },

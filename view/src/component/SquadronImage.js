@@ -16,7 +16,7 @@ SquadronImage.draw = (context0, scale, id, image, position, factionColor) => {
   context.rotate(position.heading * DEG_TO_RADIANS);
 
   // Draw background circle.
-  context.fillStyle = 'rgba(255,255,255,0.4)';
+  context.fillStyle = "rgba(255,255,255,0.4)";
   context.beginPath();
   context.arc(0, 0, halfWidth, 0, 2 * Math.PI);
   context.fill();
@@ -28,7 +28,7 @@ SquadronImage.draw = (context0, scale, id, image, position, factionColor) => {
     // Draw the ship ID.
     context.rotate(90 * DEG_TO_RADIANS);
     context.fillStyle = factionColor;
-    context.font = '14px sans-serif';
+    context.font = "14px sans-serif";
     context.fillText(id, -halfHeight, halfWidth);
     context.rotate(-90 * DEG_TO_RADIANS);
   }

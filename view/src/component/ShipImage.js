@@ -25,7 +25,7 @@ ShipImage.draw = (context0, scale, id, image, position, shipBase, factionColor) 
   context.rotate(position.heading * DEG_TO_RADIANS);
 
   // Draw background square.
-  context.fillStyle = 'rgba(255,255,255,0.4)';
+  context.fillStyle = "rgba(255,255,255,0.4)";
   context.fillRect(-halfWidth, -halfHeight, width, height);
 
   // Draw the firing arcs.
@@ -39,7 +39,7 @@ ShipImage.draw = (context0, scale, id, image, position, shipBase, factionColor) 
     // Draw the ship ID.
     context.rotate(90 * DEG_TO_RADIANS);
     context.fillStyle = factionColor;
-    context.font = '14px sans-serif';
+    context.font = "14px sans-serif";
     context.fillText(id, -halfHeight, halfWidth);
     context.rotate(-90 * DEG_TO_RADIANS);
   }
