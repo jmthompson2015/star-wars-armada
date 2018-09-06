@@ -1,11 +1,11 @@
-import EnumUtilities from './EnumUtilities.js';
-import Faction from './Faction.js';
+import EnumUtilities from "./EnumUtilities.js";
+import Faction from "./Faction.js";
 
-QUnit.module('EnumUtilities');
+QUnit.module("EnumUtilities");
 
-QUnit.test('findByName() Faction Galactic Empire', assert => {
+QUnit.test("findByName() Faction Galactic Empire", assert => {
   // Setup.
-  const name = 'Galactic Empire';
+  const name = "Galactic Empire";
 
   // Run.
   const result = EnumUtilities.findByName(name, Faction);
@@ -16,12 +16,12 @@ QUnit.test('findByName() Faction Galactic Empire', assert => {
   assert.equal(result.key, Faction.GALACTIC_EMPIRE);
 });
 
-QUnit.test('findByProp() Faction color red', assert => {
+QUnit.test("findByProp() Faction color red", assert => {
   // Setup.
-  const color = 'red';
+  const color = "#FF0000";
 
   // Run.
-  const result = EnumUtilities.findByProp('color', color, Faction);
+  const result = EnumUtilities.findByProp("color", color, Faction);
 
   // Verify.
   assert.ok(result);
@@ -29,12 +29,12 @@ QUnit.test('findByProp() Faction color red', assert => {
   assert.equal(result.key, Faction.REBEL_ALLIANCE);
 });
 
-QUnit.test('findByProp() Faction name Galactic Empire', assert => {
+QUnit.test("findByProp() Faction name Galactic Empire", assert => {
   // Setup.
-  const name = 'Galactic Empire';
+  const name = "Galactic Empire";
 
   // Run.
-  const result = EnumUtilities.findByProp('name', name, Faction);
+  const result = EnumUtilities.findByProp("name", name, Faction);
 
   // Verify.
   assert.ok(result);
@@ -42,7 +42,7 @@ QUnit.test('findByProp() Faction name Galactic Empire', assert => {
   assert.equal(result.key, Faction.GALACTIC_EMPIRE);
 });
 
-QUnit.test('keys() Faction', assert => {
+QUnit.test("keys() Faction", assert => {
   // Run.
   const result = EnumUtilities.keys(Faction);
 
@@ -54,7 +54,7 @@ QUnit.test('keys() Faction', assert => {
   assert.equal(result[length - 1], Faction.REBEL_ALLIANCE);
 });
 
-QUnit.test('values() Faction', assert => {
+QUnit.test("values() Faction", assert => {
   // Run.
   const result = EnumUtilities.values(Faction);
 
