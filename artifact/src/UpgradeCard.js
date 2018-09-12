@@ -4,35 +4,49 @@ const UpgradeCard = {
   ADMIRAL_ACKBAR: "admiralAckbar",
   ADMIRAL_CHIRANEAU: "admiralChiraneau",
   ADMIRAL_KONSTANTINE: "admiralKonstantine",
+  ADMIRAL_MONTFERRAT: "admiralMontferrat",
+  ADMIRAL_OZZEL: "admiralOzzel",
   ADMIRAL_RADDUS: "admiralRaddus",
   ADMIRAL_SCREED: "admiralScreed",
+  ADMIRAL_SLOANE: "admiralSloane",
   ADMIRAL_TITUS: "admiralTitus",
   ADMONITION: "admonition",
   ADVANCED_PROJECTORS: "advancedProjectors",
   AGENT_KALLUS: "agentKallus",
+  AHSOKA_TANO: "ahsokaTano",
+  ALL_FIGHTERS_FOLLOW_ME: "allFightersFollowMe",
   ASPIRATION: "aspiration",
   ASSAULT_CONCUSSION_MISSILES: "assaultConcussionMissiles",
   ASSAULT_PROTON_TORPEDOES: "assaultProtonTorpedoes",
   AVENGER: "avenger",
   BAIL_ORGANA: "bailOrgana",
+  BOARDING_ENGINEERS: "boardingEngineers",
+  BOARDING_TROOPERS: "boardingTroopers",
   BOMBER_COMMAND_CENTER: "bomberCommandCenter",
   BOOSTED_COMMS: "boostedComms",
+  BRIGHT_HOPE: "brightHope",
   CAITKEN_AND_SHOLLAN: "caitkenAndShollan",
   CAPTAIN_BRUNSON: "captainBrunson",
   CAPTAIN_NEEDA: "captainNeeda",
+  CENTICORE: "centicore",
+  CHAM_SYNDULLA: "chamSyndulla",
   CHART_OFFICER: "chartOfficer",
   CHIMAERA: "chimaera",
   CLUSTER_BOMBS: "clusterBombs",
   COMMANDANT_ARESKO: "commandantAresko",
+  COMMANDER_SATO: "commanderSato",
   COMMS_NET: "commsNet",
+  DAMAGE_CONTROL_OFFICER: "damageControlOfficer",
   DARTH_VADER_COMMANDER: "darthVader_commander",
   DARTH_VADER_WEAPONS_TEAM_OFFENSIVE_RETROFIT: "darthVader_weaponsTeam_offensiveRetrofit",
   DEFENSE_LIAISON: "defenseLiaison",
   DEFIANCE: "defiance",
   DEMOLISHER: "demolisher",
   DEVASTATOR: "devastator",
+  DISPOSABLE_CAPACITORS: "disposableCapacitors",
   DODONNAS_PRIDE: "dodonnasPride",
   DOMINATOR: "dominator",
+  DUAL_TURBOLASER_TURRETS: "dualTurbolaserTurrets",
   EARLY_WARNING_SYSTEM: "earlyWarningSystem",
   ELECTRONIC_COUNTERMEASURES: "electronicCountermeasures",
   ENDEAVOR: "endeavor",
@@ -43,14 +57,18 @@ const UpgradeCard = {
   ENTRAPMENT_FORMATION: "entrapmentFormation",
   EXPANDED_HANGAR_BAY: "expandedHangarBay",
   EXPANDED_LAUNCHERS: "expandedLaunchers",
+  EXTERNAL_RACKS: "externalRacks",
   FIGHTER_COORDINATION_TEAM: "fighterCoordinationTeam",
   FIRE_CONTROL_TEAM: "fireControlTeam",
+  FLECHETTE_TORPEDOES: "flechetteTorpedoes",
   FLIGHT_COMMANDER: "flightCommander",
   FORESIGHT: "foresight",
   G7_X_GRAV_WELL_PROJECTOR: "g7XGravWellProjector",
   G_8_EXPERIMENTAL_PROJECTOR: "g8ExperimentalProjector",
   GALLANT_HAVEN: "gallantHaven",
+  GARELS_HONOR: "garelsHonor",
   GARM_BEL_IBLIS: "garmBelIblis",
+  GENERAL_CRACKEN: "generalCracken",
   GENERAL_DODONNA: "generalDodonna",
   GENERAL_DRAVEN: "generalDraven",
   GENERAL_MADINE: "generalMadine",
@@ -62,13 +80,17 @@ const UpgradeCard = {
   GRAV_SHIFT_REROUTE: "gravShiftReroute",
   GUNNERY_TEAM: "gunneryTeam",
   H9_TURBOLASERS: "h9Turbolasers",
+  HAND_OF_JUSTICE: "handOfJustice",
   HARDENED_BULKHEADS: "hardenedBulkheads",
   HEAVY_ION_EMPLACEMENTS: "heavyIonEmplacements",
   HEAVY_TURBOLASER_TURRETS: "heavyTurbolaserTurrets",
   HIGH_CAPACITY_ION_TURBINES: "highCapacityIonTurbines",
   HOME_ONE: "homeOne",
+  HONDO_OHNAKA: "hondoOhnaka",
+  IMPETUOUS: "impetuous",
   INDEPENDENCE: "independence",
   INSIDIOUS: "insidious",
+  INSTIGATOR: "instigator",
   INSTRUCTOR_GORAN: "instructorGoran",
   INTEL_OFFICER: "intelOfficer",
   INTENSIFY_FIREPOWER: "intensifyFirepower",
@@ -77,9 +99,13 @@ const UpgradeCard = {
   JYN_ERSO: "jynErso",
   LANDO_CALRISSIAN: "landoCalrissian",
   LEADING_SHOTS: "leadingShots",
-  LEIA_ORGANA: "leiaOrgana",
+  LEIA_ORGANA_COMMANDER: "leiaOrgana_commander",
+  LEIA_ORGANA_OFFICER: "leiaOrgana_officer",
   LIBERTY: "liberty",
+  MAJOR_DERLIN: "majorDerlin",
   MEDICAL_TEAM: "medicalTeam",
+  MINISTER_TUA: "ministerTua",
+  MOFF_JERJERROD: "moffJerjerrod",
   MON_CALAMARI_EXODUS_FLEET: "monCalamariExodusFleet",
   MON_KARREN: "monKarren",
   MS_1_ION_CANNONS: "ms1IonCannons",
@@ -90,16 +116,23 @@ const UpgradeCard = {
   ORDNANCE_PODS: "ordnancePods",
   OVERLOAD_PULSE: "overloadPulse",
   PARAGON: "paragon",
+  PHOENIX_HOME: "phoenixHome",
   PHYLON_Q7_TRACTOR_BEAMS: "phylonQ7TractorBeams",
   POINT_DEFENSE_REROUTE: "pointDefenseReroute",
   PROFUNDITY: "profundity",
   PROJECTION_EXPERTS: "projectionExperts",
+  PURSUANT: "pursuant",
+  QUAD_BATTERY_TURRETS: "quadBatteryTurrets",
   QUAD_LASER_TURRETS: "quadLaserTurrets",
   QUAD_TURBOLASER_CANNONS: "quadTurbolaserCannons",
+  QUANTUM_STORM: "quantumStorm",
+  RAPID_LAUNCH_BAYS: "rapidLaunchBays",
   RAPID_RELOAD: "rapidReload",
   REDEMPTION: "redemption",
   REDUNDANT_SHIELDS: "redundantShields",
+  REINFORCED_BLAST_DOORS: "reinforcedBlastDoors",
   RELENTLESS: "relentless",
+  REPAIR_CREWS: "repairCrews",
   RUTHLESS_STRATEGISTS: "ruthlessStrategists",
   SALVATION: "salvation",
   SENSOR_TEAM: "sensorTeam",
@@ -110,13 +143,19 @@ const UpgradeCard = {
   SLICER_TOOLS: "slicerTools",
   SOVEREIGN: "sovereign",
   SPINAL_ARMAMENT: "spinalArmament",
+  SQUALL: "squall",
   STRATEGIC_ADVISER: "strategicAdviser",
+  STRONGHOLD: "stronghold",
   SUPPORT_OFFICER: "supportOfficer",
   SUPPRESSOR: "suppressor",
   SW_7_ION_BATTERIES: "sw7IonBatteries",
   TACTICAL_EXPERT: "tacticalExpert",
   TARGETING_SCRAMBLER: "targetingScrambler",
+  TASK_FORCE_ANTILLES: "taskForceAntilles",
+  TASK_FORCE_ORGANA: "taskForceOrgana",
   TASKMASTER_GRINT: "taskmasterGrint",
+  THE_GRAND_INQUISITOR: "theGrandInquisitor",
+  TORYN_FARR: "torynFarr",
   TURBOLASER_REROUTE_CIRCUITS: "turbolaserRerouteCircuits",
   VECTOR: "vector",
   VETERAN_CAPTAIN: "veteranCaptain",
@@ -181,6 +220,30 @@ UpgradeCard.properties =
       "image": "upgrade-card/commander/admiral-konstantine.png",
       "key": "admiralKonstantine"
    },
+   "admiralMontferrat": {
+      "name": "Admiral Montferrat",
+      "unique": true,
+      "text": "While defending against a ship, if your speed is 3 or higher, the attack is treated as obstructed.\nAfter you execute a maneuver, if you overlapped a ship, discard this card.",
+      "slots": [
+         "Officer"
+      ],
+      "faction": "Galactic Empire",
+      "points": 5,
+      "image": "upgrade-card/officer/admiral-montferrat.png",
+      "key": "admiralMontferrat"
+   },
+   "admiralOzzel": {
+      "name": "Admiral Ozzel",
+      "unique": true,
+      "text": "When a friendly ship resolves a [Navigate] command, it may change its speed by an additional 1.",
+      "faction": "Galactic Empire",
+      "slots": [
+         "Commander"
+      ],
+      "points": 20,
+      "image": "upgrade-card/commander/admiral-ozzel.png",
+      "key": "admiralOzzel"
+   },
    "admiralRaddus": {
       "name": "Admiral Raddus",
       "unique": true,
@@ -204,6 +267,18 @@ UpgradeCard.properties =
       "points": 26,
       "image": "upgrade-card/commander/admiral-screed.png",
       "key": "admiralScreed"
+   },
+   "admiralSloane": {
+      "name": "Admiral Sloane",
+      "unique": true,
+      "text": "While a friendly squadron without Rogue is attacking, it may spend 1 die with an [Accuracy] icon to choose and spend 1 of the defender's defense tokens. While attacking a ship, it may also reroll 1 die with a [Critical Hit] icon.",
+      "faction": "Galactic Empire",
+      "slots": [
+         "Commander"
+      ],
+      "points": 24,
+      "image": "upgrade-card/commander/admiral-sloane.png",
+      "key": "admiralSloane"
    },
    "admiralTitus": {
       "name": "Admiral Titus",
@@ -251,6 +326,28 @@ UpgradeCard.properties =
       "points": 3,
       "image": "upgrade-card/officer/agent-kallus.png",
       "key": "agentKallus"
+   },
+   "ahsokaTano": {
+      "name": "Ahsoka Tano",
+      "unique": true,
+      "text": "During the activation of a friendly ship at distance 1-5, you may exhaust this card to discard 1 command token from that ship. If you do, that ship may gain 1 command token of any type.",
+      "faction": "Rebel Alliance",
+      "slots": [
+         "Officer"
+      ],
+      "points": 2,
+      "image": "upgrade-card/officer/ahsoka-tano.png",
+      "key": "ahsokaTano"
+   },
+   "allFightersFollowMe": {
+      "name": "All Fighters, Follow Me!",
+      "text": "At the start of the Ship Phase, you may discard this card or spend a [Squadron] token. If you do, until the end of the round, the speed of each squadron that a friendly ship activates is increased by 1, to a maximum of 5, until the end of that squadron's activation.",
+      "slots": [
+         "Fleet Command"
+      ],
+      "points": 5,
+      "image": "upgrade-card/fleet-command/all-fighters-follow-me.png",
+      "key": "allFightersFollowMe"
    },
    "aspiration": {
       "name": "Aspiration",
@@ -311,6 +408,28 @@ UpgradeCard.properties =
       "image": "upgrade-card/officer/bail-organa.png",
       "key": "bailOrgana"
    },
+   "boardingEngineers": {
+      "name": "Boarding Engineers",
+      "text": "When you reveal a command, you may discard a [Squadron] dial or token and this card to choose 1 enemy ship at close range. Look at its facedown damage cards and flip a number of them faceup up to your engineering value (one at a time).",
+      "slots": [
+         "Weapons Team",
+         "Offensive Retrofit"
+      ],
+      "points": 2,
+      "image": "upgrade-card/weapons-team-and-offensive-retrofit/boarding-engineers.png",
+      "key": "boardingEngineers"
+   },
+   "boardingTroopers": {
+      "name": "Boarding Troopers",
+      "text": "When you reveal a command, you may discard a [Squadron] dial or token and this card to choose 1 enemy ship at close range. Choose and spend a number of its defense tokens up to your squadron value.",
+      "slots": [
+         "Weapons Team",
+         "Offensive Retrofit"
+      ],
+      "points": 3,
+      "image": "upgrade-card/weapons-team-and-offensive-retrofit/boarding-troopers.png",
+      "key": "boardingTroopers"
+   },
    "bomberCommandCenter": {
       "name": "Bomber Command Center",
       "text": "While a friendly squadron with Bomber at distance 1-5 is attacking a ship, it may reroll 1 die.",
@@ -330,6 +449,19 @@ UpgradeCard.properties =
       "points": 4,
       "image": "upgrade-card/offensive-retrofit/boosted-comms.png",
       "key": "boostedComms"
+   },
+   "brightHope": {
+      "name": "Bright Hope",
+      "unique": true,
+      "text": "While defending against an attack that does not target your rear hull zone, before you suffer damage reduce the total damage by 1.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "GR-75 Transports",
+      "faction": "Rebel Alliance",
+      "points": 2,
+      "image": "upgrade-card/title/bright-hope.png",
+      "key": "brightHope"
    },
    "caitkenAndShollan": {
       "name": "Caitken and Shollan",
@@ -365,6 +497,32 @@ UpgradeCard.properties =
       "points": 2,
       "image": "upgrade-card/officer/captain-needa.png",
       "key": "captainNeeda"
+   },
+   "centicore": {
+      "name": "Centicore",
+      "unique": true,
+      "text": "When another friendly ship resolves a [Squadron] command, up to 2 of the squadrons it activates can be at close-medium range of you.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "Arquitens-class Cruiser",
+      "faction": "Galactic Empire",
+      "points": 3,
+      "image": "upgrade-card/title/centicore.png",
+      "key": "centicore"
+   },
+   "chamSyndulla": {
+      "name": "Cham Syndulla",
+      "unique": true,
+      "text": "When you reveal a command, you may discard a [Squadron] dial or token and this card to choose 1 enemy ship at close range. If you do you may choose a new command for each command dial assigned to that ship.",
+      "faction": "Rebel Alliance",
+      "slots": [
+         "Weapons Team",
+         "Offensive Retrofit"
+      ],
+      "points": 5,
+      "image": "upgrade-card/weapons-team-and-offensive-retrofit/cham-syndulla.png",
+      "key": "chamSyndulla"
    },
    "chartOfficer": {
       "name": "Chart Officer",
@@ -411,6 +569,18 @@ UpgradeCard.properties =
       "image": "upgrade-card/officer/commandant-aresko.png",
       "key": "commandantAresko"
    },
+   "commanderSato": {
+      "name": "Commander Sato",
+      "unique": true,
+      "text": "While a friendly ship is attacking a ship at distance 1 of a friendly squadron, before rolling attack dice, the attacker may replace up to 2 dice in its attack pool with an equal number of dice of any color or colors.",
+      "faction": "Rebel Alliance",
+      "slots": [
+         "Commander"
+      ],
+      "points": 32,
+      "image": "upgrade-card/commander/commander-sato.png",
+      "key": "commanderSato"
+   },
    "commsNet": {
       "name": "Comms Net",
       "text": "After the Reveal Command Dial Step, you may remove 1 command token from this ship to assign a matching token to another friendly ship at distance 1-5.",
@@ -420,6 +590,16 @@ UpgradeCard.properties =
       "points": 2,
       "image": "upgrade-card/fleet-support/comms-net.png",
       "key": "commsNet"
+   },
+   "damageControlOfficer": {
+      "name": "Damage Control Officer",
+      "text": "When you resolve the [Contain] defense effect, you can prevent the attacker from resolving any critical effects.",
+      "slots": [
+         "Officer"
+      ],
+      "points": 5,
+      "image": "upgrade-card/officer/damage-control-officer.png",
+      "key": "damageControlOfficer"
    },
    "darthVader_commander": {
       "name": "Darth Vader",
@@ -493,6 +673,17 @@ UpgradeCard.properties =
       "image": "upgrade-card/title/devastator.png",
       "key": "devastator"
    },
+   "disposableCapacitors": {
+      "name": "Disposable Capacitors",
+      "restriction": "Small or medium ship only.",
+      "text": "When you activate, you may discard this card. If you do, the blue dice in your battery armament can be used while attacking ships at close-long range until the end of the round.",
+      "slots": [
+         "Offensive Retrofit"
+      ],
+      "points": 3,
+      "image": "upgrade-card/offensive-retrofit/disposable-capacitors.png",
+      "key": "disposableCapacitors"
+   },
    "dodonnasPride": {
       "name": "Dodonna's Pride",
       "unique": true,
@@ -518,6 +709,17 @@ UpgradeCard.properties =
       "points": 12,
       "image": "upgrade-card/title/dominator.png",
       "key": "dominator"
+   },
+   "dualTurbolaserTurrets": {
+      "name": "Dual Turbolaser Turrets",
+      "trait": "Modification",
+      "text": "While attacking you may exhaust this card to add 1 red die to your attack pool. If you do, remove 1 die from the attack pool.",
+      "slots": [
+         "Turbolasers"
+      ],
+      "points": 5,
+      "image": "upgrade-card/turbolasers/dual-turbolaser-turrets.png",
+      "key": "dualTurbolaserTurrets"
    },
    "earlyWarningSystem": {
       "name": "Early Warning System",
@@ -624,6 +826,16 @@ UpgradeCard.properties =
       "image": "upgrade-card/ordnance/expanded-launchers.png",
       "key": "expandedLaunchers"
    },
+   "externalRacks": {
+      "name": "External Racks",
+      "text": "While attacking at close range, you may discard this card to add 2 black dice to your attack pool.",
+      "slots": [
+         "Ordnance"
+      ],
+      "points": 3,
+      "image": "upgrade-card/ordnance/external-racks.png",
+      "key": "externalRacks"
+   },
    "fighterCoordinationTeam": {
       "name": "Fighter Coordination Team",
       "text": "After you execute a maneuver, you may select a number of unengaged friendly squadrons up to your squadron value at close-medium range. Those squadrons may move up to distance 1.",
@@ -643,6 +855,16 @@ UpgradeCard.properties =
       "points": 2,
       "image": "upgrade-card/weapons-team/fire-control-team.png",
       "key": "fireControlTeam"
+   },
+   "flechetteTorpedoes": {
+      "name": "Flechette Torpedoes",
+      "text": "While attacking a squadron, you may spend 1 black die with a [Critical Hit] icon to toggle its activation slider to the activated side.",
+      "slots": [
+         "Ordnance"
+      ],
+      "points": 3,
+      "image": "upgrade-card/ordnance/flechette-torpedoes.png",
+      "key": "flechetteTorpedoes"
    },
    "flightCommander": {
       "name": "Flight Commander",
@@ -701,6 +923,19 @@ UpgradeCard.properties =
       "image": "upgrade-card/title/gallant-haven.png",
       "key": "gallantHaven"
    },
+   "garelsHonor": {
+      "name": "Garel's Honor",
+      "unique": true,
+      "text": "When you overlap an enemy ship, the enemy ship suffers a faceup damage card instead of a facedown damage card.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "Hammerhead Corvette",
+      "faction": "Rebel Alliance",
+      "points": 4,
+      "image": "upgrade-card/title/garels-honor.png",
+      "key": "garelsHonor"
+   },
    "garmBelIblis": {
       "name": "Garm Bel Iblis",
       "unique": true,
@@ -712,6 +947,18 @@ UpgradeCard.properties =
       "points": 25,
       "image": "upgrade-card/commander/garm-bel-iblis.png",
       "key": "garmBelIblis"
+   },
+   "generalCracken": {
+      "name": "General Cracken",
+      "unique": true,
+      "text": "While a friendly small or medium ship is defending against a ship, if the defender is at speed 3 or higher, the attack is treated as obstructed.",
+      "faction": "Rebel Alliance",
+      "slots": [
+         "Commander"
+      ],
+      "points": 26,
+      "image": "upgrade-card/commander/general-cracken.png",
+      "key": "generalCracken"
    },
    "generalDodonna": {
       "name": "General Dodonna",
@@ -841,6 +1088,19 @@ UpgradeCard.properties =
       "image": "upgrade-card/turbolasers/h9-turbolasers.png",
       "key": "h9Turbolasers"
    },
+   "handOfJustice": {
+      "name": "Hand of Justice",
+      "unique": true,
+      "text": "Before you reveal a command, you may exhaust this card to choose another friendly ship at distance 1-5 and ready 1 of its defense tokens.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "Arquitens-class Cruiser",
+      "faction": "Galactic Empire",
+      "points": 4,
+      "image": "upgrade-card/title/hand-of-justice.png",
+      "key": "handOfJustice"
+   },
    "hardenedBulkheads": {
       "name": "Hardened Bulkheads",
       "restriction": "Large ship only.",
@@ -896,6 +1156,30 @@ UpgradeCard.properties =
       "image": "upgrade-card/title/home-one.png",
       "key": "homeOne"
    },
+   "hondoOhnaka": {
+      "name": "Hondo Ohnaka",
+      "unique": true,
+      "text": "At the start of the ship phase, you may discard this card to choose 2 different command tokens and place them on 2 different ships. Then your opponent chooses 2 different command tokens you did not choose and places them on 2 different ships.",
+      "slots": [
+         "Officer"
+      ],
+      "points": 2,
+      "image": "upgrade-card/officer/hondo-ohnaka.png",
+      "key": "hondoOhnaka"
+   },
+   "impetuous": {
+      "name": "Impetuous",
+      "unique": true,
+      "text": "At the end of your Attack Step, choose 1 of your hull zones. You may perform an attack against 1 enemy squadron from that hull zone, even if you have already attacked from that zone this round.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "Raider-class Corvette",
+      "faction": "Galactic Empire",
+      "points": 4,
+      "image": "upgrade-card/title/impetuous.png",
+      "key": "impetuous"
+   },
    "independence": {
       "name": "Independence",
       "unique": true,
@@ -921,6 +1205,19 @@ UpgradeCard.properties =
       "points": 3,
       "image": "upgrade-card/title/insidious.png",
       "key": "insidious"
+   },
+   "instigator": {
+      "name": "Instigator",
+      "unique": true,
+      "text": "Enemy squadrons at distance 1 are treated as if they are engaged by 2 additional squadrons, even if they are not currently engaged.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "Raider-class Corvette",
+      "faction": "Galactic Empire",
+      "points": 4,
+      "image": "upgrade-card/title/instigator.png",
+      "key": "instigator"
    },
    "instructorGoran": {
       "name": "Instructor Goran",
@@ -1010,7 +1307,19 @@ UpgradeCard.properties =
       "image": "upgrade-card/ion-cannons/leading-shots.png",
       "key": "leadingShots"
    },
-   "leiaOrgana": {
+   "leiaOrgana_commander": {
+      "name": "Leia Organa",
+      "unique": true,
+      "text": "When a friendly ship resolves a command by spending a command dial, if it has not resolved another command this round, it may resolve that command as if it spent a matching command token. If it does, that ship may not resolve additional commands this round.",
+      "faction": "Rebel Alliance",
+      "slots": [
+         "Commander"
+      ],
+      "points": 38,
+      "image": "upgrade-card/commander/leia-organa.png",
+      "key": "leiaOrgana_commander"
+   },
+   "leiaOrgana_officer": {
       "name": "Leia Organa",
       "unique": true,
       "text": "When you reveal a command, you may choose another friendly ship at distance 1-5 and change that ship's top command to your revealed command.",
@@ -1020,7 +1329,7 @@ UpgradeCard.properties =
       ],
       "points": 3,
       "image": "upgrade-card/officer/leia-organa.png",
-      "key": "leiaOrgana"
+      "key": "leiaOrgana_officer"
    },
    "liberty": {
       "name": "Liberty",
@@ -1035,6 +1344,18 @@ UpgradeCard.properties =
       "image": "upgrade-card/title/liberty.png",
       "key": "liberty"
    },
+   "majorDerlin": {
+      "name": "Major Derlin",
+      "unique": true,
+      "text": "Before you suffer damage from an attack, you may exhaust this card to reduce the total damage by 1.",
+      "faction": "Rebel Alliance",
+      "slots": [
+         "Officer"
+      ],
+      "points": 7,
+      "image": "upgrade-card/officer/major-derlin.png",
+      "key": "majorDerlin"
+   },
    "medicalTeam": {
       "name": "Medical Team",
       "text": "Before you are dealt a faceup damage card with the Crew trait, you may discard this card to discard that damage card.",
@@ -1044,6 +1365,30 @@ UpgradeCard.properties =
       "points": 1,
       "image": "upgrade-card/support-team/medical-team.png",
       "key": "medicalTeam"
+   },
+   "ministerTua": {
+      "name": "Minister Tua",
+      "unique": true,
+      "text": "You gain an additional [Defensive Retrofit] icon in your upgrade bar.\nYou cannot equip this card to a medium or large ship with a [Defensive Retrofit] icon in its upgrade bar.",
+      "faction": "Galactic Empire",
+      "slots": [
+         "Officer"
+      ],
+      "points": 2,
+      "image": "upgrade-card/officer/minister-tua.png",
+      "key": "ministerTua"
+   },
+   "moffJerjerrod": {
+      "name": "Moff Jerjerrod",
+      "unique": true,
+      "text": "During a friendly ship's Determine Course step, it may suffer 1 damage to change the first yaw value of its current speed to \"||\" until the end of its activation.",
+      "faction": "Galactic Empire",
+      "slots": [
+         "Commander"
+      ],
+      "points": 23,
+      "image": "upgrade-card/commander/moff-jerjerrod.png",
+      "key": "moffJerjerrod"
    },
    "monCalamariExodusFleet": {
       "name": "Mon Calamari Exodus Fleet",
@@ -1156,6 +1501,19 @@ UpgradeCard.properties =
       "image": "upgrade-card/title/paragon.png",
       "key": "paragon"
    },
+   "phoenixHome": {
+      "name": "Phoenix Home",
+      "unique": true,
+      "text": "You gain 1 additional [Officer] icon in your upgrade bar.\nYou can be assigned up to 4 command tokens instead of a number of command tokens equal to your command value.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "Pelta-class Ship",
+      "faction": "Rebel Alliance",
+      "points": 3,
+      "image": "upgrade-card/title/phoenix-home.png",
+      "key": "phoenixHome"
+   },
    "phylonQ7TractorBeams": {
       "name": "Phylon Q7 Tractor Beams",
       "trait": "Modification",
@@ -1200,6 +1558,30 @@ UpgradeCard.properties =
       "image": "upgrade-card/support-team/projection-experts.png",
       "key": "projectionExperts"
    },
+   "pursuant": {
+      "name": "Pursuant",
+      "unique": true,
+      "text": "When you reveal a command other than a [Squadron] command, you may discard this card to resolve a [Squadron]. You treat this command as if you spent a [Squadron] dial.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "Quasar Fire-class Cruiser-Carrier",
+      "faction": "Galactic Empire",
+      "points": 2,
+      "image": "upgrade-card/title/pursuant.png",
+      "key": "pursuant"
+   },
+   "quadBatteryTurrets": {
+      "name": "Quad Battery Turrets",
+      "trait": "Modification",
+      "text": "While attacking a ship with a higher speed than yours, you may add 1 blue die to your attack pool.",
+      "slots": [
+         "Turbolasers"
+      ],
+      "points": 5,
+      "image": "upgrade-card/turbolasers/quad-battery-turrets.png",
+      "key": "quadBatteryTurrets"
+   },
    "quadLaserTurrets": {
       "name": "Quad Laser Turrets",
       "text": "While defending at distance 1, if the attacker is a squadron, you have Counter 1.",
@@ -1219,6 +1601,29 @@ UpgradeCard.properties =
       "points": 10,
       "image": "upgrade-card/turbolasers/quad-turbolaser-cannons.png",
       "key": "quadTurbolaserCannons"
+   },
+   "quantumStorm": {
+      "name": "Quantum Storm",
+      "unique": true,
+      "text": "[Navigate]: After you execute a maneuver, you may exhaust this card to execute a 1-speed maneuver with a yaw of \"-\".",
+      "slots": [
+         "Title"
+      ],
+      "ship": "GR-75 Transports",
+      "faction": "Rebel Alliance",
+      "points": 1,
+      "image": "upgrade-card/title/quantum-storm.png",
+      "key": "quantumStorm"
+   },
+   "rapidLaunchBays": {
+      "name": "Rapid Launch Bays",
+      "text": "Before deploying fleets, you may set aside a number of friendly squadrons up to your squadron value next to your ship card.\n[Squadron]: For each squadron you would activate with this command, you may instead place 1 of your set-aside squadrons within distance 1. It cannot move this activation.",
+      "slots": [
+         "Offensive Retrofit"
+      ],
+      "points": 6,
+      "image": "upgrade-card/offensive-retrofit/rapid-launch-bays.png",
+      "key": "rapidLaunchBays"
    },
    "rapidReload": {
       "name": "Rapid Reload",
@@ -1255,6 +1660,17 @@ UpgradeCard.properties =
       "image": "upgrade-card/defensive-retrofit/redundant-shields.png",
       "key": "redundantShields"
    },
+   "reinforcedBlastDoors": {
+      "name": "Reinforced Blast Doors",
+      "trait": "Modification",
+      "text": "At the start of the Ship Phase, you may discard this card to discard up to 3 of your facedown damage cards.",
+      "slots": [
+         "Defensive Retrofit"
+      ],
+      "points": 5,
+      "image": "upgrade-card/defensive-retrofit/reinforced-blast-doors.png",
+      "key": "reinforcedBlastDoors"
+   },
    "relentless": {
       "name": "Relentless",
       "unique": true,
@@ -1267,6 +1683,16 @@ UpgradeCard.properties =
       "points": 3,
       "image": "upgrade-card/title/relentless.png",
       "key": "relentless"
+   },
+   "repairCrews": {
+      "name": "Repair Crews",
+      "text": "[Repair]: Instead of spending engineering points, you may discard 1 damage card from 1 friendly ship at distance 1-2.",
+      "slots": [
+         "Fleet Support"
+      ],
+      "points": 4,
+      "image": "upgrade-card/fleet-support/repair-crews.png",
+      "key": "repairCrews"
    },
    "ruthlessStrategists": {
       "name": "Ruthless Strategists",
@@ -1378,6 +1804,19 @@ UpgradeCard.properties =
       "image": "upgrade-card/turbolasers/spinal-armament.png",
       "key": "spinalArmament"
    },
+   "squall": {
+      "name": "Squall",
+      "unique": true,
+      "text": "When you activate, you may choose up to 3 unengaged friendly squadrons at close-medium range. Those squadrons may move up to distance 2. If they do, they cannot end their movement engaged.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "Quasar Fire-class Cruiser-Carrier",
+      "faction": "Galactic Empire",
+      "points": 3,
+      "image": "upgrade-card/title/squall.png",
+      "key": "squall"
+   },
    "strategicAdviser": {
       "name": "Strategic Adviser",
       "unique": true,
@@ -1389,6 +1828,19 @@ UpgradeCard.properties =
       "points": 4,
       "image": "upgrade-card/officer/strategic-adviser.png",
       "key": "strategicAdviser"
+   },
+   "stronghold": {
+      "name": "Stronghold",
+      "unique": true,
+      "text": "While a friendly squadron with Swarm at distance 1-2 is defending, the attack is treated as obstructed.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "Quasar Fire-class Cruiser-Carrier",
+      "faction": "Galactic Empire",
+      "points": 5,
+      "image": "upgrade-card/title/stronghold.png",
+      "key": "stronghold"
    },
    "supportOfficer": {
       "name": "Support Officer",
@@ -1443,6 +1895,30 @@ UpgradeCard.properties =
       "image": "upgrade-card/experimental-retrofit/targeting-scrambler.png",
       "key": "targetingScrambler"
    },
+   "taskForceAntilles": {
+      "name": "Task Force Antilles",
+      "text": "When you suffer damage from an attack, you may choose and exhaust a copy of this card on another friendly ship at distance 1-3. If you do, that ship suffers 1 of your damage instead. While this card is exhausted, you cannot spend engineering points.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "Hammerhead Corvette",
+      "faction": "Rebel Alliance",
+      "points": 3,
+      "image": "upgrade-card/title/task-force-antilles.png",
+      "key": "taskForceAntilles"
+   },
+   "taskForceOrgana": {
+      "name": "Task Force Organa",
+      "text": "While attacking, you may choose and exhaust a copy of this card on another friendly ship at distance 1-3 to reroll up to 2 attack dice. While this card is exhausted, you cannot attack ships.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "Hammerhead Corvette",
+      "faction": "Rebel Alliance",
+      "points": 1,
+      "image": "upgrade-card/title/task-force-organa.png",
+      "key": "taskForceOrgana"
+   },
    "taskmasterGrint": {
       "name": "Taskmaster Grint",
       "unique": true,
@@ -1454,6 +1930,30 @@ UpgradeCard.properties =
       "points": 5,
       "image": "upgrade-card/officer/taskmaster-grint.png",
       "key": "taskmasterGrint"
+   },
+   "theGrandInquisitor": {
+      "name": "The Grand Inquisitor",
+      "unique": true,
+      "text": "When an enemy ship at distance 1-5 changes its speed, you may exhaust this card to increase or decrease your speed by 1.",
+      "slots": [
+         "Officer"
+      ],
+      "faction": "Galactic Empire",
+      "points": 4,
+      "image": "upgrade-card/officer/the-grand-inquisitor.png",
+      "key": "theGrandInquisitor"
+   },
+   "torynFarr": {
+      "name": "Toryn Farr",
+      "unique": true,
+      "text": "While another friendly ship or squadron at distance 1-3 is attacking, it may reroll 1 blue die.",
+      "slots": [
+         "Officer"
+      ],
+      "faction": "Rebel Alliance",
+      "points": 7,
+      "image": "upgrade-card/officer/toryn-farr.png",
+      "key": "torynFarr"
    },
    "turbolaserRerouteCircuits": {
       "name": "Turbolaser Reroute Circuits",

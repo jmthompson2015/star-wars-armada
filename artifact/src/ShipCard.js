@@ -1,5 +1,7 @@
 const ShipCard = {
 
+  ARQUITENS_CLASS_COMMAND_CRUISER: "arquitensClassCommandCruiser",
+  ARQUITENS_CLASS_LIGHT_CRUISER: "arquitensClassLightCruiser",
   ASSAULT_FRIGATE_MARK_II_A: "assaultFrigateMarkIiA",
   ASSAULT_FRIGATE_MARK_II_B: "assaultFrigateMarkIiB",
   CR90_CORVETTE_A: "cr90CorvetteA",
@@ -8,6 +10,10 @@ const ShipCard = {
   GLADIATOR_II_CLASS_STAR_DESTROYER: "gladiatorIiClassStarDestroyer",
   GOZANTI_CLASS_ASSAULT_CARRIERS: "gozantiClassAssaultCarriers",
   GOZANTI_CLASS_CRUISERS: "gozantiClassCruisers",
+  GR_75_COMBAT_RETROFITS: "gr75CombatRetrofits",
+  GR_75_MEDIUM_TRANSPORTS: "gr75MediumTransports",
+  HAMMERHEAD_SCOUT_CORVETTE: "hammerheadScoutCorvette",
+  HAMMERHEAD_TORPEDO_CORVETTE: "hammerheadTorpedoCorvette",
   IMPERIAL_I_CLASS_STAR_DESTROYER: "imperialIClassStarDestroyer",
   IMPERIAL_II_CLASS_STAR_DESTROYER: "imperialIiClassStarDestroyer",
   IMPERIAL_STAR_DESTROYER_CYMOON_1_REFIT: "imperialStarDestroyerCymoon1Refit",
@@ -22,14 +28,165 @@ const ShipCard = {
   MC80_BATTLE_CRUISER: "mc80BattleCruiser",
   MC80_COMMAND_CRUISER: "mc80CommandCruiser",
   MC80_STAR_CRUISER: "mc80StarCruiser",
+  MODIFIED_PELTA_CLASS_ASSAULT_SHIP: "modifiedPeltaClassAssaultShip",
+  MODIFIED_PELTA_CLASS_COMMAND_SHIP: "modifiedPeltaClassCommandShip",
   NEBULON_B_ESCORT_FRIGATE: "nebulonBEscortFrigate",
   NEBULON_B_SUPPORT_REFIT: "nebulonBSupportRefit",
+  QUASAR_FIRE_I_CLASS_CRUISER_CARRIER: "quasarFireIClassCruiserCarrier",
+  QUASAR_FIRE_II_CLASS_CRUISER_CARRIER: "quasarFireIiClassCruiserCarrier",
+  RAIDER_I_CLASS_CORVETTE: "raiderIClassCorvette",
+  RAIDER_II_CLASS_CORVETTE: "raiderIiClassCorvette",
   VICTORY_I_CLASS_STAR_DESTROYER: "victoryIClassStarDestroyer",
   VICTORY_II_CLASS_STAR_DESTROYER: "victoryIiClassStarDestroyer",
 };
 
 ShipCard.properties = 
 {
+   "arquitensClassCommandCruiser": {
+      "name": "Arquitens-class Command Cruiser",
+      "size": "small",
+      "faction": "Galactic Empire",
+      "hull": 5,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         1,
+         0
+      ],
+      "command": 2,
+      "squadron": 2,
+      "engineering": 3,
+      "attack": {
+         "front": [
+            1,
+            1,
+            0
+         ],
+         "right": [
+            3,
+            0,
+            0
+         ],
+         "left": [
+            3,
+            0,
+            0
+         ],
+         "rear": [
+            1,
+            1,
+            0
+         ]
+      },
+      "shield": {
+         "front": 2,
+         "right": 2,
+         "left": 2,
+         "rear": 2
+      },
+      "defense-tokens": [
+         "Evade",
+         "Redirect",
+         "Redirect",
+         "Contain"
+      ],
+      "speed-chart": {
+         "1": [
+            "||"
+         ],
+         "2": [
+            "-",
+            "||"
+         ],
+         "3": [
+            "-",
+            "-",
+            "||"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Support Team",
+         "Defensive Retrofit",
+         "Turbolasers"
+      ],
+      "points": 59,
+      "ship-image": "ship/galactic-empire/arquitens-class-cruiser.png",
+      "image": "ship-card/galactic-empire/arquitens-class-command-cruiser.png",
+      "key": "arquitensClassCommandCruiser"
+   },
+   "arquitensClassLightCruiser": {
+      "name": "Arquitens-class Light Cruiser",
+      "size": "small",
+      "faction": "Galactic Empire",
+      "hull": 5,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         0,
+         1
+      ],
+      "command": 2,
+      "squadron": 1,
+      "engineering": 3,
+      "attack": {
+         "front": [
+            1,
+            0,
+            1
+         ],
+         "right": [
+            3,
+            0,
+            0
+         ],
+         "left": [
+            3,
+            0,
+            0
+         ],
+         "rear": [
+            1,
+            0,
+            1
+         ]
+      },
+      "shield": {
+         "front": 2,
+         "right": 2,
+         "left": 2,
+         "rear": 2
+      },
+      "defense-tokens": [
+         "Evade",
+         "Redirect",
+         "Redirect",
+         "Contain"
+      ],
+      "speed-chart": {
+         "1": [
+            "||"
+         ],
+         "2": [
+            "-",
+            "||"
+         ],
+         "3": [
+            "-",
+            "-",
+            "||"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Defensive Retrofit",
+         "Turbolasers"
+      ],
+      "points": 54,
+      "ship-image": "ship/galactic-empire/arquitens-class-cruiser.png",
+      "image": "ship-card/galactic-empire/arquitens-class-light-cruiser.png",
+      "key": "arquitensClassLightCruiser"
+   },
    "assaultFrigateMarkIiA": {
       "name": "Assault Frigate Mark II A",
       "size": "medium",
@@ -615,6 +772,290 @@ ShipCard.properties =
       "ship-image": "ship/galactic-empire/gozanti-class-carriers.png",
       "image": "ship-card/galactic-empire/gozanti-class-cruisers.png",
       "key": "gozantiClassCruisers"
+   },
+   "gr75CombatRetrofits": {
+      "name": "GR-75 Combat Retrofits",
+      "size": "small",
+      "faction": "Rebel Alliance",
+      "hull": 3,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         1,
+         0
+      ],
+      "command": 1,
+      "squadron": 2,
+      "engineering": 2,
+      "attack": {
+         "front": [
+            0,
+            1,
+            0
+         ],
+         "right": [
+            0,
+            0,
+            0
+         ],
+         "left": [
+            0,
+            0,
+            0
+         ],
+         "rear": [
+            0,
+            1,
+            0
+         ]
+      },
+      "shield": {
+         "front": 1,
+         "right": 1,
+         "left": 1,
+         "rear": 1
+      },
+      "defense-tokens": [
+         "Scatter",
+         "Evade"
+      ],
+      "speed-chart": {
+         "1": [
+            "||"
+         ],
+         "2": [
+            "|",
+            "||"
+         ],
+         "3": [
+            "-",
+            "|",
+            "||"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Fleet Support",
+         "Offensive Retrofit"
+      ],
+      "points": 24,
+      "ship-image": "ship/rebel-alliance/gr-75-transports.png",
+      "image": "ship-card/rebel-alliance/gr-75-combat-retrofits.png",
+      "key": "gr75CombatRetrofits"
+   },
+   "gr75MediumTransports": {
+      "name": "GR-75 Medium Transports",
+      "size": "small",
+      "faction": "Rebel Alliance",
+      "hull": 3,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         0,
+         1
+      ],
+      "command": 1,
+      "squadron": 2,
+      "engineering": 2,
+      "attack": {
+         "front": [
+            0,
+            0,
+            0
+         ],
+         "right": [
+            0,
+            0,
+            0
+         ],
+         "left": [
+            0,
+            0,
+            0
+         ],
+         "rear": [
+            0,
+            0,
+            0
+         ]
+      },
+      "shield": {
+         "front": 1,
+         "right": 1,
+         "left": 1,
+         "rear": 1
+      },
+      "defense-tokens": [
+         "Scatter",
+         "Evade"
+      ],
+      "speed-chart": {
+         "1": [
+            "||"
+         ],
+         "2": [
+            "|",
+            "||"
+         ],
+         "3": [
+            "-",
+            "|",
+            "||"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Fleet Support",
+         "Offensive Retrofit"
+      ],
+      "points": 18,
+      "ship-image": "ship/rebel-alliance/gr-75-transports.png",
+      "image": "ship-card/rebel-alliance/gr-75-medium-transports.png",
+      "key": "gr75MediumTransports"
+   },
+   "hammerheadScoutCorvette": {
+      "name": "Hammerhead Scout Corvette",
+      "size": "small",
+      "faction": "Rebel Alliance",
+      "hull": 5,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         1,
+         0
+      ],
+      "command": 1,
+      "squadron": 1,
+      "engineering": 2,
+      "attack": {
+         "front": [
+            2,
+            1,
+            0
+         ],
+         "right": [
+            0,
+            1,
+            0
+         ],
+         "left": [
+            0,
+            1,
+            0
+         ],
+         "rear": [
+            0,
+            0,
+            0
+         ]
+      },
+      "shield": {
+         "front": 2,
+         "right": 1,
+         "left": 1,
+         "rear": 1
+      },
+      "defense-tokens": [
+         "Evade",
+         "Redirect",
+         "Contain"
+      ],
+      "speed-chart": {
+         "1": [
+            "||"
+         ],
+         "2": [
+            "||",
+            "|"
+         ],
+         "3": [
+            "|",
+            "|",
+            "-"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Offensive Retrofit",
+         "Weapons Team",
+         "Turbolasers"
+      ],
+      "points": 41,
+      "ship-image": "ship/rebel-alliance/hammerhead-corvette.png",
+      "image": "ship-card/rebel-alliance/hammerhead-scout-corvette.png",
+      "key": "hammerheadScoutCorvette"
+   },
+   "hammerheadTorpedoCorvette": {
+      "name": "Hammerhead Torpedo Corvette",
+      "size": "small",
+      "faction": "Rebel Alliance",
+      "hull": 5,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         0,
+         1
+      ],
+      "command": 1,
+      "squadron": 1,
+      "engineering": 2,
+      "attack": {
+         "front": [
+            1,
+            1,
+            1
+         ],
+         "right": [
+            0,
+            0,
+            1
+         ],
+         "left": [
+            0,
+            0,
+            1
+         ],
+         "rear": [
+            0,
+            0,
+            0
+         ]
+      },
+      "shield": {
+         "front": 2,
+         "right": 1,
+         "left": 1,
+         "rear": 1
+      },
+      "defense-tokens": [
+         "Evade",
+         "Redirect",
+         "Contain"
+      ],
+      "speed-chart": {
+         "1": [
+            "||"
+         ],
+         "2": [
+            "||",
+            "|"
+         ],
+         "3": [
+            "|",
+            "|",
+            "-"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Offensive Retrofit",
+         "Weapons Team",
+         "Ordnance"
+      ],
+      "points": 36,
+      "ship-image": "ship/rebel-alliance/hammerhead-corvette.png",
+      "image": "ship-card/rebel-alliance/hammerhead-torpedo-corvette.png",
+      "key": "hammerheadTorpedoCorvette"
    },
    "imperialIClassStarDestroyer": {
       "name": "Imperial I-class Star Destroyer",
@@ -1654,6 +2095,140 @@ ShipCard.properties =
       "image": "ship-card/rebel-alliance/mc80-star-cruiser.png",
       "key": "mc80StarCruiser"
    },
+   "modifiedPeltaClassAssaultShip": {
+      "name": "Modified Pelta-class Assault Ship",
+      "size": "small",
+      "faction": "Rebel Alliance",
+      "hull": 5,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         1,
+         1
+      ],
+      "command": 2,
+      "squadron": 1,
+      "engineering": 4,
+      "attack": {
+         "front": [
+            2,
+            0,
+            2
+         ],
+         "right": [
+            1,
+            0,
+            1
+         ],
+         "left": [
+            1,
+            0,
+            1
+         ],
+         "rear": [
+            2,
+            0,
+            0
+         ]
+      },
+      "shield": {
+         "front": 3,
+         "right": 2,
+         "left": 2,
+         "rear": 1
+      },
+      "defense-tokens": [
+         "Evade",
+         "Brace",
+         "Redirect"
+      ],
+      "speed-chart": {
+         "1": [
+            "||"
+         ],
+         "2": [
+            "|",
+            "|"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Support Team",
+         "Fleet Command",
+         "Ordnance"
+      ],
+      "points": 56,
+      "ship-image": "ship/rebel-alliance/pelta-class-ship.png",
+      "image": "ship-card/rebel-alliance/modified-pelta-class-assault-ship.png",
+      "key": "modifiedPeltaClassAssaultShip"
+   },
+   "modifiedPeltaClassCommandShip": {
+      "name": "Modified Pelta-class Command Ship",
+      "size": "small",
+      "faction": "Rebel Alliance",
+      "hull": 5,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         1,
+         0
+      ],
+      "command": 2,
+      "squadron": 3,
+      "engineering": 4,
+      "attack": {
+         "front": [
+            2,
+            2,
+            0
+         ],
+         "right": [
+            1,
+            1,
+            0
+         ],
+         "left": [
+            1,
+            1,
+            0
+         ],
+         "rear": [
+            2,
+            0,
+            0
+         ]
+      },
+      "shield": {
+         "front": 3,
+         "right": 2,
+         "left": 2,
+         "rear": 1
+      },
+      "defense-tokens": [
+         "Evade",
+         "Brace",
+         "Redirect"
+      ],
+      "speed-chart": {
+         "1": [
+            "||"
+         ],
+         "2": [
+            "|",
+            "|"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Support Team",
+         "Fleet Command",
+         "Offensive Retrofit"
+      ],
+      "points": 60,
+      "ship-image": "ship/rebel-alliance/pelta-class-ship.png",
+      "image": "ship-card/rebel-alliance/modified-pelta-class-command-ship.png",
+      "key": "modifiedPeltaClassCommandShip"
+   },
    "nebulonBEscortFrigate": {
       "name": "Nebulon-B Escort Frigate",
       "size": "small",
@@ -1795,6 +2370,304 @@ ShipCard.properties =
       "ship-image": "ship/rebel-alliance/nebulon-b-frigate.png",
       "image": "ship-card/rebel-alliance/nebulon-b-support-refit.png",
       "key": "nebulonBSupportRefit"
+   },
+   "quasarFireIClassCruiserCarrier": {
+      "name": "Quasar Fire I-class Cruiser-Carrier",
+      "size": "medium",
+      "faction": "Galactic Empire",
+      "hull": 6,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         1,
+         0
+      ],
+      "command": 2,
+      "squadron": 4,
+      "engineering": 2,
+      "attack": {
+         "front": [
+            0,
+            3,
+            0
+         ],
+         "right": [
+            0,
+            2,
+            0
+         ],
+         "left": [
+            0,
+            2,
+            0
+         ],
+         "rear": [
+            0,
+            1,
+            0
+         ]
+      },
+      "shield": {
+         "front": 2,
+         "right": 2,
+         "left": 2,
+         "rear": 1
+      },
+      "defense-tokens": [
+         "Brace",
+         "Redirect"
+      ],
+      "speed-chart": {
+         "1": [
+            "||"
+         ],
+         "2": [
+            "|",
+            "|"
+         ],
+         "3": [
+            "-",
+            "|",
+            "|"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Weapons Team",
+         "Offensive Retrofit",
+         "Offensive Retrofit"
+      ],
+      "points": 54,
+      "ship-image": "ship/galactic-empire/quasar-fire-class-cruiser-carrier.png",
+      "image": "ship-card/galactic-empire/quasar-fire-i-class-cruiser-carrier.png",
+      "key": "quasarFireIClassCruiserCarrier"
+   },
+   "quasarFireIiClassCruiserCarrier": {
+      "name": "Quasar Fire II-class Cruiser-Carrier",
+      "size": "medium",
+      "faction": "Galactic Empire",
+      "hull": 6,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         1,
+         0,
+         0
+      ],
+      "command": 2,
+      "squadron": 4,
+      "engineering": 2,
+      "attack": {
+         "front": [
+            2,
+            1,
+            0
+         ],
+         "right": [
+            1,
+            1,
+            0
+         ],
+         "left": [
+            1,
+            1,
+            0
+         ],
+         "rear": [
+            0,
+            1,
+            0
+         ]
+      },
+      "shield": {
+         "front": 2,
+         "right": 2,
+         "left": 2,
+         "rear": 1
+      },
+      "defense-tokens": [
+         "Brace",
+         "Redirect"
+      ],
+      "speed-chart": {
+         "1": [
+            "||"
+         ],
+         "2": [
+            "|",
+            "|"
+         ],
+         "3": [
+            "-",
+            "|",
+            "|"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Weapons Team",
+         "Weapons Team",
+         "Offensive Retrofit"
+      ],
+      "points": 61,
+      "ship-image": "ship/galactic-empire/quasar-fire-class-cruiser-carrier.png",
+      "image": "ship-card/galactic-empire/quasar-fire-ii-class-cruiser-carrier.png",
+      "key": "quasarFireIiClassCruiserCarrier"
+   },
+   "raiderIClassCorvette": {
+      "name": "Raider I-class Corvette",
+      "size": "small",
+      "faction": "Galactic Empire",
+      "hull": 4,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         0,
+         2
+      ],
+      "command": 1,
+      "squadron": 1,
+      "engineering": 2,
+      "attack": {
+         "front": [
+            0,
+            2,
+            2
+         ],
+         "right": [
+            0,
+            1,
+            1
+         ],
+         "left": [
+            0,
+            1,
+            1
+         ],
+         "rear": [
+            0,
+            1,
+            0
+         ]
+      },
+      "shield": {
+         "front": 2,
+         "right": 2,
+         "left": 2,
+         "rear": 2
+      },
+      "defense-tokens": [
+         "Evade",
+         "Evade",
+         "Brace"
+      ],
+      "speed-chart": {
+         "1": [
+            "||"
+         ],
+         "2": [
+            "||",
+            "||"
+         ],
+         "3": [
+            "-",
+            "|",
+            "|"
+         ],
+         "4": [
+            "-",
+            "|",
+            "|",
+            "|"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Weapons Team",
+         "Offensive Retrofit",
+         "Ordnance"
+      ],
+      "points": 44,
+      "ship-image": "ship/galactic-empire/raider-class-corvette.png",
+      "image": "ship-card/galactic-empire/raider-i-class-corvette.png",
+      "key": "raiderIClassCorvette"
+   },
+   "raiderIiClassCorvette": {
+      "name": "Raider II-class Corvette",
+      "size": "small",
+      "faction": "Galactic Empire",
+      "hull": 4,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         1,
+         1
+      ],
+      "command": 1,
+      "squadron": 1,
+      "engineering": 2,
+      "attack": {
+         "front": [
+            0,
+            3,
+            1
+         ],
+         "right": [
+            0,
+            1,
+            1
+         ],
+         "left": [
+            0,
+            1,
+            1
+         ],
+         "rear": [
+            0,
+            1,
+            0
+         ]
+      },
+      "shield": {
+         "front": 2,
+         "right": 2,
+         "left": 2,
+         "rear": 2
+      },
+      "defense-tokens": [
+         "Evade",
+         "Evade",
+         "Brace"
+      ],
+      "speed-chart": {
+         "1": [
+            "||"
+         ],
+         "2": [
+            "||",
+            "||"
+         ],
+         "3": [
+            "-",
+            "|",
+            "|"
+         ],
+         "4": [
+            "-",
+            "|",
+            "|",
+            "|"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Weapons Team",
+         "Offensive Retrofit",
+         "Ion Cannons"
+      ],
+      "points": 48,
+      "ship-image": "ship/galactic-empire/raider-class-corvette.png",
+      "image": "ship-card/galactic-empire/raider-ii-class-corvette.png",
+      "key": "raiderIiClassCorvette"
    },
    "victoryIClassStarDestroyer": {
       "name": "Victory I-class Star Destroyer",

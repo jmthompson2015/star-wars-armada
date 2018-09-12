@@ -1,6 +1,8 @@
 const FileList = {};
 
 FileList.SHIP_FILES = [
+  "galactic-empire/arquitens-class-command-cruiser.json",
+  "galactic-empire/arquitens-class-light-cruiser.json",
   "galactic-empire/gladiator-i-class-star-destroyer.json",
   "galactic-empire/gladiator-ii-class-star-destroyer.json",
   "galactic-empire/gozanti-class-assault-carriers.json",
@@ -11,6 +13,10 @@ FileList.SHIP_FILES = [
   "galactic-empire/imperial-star-destroyer-kuat-refit.json",
   "galactic-empire/interdictor-combat-refit.json",
   "galactic-empire/interdictor-suppression-refit.json",
+  "galactic-empire/quasar-fire-i-class-cruiser-carrier.json",
+  "galactic-empire/quasar-fire-ii-class-cruiser-carrier.json",
+  "galactic-empire/raider-i-class-corvette.json",
+  "galactic-empire/raider-ii-class-corvette.json",
   "galactic-empire/victory-i-class-star-destroyer.json",
   "galactic-empire/victory-ii-class-star-destroyer.json",
 
@@ -18,6 +24,10 @@ FileList.SHIP_FILES = [
   "rebel-alliance/assault-frigate-mark-ii-b.json",
   "rebel-alliance/cr90-corvette-a.json",
   "rebel-alliance/cr90-corvette-b.json",
+  "rebel-alliance/gr-75-combat-retrofits.json",
+  "rebel-alliance/gr-75-medium-transports.json",
+  "rebel-alliance/hammerhead-scout-corvette.json",
+  "rebel-alliance/hammerhead-torpedo-corvette.json",
   "rebel-alliance/mc30c-scout-frigate.json",
   "rebel-alliance/mc30c-torpedo-frigate.json",
   "rebel-alliance/mc75-armored-cruiser.json",
@@ -26,6 +36,8 @@ FileList.SHIP_FILES = [
   "rebel-alliance/mc80-battle-cruiser.json",
   "rebel-alliance/mc80-command-cruiser.json",
   "rebel-alliance/mc80-star-cruiser.json",
+  "rebel-alliance/modified-pelta-class-assault-ship.json",
+  "rebel-alliance/modified-pelta-class-command-ship.json",
   "rebel-alliance/nebulon-b-escort-frigate.json",
   "rebel-alliance/nebulon-b-support-refit.json"
 ];

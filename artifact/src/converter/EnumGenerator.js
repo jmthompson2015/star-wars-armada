@@ -32,7 +32,7 @@ EnumGenerator.createEnumName = function createEnumName(options, card) {
   const answer = R.pipe(
     R.replace("(-1)", "decrease"),
     R.replace("(+1)", "increase"),
-    R.replace(/[().!#'"’]/g, ""),
+    R.replace(/[().,!#'"’]/g, ""),
     R.replace(/[- /]/g, "_"),
     R.toUpper,
     R.replace("4_LOM", "FOUR_LOM")
@@ -52,7 +52,7 @@ EnumGenerator.createEnumValue = function createEnumValue(options, card) {
   const answer = R.pipe(
     R.replace("(-1)", "decrease"),
     R.replace("(+1)", "increase"),
-    R.replace(/[().!#'"’]/g, ""),
+    R.replace(/[().,!#'"’]/g, ""),
     R.replace(/[-/]/g, " "),
     R.replace("4 LOM", "four lom")
   )(name);

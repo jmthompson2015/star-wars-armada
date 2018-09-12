@@ -216,7 +216,7 @@ SquadronCard.properties =
       ],
       "points": 20,
       "squadron-image": "squadron/galactic-empire/lambda-class-shuttle.png",
-      "image": "squadron-card/galactic-empire/lambda-class-shuttle.png",
+      "image": "squadron-card/galactic-empire/colonel-jendon.png",
       "key": "colonelJendon"
    },
    "darthVader": {
