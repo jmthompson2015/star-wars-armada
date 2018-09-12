@@ -16,10 +16,9 @@ const createData = card => key => {
   ])(key);
   const color = R.cond([
     // Imperial
-    [R.either(R.equals("galacticEmpire"), R.equals("firstOrder")), R.always("rgb(0, 255, 0)")],
+    [R.either(R.equals("galacticEmpire"), R.equals("firstOrder")), R.always("#00FF00")],
     // Rebel
-    [R.either(R.equals("rebelAlliance"), R.equals("resistance")), R.always("red")],
-    [R.equals("scumAndVillainy"), R.always("rgb(255, 215, 0)")]
+    [R.either(R.equals("rebelAlliance"), R.equals("resistance")), R.always("#FF0000")]
   ])(key);
   const image = `faction/${card.toLowerCase().replace(/ /g, "-")}.png`;
 

@@ -2,8 +2,10 @@ const UpgradeCard = {
 
   ADAR_TALLON: "adarTallon",
   ADMIRAL_ACKBAR: "admiralAckbar",
+  ADMIRAL_CHIRANEAU: "admiralChiraneau",
   ADMIRAL_KONSTANTINE: "admiralKonstantine",
   ADMIRAL_RADDUS: "admiralRaddus",
+  ADMIRAL_SCREED: "admiralScreed",
   ADMIRAL_TITUS: "admiralTitus",
   ADMONITION: "admonition",
   ADVANCED_PROJECTORS: "advancedProjectors",
@@ -27,6 +29,7 @@ const UpgradeCard = {
   DARTH_VADER_WEAPONS_TEAM_OFFENSIVE_RETROFIT: "darthVader_weaponsTeam_offensiveRetrofit",
   DEFENSE_LIAISON: "defenseLiaison",
   DEFIANCE: "defiance",
+  DEMOLISHER: "demolisher",
   DEVASTATOR: "devastator",
   DODONNAS_PRIDE: "dodonnasPride",
   DOMINATOR: "dominator",
@@ -39,6 +42,7 @@ const UpgradeCard = {
   ENHANCED_ARMAMENT: "enhancedArmament",
   ENTRAPMENT_FORMATION: "entrapmentFormation",
   EXPANDED_HANGAR_BAY: "expandedHangarBay",
+  EXPANDED_LAUNCHERS: "expandedLaunchers",
   FIGHTER_COORDINATION_TEAM: "fighterCoordinationTeam",
   FIRE_CONTROL_TEAM: "fireControlTeam",
   FLIGHT_COMMANDER: "flightCommander",
@@ -64,6 +68,7 @@ const UpgradeCard = {
   HIGH_CAPACITY_ION_TURBINES: "highCapacityIonTurbines",
   HOME_ONE: "homeOne",
   INDEPENDENCE: "independence",
+  INSIDIOUS: "insidious",
   INSTRUCTOR_GORAN: "instructorGoran",
   INTEL_OFFICER: "intelOfficer",
   INTENSIFY_FIREPOWER: "intensifyFirepower",
@@ -152,6 +157,18 @@ UpgradeCard.properties =
       "image": "upgrade-card/commander/admiral-ackbar.png",
       "key": "admiralAckbar"
    },
+   "admiralChiraneau": {
+      "name": "Admiral Chiraneau",
+      "unique": true,
+      "text": "[Squadron]: Squadrons that you activate can move even if they are engaged. When an engaged squadron moves in this way, treat it as having a printed speed of \"2.\"",
+      "slots": [
+         "Officer"
+      ],
+      "faction": "Galactic Empire",
+      "points": 10,
+      "image": "upgrade-card/officer/admiral-chiraneau.png",
+      "key": "admiralChiraneau"
+   },
    "admiralKonstantine": {
       "name": "Admiral Konstantine",
       "unique": true,
@@ -175,6 +192,18 @@ UpgradeCard.properties =
       "points": 26,
       "image": "upgrade-card/commander/admiral-raddus.png",
       "key": "admiralRaddus"
+   },
+   "admiralScreed": {
+      "name": "Admiral Screed",
+      "unique": true,
+      "text": "Once per activation, when a friendly ship is attacking, it may spend 1 die to change a die to a face with a [Critical Hit] icon.",
+      "faction": "Galactic Empire",
+      "slots": [
+         "Commander"
+      ],
+      "points": 26,
+      "image": "upgrade-card/commander/admiral-screed.png",
+      "key": "admiralScreed"
    },
    "admiralTitus": {
       "name": "Admiral Titus",
@@ -438,6 +467,19 @@ UpgradeCard.properties =
       "image": "upgrade-card/title/defiance.png",
       "key": "defiance"
    },
+   "demolisher": {
+      "name": "Demolisher",
+      "unique": true,
+      "text": "During your activation, you can perform 1 of your attacks after you execute your first maneuver.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "Gladiator-class Star Destroyer",
+      "faction": "Galactic Empire",
+      "points": 10,
+      "image": "upgrade-card/title/demolisher.png",
+      "key": "demolisher"
+   },
    "devastator": {
       "name": "Devastator",
       "unique": true,
@@ -570,6 +612,17 @@ UpgradeCard.properties =
       "points": 5,
       "image": "upgrade-card/offensive-retrofit/expanded-hangar-bay.png",
       "key": "expandedHangarBay"
+   },
+   "expandedLaunchers": {
+      "name": "Expanded Launchers",
+      "trait": "Modification",
+      "text": "The battery armament for your front hull zone is increased by 2 black dice.",
+      "slots": [
+         "Ordnance"
+      ],
+      "points": 13,
+      "image": "upgrade-card/ordnance/expanded-launchers.png",
+      "key": "expandedLaunchers"
    },
    "fighterCoordinationTeam": {
       "name": "Fighter Coordination Team",
@@ -855,6 +908,19 @@ UpgradeCard.properties =
       "points": 8,
       "image": "upgrade-card/title/independence.png",
       "key": "independence"
+   },
+   "insidious": {
+      "name": "Insidious",
+      "unique": true,
+      "text": "The black dice in your battery armament can be used at medium range. This effect applies only while attacking the rear hull zone of a ship.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "Gladiator-class Star Destroyer",
+      "faction": "Galactic Empire",
+      "points": 3,
+      "image": "upgrade-card/title/insidious.png",
+      "key": "insidious"
    },
    "instructorGoran": {
       "name": "Instructor Goran",

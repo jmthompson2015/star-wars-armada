@@ -4,6 +4,8 @@ const ShipCard = {
   ASSAULT_FRIGATE_MARK_II_B: "assaultFrigateMarkIiB",
   CR90_CORVETTE_A: "cr90CorvetteA",
   CR90_CORVETTE_B: "cr90CorvetteB",
+  GLADIATOR_I_CLASS_STAR_DESTROYER: "gladiatorIClassStarDestroyer",
+  GLADIATOR_II_CLASS_STAR_DESTROYER: "gladiatorIiClassStarDestroyer",
   GOZANTI_CLASS_ASSAULT_CARRIERS: "gozantiClassAssaultCarriers",
   GOZANTI_CLASS_CRUISERS: "gozantiClassCruisers",
   IMPERIAL_I_CLASS_STAR_DESTROYER: "imperialIClassStarDestroyer",
@@ -329,6 +331,150 @@ ShipCard.properties =
       "ship-image": "ship/rebel-alliance/cr90-corvette.png",
       "image": "ship-card/rebel-alliance/cr90-corvette-b.png",
       "key": "cr90CorvetteB"
+   },
+   "gladiatorIClassStarDestroyer": {
+      "name": "Gladiator I-class Star Destroyer",
+      "size": "small",
+      "faction": "Galactic Empire",
+      "hull": 5,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         1,
+         0
+      ],
+      "command": 2,
+      "squadron": 2,
+      "engineering": 3,
+      "attack": {
+         "front": [
+            2,
+            0,
+            2
+         ],
+         "right": [
+            0,
+            0,
+            4
+         ],
+         "left": [
+            0,
+            0,
+            4
+         ],
+         "rear": [
+            1,
+            0,
+            1
+         ]
+      },
+      "shield": {
+         "front": 3,
+         "right": 2,
+         "left": 2,
+         "rear": 1
+      },
+      "defense-tokens": [
+         "Evade",
+         "Brace",
+         "Redirect"
+      ],
+      "speed-chart": {
+         "1": [
+            "||"
+         ],
+         "2": [
+            "|",
+            "|"
+         ],
+         "3": [
+            "-",
+            "|",
+            "|"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Weapons Team",
+         "Support Team",
+         "Ordnance"
+      ],
+      "points": 56,
+      "ship-image": "ship/galactic-empire/gladiator-class-star-destroyer.png",
+      "image": "ship-card/galactic-empire/gladiator-i-class-star-destroyer.png",
+      "key": "gladiatorIClassStarDestroyer"
+   },
+   "gladiatorIiClassStarDestroyer": {
+      "name": "Gladiator II-class Star Destroyer",
+      "size": "small",
+      "faction": "Galactic Empire",
+      "hull": 5,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         2,
+         0
+      ],
+      "command": 2,
+      "squadron": 2,
+      "engineering": 3,
+      "attack": {
+         "front": [
+            2,
+            0,
+            2
+         ],
+         "right": [
+            1,
+            0,
+            3
+         ],
+         "left": [
+            1,
+            0,
+            3
+         ],
+         "rear": [
+            1,
+            0,
+            1
+         ]
+      },
+      "shield": {
+         "front": 3,
+         "right": 2,
+         "left": 2,
+         "rear": 1
+      },
+      "defense-tokens": [
+         "Evade",
+         "Brace",
+         "Redirect"
+      ],
+      "speed-chart": {
+         "1": [
+            "||"
+         ],
+         "2": [
+            "|",
+            "|"
+         ],
+         "3": [
+            "-",
+            "|",
+            "|"
+         ]
+      },
+      "slots": [
+         "Officer",
+         "Weapons Team",
+         "Support Team",
+         "Ordnance"
+      ],
+      "points": 62,
+      "ship-image": "ship/galactic-empire/gladiator-class-star-destroyer.png",
+      "image": "ship-card/galactic-empire/gladiator-ii-class-star-destroyer.png",
+      "key": "gladiatorIiClassStarDestroyer"
    },
    "gozantiClassAssaultCarriers": {
       "name": "Gozanti-class Assault Carriers",

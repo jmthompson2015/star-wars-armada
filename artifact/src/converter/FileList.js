@@ -1,6 +1,8 @@
 const FileList = {};
 
 FileList.SHIP_FILES = [
+  "galactic-empire/gladiator-i-class-star-destroyer.json",
+  "galactic-empire/gladiator-ii-class-star-destroyer.json",
   "galactic-empire/gozanti-class-assault-carriers.json",
   "galactic-empire/gozanti-class-cruisers.json",
   "galactic-empire/imperial-i-class-star-destroyer.json",
@@ -29,13 +31,37 @@ FileList.SHIP_FILES = [
 ];
 
 FileList.SQUADRON_FILES = [
+  "galactic-empire/aggressor-assault-fighter.json",
+  "galactic-empire/boba-fett.json",
+  "galactic-empire/bossk.json",
+  "galactic-empire/colonel-jendon.json",
+  "galactic-empire/dengar.json",
+  "galactic-empire/firespray-31.json",
   "galactic-empire/gar-saxon.json",
   "galactic-empire/howlrunner.json",
+  "galactic-empire/ig-88.json",
+  "galactic-empire/jumpmaster-5000.json",
+  "galactic-empire/lambda-class-shuttle.json",
+  "galactic-empire/maarek-stele.json",
   "galactic-empire/mandalorian-gauntlet-fighter.json",
+  "galactic-empire/morna-kee.json",
+  "galactic-empire/tie-defender-squadron.json",
   "galactic-empire/tie-fighter-squadron.json",
+  "galactic-empire/tie-phantom-squadron.json",
+  "galactic-empire/vt-49-decimator.json",
+  "galactic-empire/whisper.json",
+  "galactic-empire/yv-666.json",
 
+  "rebel-alliance/dash-rendar.json",
+  "rebel-alliance/han-solo.json",
+  "rebel-alliance/hwk-290.json",
+  "rebel-alliance/jan-ors.json",
   "rebel-alliance/luke-skywalker.json",
-  "rebel-alliance/x-wing-squadron.json"
+  "rebel-alliance/nym.json",
+  "rebel-alliance/scurrg-h-6-bomber.json",
+  "rebel-alliance/x-wing-squadron.json",
+  "rebel-alliance/yt-1300.json",
+  "rebel-alliance/yt-2400.json"
 ];
 
 FileList.UPGRADE_FILES = [

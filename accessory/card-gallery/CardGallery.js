@@ -3,6 +3,8 @@
 import CardGalleryUI from "./CardGalleryUI.js";
 import EnumClassSelect from "./EnumClassSelect.js";
 
+const { UpgradeSlot } = AA;
+
 const WIDTH = 225;
 
 const determineWidth = enumClass => {
@@ -126,8 +128,13 @@ const createUpgradeRows = () => {
   const slotValues = AA.Selector.enumValues(AA.UpgradeSlot);
 
   let i = 1;
+  const filterFunction = slot => enumValue =>
+    (slot.key === UpgradeSlot.WEAPONS_TEAM_AND_OFFENSIVE_RETROFIT &&
+      enumValue.slots.includes("Weapons Team") &&
+      enumValue.slots.includes("Offensive Retrofit")) ||
+    (enumValue.slots.length === 1 && enumValue.slots.includes(slot.name));
   const reduceFunction = (accum, slot) => {
-    const myEnumValues = R.filter(enumValue => enumValue.slots.includes(slot.name), enumValues);
+    const myEnumValues = R.filter(filterFunction(slot), enumValues);
     const enumKeys = R.map(enumValue => enumValue.key, myEnumValues);
     const cards = R.map(AA.Selector.upgradeCard, enumKeys);
 
