@@ -1,11 +1,15 @@
 const SquadronCard = {
 
+  A_WING_SQUADRON: "aWingSquadron",
   AGGRESSOR_ASSAULT_FIGHTER: "aggressorAssaultFighter",
+  B_WING_SQUADRON: "bWingSquadron",
   BOBA_FETT: "bobaFett",
   BOSSK: "bossk",
   COLONEL_JENDON: "colonelJendon",
+  DARTH_VADER: "darthVader",
   DASH_RENDAR: "dashRendar",
   DENGAR: "dengar",
+  DUTCH_VANDER: "dutchVander",
   FIRESPRAY_31: "firespray31",
   GAR_SAXON: "garSaxon",
   HAN_SOLO: "hanSolo",
@@ -14,19 +18,29 @@ const SquadronCard = {
   IG_88: "ig88",
   JAN_ORS: "janOrs",
   JUMPMASTER_5000: "jumpmaster5000",
+  KEYAN_FARLANDER: "keyanFarlander",
   LAMBDA_CLASS_SHUTTLE: "lambdaClassShuttle",
   LUKE_SKYWALKER: "lukeSkywalker",
   MAAREK_STELE: "maarekStele",
+  MAJOR_RHYMER: "majorRhymer",
   MANDALORIAN_GAUNTLET_FIGHTER: "mandalorianGauntletFighter",
+  MAULER_MITHEL: "maulerMithel",
   MORNA_KEE: "mornaKee",
   NYM: "nym",
   SCURRG_H_6_BOMBER: "scurrgH6Bomber",
+  SOONTIR_FEL: "soontirFel",
+  TIE_ADVANCED_SQUADRON: "tieAdvancedSquadron",
+  TIE_BOMBER_SQUADRON: "tieBomberSquadron",
   TIE_DEFENDER_SQUADRON: "tieDefenderSquadron",
   TIE_FIGHTER_SQUADRON: "tieFighterSquadron",
+  TIE_INTERCEPTOR_SQUADRON: "tieInterceptorSquadron",
   TIE_PHANTOM_SQUADRON: "tiePhantomSquadron",
+  TYCHO_CELCHU: "tychoCelchu",
   VT_49_DECIMATOR: "vt49Decimator",
+  WEDGE_ANTILLES: "wedgeAntilles",
   WHISPER: "whisper",
   X_WING_SQUADRON: "xWingSquadron",
+  Y_WING_SQUADRON: "yWingSquadron",
   YT_1300: "yt1300",
   YT_2400: "yt2400",
   YV_666: "yv666",
@@ -34,6 +48,31 @@ const SquadronCard = {
 
 SquadronCard.properties = 
 {
+   "aWingSquadron": {
+      "name": "A-wing Squadron",
+      "subname": "",
+      "faction": "Rebel Alliance",
+      "speed": 5,
+      "hull": 4,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         3,
+         0
+      ],
+      "attack": [
+         0,
+         0,
+         1
+      ],
+      "keywords": [
+         "Counter 2"
+      ],
+      "points": 11,
+      "squadron-image": "squadron/rebel-alliance/a-wing-squadron.png",
+      "image": "squadron-card/rebel-alliance/a-wing-squadron.png",
+      "key": "aWingSquadron"
+   },
    "aggressorAssaultFighter": {
       "name": "Aggressor Assault Fighter",
       "subname": "",
@@ -59,6 +98,31 @@ SquadronCard.properties =
       "squadron-image": "squadron/galactic-empire/aggressor-assault-fighter.png",
       "image": "squadron-card/galactic-empire/aggressor-assault-fighter.png",
       "key": "aggressorAssaultFighter"
+   },
+   "bWingSquadron": {
+      "name": "B-wing Squadron",
+      "subname": "",
+      "faction": "Rebel Alliance",
+      "speed": 2,
+      "hull": 5,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         3,
+         0
+      ],
+      "attack": [
+         0,
+         1,
+         1
+      ],
+      "keywords": [
+         "Bomber"
+      ],
+      "points": 14,
+      "squadron-image": "squadron/rebel-alliance/b-wing-squadron.png",
+      "image": "squadron-card/rebel-alliance/b-wing-squadron.png",
+      "key": "bWingSquadron"
    },
    "bobaFett": {
       "name": "Boba Fett",
@@ -155,6 +219,37 @@ SquadronCard.properties =
       "image": "squadron-card/galactic-empire/lambda-class-shuttle.png",
       "key": "colonelJendon"
    },
+   "darthVader": {
+      "name": "Darth Vader",
+      "subname": "TIE Advanced Squadron",
+      "unique": true,
+      "faction": "Galactic Empire",
+      "speed": 4,
+      "hull": 5,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         3,
+         1
+      ],
+      "attack": [
+         0,
+         0,
+         1
+      ],
+      "text": "While attacking, each of your [Critical Hit] icons adds 1 damage to the damage total.",
+      "keywords": [
+         "Escort"
+      ],
+      "defense-tokens": [
+         "Brace",
+         "Brace"
+      ],
+      "points": 21,
+      "squadron-image": "squadron/galactic-empire/tie-advanced-squadron.png",
+      "image": "squadron-card/galactic-empire/darth-vader.png",
+      "key": "darthVader"
+   },
    "dashRendar": {
       "name": "Dash Rendar",
       "subname": "Outrider",
@@ -218,6 +313,38 @@ SquadronCard.properties =
       "squadron-image": "squadron/galactic-empire/jumpmaster-5000.png",
       "image": "squadron-card/galactic-empire/dengar.png",
       "key": "dengar"
+   },
+   "dutchVander": {
+      "name": "\"Dutch\" Vander",
+      "subname": "Y-wing Squadron",
+      "unique": true,
+      "faction": "Rebel Alliance",
+      "speed": 3,
+      "hull": 6,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         3,
+         0
+      ],
+      "attack": [
+         0,
+         0,
+         1
+      ],
+      "text": "When a squadron you attack suffers at least 1 damage, you may toggle its activation slider to the activated side. If it was already activated, it suffers 1 additional damage instead.",
+      "keywords": [
+         "Bomber",
+         "Heavy"
+      ],
+      "defense-tokens": [
+         "Brace",
+         "Brace"
+      ],
+      "points": 16,
+      "squadron-image": "squadron/rebel-alliance/y-wing-squadron.png",
+      "image": "squadron-card/rebel-alliance/dutch-vander.png",
+      "key": "dutchVander"
    },
    "firespray31": {
       "name": "Firespray-31",
@@ -454,6 +581,37 @@ SquadronCard.properties =
       "image": "squadron-card/galactic-empire/jumpmaster-5000.png",
       "key": "jumpmaster5000"
    },
+   "keyanFarlander": {
+      "name": "Keyan Farlander",
+      "subname": "B-wing Squadron",
+      "unique": true,
+      "faction": "Rebel Alliance",
+      "speed": 2,
+      "hull": 5,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         3,
+         0
+      ],
+      "attack": [
+         0,
+         0,
+         2
+      ],
+      "text": "While attacking a ship, if the defending hull zone has no shields, you may reroll any number of dice in your attack pool.",
+      "keywords": [
+         "Bomber"
+      ],
+      "defense-tokens": [
+         "Brace",
+         "Brace"
+      ],
+      "points": 20,
+      "squadron-image": "squadron/rebel-alliance/b-wing-squadron.png",
+      "image": "squadron-card/rebel-alliance/keyan-farlander.png",
+      "key": "keyanFarlander"
+   },
    "lambdaClassShuttle": {
       "name": "Lambda-class Shuttle",
       "subname": "",
@@ -545,6 +703,38 @@ SquadronCard.properties =
       "image": "squadron-card/galactic-empire/maarek-stele.png",
       "key": "maarekStele"
    },
+   "majorRhymer": {
+      "name": "Major Rhymer",
+      "subname": "TIE Bomber Squadron",
+      "unique": true,
+      "faction": "Galactic Empire",
+      "speed": 4,
+      "hull": 5,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         1,
+         1
+      ],
+      "attack": [
+         0,
+         0,
+         1
+      ],
+      "text": "Friendly squadrons at distance 1 can attack enemy ships at close range using all dice in their battery armament.",
+      "keywords": [
+         "Bomber",
+         "Heavy"
+      ],
+      "defense-tokens": [
+         "Brace",
+         "Brace"
+      ],
+      "points": 16,
+      "squadron-image": "squadron/galactic-empire/tie-bomber-squadron.png",
+      "image": "squadron-card/galactic-empire/major-rhymer.png",
+      "key": "majorRhymer"
+   },
    "mandalorianGauntletFighter": {
       "name": "Mandalorian Gauntlet Fighter",
       "subname": "",
@@ -572,6 +762,37 @@ SquadronCard.properties =
       "squadron-image": "squadron/galactic-empire/mandalorian-gauntlet-fighter.png",
       "image": "squadron-card/galactic-empire/mandalorian-gauntlet-fighter.png",
       "key": "mandalorianGauntletFighter"
+   },
+   "maulerMithel": {
+      "name": "\"Mauler\" Mithel",
+      "subname": "TIE Fighter Squadron",
+      "unique": true,
+      "faction": "Galactic Empire",
+      "speed": 4,
+      "hull": 3,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         3,
+         0
+      ],
+      "attack": [
+         0,
+         1,
+         0
+      ],
+      "text": "After you move, each squadron engaged with you suffers 1 damage.",
+      "keywords": [
+         "Swarm"
+      ],
+      "defense-tokens": [
+         "Brace",
+         "Scatter"
+      ],
+      "points": 15,
+      "squadron-image": "squadron/galactic-empire/tie-fighter-squadron.png",
+      "image": "squadron-card/galactic-empire/mauler-mithel.png",
+      "key": "maulerMithel"
    },
    "mornaKee": {
       "name": "Morna Kee",
@@ -663,6 +884,89 @@ SquadronCard.properties =
       "image": "squadron-card/rebel-alliance/scurrg-h-6-bomber.png",
       "key": "scurrgH6Bomber"
    },
+   "soontirFel": {
+      "name": "Soontir Fel",
+      "subname": "TIE Interceptor Squadron",
+      "unique": true,
+      "faction": "Galactic Empire",
+      "speed": 5,
+      "hull": 3,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         4,
+         0
+      ],
+      "attack": [
+         0,
+         1,
+         0
+      ],
+      "text": "After a squadron you are engaged with performs a non-Counter attack, it suffers 1 damage if it did not attack you.",
+      "keywords": [
+         "Counter 2",
+         "Swarm"
+      ],
+      "defense-tokens": [
+         "Brace",
+         "Scatter"
+      ],
+      "points": 18,
+      "squadron-image": "squadron/galactic-empire/tie-interceptor-squadron.png",
+      "image": "squadron-card/galactic-empire/soontir-fel.png",
+      "key": "soontirFel"
+   },
+   "tieAdvancedSquadron": {
+      "name": "TIE Advanced Squadron",
+      "subname": "",
+      "faction": "Galactic Empire",
+      "speed": 4,
+      "hull": 5,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         3,
+         0
+      ],
+      "attack": [
+         0,
+         0,
+         1
+      ],
+      "keywords": [
+         "Escort"
+      ],
+      "points": 12,
+      "squadron-image": "squadron/galactic-empire/tie-advanced-squadron.png",
+      "image": "squadron-card/galactic-empire/tie-advanced-squadron.png",
+      "key": "tieAdvancedSquadron"
+   },
+   "tieBomberSquadron": {
+      "name": "TIE Bomber Squadron",
+      "subname": "",
+      "faction": "Galactic Empire",
+      "speed": 4,
+      "hull": 5,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         0,
+         1
+      ],
+      "attack": [
+         0,
+         0,
+         1
+      ],
+      "keywords": [
+         "Bomber",
+         "Heavy"
+      ],
+      "points": 9,
+      "squadron-image": "squadron/galactic-empire/tie-bomber-squadron.png",
+      "image": "squadron-card/galactic-empire/tie-bomber-squadron.png",
+      "key": "tieBomberSquadron"
+   },
    "tieDefenderSquadron": {
       "name": "TIE Defender Squadron",
       "subname": "",
@@ -713,6 +1017,32 @@ SquadronCard.properties =
       "image": "squadron-card/galactic-empire/tie-fighter-squadron.png",
       "key": "tieFighterSquadron"
    },
+   "tieInterceptorSquadron": {
+      "name": "TIE Interceptor Squadron",
+      "subname": "",
+      "faction": "Galactic Empire",
+      "speed": 5,
+      "hull": 3,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         4,
+         0
+      ],
+      "attack": [
+         0,
+         1,
+         0
+      ],
+      "keywords": [
+         "Counter 2",
+         "Swarm"
+      ],
+      "points": 11,
+      "squadron-image": "squadron/galactic-empire/tie-interceptor-squadron.png",
+      "image": "squadron-card/galactic-empire/tie-interceptor-squadron.png",
+      "key": "tieInterceptorSquadron"
+   },
    "tiePhantomSquadron": {
       "name": "TIE Phantom Squadron",
       "subname": "",
@@ -737,6 +1067,37 @@ SquadronCard.properties =
       "squadron-image": "squadron/galactic-empire/tie-phantom-squadron.png",
       "image": "squadron-card/galactic-empire/tie-phantom-squadron.png",
       "key": "tiePhantomSquadron"
+   },
+   "tychoCelchu": {
+      "name": "Tycho Celchu",
+      "subname": "A-wing Squadron",
+      "unique": true,
+      "faction": "Rebel Alliance",
+      "speed": 5,
+      "hull": 4,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         3,
+         0
+      ],
+      "attack": [
+         0,
+         0,
+         1
+      ],
+      "text": "You are not prevented from moving or attacking ships while you are engaged.",
+      "keywords": [
+         "Counter 2"
+      ],
+      "defense-tokens": [
+         "Brace",
+         "Scatter"
+      ],
+      "points": 16,
+      "squadron-image": "squadron/rebel-alliance/a-wing-squadron.png",
+      "image": "squadron-card/rebel-alliance/tycho-celchu.png",
+      "key": "tychoCelchu"
    },
    "vt49Decimator": {
       "name": "VT-49 Decimator",
@@ -764,6 +1125,38 @@ SquadronCard.properties =
       "squadron-image": "squadron/galactic-empire/vt-49-decimator.png",
       "image": "squadron-card/galactic-empire/vt-49-decimator.png",
       "key": "vt49Decimator"
+   },
+   "wedgeAntilles": {
+      "name": "Wedge Antilles",
+      "subname": "X-wing Squadron",
+      "unique": true,
+      "faction": "Rebel Alliance",
+      "speed": 3,
+      "hull": 5,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         4,
+         0
+      ],
+      "attack": [
+         0,
+         0,
+         1
+      ],
+      "text": "While attacking an activated squadron, you may add 2 blue dice to your attack pool.",
+      "keywords": [
+         "Bomber",
+         "Escort"
+      ],
+      "defense-tokens": [
+         "Brace",
+         "Brace"
+      ],
+      "points": 19,
+      "squadron-image": "squadron/rebel-alliance/x-wing-squadron.png",
+      "image": "squadron-card/rebel-alliance/wedge-antilles.png",
+      "key": "wedgeAntilles"
    },
    "whisper": {
       "name": "\"Whisper\"",
@@ -821,6 +1214,32 @@ SquadronCard.properties =
       "squadron-image": "squadron/rebel-alliance/x-wing-squadron.png",
       "image": "squadron-card/rebel-alliance/x-wing-squadron.png",
       "key": "xWingSquadron"
+   },
+   "yWingSquadron": {
+      "name": "Y-wing Squadron",
+      "subname": "",
+      "faction": "Rebel Alliance",
+      "speed": 3,
+      "hull": 6,
+      "__comment": "dice array is [red, blue, black] counts",
+      "squadron-attack": [
+         0,
+         2,
+         0
+      ],
+      "attack": [
+         0,
+         0,
+         1
+      ],
+      "keywords": [
+         "Bomber",
+         "Heavy"
+      ],
+      "points": 10,
+      "squadron-image": "squadron/rebel-alliance/y-wing-squadron.png",
+      "image": "squadron-card/rebel-alliance/y-wing-squadron.png",
+      "key": "yWingSquadron"
    },
    "yt1300": {
       "name": "YT-1300",
