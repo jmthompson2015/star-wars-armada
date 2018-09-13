@@ -3642,17 +3642,25 @@
     A_WING_SQUADRON: "aWingSquadron",
     AGGRESSOR_ASSAULT_FIGHTER: "aggressorAssaultFighter",
     B_WING_SQUADRON: "bWingSquadron",
+    BIGGS_DARKLIGHTER: "biggsDarklighter",
+    BLACK_SQUADRON: "blackSquadron",
     BOBA_FETT: "bobaFett",
     BOSSK: "bossk",
+    CAPTAIN_JONUS: "captainJonus",
+    CIENA_REE: "cienaRee",
     COLONEL_JENDON: "colonelJendon",
     CORRAN_HORN: "corranHorn",
+    DAGGER_SQUADRON: "daggerSquadron",
     DARTH_VADER: "darthVader",
     DASH_RENDAR: "dashRendar",
     DENGAR: "dengar",
     DUTCH_VANDER: "dutchVander",
     E_WING_SQUADRON: "eWingSquadron",
     FIRESPRAY_31: "firespray31",
+    GAMMA_SQUADRON: "gammaSquadron",
     GAR_SAXON: "garSaxon",
+    GOLD_SQUADRON: "goldSquadron",
+    GREEN_SQUADRON: "greenSquadron",
     HAN_SOLO: "hanSolo",
     HERA_SYNDULLA: "heraSyndulla",
     HOWLRUNNER: "howlrunner",
@@ -3671,9 +3679,15 @@
     MANDALORIAN_GAUNTLET_FIGHTER: "mandalorianGauntletFighter",
     MAULER_MITHEL: "maulerMithel",
     MORNA_KEE: "mornaKee",
+    NORRA_WEXLEY: "norraWexley",
     NYM: "nym",
+    ROGUE_SQUADRON: "rogueSquadron",
+    SABER_SQUADRON: "saberSquadron",
     SCURRG_H_6_BOMBER: "scurrgH6Bomber",
+    SHARA_BEY: "sharaBey",
     SOONTIR_FEL: "soontirFel",
+    TEMPEST_SQUADRON: "tempestSquadron",
+    TEN_NUMB: "tenNumb",
     TIE_ADVANCED_SQUADRON: "tieAdvancedSquadron",
     TIE_BOMBER_SQUADRON: "tieBomberSquadron",
     TIE_DEFENDER_SQUADRON: "tieDefenderSquadron",
@@ -3681,6 +3695,7 @@
     TIE_INTERCEPTOR_SQUADRON: "tieInterceptorSquadron",
     TIE_PHANTOM_SQUADRON: "tiePhantomSquadron",
     TYCHO_CELCHU: "tychoCelchu",
+    VALEN_RUDOR: "valenRudor",
     VCX_100_FREIGHTER: "vcx100Freighter",
     VT_49_DECIMATOR: "vt49Decimator",
     WEDGE_ANTILLES: "wedgeAntilles",
@@ -3691,6 +3706,7 @@
     YT_2400: "yt2400",
     YV_666: "yv666",
     Z_95_HEADHUNTER_SQUADRON: "z95HeadhunterSquadron",
+    ZERTIK_STROM: "zertikStrom",
   };
 
   SquadronCard.properties = 
@@ -3771,6 +3787,65 @@
         "image": "squadron-card/rebel-alliance/b-wing-squadron.png",
         "key": "bWingSquadron"
      },
+     "biggsDarklighter": {
+        "name": "Biggs Darklighter",
+        "subname": "X-wing Squadron",
+        "unique": true,
+        "faction": "Rebel Alliance",
+        "speed": 3,
+        "hull": 5,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           4,
+           0
+        ],
+        "attack": [
+           1,
+           0,
+           0
+        ],
+        "text": "Before a friendly squadron with Escort at distance 1 suffers damage during an attack, you may reduce the total damage by 1. If you do, choose a friendly squadron with Escort at distance 1. That squadron suffers 1 damage.",
+        "keywords": [
+           "Bomber",
+           "Escort"
+        ],
+        "defense-tokens": [
+           "Brace",
+           "Brace"
+        ],
+        "points": 19,
+        "squadron-image": "squadron/rebel-alliance/x-wing-squadron.png",
+        "image": "squadron-card/rebel-alliance/biggs-darklighter.png",
+        "key": "biggsDarklighter"
+     },
+     "blackSquadron": {
+        "name": "Black Squadron",
+        "subname": "TIE Fighter Squadron",
+        "unique": true,
+        "faction": "Galactic Empire",
+        "speed": 4,
+        "hull": 3,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           3,
+           0
+        ],
+        "attack": [
+           0,
+           1,
+           0
+        ],
+        "keywords": [
+           "Counter 1",
+           "Escort"
+        ],
+        "points": 9,
+        "squadron-image": "squadron/galactic-empire/tie-fighter-squadron.png",
+        "image": "squadron-card/galactic-empire/black-squadron.png",
+        "key": "blackSquadron"
+     },
      "bobaFett": {
         "name": "Boba Fett",
         "subname": "Slave I",
@@ -3833,6 +3908,70 @@
         "squadron-image": "squadron/galactic-empire/yv-666.png",
         "image": "squadron-card/galactic-empire/bossk.png",
         "key": "bossk"
+     },
+     "captainJonus": {
+        "name": "Captain Jonus",
+        "subname": "TIE Bomber Squadron",
+        "unique": true,
+        "faction": "Galactic Empire",
+        "speed": 4,
+        "hull": 5,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           0,
+           1
+        ],
+        "attack": [
+           0,
+           0,
+           1
+        ],
+        "text": "While a friendly ship is attacking a ship at distance 1 of you, it may change 1 die to a face with an [Accuracy] icon.",
+        "keywords": [
+           "Bomber",
+           "Grit"
+        ],
+        "defense-tokens": [
+           "Brace",
+           "Brace"
+        ],
+        "points": 16,
+        "squadron-image": "squadron/galactic-empire/tie-bomber-squadron.png",
+        "image": "squadron-card/galactic-empire/captain-jonus.png",
+        "key": "captainJonus"
+     },
+     "cienaRee": {
+        "name": "Ciena Ree",
+        "subname": "TIE Interceptor Squadron",
+        "unique": true,
+        "faction": "Galactic Empire",
+        "speed": 5,
+        "hull": 3,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           4,
+           0
+        ],
+        "attack": [
+           0,
+           1,
+           0
+        ],
+        "text": "While you are defending, the attack is treated as obstructed.",
+        "keywords": [
+           "Counter 2",
+           "Swarm"
+        ],
+        "defense-tokens": [
+           "Brace",
+           "Scatter"
+        ],
+        "points": 17,
+        "squadron-image": "squadron/galactic-empire/tie-interceptor-squadron.png",
+        "image": "squadron-card/galactic-empire/ciena-ree.png",
+        "key": "cienaRee"
      },
      "colonelJendon": {
         "name": "Colonel Jendon",
@@ -3897,6 +4036,33 @@
         "squadron-image": "squadron/rebel-alliance/e-wing-squadron.png",
         "image": "squadron-card/rebel-alliance/corran-horn.png",
         "key": "corranHorn"
+     },
+     "daggerSquadron": {
+        "name": "Dagger Squadron",
+        "subname": "B-wing Squadron",
+        "unique": true,
+        "faction": "Rebel Alliance",
+        "speed": 2,
+        "hull": 5,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           2,
+           1
+        ],
+        "attack": [
+           0,
+           1,
+           1
+        ],
+        "keywords": [
+           "Bomber",
+           "Swarm"
+        ],
+        "points": 15,
+        "squadron-image": "squadron/rebel-alliance/b-wing-squadron.png",
+        "image": "squadron-card/rebel-alliance/dagger-squadron.png",
+        "key": "daggerSquadron"
      },
      "darthVader": {
         "name": "Darth Vader",
@@ -4077,6 +4243,33 @@
         "image": "squadron-card/galactic-empire/firespray-31.png",
         "key": "firespray31"
      },
+     "gammaSquadron": {
+        "name": "Gamma Squadron",
+        "subname": "TIE Bomber Squadron",
+        "unique": true,
+        "faction": "Galactic Empire",
+        "speed": 4,
+        "hull": 5,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           0,
+           1
+        ],
+        "attack": [
+           0,
+           0,
+           1
+        ],
+        "keywords": [
+           "Bomber",
+           "Grit"
+        ],
+        "points": 10,
+        "squadron-image": "squadron/galactic-empire/tie-bomber-squadron.png",
+        "image": "squadron-card/galactic-empire/gamma-squadron.png",
+        "key": "gammaSquadron"
+     },
      "garSaxon": {
         "name": "Gar Saxon",
         "subname": "Mandalorian Gauntlet Fighter",
@@ -4107,6 +4300,59 @@
         "squadron-image": "squadron/galactic-empire/mandalorian-gauntlet-fighter.png",
         "image": "squadron-card/galactic-empire/gar-saxon.png",
         "key": "garSaxon"
+     },
+     "goldSquadron": {
+        "name": "Gold Squadron",
+        "subname": "Y-wing Squadron",
+        "unique": true,
+        "faction": "Rebel Alliance",
+        "speed": 3,
+        "hull": 6,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           2,
+           0
+        ],
+        "attack": [
+           0,
+           2,
+           0
+        ],
+        "keywords": [
+           "Bomber"
+        ],
+        "points": 12,
+        "squadron-image": "squadron/rebel-alliance/y-wing-squadron.png",
+        "image": "squadron-card/rebel-alliance/gold-squadron.png",
+        "key": "goldSquadron"
+     },
+     "greenSquadron": {
+        "name": "Green Squadron",
+        "subname": "A-wing Squadron",
+        "unique": true,
+        "faction": "Rebel Alliance",
+        "speed": 5,
+        "hull": 4,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           3,
+           0
+        ],
+        "attack": [
+           0,
+           0,
+           1
+        ],
+        "keywords": [
+           "Bomber",
+           "Counter 1"
+        ],
+        "points": 12,
+        "squadron-image": "squadron/rebel-alliance/a-wing-squadron.png",
+        "image": "squadron-card/rebel-alliance/green-squadron.png",
+        "key": "greenSquadron"
      },
      "hanSolo": {
         "name": "Han Solo",
@@ -4652,6 +4898,37 @@
         "image": "squadron-card/galactic-empire/morna-kee.png",
         "key": "mornaKee"
      },
+     "norraWexley": {
+        "name": "Norra Wexley",
+        "subname": "Y-wing Squadron",
+        "unique": true,
+        "faction": "Rebel Alliance",
+        "speed": 3,
+        "hull": 6,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           3,
+           0
+        ],
+        "attack": [
+           0,
+           0,
+           1
+        ],
+        "text": "Friendly squadrons with Bomber at distance 1 gain: \"[Critical Hit]: The defending hull zone loses 1 shield.\"",
+        "keywords": [
+           "Bomber"
+        ],
+        "defense-tokens": [
+           "Brace",
+           "Brace"
+        ],
+        "points": 17,
+        "squadron-image": "squadron/rebel-alliance/y-wing-squadron.png",
+        "image": "squadron-card/rebel-alliance/norra-wexley.png",
+        "key": "norraWexley"
+     },
      "nym": {
         "name": "Nym",
         "subname": "Havoc",
@@ -4684,6 +4961,60 @@
         "image": "squadron-card/rebel-alliance/nym.png",
         "key": "nym"
      },
+     "rogueSquadron": {
+        "name": "Rogue Squadron",
+        "subname": "X-wing Squadron",
+        "unique": true,
+        "faction": "Rebel Alliance",
+        "speed": 3,
+        "hull": 5,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           4,
+           0
+        ],
+        "attack": [
+           1,
+           0,
+           0
+        ],
+        "keywords": [
+           "Bomber",
+           "Rogue"
+        ],
+        "points": 14,
+        "squadron-image": "squadron/rebel-alliance/x-wing-squadron.png",
+        "image": "squadron-card/rebel-alliance/rogue-squadron.png",
+        "key": "rogueSquadron"
+     },
+     "saberSquadron": {
+        "name": "Saber Squadron",
+        "subname": "TIE Interceptor Squadron",
+        "unique": true,
+        "faction": "Galactic Empire",
+        "speed": 5,
+        "hull": 3,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           4,
+           0
+        ],
+        "attack": [
+           0,
+           1,
+           0
+        ],
+        "keywords": [
+           "Snipe 4",
+           "Swarm"
+        ],
+        "points": 12,
+        "squadron-image": "squadron/galactic-empire/tie-interceptor-squadron.png",
+        "image": "squadron-card/galactic-empire/saber-squadron.png",
+        "key": "saberSquadron"
+     },
      "scurrgH6Bomber": {
         "name": "Scurrg H-6 Bomber",
         "subname": "",
@@ -4710,6 +5041,37 @@
         "squadron-image": "squadron/rebel-alliance/scurrg-h-6-bomber.png",
         "image": "squadron-card/rebel-alliance/scurrg-h-6-bomber.png",
         "key": "scurrgH6Bomber"
+     },
+     "sharaBey": {
+        "name": "Shara Bey",
+        "subname": "A-wing Squadron",
+        "unique": true,
+        "faction": "Rebel Alliance",
+        "speed": 5,
+        "hull": 4,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           3,
+           0
+        ],
+        "attack": [
+           0,
+           0,
+           1
+        ],
+        "text": "While performing a Counter attack, each [Critical Hit] icon adds 1 damage to the damage total.",
+        "keywords": [
+           "Counter 3"
+        ],
+        "defense-tokens": [
+           "Brace",
+           "Scatter"
+        ],
+        "points": 17,
+        "squadron-image": "squadron/rebel-alliance/a-wing-squadron.png",
+        "image": "squadron-card/rebel-alliance/shara-bey.png",
+        "key": "sharaBey"
      },
      "soontirFel": {
         "name": "Soontir Fel",
@@ -4742,6 +5104,64 @@
         "squadron-image": "squadron/galactic-empire/tie-interceptor-squadron.png",
         "image": "squadron-card/galactic-empire/soontir-fel.png",
         "key": "soontirFel"
+     },
+     "tempestSquadron": {
+        "name": "Tempest Squadron",
+        "subname": "TIE Advanced Squadron",
+        "unique": true,
+        "faction": "Galactic Empire",
+        "speed": 4,
+        "hull": 5,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           3,
+           0
+        ],
+        "attack": [
+           0,
+           0,
+           1
+        ],
+        "keywords": [
+           "Bomber",
+           "Escort"
+        ],
+        "points": 13,
+        "squadron-image": "squadron/galactic-empire/tie-advanced-squadron.png",
+        "image": "squadron-card/galactic-empire/tempest-squadron.png",
+        "key": "tempestSquadron"
+     },
+     "tenNumb": {
+        "name": "Ten Numb",
+        "subname": "B-wing Squadron",
+        "unique": true,
+        "faction": "Rebel Alliance",
+        "speed": 2,
+        "hull": 5,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           2,
+           1
+        ],
+        "attack": [
+           0,
+           1,
+           1
+        ],
+        "text": "While attacking a squadron, you may spend 1 blue die with a [Critical Hit] icon. If you do, each other enemy squadron at distance 1 of the defender suffers 1 damage.",
+        "keywords": [
+           "Bomber"
+        ],
+        "defense-tokens": [
+           "Brace",
+           "Brace"
+        ],
+        "points": 19,
+        "squadron-image": "squadron/rebel-alliance/b-wing-squadron.png",
+        "image": "squadron-card/rebel-alliance/ten-numb.png",
+        "key": "tenNumb"
      },
      "tieAdvancedSquadron": {
         "name": "TIE Advanced Squadron",
@@ -4925,6 +5345,37 @@
         "squadron-image": "squadron/rebel-alliance/a-wing-squadron.png",
         "image": "squadron-card/rebel-alliance/tycho-celchu.png",
         "key": "tychoCelchu"
+     },
+     "valenRudor": {
+        "name": "Valen Rudor",
+        "subname": "TIE Fighter Squadron",
+        "unique": true,
+        "faction": "Galactic Empire",
+        "speed": 4,
+        "hull": 3,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           0,
+           3
+        ],
+        "attack": [
+           0,
+           1,
+           0
+        ],
+        "text": "While an enemy squadron is engaged with another squadron, it cannot attack you.",
+        "keywords": [
+           "Swarm"
+        ],
+        "defense-tokens": [
+           "Brace",
+           "Scatter"
+        ],
+        "points": 13,
+        "squadron-image": "squadron/galactic-empire/tie-fighter-squadron.png",
+        "image": "squadron-card/galactic-empire/valen-rudor.png",
+        "key": "valenRudor"
      },
      "vcx100Freighter": {
         "name": "VCX-100 Freighter",
@@ -5197,6 +5648,37 @@
         "squadron-image": "squadron/rebel-alliance/z-95-headhunter-squadron.png",
         "image": "squadron-card/rebel-alliance/z-95-headhunter-squadron.png",
         "key": "z95HeadhunterSquadron"
+     },
+     "zertikStrom": {
+        "name": "Zertik Strom",
+        "subname": "TIE Advanced Squadron",
+        "unique": true,
+        "faction": "Galactic Empire",
+        "speed": 4,
+        "hull": 5,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           3,
+           0,
+           0
+        ],
+        "attack": [
+           0,
+           0,
+           1
+        ],
+        "text": "While attacking, you may choose another friendly squadron at distance 1. If you do, that squadron suffers 1 damage and you may reroll any number of attack dice.",
+        "keywords": [
+           "Escort"
+        ],
+        "defense-tokens": [
+           "Brace",
+           "Brace"
+        ],
+        "points": 15,
+        "squadron-image": "squadron/galactic-empire/tie-advanced-squadron.png",
+        "image": "squadron-card/galactic-empire/zertik-strom.png",
+        "key": "zertikStrom"
      }
   };
 
@@ -5209,6 +5691,7 @@
     ADMIRAL_CHIRANEAU: "admiralChiraneau",
     ADMIRAL_KONSTANTINE: "admiralKonstantine",
     ADMIRAL_MONTFERRAT: "admiralMontferrat",
+    ADMIRAL_MOTTI: "admiralMotti",
     ADMIRAL_OZZEL: "admiralOzzel",
     ADMIRAL_RADDUS: "admiralRaddus",
     ADMIRAL_SCREED: "admiralScreed",
@@ -5240,6 +5723,7 @@
     COMMANDANT_ARESKO: "commandantAresko",
     COMMANDER_SATO: "commanderSato",
     COMMS_NET: "commsNet",
+    CORRUPTER: "corrupter",
     DAMAGE_CONTROL_OFFICER: "damageControlOfficer",
     DARTH_VADER_COMMANDER: "darthVader_commander",
     DARTH_VADER_WEAPONS_TEAM_OFFENSIVE_RETROFIT: "darthVader_weaponsTeam_offensiveRetrofit",
@@ -5247,6 +5731,7 @@
     DEFIANCE: "defiance",
     DEMOLISHER: "demolisher",
     DEVASTATOR: "devastator",
+    DIRECTOR_ISARD: "directorIsard",
     DISPOSABLE_CAPACITORS: "disposableCapacitors",
     DODONNAS_PRIDE: "dodonnasPride",
     DOMINATOR: "dominator",
@@ -5266,6 +5751,7 @@
     FIRE_CONTROL_TEAM: "fireControlTeam",
     FLECHETTE_TORPEDOES: "flechetteTorpedoes",
     FLIGHT_COMMANDER: "flightCommander",
+    FLIGHT_CONTROLLERS: "flightControllers",
     FORESIGHT: "foresight",
     G7_X_GRAV_WELL_PROJECTOR: "g7XGravWellProjector",
     G_8_EXPERIMENTAL_PROJECTOR: "g8ExperimentalProjector",
@@ -5299,6 +5785,8 @@
     INTEL_OFFICER: "intelOfficer",
     INTENSIFY_FIREPOWER: "intensifyFirepower",
     INTERDICTOR: "interdictor",
+    ION_CANNON_BATTERIES: "ionCannonBatteries",
+    JAINAS_LIGHT: "jainasLight",
     JAMMING_FIELD: "jammingField",
     JYN_ERSO: "jynErso",
     LANDO_CALRISSIAN: "landoCalrissian",
@@ -5312,6 +5800,7 @@
     MOFF_JERJERROD: "moffJerjerrod",
     MON_CALAMARI_EXODUS_FLEET: "monCalamariExodusFleet",
     MON_KARREN: "monKarren",
+    MON_MOTHMA: "monMothma",
     MS_1_ION_CANNONS: "ms1IonCannons",
     NAV_TEAM: "navTeam",
     NAVIGATION_OFFICER: "navigationOfficer",
@@ -5332,6 +5821,7 @@
     QUANTUM_STORM: "quantumStorm",
     RAPID_LAUNCH_BAYS: "rapidLaunchBays",
     RAPID_RELOAD: "rapidReload",
+    RAYMUS_ANTILLES: "raymusAntilles",
     REDEMPTION: "redemption",
     REDUNDANT_SHIELDS: "redundantShields",
     REINFORCED_BLAST_DOORS: "reinforcedBlastDoors",
@@ -5354,6 +5844,7 @@
     SUPPRESSOR: "suppressor",
     SW_7_ION_BATTERIES: "sw7IonBatteries",
     TACTICAL_EXPERT: "tacticalExpert",
+    TANTIVE_IV: "tantiveIv",
     TARGETING_SCRAMBLER: "targetingScrambler",
     TASK_FORCE_ANTILLES: "taskForceAntilles",
     TASK_FORCE_ORGANA: "taskForceOrgana",
@@ -5365,6 +5856,7 @@
     VETERAN_CAPTAIN: "veteranCaptain",
     VETERAN_GUNNERS: "veteranGunners",
     WALEX_BLISSEX: "walexBlissex",
+    WARLORD: "warlord",
     WEAPONS_LIAISON: "weaponsLiaison",
     WIDE_AREA_BARRAGE: "wideAreaBarrage",
     WING_COMMANDER: "wingCommander",
@@ -5435,6 +5927,18 @@
         "points": 5,
         "image": "upgrade-card/officer/admiral-montferrat.png",
         "key": "admiralMontferrat"
+     },
+     "admiralMotti": {
+        "name": "Admiral Motti",
+        "unique": true,
+        "text": "The hull value of each friendly ship is increased according to its size class:\nSmall ship: 1\nMedium ship: 2\nLarge ship: 3",
+        "faction": "Galactic Empire",
+        "slots": [
+           "Commander"
+        ],
+        "points": 24,
+        "image": "upgrade-card/commander/admiral-motti.png",
+        "key": "admiralMotti"
      },
      "admiralOzzel": {
         "name": "Admiral Ozzel",
@@ -5795,6 +6299,19 @@
         "image": "upgrade-card/fleet-support/comms-net.png",
         "key": "commsNet"
      },
+     "corrupter": {
+        "name": "Corrupter",
+        "unique": true,
+        "text": "[Squadron]: the speed of each squadron with Bomber you activate is increased by 1 until the end of its activation.",
+        "slots": [
+           "Title"
+        ],
+        "ship": "Victory-class Star Destroyer",
+        "faction": "Galactic Empire",
+        "points": 5,
+        "image": "upgrade-card/title/corrupter.png",
+        "key": "corrupter"
+     },
      "damageControlOfficer": {
         "name": "Damage Control Officer",
         "text": "When you resolve the [Contain] defense effect, you can prevent the attacker from resolving any critical effects.",
@@ -5876,6 +6393,18 @@
         "points": 10,
         "image": "upgrade-card/title/devastator.png",
         "key": "devastator"
+     },
+     "directorIsard": {
+        "name": "Director Isard",
+        "unique": true,
+        "text": "When you reveal a command, you may look at all command dials assigned to 1 enemy ship.",
+        "slots": [
+           "Officer"
+        ],
+        "faction": "Galactic Empire",
+        "points": 3,
+        "image": "upgrade-card/officer/director-isard.png",
+        "key": "directorIsard"
      },
      "disposableCapacitors": {
         "name": "Disposable Capacitors",
@@ -6079,6 +6608,16 @@
         "points": 3,
         "image": "upgrade-card/officer/flight-commander.png",
         "key": "flightCommander"
+     },
+     "flightControllers": {
+        "name": "Flight Controllers",
+        "text": "[Squadron]: The anti-squadron armament of each squadron that you activate is increased by 1 blue die until the end of its activation.",
+        "slots": [
+           "Weapons Team"
+        ],
+        "points": 6,
+        "image": "upgrade-card/weapons-team/flight-controllers.png",
+        "key": "flightControllers"
      },
      "foresight": {
         "name": "Foresight",
@@ -6468,6 +7007,29 @@
         "image": "upgrade-card/title/interdictor.png",
         "key": "interdictor"
      },
+     "ionCannonBatteries": {
+        "name": "Ion Cannon Batteries",
+        "text": "Blue [Critical Hit]: Choose and discard 1 command token from the defender. If the defender does not have any command tokens, the defending hull zone loses 1 shield instead.",
+        "slots": [
+           "Ion Cannons"
+        ],
+        "points": 5,
+        "image": "upgrade-card/ion-cannons/ion-cannon-batteries.png",
+        "key": "ionCannonBatteries"
+     },
+     "jainasLight": {
+        "name": "Jaina's Light",
+        "unique": true,
+        "text": "You can ignore the effects of overlapping obstacles.\nYour attacks cannot be obstructed.",
+        "slots": [
+           "Title"
+        ],
+        "ship": "CR90 Corvette",
+        "faction": "Rebel Alliance",
+        "points": 2,
+        "image": "upgrade-card/title/jainas-light.png",
+        "key": "jainasLight"
+     },
      "jammingField": {
         "name": "Jamming Field",
         "text": "While a squadron at distance 1-2 is attacking or defending against a squadron, the attack is treated as obstructed.",
@@ -6620,6 +7182,18 @@
         "points": 8,
         "image": "upgrade-card/title/mon-karren.png",
         "key": "monKarren"
+     },
+     "monMothma": {
+        "name": "Mon Mothma",
+        "unique": true,
+        "text": "When a friendly ship resolves the [Evade] token effect, it can cancel 1 die at medium range or reroll 1 die at close range or distance 1.",
+        "faction": "Rebel Alliance",
+        "slots": [
+           "Commander"
+        ],
+        "points": 30,
+        "image": "upgrade-card/commander/mon-mothma.png",
+        "key": "monMothma"
      },
      "ms1IonCannons": {
         "name": "MS-1 Ion Cannons",
@@ -6839,6 +7413,18 @@
         "points": 8,
         "image": "upgrade-card/ordnance/rapid-reload.png",
         "key": "rapidReload"
+     },
+     "raymusAntilles": {
+        "name": "Raymus Antilles",
+        "unique": true,
+        "text": "When you reveal a command, you may gain 1 matching command token without spending the command dial.",
+        "faction": "Rebel Alliance",
+        "slots": [
+           "Officer"
+        ],
+        "points": 7,
+        "image": "upgrade-card/officer/raymus-antilles.png",
+        "key": "raymusAntilles"
      },
      "redemption": {
         "name": "Redemption",
@@ -7089,6 +7675,19 @@
         "image": "upgrade-card/officer/tactical-expert.png",
         "key": "tacticalExpert"
      },
+     "tantiveIv": {
+        "name": "Tantive IV",
+        "unique": true,
+        "text": "Before you gain a command token, 1 friendly ship at distance 1-5 may gain that token instead.",
+        "slots": [
+           "Title"
+        ],
+        "ship": "CR90 Corvette",
+        "faction": "Rebel Alliance",
+        "points": 3,
+        "image": "upgrade-card/title/tantive-iv.png",
+        "key": "tantiveIv"
+     },
      "targetingScrambler": {
         "name": "Targeting Scrambler",
         "text": "While a friendly ship at distance 1-3 is defending at close range, during the Spend Defense Tokens step, you may exhaust this card to force the attacker to reroll up to 4 dice of your choice.",
@@ -7213,6 +7812,19 @@
         "points": 5,
         "image": "upgrade-card/officer/walex-blissex.png",
         "key": "walexBlissex"
+     },
+     "warlord": {
+        "name": "Warlord",
+        "unique": true,
+        "text": "While attacking you may rotate 1 die face with an [Accuracy] icon to a face with a [Hit] icon.",
+        "slots": [
+           "Title"
+        ],
+        "ship": "Victory-class Star Destroyer",
+        "faction": "Galactic Empire",
+        "points": 8,
+        "image": "upgrade-card/title/warlord.png",
+        "key": "warlord"
      },
      "weaponsLiaison": {
         "name": "Weapons Liaison",
