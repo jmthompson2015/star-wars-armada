@@ -130,15 +130,12 @@ QUnit.test("build() Core Set Imperial", assert => {
   // Setup.
   const store = Redux.createStore(Reducer.root);
   const fleetId = 1;
-  const name = "Galactic Empire Core Set: 175 Points";
-  const year = 2015;
-  const description = "Victory II, Howlrunner, TIE Fighters x3";
-  const author = "CISAdmiral";
-  const shipAndUpgradeKeys = [];
-  shipAndUpgradeKeys.push({
-    shipKey: ShipCard.VICTORY_II_CLASS_STAR_DESTROYER,
-    upgradeKeys: [UpgradeCard.GRAND_MOFF_TARKIN, UpgradeCard.DOMINATOR]
-  });
+  const shipAndUpgradeKeys = [
+    {
+      shipKey: ShipCard.VICTORY_II_CLASS_STAR_DESTROYER,
+      upgradeKeys: [UpgradeCard.GRAND_MOFF_TARKIN, UpgradeCard.DOMINATOR]
+    }
+  ];
   const squadronKeys = [
     SquadronCard.HOWLRUNNER,
     SquadronCard.TIE_FIGHTER_SQUADRON,
@@ -147,16 +144,16 @@ QUnit.test("build() Core Set Imperial", assert => {
   ];
 
   // Run.
-  FleetBuilder.build(
+  FleetBuilder.build({
     store,
-    name,
-    year,
-    description,
-    author,
+    name: "Galactic Empire Core Set: 175 Points",
+    year: 2015,
+    description: "Victory II, Howlrunner, TIE Fighters x3",
+    author: "CISAdmiral",
     fleetId,
     shipAndUpgradeKeys,
     squadronKeys
-  );
+  });
 
   // Verify.
   verifyCoreSetImperial(assert, store.getState(), fleetId);
@@ -166,10 +163,10 @@ QUnit.test("build() Core Set Rebel", assert => {
   // Setup.
   const store = Redux.createStore(Reducer.root);
   const fleetId = 2;
-  const name = "Rebel Alliance Core Set: 173 Points";
-  const year = 2015;
-  const description = "Nebulon-B Escort, CR90, Luke Skywalker, X-wings x2";
-  const author = "CISAdmiral";
+  // const name = "Rebel Alliance Core Set: 173 Points";
+  // const year = 2015;
+  // const description = "Nebulon-B Escort, CR90, Luke Skywalker, X-wings x2";
+  // const author = "CISAdmiral";
   const shipAndUpgradeKeys = [
     {
       shipKey: ShipCard.NEBULON_B_ESCORT_FRIGATE,
@@ -187,16 +184,16 @@ QUnit.test("build() Core Set Rebel", assert => {
   ];
 
   // Run.
-  FleetBuilder.build(
+  FleetBuilder.build({
     store,
-    name,
-    year,
-    description,
-    author,
+    name: "Rebel Alliance Core Set: 173 Points",
+    year: 2015,
+    description: "Nebulon-B Escort, CR90, Luke Skywalker, X-wings x2",
+    author: "CISAdmiral",
     fleetId,
     shipAndUpgradeKeys,
     squadronKeys
-  );
+  });
 
   // Verify.
   verifyCoreSetRebel(assert, store.getState(), fleetId);

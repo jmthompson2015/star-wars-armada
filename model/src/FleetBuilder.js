@@ -1,8 +1,6 @@
 const { ActionCreator } = AS;
 
-const SC = AA.ShipCard;
-const SQC = AA.SquadronCard;
-const UC = AA.UpgradeCard;
+const { ShipCard: SC, SquadronCard: SQC, UpgradeCard: UC } = AA;
 
 const FleetBuilder = {};
 
@@ -105,7 +103,7 @@ const processSquadronKey = store => (accumulator, squadronKey) => {
 };
 
 // /////////////////////////////////////////////////////////////////////////////////////////////////
-FleetBuilder.build = (
+FleetBuilder.build = ({
   store,
   name,
   year,
@@ -114,11 +112,11 @@ FleetBuilder.build = (
   fleetId,
   shipAndUpgradeKeys,
   squadronKeys
-) => {
+}) => {
   const reducerFunction1 = processShipKey(store);
-  const shipIds = shipAndUpgradeKeys.reduce(reducerFunction1, []);
+  const shipIds = R.reduce(reducerFunction1, [], shipAndUpgradeKeys);
   const reducerFunction2 = processSquadronKey(store);
-  const squadronIds = squadronKeys.reduce(reducerFunction2, []);
+  const squadronIds = R.reduce(reducerFunction2, [], squadronKeys);
   const points = computePoints(shipAndUpgradeKeys, squadronKeys);
 
   const answer = AS.FleetState.create({
@@ -136,28 +134,26 @@ FleetBuilder.build = (
   store.dispatch(ActionCreator.setFleetShips(fleetId, shipIds));
   store.dispatch(ActionCreator.setFleetSquadrons(fleetId, squadronIds));
 
-  shipIds.forEach(shipId => {
+  const forEachFunction1 = shipId => {
     const shipInstance = AS.Selector.shipInstance(shipId, store.getState());
     const defenseTokens = AA.Selector.defenseTokenValuesByShip(shipInstance.shipKey);
     const defenseTokenIds = processDefenseTokens(store, defenseTokens);
     store.dispatch(ActionCreator.setShipDefenseTokens(shipId, defenseTokenIds));
-  });
+  };
+  R.forEach(forEachFunction1, shipIds);
 
-  squadronIds.forEach(squadronId => {
+  const forEachFunction2 = squadronId => {
     const squadronInstance = AS.Selector.squadronInstance(squadronId, store.getState());
     const defenseTokens = AA.Selector.defenseTokenValuesBySquadron(squadronInstance.squadronKey);
     const defenseTokenIds = processDefenseTokens(store, defenseTokens);
     store.dispatch(ActionCreator.setSquadronDefenseTokens(squadronId, defenseTokenIds));
-  });
+  };
+  R.forEach(forEachFunction2, squadronIds);
 
   return answer;
 };
 
 FleetBuilder.buildCoreSetImperial = (store, fleetId) => {
-  const name = "Galactic Empire Core Set: 175 Points";
-  const year = 2015;
-  const description = "Victory II, Howlrunner, TIE Fighters x3";
-  const author = "CISAdmiral";
   const shipAndUpgradeKeys = [
     {
       shipKey: SC.VICTORY_II_CLASS_STAR_DESTROYER,
@@ -171,23 +167,19 @@ FleetBuilder.buildCoreSetImperial = (store, fleetId) => {
     SQC.TIE_FIGHTER_SQUADRON
   ];
 
-  return FleetBuilder.build(
+  return FleetBuilder.build({
     store,
-    name,
-    year,
-    description,
-    author,
+    name: "Galactic Empire Core Set: 175 Points",
+    year: 2015,
+    description: "Victory II, Howlrunner, TIE Fighters x3",
+    author: "CISAdmiral",
     fleetId,
     shipAndUpgradeKeys,
     squadronKeys
-  );
+  });
 };
 
 FleetBuilder.buildCoreSetRebel = (store, fleetId) => {
-  const name = "Rebel Alliance Core Set: 173 Points";
-  const year = 2015;
-  const description = "Nebulon-B Escort, CR90, Luke Skywalker, X-wings x2";
-  const author = "CISAdmiral";
   const shipAndUpgradeKeys = [
     {
       shipKey: SC.NEBULON_B_ESCORT_FRIGATE,
@@ -200,24 +192,20 @@ FleetBuilder.buildCoreSetRebel = (store, fleetId) => {
   ];
   const squadronKeys = [SQC.LUKE_SKYWALKER, SQC.X_WING_SQUADRON, SQC.X_WING_SQUADRON];
 
-  return FleetBuilder.build(
+  return FleetBuilder.build({
     store,
-    name,
-    year,
-    description,
-    author,
+    name: "Rebel Alliance Core Set: 173 Points",
+    year: 2015,
+    description: "Nebulon-B Escort, CR90, Luke Skywalker, X-wings x2",
+    author: "CISAdmiral",
     fleetId,
     shipAndUpgradeKeys,
     squadronKeys
-  );
+  });
 };
 
 // see https://www.fantasyflightgames.com/en/news/2018/4/26/admirals-orders/
 FleetBuilder.buildSettingTheTrap = (store, fleetId) => {
-  const name = "Setting the Trap";
-  const year = 2018;
-  const description = "Victory x2, Gladiator, Gozanti, Jonus, Black, Mauler, TIE Fighter x3";
-  const author = "Norm Weir";
   const shipAndUpgradeKeys = [
     {
       shipKey: SC.VICTORY_I_CLASS_STAR_DESTROYER,
@@ -256,24 +244,20 @@ FleetBuilder.buildSettingTheTrap = (store, fleetId) => {
     SQC.TIE_FIGHTER_SQUADRON
   ];
 
-  return FleetBuilder.build(
+  return FleetBuilder.build({
     store,
-    name,
-    year,
-    description,
-    author,
+    name: "Setting the Trap",
+    year: 2018,
+    description: "Victory x2, Gladiator, Gozanti, Jonus, Black, Mauler, TIE Fighter x3",
+    author: "Norm Weir",
     fleetId,
     shipAndUpgradeKeys,
     squadronKeys
-  );
+  });
 };
 
 // see https://www.fantasyflightgames.com/en/news/2018/4/26/admirals-orders/
 FleetBuilder.buildTheRebelAmbush = (store, fleetId) => {
-  const name = "The Rebel Ambush";
-  const year = 2018;
-  const description = "MC75, MC80, Hammerhead, GR-75, Z-95 x4, Shara Bey, Tycho Celchu";
-  const author = "Norm Weir";
   const shipAndUpgradeKeys = [
     {
       shipKey: SC.MC75_ORDNANCE_CRUISER,
@@ -308,24 +292,20 @@ FleetBuilder.buildTheRebelAmbush = (store, fleetId) => {
     SQC.TYCHO_CELCHU
   ];
 
-  return FleetBuilder.build(
+  return FleetBuilder.build({
     store,
-    name,
-    year,
-    description,
-    author,
+    name: "The Rebel Ambush",
+    year: 2018,
+    description: "MC75, MC80, Hammerhead, GR-75, Z-95 x4, Shara Bey, Tycho Celchu",
+    author: "Norm Weir",
     fleetId,
     shipAndUpgradeKeys,
     squadronKeys
-  );
+  });
 };
 
 // see https://www.fantasyflightgames.com/en/news/2018/4/26/admirals-orders/
 FleetBuilder.buildVadersRevenge = (store, fleetId) => {
-  const name = "Vader's Revenge";
-  const year = 2018;
-  const description = "ISD x2, Gozanti, Valen Rudor, Ciena Ree";
-  const author = "Norm Weir";
   const shipAndUpgradeKeys = [
     {
       shipKey: SC.IMPERIAL_II_CLASS_STAR_DESTROYER,
@@ -356,16 +336,16 @@ FleetBuilder.buildVadersRevenge = (store, fleetId) => {
   ];
   const squadronKeys = [SQC.VALEN_RUDOR, SQC.CIENA_REE];
 
-  return FleetBuilder.build(
+  return FleetBuilder.build({
     store,
-    name,
-    year,
-    description,
-    author,
+    name: "Vader's Revenge",
+    year: 2018,
+    description: "ISD x2, Gozanti, Valen Rudor, Ciena Ree",
+    author: "Norm Weir",
     fleetId,
     shipAndUpgradeKeys,
     squadronKeys
-  );
+  });
 };
 
 Object.freeze(FleetBuilder);
