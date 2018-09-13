@@ -1,5 +1,3 @@
-// import ShipUtils from "./ShipUtilities.js";
-
 const { ActionCreator } = AS;
 
 const SC = AA.ShipCard;
@@ -34,7 +32,7 @@ const createShip = (store, shipKey) => {
 
   return AS.ShipState.create({
     id: shipId,
-    shipKey,
+    shipKey
   });
 };
 
@@ -44,7 +42,7 @@ const createSquadron = (store, squadronKey) => {
 
   return AS.SquadronState.create({
     id: squadronId,
-    squadronKey,
+    squadronKey
   });
 };
 
@@ -54,7 +52,7 @@ const createUpgrade = (store, upgradeKey) => {
 
   return AS.UpgradeState.create({
     id: upgradeId,
-    upgradeKey,
+    upgradeKey
   });
 };
 
@@ -63,7 +61,7 @@ const processDefenseTokens = (store, defenseTokens) => {
     const tokenId = AS.Selector.nextDefenseTokenId(store.getState());
     const defenseTokenInstance = AS.DefenseTokenState.create({
       id: tokenId,
-      defenseTokenKey: token.key,
+      defenseTokenKey: token.key
     });
     store.dispatch(ActionCreator.setDefenseTokenInstance(defenseTokenInstance));
 
@@ -89,26 +87,19 @@ const processShipKey = store => (accumulator, shipObj) => {
   const upgradeKeys = R.defaultTo([], shipObj.upgradeKeys);
   const reducerFunction = processUpgradeKey(store);
   const upgradeIds = R.reduce(reducerFunction, [], upgradeKeys);
-  // const tokenCounts = R.assoc("shield", ShipUtils.statValue("shields", shipKey),
-  //  AS.TokenCountsState.create());
 
   // Side effects.
   const ship = createShip(store, shipKey);
   store.dispatch(ActionCreator.setShipInstance(ship));
-  // store.dispatch(ActionCreator.setShipTokenCounts(ship.id, tokenCounts));
   store.dispatch(ActionCreator.setShipUpgrades(ship.id, upgradeIds));
 
   return R.append(ship.id, accumulator);
 };
 
 const processSquadronKey = store => (accumulator, squadronKey) => {
-  // const tokenCounts = R.assoc("shield", ShipUtils.statValue("shields", squadronKey),
-  //  AS.TokenCountsState.create());
-
   // Side effects.
   const squadron = createSquadron(store, squadronKey);
   store.dispatch(ActionCreator.setSquadronInstance(squadron));
-  // store.dispatch(ActionCreator.setSquadronTokenCounts(squadron.id, tokenCounts));
 
   return R.append(squadron.id, accumulator);
 };
@@ -119,9 +110,10 @@ FleetBuilder.build = (
   name,
   year,
   description,
+  author,
   fleetId,
   shipAndUpgradeKeys,
-  squadronKeys,
+  squadronKeys
 ) => {
   const reducerFunction1 = processShipKey(store);
   const shipIds = shipAndUpgradeKeys.reduce(reducerFunction1, []);
@@ -134,9 +126,10 @@ FleetBuilder.build = (
     name,
     year,
     description,
+    author,
     points,
     ships: shipIds,
-    squadrons: squadronIds,
+    squadrons: squadronIds
   });
 
   store.dispatch(ActionCreator.setFleetInstance(answer));
@@ -161,20 +154,21 @@ FleetBuilder.build = (
 };
 
 FleetBuilder.buildCoreSetImperial = (store, fleetId) => {
-  const name = 'Galactic Empire Core Set: 175 Points';
+  const name = "Galactic Empire Core Set: 175 Points";
   const year = 2015;
-  const description = 'Victory II, Howlrunner, TIE Fighters x3';
+  const description = "Victory II, Howlrunner, TIE Fighters x3";
+  const author = "CISAdmiral";
   const shipAndUpgradeKeys = [
     {
       shipKey: SC.VICTORY_II_CLASS_STAR_DESTROYER,
-      upgradeKeys: [UC.GRAND_MOFF_TARKIN, UC.DOMINATOR],
-    },
+      upgradeKeys: [UC.GRAND_MOFF_TARKIN, UC.DOMINATOR]
+    }
   ];
   const squadronKeys = [
     SQC.HOWLRUNNER,
     SQC.TIE_FIGHTER_SQUADRON,
     SQC.TIE_FIGHTER_SQUADRON,
-    SQC.TIE_FIGHTER_SQUADRON,
+    SQC.TIE_FIGHTER_SQUADRON
   ];
 
   return FleetBuilder.build(
@@ -182,25 +176,27 @@ FleetBuilder.buildCoreSetImperial = (store, fleetId) => {
     name,
     year,
     description,
+    author,
     fleetId,
     shipAndUpgradeKeys,
-    squadronKeys,
+    squadronKeys
   );
 };
 
 FleetBuilder.buildCoreSetRebel = (store, fleetId) => {
-  const name = 'Rebel Alliance Core Set: 173 Points';
+  const name = "Rebel Alliance Core Set: 173 Points";
   const year = 2015;
-  const description = 'Nebulon-B Escort, CR90, Luke Skywalker, X-wings x2';
+  const description = "Nebulon-B Escort, CR90, Luke Skywalker, X-wings x2";
+  const author = "CISAdmiral";
   const shipAndUpgradeKeys = [
     {
       shipKey: SC.NEBULON_B_ESCORT_FRIGATE,
-      upgradeKeys: [UC.GENERAL_DODONNA],
+      upgradeKeys: [UC.GENERAL_DODONNA]
     },
     {
       shipKey: SC.CR90_CORVETTE_A,
-      upgradeKeys: [UC.DODONNAS_PRIDE],
-    },
+      upgradeKeys: [UC.DODONNAS_PRIDE]
+    }
   ];
   const squadronKeys = [SQC.LUKE_SKYWALKER, SQC.X_WING_SQUADRON, SQC.X_WING_SQUADRON];
 
@@ -209,9 +205,166 @@ FleetBuilder.buildCoreSetRebel = (store, fleetId) => {
     name,
     year,
     description,
+    author,
     fleetId,
     shipAndUpgradeKeys,
-    squadronKeys,
+    squadronKeys
+  );
+};
+
+// see https://www.fantasyflightgames.com/en/news/2018/4/26/admirals-orders/
+FleetBuilder.buildSettingTheTrap = (store, fleetId) => {
+  const name = "Setting the Trap";
+  const year = 2018;
+  const description = "Victory x2, Gladiator, Gozanti, Jonus, Black, Mauler, TIE Fighter x3";
+  const author = "Norm Weir";
+  const shipAndUpgradeKeys = [
+    {
+      shipKey: SC.VICTORY_I_CLASS_STAR_DESTROYER,
+      upgradeKeys: [
+        UC.GRAND_ADMIRAL_THRAWN,
+        UC.SKILLED_FIRST_OFFICER,
+        UC.QUAD_TURBOLASER_CANNONS,
+        UC.WARLORD
+      ]
+    },
+    {
+      shipKey: SC.VICTORY_II_CLASS_STAR_DESTROYER,
+      upgradeKeys: [
+        UC.GOVERNOR_PRYCE,
+        UC.GUNNERY_TEAM,
+        UC.DISPOSABLE_CAPACITORS,
+        UC.QUAD_BATTERY_TURRETS,
+        UC.MS_1_ION_CANNONS
+      ]
+    },
+    {
+      shipKey: SC.GLADIATOR_I_CLASS_STAR_DESTROYER,
+      upgradeKeys: [UC.ORDNANCE_EXPERTS, UC.ASSAULT_CONCUSSION_MISSILES, UC.DEMOLISHER]
+    },
+    {
+      shipKey: SC.GOZANTI_CLASS_CRUISERS,
+      upgradeKeys: [UC.JAMMING_FIELD]
+    }
+  ];
+  const squadronKeys = [
+    SQC.CAPTAIN_JONUS,
+    SQC.BLACK_SQUADRON,
+    SQC.MAULER_MITHEL,
+    SQC.TIE_FIGHTER_SQUADRON,
+    SQC.TIE_FIGHTER_SQUADRON,
+    SQC.TIE_FIGHTER_SQUADRON
+  ];
+
+  return FleetBuilder.build(
+    store,
+    name,
+    year,
+    description,
+    author,
+    fleetId,
+    shipAndUpgradeKeys,
+    squadronKeys
+  );
+};
+
+// see https://www.fantasyflightgames.com/en/news/2018/4/26/admirals-orders/
+FleetBuilder.buildTheRebelAmbush = (store, fleetId) => {
+  const name = "The Rebel Ambush";
+  const year = 2018;
+  const description = "MC75, MC80, Hammerhead, GR-75, Z-95 x4, Shara Bey, Tycho Celchu";
+  const author = "Norm Weir";
+  const shipAndUpgradeKeys = [
+    {
+      shipKey: SC.MC75_ORDNANCE_CRUISER,
+      upgradeKeys: [
+        UC.ADMIRAL_RADDUS,
+        UC.BAIL_ORGANA,
+        UC.ORDNANCE_EXPERTS,
+        UC.EXTERNAL_RACKS,
+        UC.ASSAULT_PROTON_TORPEDOES,
+        UC.PROFUNDITY
+      ]
+    },
+    {
+      shipKey: SC.MC80_BATTLE_CRUISER,
+      upgradeKeys: [UC.CAITKEN_AND_SHOLLAN, UC.LEADING_SHOTS, UC.MON_KARREN]
+    },
+    {
+      shipKey: SC.HAMMERHEAD_TORPEDO_CORVETTE,
+      upgradeKeys: [UC.CHAM_SYNDULLA, UC.GARELS_HONOR]
+    },
+    {
+      shipKey: SC.GR_75_MEDIUM_TRANSPORTS,
+      upgradeKeys: [UC.COMMS_NET, UC.QUANTUM_STORM]
+    }
+  ];
+  const squadronKeys = [
+    SQC.Z_95_HEADHUNTER_SQUADRON,
+    SQC.Z_95_HEADHUNTER_SQUADRON,
+    SQC.Z_95_HEADHUNTER_SQUADRON,
+    SQC.Z_95_HEADHUNTER_SQUADRON,
+    SQC.SHARA_BEY,
+    SQC.TYCHO_CELCHU
+  ];
+
+  return FleetBuilder.build(
+    store,
+    name,
+    year,
+    description,
+    author,
+    fleetId,
+    shipAndUpgradeKeys,
+    squadronKeys
+  );
+};
+
+// see https://www.fantasyflightgames.com/en/news/2018/4/26/admirals-orders/
+FleetBuilder.buildVadersRevenge = (store, fleetId) => {
+  const name = "Vader's Revenge";
+  const year = 2018;
+  const description = "ISD x2, Gozanti, Valen Rudor, Ciena Ree";
+  const author = "Norm Weir";
+  const shipAndUpgradeKeys = [
+    {
+      shipKey: SC.IMPERIAL_II_CLASS_STAR_DESTROYER,
+      upgradeKeys: [
+        UC.DARTH_VADER_COMMANDER,
+        UC.INTEL_OFFICER,
+        UC.GUNNERY_TEAM,
+        UC.EARLY_WARNING_SYSTEM,
+        UC.SPINAL_ARMAMENT,
+        UC.CHIMAERA,
+        UC.ENTRAPMENT_FORMATION
+      ]
+    },
+    {
+      shipKey: SC.IMPERIAL_STAR_DESTROYER_KUAT_REFIT,
+      upgradeKeys: [
+        UC.GOVERNOR_PRYCE,
+        UC.BOARDING_TROOPERS,
+        UC.EARLY_WARNING_SYSTEM,
+        UC.EXTERNAL_RACKS,
+        UC.AVENGER
+      ]
+    },
+    {
+      shipKey: SC.GOZANTI_CLASS_CRUISERS,
+      upgradeKeys: [UC.HONDO_OHNAKA, UC.COMMS_NET]
+    }
+  ];
+  const squadronKeys = [SQC.VALEN_RUDOR, SQC.CIENA_REE];
+
+  return FleetBuilder.build(
+    store,
+    name,
+    year,
+    description,
+    author,
+    fleetId,
+    shipAndUpgradeKeys,
+    squadronKeys
   );
 };
 
