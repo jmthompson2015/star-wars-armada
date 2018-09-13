@@ -1,8 +1,8 @@
-import FleetState from './FleetState.js';
+import FleetState from "./FleetState.js";
 
-QUnit.module('FleetState');
+QUnit.module("FleetState");
 
-const PROPS = ['id', 'name', 'year', 'description', 'points', 'ships', 'squadrons'];
+const PROPS = ["id", "name", "year", "description", "author", "points", "ships", "squadrons"];
 
 const createTestData = () =>
   FleetState.create({
@@ -10,12 +10,13 @@ const createTestData = () =>
     name: 2,
     year: 3,
     description: 4,
-    points: 5,
-    ships: 6,
-    squadrons: 7,
+    author: 5,
+    points: 6,
+    ships: 7,
+    squadrons: 8
   });
 
-QUnit.test('create()', assert => {
+QUnit.test("create()", assert => {
   // Run.
   const squad = createTestData();
 
@@ -25,14 +26,14 @@ QUnit.test('create()', assert => {
   });
 });
 
-QUnit.test('create() immutable', assert => {
+QUnit.test("create() immutable", assert => {
   // Setup.
   const squad = createTestData();
 
   // Run / Verify.
   try {
     squad.faction = 12;
-    assert.ok(false, 'Should have thrown an exception');
+    assert.ok(false, "Should have thrown an exception");
   } catch (e) {
     assert.ok(true);
   }

@@ -3645,20 +3645,26 @@
     BOBA_FETT: "bobaFett",
     BOSSK: "bossk",
     COLONEL_JENDON: "colonelJendon",
+    CORRAN_HORN: "corranHorn",
     DARTH_VADER: "darthVader",
     DASH_RENDAR: "dashRendar",
     DENGAR: "dengar",
     DUTCH_VANDER: "dutchVander",
+    E_WING_SQUADRON: "eWingSquadron",
     FIRESPRAY_31: "firespray31",
     GAR_SAXON: "garSaxon",
     HAN_SOLO: "hanSolo",
+    HERA_SYNDULLA: "heraSyndulla",
     HOWLRUNNER: "howlrunner",
     HWK_290: "hwk290",
     IG_88: "ig88",
     JAN_ORS: "janOrs",
     JUMPMASTER_5000: "jumpmaster5000",
+    KETSU_ONYO: "ketsuOnyo",
     KEYAN_FARLANDER: "keyanFarlander",
     LAMBDA_CLASS_SHUTTLE: "lambdaClassShuttle",
+    LANCER_CLASS_PURSUIT_CRAFT: "lancerClassPursuitCraft",
+    LIEUTENANT_BLOUNT: "lieutenantBlount",
     LUKE_SKYWALKER: "lukeSkywalker",
     MAAREK_STELE: "maarekStele",
     MAJOR_RHYMER: "majorRhymer",
@@ -3675,6 +3681,7 @@
     TIE_INTERCEPTOR_SQUADRON: "tieInterceptorSquadron",
     TIE_PHANTOM_SQUADRON: "tiePhantomSquadron",
     TYCHO_CELCHU: "tychoCelchu",
+    VCX_100_FREIGHTER: "vcx100Freighter",
     VT_49_DECIMATOR: "vt49Decimator",
     WEDGE_ANTILLES: "wedgeAntilles",
     WHISPER: "whisper",
@@ -3683,6 +3690,7 @@
     YT_1300: "yt1300",
     YT_2400: "yt2400",
     YV_666: "yv666",
+    Z_95_HEADHUNTER_SQUADRON: "z95HeadhunterSquadron",
   };
 
   SquadronCard.properties = 
@@ -3858,6 +3866,38 @@
         "image": "squadron-card/galactic-empire/colonel-jendon.png",
         "key": "colonelJendon"
      },
+     "corranHorn": {
+        "name": "Corran Horn",
+        "subname": "E-wing Squadron",
+        "unique": true,
+        "faction": "Rebel Alliance",
+        "speed": 4,
+        "hull": 5,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           4,
+           0
+        ],
+        "attack": [
+           1,
+           0,
+           0
+        ],
+        "keywords": [
+           "Bomber",
+           "Rogue",
+           "Snipe 4"
+        ],
+        "defense-tokens": [
+           "Brace",
+           "Brace"
+        ],
+        "points": 22,
+        "squadron-image": "squadron/rebel-alliance/e-wing-squadron.png",
+        "image": "squadron-card/rebel-alliance/corran-horn.png",
+        "key": "corranHorn"
+     },
      "darthVader": {
         "name": "Darth Vader",
         "subname": "TIE Advanced Squadron",
@@ -3985,6 +4025,32 @@
         "image": "squadron-card/rebel-alliance/dutch-vander.png",
         "key": "dutchVander"
      },
+     "eWingSquadron": {
+        "name": "E-wing Squadron",
+        "subname": "",
+        "faction": "Rebel Alliance",
+        "speed": 4,
+        "hull": 5,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           4,
+           0
+        ],
+        "attack": [
+           1,
+           0,
+           0
+        ],
+        "keywords": [
+           "Bomber",
+           "Snipe 3"
+        ],
+        "points": 15,
+        "squadron-image": "squadron/rebel-alliance/e-wing-squadron.png",
+        "image": "squadron-card/rebel-alliance/e-wing-squadron.png",
+        "key": "eWingSquadron"
+     },
      "firespray31": {
         "name": "Firespray-31",
         "subname": "",
@@ -4073,6 +4139,37 @@
         "squadron-image": "squadron/rebel-alliance/yt-1300.png",
         "image": "squadron-card/rebel-alliance/han-solo.png",
         "key": "hanSolo"
+     },
+     "heraSyndulla": {
+        "name": "Hera Syndulla",
+        "subname": "Ghost",
+        "unique": true,
+        "faction": "Rebel Alliance",
+        "speed": 3,
+        "hull": 8,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           2,
+           2
+        ],
+        "attack": [
+           0,
+           1,
+           1
+        ],
+        "text": "At the start of the Squadron Phase, choose up to 2 friendly squadrons at distance 1-2. Those squadrons gain Rogue until the end oft the round.",
+        "keywords": [
+           "Grit",
+           "Rogue"
+        ],
+        "defense-tokens": [
+           "Brace"
+        ],
+        "points": 28,
+        "squadron-image": "squadron/rebel-alliance/vcx-100-freighter.png",
+        "image": "squadron-card/rebel-alliance/hera-syndulla.png",
+        "key": "heraSyndulla"
      },
      "howlrunner": {
         "name": "\"Howlrunner\"",
@@ -4220,6 +4317,39 @@
         "image": "squadron-card/galactic-empire/jumpmaster-5000.png",
         "key": "jumpmaster5000"
      },
+     "ketsuOnyo": {
+        "name": "Ketsu Onyo",
+        "subname": "Shadow Caster",
+        "unique": true,
+        "faction": "Rebel Alliance",
+        "speed": 4,
+        "hull": 4,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           3,
+           0
+        ],
+        "attack": [
+           0,
+           2,
+           0
+        ],
+        "text": "While an enemy squadron is at distance 1, its speed is reduced by 2 to a minimum of 1.",
+        "keywords": [
+           "Bomber",
+           "Grit",
+           "Rogue"
+        ],
+        "defense-tokens": [
+           "Brace",
+           "Scatter"
+        ],
+        "points": 22,
+        "squadron-image": "squadron/rebel-alliance/lancer-class-pursuit-craft.png",
+        "image": "squadron-card/rebel-alliance/ketsu-onyo.png",
+        "key": "ketsuOnyo"
+     },
      "keyanFarlander": {
         "name": "Keyan Farlander",
         "subname": "B-wing Squadron",
@@ -4277,6 +4407,64 @@
         "squadron-image": "squadron/galactic-empire/lambda-class-shuttle.png",
         "image": "squadron-card/galactic-empire/lambda-class-shuttle.png",
         "key": "lambdaClassShuttle"
+     },
+     "lancerClassPursuitCraft": {
+        "name": "Lancer-class Pursuit Craft",
+        "subname": "",
+        "faction": "Rebel Alliance",
+        "speed": 4,
+        "hull": 4,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           3,
+           0
+        ],
+        "attack": [
+           0,
+           0,
+           1
+        ],
+        "keywords": [
+           "Bomber",
+           "Grit",
+           "Rogue"
+        ],
+        "points": 15,
+        "squadron-image": "squadron/rebel-alliance/lancer-class-pursuit-craft.png",
+        "image": "squadron-card/rebel-alliance/lancer-class-pursuit-craft.png",
+        "key": "lancerClassPursuitCraft"
+     },
+     "lieutenantBlount": {
+        "name": "Lieutenant Blount",
+        "subname": "Z-95 Headhunter Squadron",
+        "unique": true,
+        "faction": "Rebel Alliance",
+        "speed": 3,
+        "hull": 3,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           3,
+           0,
+           0
+        ],
+        "attack": [
+           1,
+           0,
+           0
+        ],
+        "text": "While another friendly squadron with Swarm at distance 1 is attacking a squadron, it may reroll 1 die (in addition to any dice rerolled from Swarm).",
+        "keywords": [
+           "Swarm"
+        ],
+        "defense-tokens": [
+           "Brace",
+           "Scatter"
+        ],
+        "points": 14,
+        "squadron-image": "squadron/rebel-alliance/z-95-headhunter-squadron.png",
+        "image": "squadron-card/rebel-alliance/lieutenant-blount.png",
+        "key": "lieutenantBlount"
      },
      "lukeSkywalker": {
         "name": "Luke Skywalker",
@@ -4738,6 +4926,33 @@
         "image": "squadron-card/rebel-alliance/tycho-celchu.png",
         "key": "tychoCelchu"
      },
+     "vcx100Freighter": {
+        "name": "VCX-100 Freighter",
+        "subname": "",
+        "faction": "Rebel Alliance",
+        "speed": 3,
+        "hull": 8,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           0,
+           3,
+           0
+        ],
+        "attack": [
+           0,
+           1,
+           0
+        ],
+        "keywords": [
+           "Heavy",
+           "Relay 1",
+           "Strategic"
+        ],
+        "points": 15,
+        "squadron-image": "squadron/rebel-alliance/vcx-100-freighter.png",
+        "image": "squadron-card/rebel-alliance/vcx-100-freighter.png",
+        "key": "vcx100Freighter"
+     },
      "vt49Decimator": {
         "name": "VT-49 Decimator",
         "subname": "",
@@ -4957,6 +5172,31 @@
         "squadron-image": "squadron/galactic-empire/yv-666.png",
         "image": "squadron-card/galactic-empire/yv-666.png",
         "key": "yv666"
+     },
+     "z95HeadhunterSquadron": {
+        "name": "Z-95 Headhunter Squadron",
+        "subname": "",
+        "faction": "Rebel Alliance",
+        "speed": 3,
+        "hull": 3,
+        "__comment": "dice array is [red, blue, black] counts",
+        "squadron-attack": [
+           3,
+           0,
+           0
+        ],
+        "attack": [
+           1,
+           0,
+           0
+        ],
+        "keywords": [
+           "Swarm"
+        ],
+        "points": 7,
+        "squadron-image": "squadron/rebel-alliance/z-95-headhunter-squadron.png",
+        "image": "squadron-card/rebel-alliance/z-95-headhunter-squadron.png",
+        "key": "z95HeadhunterSquadron"
      }
   };
 

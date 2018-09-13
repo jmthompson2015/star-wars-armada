@@ -73,21 +73,29 @@ FileList.SQUADRON_FILES = [
 
   "rebel-alliance/a-wing-squadron.json",
   "rebel-alliance/b-wing-squadron.json",
+  "rebel-alliance/corran-horn.json",
   "rebel-alliance/dash-rendar.json",
   "rebel-alliance/dutch-vander.json",
+  "rebel-alliance/e-wing-squadron.json",
   "rebel-alliance/han-solo.json",
+  "rebel-alliance/hera-syndulla.json",
   "rebel-alliance/hwk-290.json",
   "rebel-alliance/jan-ors.json",
+  "rebel-alliance/ketsu-onyo.json",
   "rebel-alliance/keyan-farlander.json",
+  "rebel-alliance/lancer-class-pursuit-craft.json",
+  "rebel-alliance/lieutenant-blount.json",
   "rebel-alliance/luke-skywalker.json",
   "rebel-alliance/nym.json",
   "rebel-alliance/scurrg-h-6-bomber.json",
   "rebel-alliance/tycho-celchu.json",
+  "rebel-alliance/vcx-100-freighter.json",
   "rebel-alliance/wedge-antilles.json",
   "rebel-alliance/x-wing-squadron.json",
   "rebel-alliance/y-wing-squadron.json",
   "rebel-alliance/yt-1300.json",
-  "rebel-alliance/yt-2400.json"
+  "rebel-alliance/yt-2400.json",
+  "rebel-alliance/z-95-headhunter-squadron.json"
 ];
 
 FileList.UPGRADE_FILES = [
