@@ -5,6 +5,7 @@ const UpgradeCard = {
   ADMIRAL_CHIRANEAU: "admiralChiraneau",
   ADMIRAL_KONSTANTINE: "admiralKonstantine",
   ADMIRAL_MONTFERRAT: "admiralMontferrat",
+  ADMIRAL_MOTTI: "admiralMotti",
   ADMIRAL_OZZEL: "admiralOzzel",
   ADMIRAL_RADDUS: "admiralRaddus",
   ADMIRAL_SCREED: "admiralScreed",
@@ -36,6 +37,7 @@ const UpgradeCard = {
   COMMANDANT_ARESKO: "commandantAresko",
   COMMANDER_SATO: "commanderSato",
   COMMS_NET: "commsNet",
+  CORRUPTER: "corrupter",
   DAMAGE_CONTROL_OFFICER: "damageControlOfficer",
   DARTH_VADER_COMMANDER: "darthVader_commander",
   DARTH_VADER_WEAPONS_TEAM_OFFENSIVE_RETROFIT: "darthVader_weaponsTeam_offensiveRetrofit",
@@ -43,6 +45,7 @@ const UpgradeCard = {
   DEFIANCE: "defiance",
   DEMOLISHER: "demolisher",
   DEVASTATOR: "devastator",
+  DIRECTOR_ISARD: "directorIsard",
   DISPOSABLE_CAPACITORS: "disposableCapacitors",
   DODONNAS_PRIDE: "dodonnasPride",
   DOMINATOR: "dominator",
@@ -62,6 +65,7 @@ const UpgradeCard = {
   FIRE_CONTROL_TEAM: "fireControlTeam",
   FLECHETTE_TORPEDOES: "flechetteTorpedoes",
   FLIGHT_COMMANDER: "flightCommander",
+  FLIGHT_CONTROLLERS: "flightControllers",
   FORESIGHT: "foresight",
   G7_X_GRAV_WELL_PROJECTOR: "g7XGravWellProjector",
   G_8_EXPERIMENTAL_PROJECTOR: "g8ExperimentalProjector",
@@ -95,6 +99,8 @@ const UpgradeCard = {
   INTEL_OFFICER: "intelOfficer",
   INTENSIFY_FIREPOWER: "intensifyFirepower",
   INTERDICTOR: "interdictor",
+  ION_CANNON_BATTERIES: "ionCannonBatteries",
+  JAINAS_LIGHT: "jainasLight",
   JAMMING_FIELD: "jammingField",
   JYN_ERSO: "jynErso",
   LANDO_CALRISSIAN: "landoCalrissian",
@@ -108,6 +114,7 @@ const UpgradeCard = {
   MOFF_JERJERROD: "moffJerjerrod",
   MON_CALAMARI_EXODUS_FLEET: "monCalamariExodusFleet",
   MON_KARREN: "monKarren",
+  MON_MOTHMA: "monMothma",
   MS_1_ION_CANNONS: "ms1IonCannons",
   NAV_TEAM: "navTeam",
   NAVIGATION_OFFICER: "navigationOfficer",
@@ -128,6 +135,7 @@ const UpgradeCard = {
   QUANTUM_STORM: "quantumStorm",
   RAPID_LAUNCH_BAYS: "rapidLaunchBays",
   RAPID_RELOAD: "rapidReload",
+  RAYMUS_ANTILLES: "raymusAntilles",
   REDEMPTION: "redemption",
   REDUNDANT_SHIELDS: "redundantShields",
   REINFORCED_BLAST_DOORS: "reinforcedBlastDoors",
@@ -150,6 +158,7 @@ const UpgradeCard = {
   SUPPRESSOR: "suppressor",
   SW_7_ION_BATTERIES: "sw7IonBatteries",
   TACTICAL_EXPERT: "tacticalExpert",
+  TANTIVE_IV: "tantiveIv",
   TARGETING_SCRAMBLER: "targetingScrambler",
   TASK_FORCE_ANTILLES: "taskForceAntilles",
   TASK_FORCE_ORGANA: "taskForceOrgana",
@@ -161,6 +170,7 @@ const UpgradeCard = {
   VETERAN_CAPTAIN: "veteranCaptain",
   VETERAN_GUNNERS: "veteranGunners",
   WALEX_BLISSEX: "walexBlissex",
+  WARLORD: "warlord",
   WEAPONS_LIAISON: "weaponsLiaison",
   WIDE_AREA_BARRAGE: "wideAreaBarrage",
   WING_COMMANDER: "wingCommander",
@@ -231,6 +241,18 @@ UpgradeCard.properties =
       "points": 5,
       "image": "upgrade-card/officer/admiral-montferrat.png",
       "key": "admiralMontferrat"
+   },
+   "admiralMotti": {
+      "name": "Admiral Motti",
+      "unique": true,
+      "text": "The hull value of each friendly ship is increased according to its size class:\nSmall ship: 1\nMedium ship: 2\nLarge ship: 3",
+      "faction": "Galactic Empire",
+      "slots": [
+         "Commander"
+      ],
+      "points": 24,
+      "image": "upgrade-card/commander/admiral-motti.png",
+      "key": "admiralMotti"
    },
    "admiralOzzel": {
       "name": "Admiral Ozzel",
@@ -591,6 +613,19 @@ UpgradeCard.properties =
       "image": "upgrade-card/fleet-support/comms-net.png",
       "key": "commsNet"
    },
+   "corrupter": {
+      "name": "Corrupter",
+      "unique": true,
+      "text": "[Squadron]: the speed of each squadron with Bomber you activate is increased by 1 until the end of its activation.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "Victory-class Star Destroyer",
+      "faction": "Galactic Empire",
+      "points": 5,
+      "image": "upgrade-card/title/corrupter.png",
+      "key": "corrupter"
+   },
    "damageControlOfficer": {
       "name": "Damage Control Officer",
       "text": "When you resolve the [Contain] defense effect, you can prevent the attacker from resolving any critical effects.",
@@ -672,6 +707,18 @@ UpgradeCard.properties =
       "points": 10,
       "image": "upgrade-card/title/devastator.png",
       "key": "devastator"
+   },
+   "directorIsard": {
+      "name": "Director Isard",
+      "unique": true,
+      "text": "When you reveal a command, you may look at all command dials assigned to 1 enemy ship.",
+      "slots": [
+         "Officer"
+      ],
+      "faction": "Galactic Empire",
+      "points": 3,
+      "image": "upgrade-card/officer/director-isard.png",
+      "key": "directorIsard"
    },
    "disposableCapacitors": {
       "name": "Disposable Capacitors",
@@ -875,6 +922,16 @@ UpgradeCard.properties =
       "points": 3,
       "image": "upgrade-card/officer/flight-commander.png",
       "key": "flightCommander"
+   },
+   "flightControllers": {
+      "name": "Flight Controllers",
+      "text": "[Squadron]: The anti-squadron armament of each squadron that you activate is increased by 1 blue die until the end of its activation.",
+      "slots": [
+         "Weapons Team"
+      ],
+      "points": 6,
+      "image": "upgrade-card/weapons-team/flight-controllers.png",
+      "key": "flightControllers"
    },
    "foresight": {
       "name": "Foresight",
@@ -1264,6 +1321,29 @@ UpgradeCard.properties =
       "image": "upgrade-card/title/interdictor.png",
       "key": "interdictor"
    },
+   "ionCannonBatteries": {
+      "name": "Ion Cannon Batteries",
+      "text": "Blue [Critical Hit]: Choose and discard 1 command token from the defender. If the defender does not have any command tokens, the defending hull zone loses 1 shield instead.",
+      "slots": [
+         "Ion Cannons"
+      ],
+      "points": 5,
+      "image": "upgrade-card/ion-cannons/ion-cannon-batteries.png",
+      "key": "ionCannonBatteries"
+   },
+   "jainasLight": {
+      "name": "Jaina's Light",
+      "unique": true,
+      "text": "You can ignore the effects of overlapping obstacles.\nYour attacks cannot be obstructed.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "CR90 Corvette",
+      "faction": "Rebel Alliance",
+      "points": 2,
+      "image": "upgrade-card/title/jainas-light.png",
+      "key": "jainasLight"
+   },
    "jammingField": {
       "name": "Jamming Field",
       "text": "While a squadron at distance 1-2 is attacking or defending against a squadron, the attack is treated as obstructed.",
@@ -1416,6 +1496,18 @@ UpgradeCard.properties =
       "points": 8,
       "image": "upgrade-card/title/mon-karren.png",
       "key": "monKarren"
+   },
+   "monMothma": {
+      "name": "Mon Mothma",
+      "unique": true,
+      "text": "When a friendly ship resolves the [Evade] token effect, it can cancel 1 die at medium range or reroll 1 die at close range or distance 1.",
+      "faction": "Rebel Alliance",
+      "slots": [
+         "Commander"
+      ],
+      "points": 30,
+      "image": "upgrade-card/commander/mon-mothma.png",
+      "key": "monMothma"
    },
    "ms1IonCannons": {
       "name": "MS-1 Ion Cannons",
@@ -1635,6 +1727,18 @@ UpgradeCard.properties =
       "points": 8,
       "image": "upgrade-card/ordnance/rapid-reload.png",
       "key": "rapidReload"
+   },
+   "raymusAntilles": {
+      "name": "Raymus Antilles",
+      "unique": true,
+      "text": "When you reveal a command, you may gain 1 matching command token without spending the command dial.",
+      "faction": "Rebel Alliance",
+      "slots": [
+         "Officer"
+      ],
+      "points": 7,
+      "image": "upgrade-card/officer/raymus-antilles.png",
+      "key": "raymusAntilles"
    },
    "redemption": {
       "name": "Redemption",
@@ -1885,6 +1989,19 @@ UpgradeCard.properties =
       "image": "upgrade-card/officer/tactical-expert.png",
       "key": "tacticalExpert"
    },
+   "tantiveIv": {
+      "name": "Tantive IV",
+      "unique": true,
+      "text": "Before you gain a command token, 1 friendly ship at distance 1-5 may gain that token instead.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "CR90 Corvette",
+      "faction": "Rebel Alliance",
+      "points": 3,
+      "image": "upgrade-card/title/tantive-iv.png",
+      "key": "tantiveIv"
+   },
    "targetingScrambler": {
       "name": "Targeting Scrambler",
       "text": "While a friendly ship at distance 1-3 is defending at close range, during the Spend Defense Tokens step, you may exhaust this card to force the attacker to reroll up to 4 dice of your choice.",
@@ -2009,6 +2126,19 @@ UpgradeCard.properties =
       "points": 5,
       "image": "upgrade-card/officer/walex-blissex.png",
       "key": "walexBlissex"
+   },
+   "warlord": {
+      "name": "Warlord",
+      "unique": true,
+      "text": "While attacking you may rotate 1 die face with an [Accuracy] icon to a face with a [Hit] icon.",
+      "slots": [
+         "Title"
+      ],
+      "ship": "Victory-class Star Destroyer",
+      "faction": "Galactic Empire",
+      "points": 8,
+      "image": "upgrade-card/title/warlord.png",
+      "key": "warlord"
    },
    "weaponsLiaison": {
       "name": "Weapons Liaison",
