@@ -6,6 +6,7 @@ import CommandUI from "./component/CommandUI.js";
 import DefenseTokenUI from "./component/DefenseTokenUI.js";
 import DicePanel from "./component/DicePanel.js";
 import FactionUI from "./component/FactionUI.js";
+import FleetTable from "./component/FleetTable.js";
 import ImageWithLabelUI from "./component/ImageWithLabelUI.js";
 import ShipImage from "./component/ShipImage.js";
 import SquadronImage from "./component/SquadronImage.js";
@@ -30,6 +31,7 @@ export {
   DefenseTokenUI,
   DicePanel,
   FactionUI,
+  FleetTable,
   ImageWithLabelUI,
   ShipImage,
   SquadronImage,

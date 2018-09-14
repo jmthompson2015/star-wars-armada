@@ -111,6 +111,7 @@ const createUpgradeRows = (upgradeInstances, key) =>
     return ReactUtils.createRow(cells, key + upgrade.id, "", { title: upgradeCard.text });
   }, upgradeInstances);
 
+// /////////////////////////////////////////////////////////////////////////////////////////////////
 class FleetTable extends React.PureComponent {
   render() {
     const { shipInstances, shipToUpgrades, squadronInstances } = this.props;
