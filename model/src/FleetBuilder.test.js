@@ -163,10 +163,6 @@ QUnit.test("build() Core Set Rebel", assert => {
   // Setup.
   const store = Redux.createStore(Reducer.root);
   const fleetId = 2;
-  // const name = "Rebel Alliance Core Set: 173 Points";
-  // const year = 2015;
-  // const description = "Nebulon-B Escort, CR90, Luke Skywalker, X-wings x2";
-  // const author = "CISAdmiral";
   const shipAndUpgradeKeys = [
     {
       shipKey: ShipCard.NEBULON_B_ESCORT_FRIGATE,
@@ -221,6 +217,95 @@ QUnit.test("buildCoreSetRebel()", assert => {
 
   // Verify.
   verifyCoreSetRebel(assert, store.getState(), fleetId);
+});
+
+QUnit.test("buildDefiance()", assert => {
+  // Setup.
+  const store = Redux.createStore(Reducer.root);
+  const fleetId = 5;
+
+  // Run.
+  FleetBuilder.buildDefiance(store, fleetId);
+
+  // Verify.
+  const state = store.getState();
+  const fleetInstance = AS.Selector.fleetInstance(fleetId, state);
+
+  assert.ok(fleetInstance);
+  assert.equal(fleetInstance.id, fleetId, "fleet.id");
+  assert.equal(fleetInstance.name, "Defiance", "fleet.name");
+  assert.equal(fleetInstance.year, 2018, "fleet.year");
+  assert.equal(
+    fleetInstance.description,
+    "MC80, Hammerhead, GR-75 x3, B-wing x3, HWK-290, A-wing x2, Shara Bey, Tycho Celchu",
+    "fleet.description"
+  );
+  assert.equal(fleetInstance.author, "Chris Fritz", "fleet.author");
+  assert.equal(fleetInstance.points, 391, "fleet.points");
+
+  const { shipInstances, squadronInstances, upgradeInstances } = state;
+  assert.ok(shipInstances);
+  assert.equal(Object.keys(shipInstances).length, 5, "shipInstances.length");
+  assert.equal(shipInstances[1].shipKey, ShipCard.MC80_COMMAND_CRUISER);
+  assert.equal(shipInstances[2].shipKey, ShipCard.HAMMERHEAD_TORPEDO_CORVETTE);
+  assert.equal(shipInstances[3].shipKey, ShipCard.GR_75_MEDIUM_TRANSPORTS);
+  assert.equal(shipInstances[4].shipKey, ShipCard.GR_75_MEDIUM_TRANSPORTS);
+  assert.equal(shipInstances[5].shipKey, ShipCard.GR_75_MEDIUM_TRANSPORTS);
+
+  assert.ok(upgradeInstances);
+  assert.equal(Object.keys(upgradeInstances).length, 13, "upgradeInstances.length");
+  assert.equal(upgradeInstances[1].upgradeKey, UpgradeCard.DEFIANCE);
+  assert.equal(upgradeInstances[13].upgradeKey, UpgradeCard.TORYN_FARR);
+
+  assert.ok(squadronInstances);
+  assert.equal(Object.keys(squadronInstances).length, 8, "squadronInstances.length");
+  assert.equal(squadronInstances[1].squadronKey, SquadronCard.B_WING_SQUADRON);
+  assert.equal(squadronInstances[8].squadronKey, SquadronCard.TYCHO_CELCHU);
+});
+
+QUnit.test("buildLibertyOrDeath()", assert => {
+  // Setup.
+  const store = Redux.createStore(Reducer.root);
+  const fleetId = 5;
+
+  // Run.
+  FleetBuilder.buildLibertyOrDeath(store, fleetId);
+
+  // Verify.
+  const state = store.getState();
+  const fleetInstance = AS.Selector.fleetInstance(fleetId, state);
+
+  assert.ok(fleetInstance);
+  assert.equal(fleetInstance.id, fleetId, "fleet.id");
+  assert.equal(fleetInstance.name, "Liberty or Death", "fleet.name");
+  assert.equal(fleetInstance.year, 2018, "fleet.year");
+  assert.equal(
+    fleetInstance.description,
+    "MC80, Hammerhead x4, GR-75, Shara Bey, Tycho Celchu",
+    "fleet.description"
+  );
+  assert.equal(fleetInstance.author, "Chris Fritz", "fleet.author");
+  assert.equal(fleetInstance.points, 392, "fleet.points");
+
+  const { shipInstances, squadronInstances, upgradeInstances } = state;
+  assert.ok(shipInstances);
+  assert.equal(Object.keys(shipInstances).length, 6, "shipInstances.length");
+  assert.equal(shipInstances[1].shipKey, ShipCard.MC80_BATTLE_CRUISER);
+  assert.equal(shipInstances[2].shipKey, ShipCard.HAMMERHEAD_TORPEDO_CORVETTE);
+  assert.equal(shipInstances[3].shipKey, ShipCard.HAMMERHEAD_TORPEDO_CORVETTE);
+  assert.equal(shipInstances[4].shipKey, ShipCard.HAMMERHEAD_TORPEDO_CORVETTE);
+  assert.equal(shipInstances[5].shipKey, ShipCard.HAMMERHEAD_TORPEDO_CORVETTE);
+  assert.equal(shipInstances[6].shipKey, ShipCard.GR_75_MEDIUM_TRANSPORTS);
+
+  assert.ok(upgradeInstances);
+  assert.equal(Object.keys(upgradeInstances).length, 16, "upgradeInstances.length");
+  assert.equal(upgradeInstances[1].upgradeKey, UpgradeCard.RAYMUS_ANTILLES);
+  assert.equal(upgradeInstances[16].upgradeKey, UpgradeCard.SLICER_TOOLS);
+
+  assert.ok(squadronInstances);
+  assert.equal(Object.keys(squadronInstances).length, 2, "squadronInstances.length");
+  assert.equal(squadronInstances[1].squadronKey, SquadronCard.SHARA_BEY);
+  assert.equal(squadronInstances[2].squadronKey, SquadronCard.TYCHO_CELCHU);
 });
 
 QUnit.test("buildSettingTheTrap()", assert => {

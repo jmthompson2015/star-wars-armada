@@ -27,8 +27,8 @@ QUnit.test("keys()", assert => {
   EnumTest.keys(
     assert,
     ShipCard,
-    26,
-    ShipCard.ASSAULT_FRIGATE_MARK_II_A,
+    38,
+    ShipCard.ARQUITENS_CLASS_COMMAND_CRUISER,
     ShipCard.VICTORY_II_CLASS_STAR_DESTROYER
   );
 });

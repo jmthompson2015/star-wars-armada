@@ -513,6 +513,111 @@
     });
   };
 
+  // see https://www.fantasyflightgames.com/en/news/2018/1/17/hes-going-to-fight/
+  FleetBuilder.buildDefiance = (store, fleetId) => {
+    const shipAndUpgradeKeys = [
+      {
+        shipKey: SC.MC80_COMMAND_CRUISER,
+        upgradeKeys: [
+          UC.DEFIANCE,
+          UC.FLIGHT_COMMANDER,
+          UC.ENGINE_TECHS,
+          UC.RAPID_LAUNCH_BAYS,
+          UC.ELECTRONIC_COUNTERMEASURES,
+          UC.QUAD_BATTERY_TURRETS,
+          UC.LEADING_SHOTS
+        ]
+      },
+      {
+        shipKey: SC.HAMMERHEAD_TORPEDO_CORVETTE,
+        upgradeKeys: [UC.ADMIRAL_RADDUS, UC.EXTERNAL_RACKS]
+      },
+      {
+        shipKey: SC.GR_75_MEDIUM_TRANSPORTS,
+        upgradeKeys: [UC.BOMBER_COMMAND_CENTER]
+      },
+      {
+        shipKey: SC.GR_75_MEDIUM_TRANSPORTS,
+        upgradeKeys: [UC.COMMS_NET]
+      },
+      {
+        shipKey: SC.GR_75_MEDIUM_TRANSPORTS,
+        upgradeKeys: [UC.BRIGHT_HOPE, UC.TORYN_FARR]
+      }
+    ];
+    const squadronKeys = [
+      SQC.B_WING_SQUADRON,
+      SQC.B_WING_SQUADRON,
+      SQC.B_WING_SQUADRON,
+      SQC.HWK_290,
+      SQC.A_WING_SQUADRON,
+      SQC.A_WING_SQUADRON,
+      SQC.SHARA_BEY,
+      SQC.TYCHO_CELCHU
+    ];
+
+    return FleetBuilder.build({
+      store,
+      name: "Defiance",
+      year: 2018,
+      description:
+        "MC80, Hammerhead, GR-75 x3, B-wing x3, HWK-290, A-wing x2, Shara Bey, Tycho Celchu",
+      author: "Chris Fritz",
+      fleetId,
+      shipAndUpgradeKeys,
+      squadronKeys
+    });
+  };
+
+  // see https://www.fantasyflightgames.com/en/news/2018/1/17/hes-going-to-fight/
+  FleetBuilder.buildLibertyOrDeath = (store, fleetId) => {
+    const shipAndUpgradeKeys = [
+      {
+        shipKey: SC.MC80_BATTLE_CRUISER,
+        upgradeKeys: [
+          UC.RAYMUS_ANTILLES,
+          UC.GUNNERY_TEAM,
+          UC.LEADING_SHOTS,
+          UC.NAV_TEAM,
+          UC.SPINAL_ARMAMENT,
+          UC.XI7_TURBOLASERS
+        ]
+      },
+      {
+        shipKey: SC.HAMMERHEAD_TORPEDO_CORVETTE,
+        upgradeKeys: [UC.ADMIRAL_RADDUS, UC.EXTERNAL_RACKS, UC.TASK_FORCE_ANTILLES]
+      },
+      {
+        shipKey: SC.HAMMERHEAD_TORPEDO_CORVETTE,
+        upgradeKeys: [UC.EXTERNAL_RACKS, UC.TASK_FORCE_ANTILLES]
+      },
+      {
+        shipKey: SC.HAMMERHEAD_TORPEDO_CORVETTE,
+        upgradeKeys: [UC.EXTERNAL_RACKS, UC.TASK_FORCE_ANTILLES]
+      },
+      {
+        shipKey: SC.HAMMERHEAD_TORPEDO_CORVETTE,
+        upgradeKeys: [UC.EXTERNAL_RACKS, UC.TASK_FORCE_ANTILLES]
+      },
+      {
+        shipKey: SC.GR_75_MEDIUM_TRANSPORTS,
+        upgradeKeys: [UC.SLICER_TOOLS]
+      }
+    ];
+    const squadronKeys = [SQC.SHARA_BEY, SQC.TYCHO_CELCHU];
+
+    return FleetBuilder.build({
+      store,
+      name: "Liberty or Death",
+      year: 2018,
+      description: "MC80, Hammerhead x4, GR-75, Shara Bey, Tycho Celchu",
+      author: "Chris Fritz",
+      fleetId,
+      shipAndUpgradeKeys,
+      squadronKeys
+    });
+  };
+
   // see https://www.fantasyflightgames.com/en/news/2018/4/26/admirals-orders/
   FleetBuilder.buildSettingTheTrap = (store, fleetId) => {
     const shipAndUpgradeKeys = [

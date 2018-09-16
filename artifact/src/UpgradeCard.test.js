@@ -26,7 +26,7 @@ QUnit.test("keys and values", assert => {
 });
 
 QUnit.test("keys()", assert => {
-  EnumTest.keys(assert, UpgradeCard, 129, UpgradeCard.ADAR_TALLON, UpgradeCard.YAVARIS);
+  EnumTest.keys(assert, UpgradeCard, 178, UpgradeCard.ADAR_TALLON, UpgradeCard.YAVARIS);
 });
 
 const UpgradeTypeTest = {};
